@@ -37,6 +37,7 @@ class WP_Gianism extends Hametuha_Library{
 		}
 		if($this->option['fb_enabled']){
 			add_action('show_user_profile', array($this, 'show_user_profile'));
+			add_action('login_form', array($this, 'show_login_form'));
 		}
 		//Add Assets
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -99,6 +100,18 @@ class WP_Gianism extends Hametuha_Library{
 				<?php do_action('gianism_user_profile', $profileuser);?>
 			</tbody>
 		</table>
+		<?php
+	}
+	
+	/**
+	 * Show Login Form
+	 * @return void
+	 */
+	public function show_login_form(){
+		?>
+		<p id="wpg-login">
+			<?php do_action('gianism_login_form');?>
+		</p>
 		<?php
 	}
 	

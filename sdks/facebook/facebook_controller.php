@@ -58,6 +58,8 @@ class Facebook_Controller {
 		));
 		//Add Hook on Profile page
 		add_action('gianism_user_profile', array($this, 'show_facebook_interface'));
+		//Add Hook on Login Page
+		add_action('gianism_login_form', array($this, 'show_login_button'));
 		//Add Hook on Footer
 		add_action('admin_print_footer_scripts', array($this, 'print_script'));
 		add_action('wp_footer', array($this, 'print_script'));
@@ -66,6 +68,7 @@ class Facebook_Controller {
 		add_action('wp_ajax_nopriv_connect_with_facebook', array($this, 'connect_with'));
 		add_action('wp_ajax_diconnect_from_facebook', array($this, 'disconnect_from'));
 		add_action('wp_ajax_nopriv_diconnect_from_facebook', array($this, 'disconnect_from'));
+		add_action('wp_ajax_nopriv_login_with_facebook', array($this, 'login_with'));
 	}
 	
 	/**
@@ -118,7 +121,7 @@ class Facebook_Controller {
 						},
 						function(result){
 							if(result.status == 'success'){
-								jQuery('#fb-indicator, #fb-connector').fadeOut();
+								jQuery('#fb-indicator, #fb-connector').css('display', 'none');
 								jQuery('#fb-disconnector').fadeIn();
 							}
 						}
@@ -136,13 +139,77 @@ class Facebook_Controller {
 					},
 					function(result){
 						if(result.status == 'success'){
-							jQuery('#fb-indicator, #fb-disconnector').fadeOut();
+							jQuery('#fb-indicator, #fb-disconnector').css('display', 'none');
 							jQuery('#fb-connector').fadeIn();
 							FB.logout();
 						}
 					}
 				);
 			});
+EOS;
+	}
+	
+	/**
+	 * Show Login Button on Facebook.
+	 * @global WP_Gianism $gianism 
+	 */
+	function show_login_button(){
+		global $gianism;
+		$facebook_id = $this->api->getUser();
+		//Show Login Button
+		$this->js = true;
+		if($facebook_id): ?>
+			<a class="button" id="fb-login" href="#"><?php $gianism->e('Log in with Facebook');?></a>
+		<?php else: ?>
+			<fb:login-button><?php $gianism->e('Log in with Facebook');?></fb:login-button>
+		<?php endif; 
+			$endpoint = admin_url('admin-ajax.php');
+			$nonce = wp_create_nonce('login_with_facebook');
+			$redirect_to = admin_url('profile.php');
+			if(isset($_REQUEST['redirect_to'])){
+				$url = (string)$_REQUEST['redirect_to'];
+				//Check if it has schema
+				$url_splited = explode('://');
+				if(count($url_splited) > 1){
+					$server_name = str_replace(".", '\.', $_SERVER['SERVER_NAME']);
+					//has schema
+					if(preg_match("/^https?(:\/\/{$server_name}[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/", $url)){
+						$redirect_to = $url;
+					}
+				}else{
+					//no schema
+					if(!preg_match("/^\/\//", $url) && preg_match("/^([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/", $url)){
+						$redirect_to = $url;
+					}
+				}
+			}
+			$this->scripts .= <<<EOS
+				var login = function(userID){
+					jQuery('#fb-indicator').fadeIn();
+						jQuery.post(
+							'{$endpoint}',
+							{
+								action: 'login_with_facebook',
+								nonce: '{$nonce}',
+								userID: userID
+							},
+							function(result){
+								if(result.status == 'success'){
+									window.location.href = '{$redirect_to}';
+								}
+							}
+						);
+				};
+				jQuery('#fb-login').click(function(e){
+					jQuery('#fb-indicator').fadeIn();
+					login('{$facebook_id}');
+				});
+				FB.Event.subscribe('auth.login', function(response){
+					if(response.authResponse){
+						var userID = response.authResponse.userID;
+						login(userID);
+					}
+				});
 EOS;
 	}
 	
@@ -224,5 +291,22 @@ EOS;
 			'status' => $status
 		));
 		die();
+	}
+	
+	function login_with(){
+		if(wp_verify_nonce($_REQUEST['nonce'], 'login_with_facebook') && isset($_REQUEST['userID'])){
+			$user = get_user_by_service('facebook', $_POST['userID']);
+			if($user){
+				wp_set_auth_cookie($user->ID, true, is_ssl());
+				$status = 'success';
+			}else{
+				$status = 'error';
+			}
+			header('Content-Type: application/json');
+			echo json_encode(array(
+				'status' => $status
+			));
+			die();
+		}
 	}
 }

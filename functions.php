@@ -26,3 +26,27 @@ function is_user_connected_with($service){
 			break;
 	}
 }
+
+/**
+ * Get user object by credencial
+ * @global wpdb $wpdb
+ * @param string $service
+ * @param mixed $credential
+ * @return Object 
+ */
+function get_user_by_service($service, $credential){
+	global $wpdb;
+	switch($service){
+		case 'facebook':
+			$user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wpg_facebook_id' AND meta_value = %s", $credential));
+			if($user_id){
+				return new WP_User($user_id);
+			}else{
+				return null;
+			}
+			break;
+		default:
+			return null;
+			break;
+	}
+}

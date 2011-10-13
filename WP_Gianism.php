@@ -36,8 +36,12 @@ class WP_Gianism extends Hametuha_Library{
 			$this->fb = new Facebook_Controller($this->option['fb_app_id'], $this->option['fb_app_secret']);
 		}
 		if($this->option['fb_enabled']){
+			//Show Login button on profile page
 			add_action('show_user_profile', array($this, 'show_user_profile'));
+			//Show Login button on login page
 			add_action('login_form', array($this, 'show_login_form'));
+			//Show Register button on Register page
+			add_action('register_form', array($this, 'show_regsiter_form'));
 		}
 		//Add Assets
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -116,6 +120,18 @@ class WP_Gianism extends Hametuha_Library{
 	}
 	
 	/**
+	 * Show registeration button on register form.
+	 * @return void
+	 */
+	public function show_regsiter_form(){
+		?>
+		<p id="wpg-regsiter">
+			<?php do_action('gianism_regsiter_form');?>
+		</p>
+		<?php
+	}
+	
+	/**
 	 * Enqueue Javascripts on admin panel
 	 * @param string $hook
 	 */
@@ -125,4 +141,30 @@ class WP_Gianism extends Hametuha_Library{
 		}
 	}
 	
+	/**
+	 * Returns appropriate redirect url
+	 * @param string $default
+	 * @param string $redirect_to
+	 * @return string
+	 */
+	public function sanitize_redirect_to($default, $redirect_to){
+		if(!empty($redirect_to)){
+			$url = (string) $redirect_to;
+			//Check if it has schema
+			$url_splited = explode('://', $redirect_to);
+			if(count($url_splited) > 1){
+				$server_name = str_replace(".", '\.', $_SERVER['SERVER_NAME']);
+				//has schema and in same domain.
+				if(preg_match("/^https?(:\/\/{$server_name}[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/", $url)){
+					$default = $url;
+				}
+			}else{
+				//no schema and not started with absolute external path.
+				if(!preg_match("/^\/\//", $url) && preg_match("/^([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/", $url)){
+					$default = $url;
+				}
+			}
+		}
+		return (string) $default;
+	}
 }

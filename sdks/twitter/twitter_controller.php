@@ -107,6 +107,58 @@ EOS;
 					$this->add_alert($gianism->_('Disconnect now :('));
 				}
 				break;
+			case "twitter_login":
+				$user_id = false;
+				if(isset($_GET['oauth_verifier'])){
+					$token = $this->get_token();
+					$token_secret = $this->get_token(true);
+					if(!empty($token) && !empty($token_secret)){
+						$oauth = $this->get_oauth($token, $token_secret);
+						$access_token = $oauth->getAccessToken($_GET['oauth_verifier']);
+						if(isset($access_token['user_id'], $access_token['screen_name'])){
+							$twitter_id = $access_token['user_id'];
+							$screen_name = $access_token['screen_name'];
+							//Get User ID.
+							$sql = <<<EOS
+								SELECT user_id FROM {$wpdb->usermeta}
+								WHERE meta_key = %s AND meta_value = %s
+EOS;
+							$user_id = $wpdb->get_var($wpdb->prepare($sql, $this->umeta_id, $twitter_id));
+							if(!$user_id){
+								//Not found, Create New User
+								require_once(ABSPATH . WPINC . '/registration.php');
+								//Check if username exists
+								$email = $screen_name."@".$this->pseudo_domain;
+								$user_name = (!username_exists('@'.$screen_name)) ? '@'.$screen_name :  $email;
+								$user_id = wp_create_user($user_name, wp_generate_password(), $email);
+								
+								if(!is_wp_error($user_id)){
+									update_user_meta($user_id, $this->umeta_id, $twitter_id);
+									update_user_meta($user_id, $this->umeta_screen_name, $screen_name);
+									$wpdb->update(
+										$wpdb->users,
+										array(
+											'display_name' => "@{$screen_name}",
+											'user_url' => 'https://twitter.com/#!/'.$screen_name
+										),
+										array('ID' => $user_id),
+										array('%s', '%s'),
+										array('%d')
+									);
+								}
+							}
+						}
+					}
+				}
+				if($user_id && !is_wp_error($user_id)){
+					wp_set_auth_cookie($user_id, true);
+					$redirect = $this->get_redirect_to(admin_url('profile.php'));
+					header('Location: '.$redirect);
+					die();
+				}else{
+					$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+				}
+				break;
 		}
 	}
 	
@@ -124,7 +176,7 @@ EOS;
 			$url = wp_nonce_url(admin_url('profile.php?wpg=twitter_disconnect'), 'twitter_disconnect');
 			$link_text = $gianism->_('Disconnect');
 			$account = get_user_meta($user_ID, $this->umeta_screen_name, true);
-			$desc = sprintf($gianism->_('Your account is already connected with Twitter <a target="_blank" href="%1$s">%2$s</s> .'), 'https://twitter.com/#!/'.$account, "@".$account);
+			$desc = sprintf($gianism->_('Your account is already connected with Twitter <a target="_blank" href="%1$s">%2$s</a> .'), 'https://twitter.com/#!/'.$account, "@".$account);
 			//If user has pseudo mail, add caution.
 			global $user_email;
 			if($this->is_pseudo_mail($user_email)){
@@ -145,16 +197,38 @@ EOS;
 		?>
 		<tr>
 			<th><?php $gianism->e('Twitter'); ?></th>
-			<td class="xl">
-				<div class="btn-o">
-					<a class="btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
-						<i></i>
-						<span class="label"><?php echo $link_text;?></span>
-					</a>
-				</div>
+			<td>
+				<a class="wpg_tw_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
+					<i></i>
+					<span class="label"><?php echo $link_text;?></span>
+				</a>
 				<p class="description"><?php echo $desc;?></p>
 			</td>
 		</tr>
+		<?php
+	}
+	
+	/**
+	 * Show login button on login form
+	 * @global WP_Giasnism $gianism
+	 */
+	public function login_form(){
+		global $gianism;
+		$redirect_to = $this->get_redirect_to(admin_url('profile.php'));
+		$login_url = wp_login_url($redirect_to);
+		$login_url .= (false !== strpos($login_url, '?')) ? "&" : '?';
+		$login_url .= 'wpg=twitter_login';
+		$oauth = $this->get_oauth();
+		$token = $oauth->getRequestToken($login_url);
+		$this->save_token($token);
+		$url = $oauth->getAuthorizeURL($token);
+		$link_text = $gianism->_('Login with Twitter');
+		$onclick = '';
+		?>
+		<a class="wpg_tw_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
+			<i></i>
+			<span class="label"><?php echo $link_text;?></span>
+		</a>
 		<?php
 	}
 	

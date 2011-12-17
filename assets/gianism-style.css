@@ -32,11 +32,7 @@
 }
 
 /* Twitter Button */
-.xl{
-	font-size: 13px;
-	line-height: 26px;
-}
-.xl .btn{
+.wpg_tw_btn{
 	height: 28px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -61,29 +57,27 @@
 	user-select: none;
 	cursor: pointer;
 	overflow: hidden;
-}
-.xl .btn .label {
-	padding: 0 7px 0 29px;
-	font-size: 13px;
-	line-height: 26px;
-}
-.xl .btn-o,
-.xl .count-o,
-.xl .btn,
-.xl .btn .label{
-	display: -moz-inline-stack;
-	display: inline-block;
-	vertical-align: top;
-	zoom: 1;
-}
-.xl .btn {
 	color: #333;
 	cursor: pointer;
 	font-weight: bold;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 	white-space: nowrap;
+	font-size: 13px;
+	line-height: 26px;
 }
-.xl .btn i {
+.wpg_tw_btn .label {
+	padding: 0 7px 0 29px;
+	font-size: 13px;
+	line-height: 26px;
+}
+.wpg_tw_btn,
+.wpg_tw_btn .label{
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+}
+.wpg_tw_btn i {
 	position: absolute;
 	background: transparent url('https://platform.twitter.com/widgets/images/btn.c5bcc9de085c51bf889f6a8f33128be2.png') -24px 0 no-repeat;
 	width: 21px;

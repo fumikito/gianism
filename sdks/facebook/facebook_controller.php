@@ -152,7 +152,6 @@ EOS;
 											}else{
 												$redirect = false;
 											}
-
 										}
 									}
 								}else{

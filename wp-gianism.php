@@ -13,13 +13,12 @@ Author URI: http://hametuha.co.jp
 */
 
 //Load Utility Classes
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR."lib".DIRECTORY_SEPARATOR."Hametuha_Library.php";
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR."WP_Gianism.php";
 
 /**
  * @var $gianism WP_Gianism
  */
-$gianism = new WP_Gianism(__FILE__, "0.8", "wp-gianism");
+$gianism = new WP_Gianism(__FILE__, "0.8");
 
 //Load global functions
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR."functions.php";

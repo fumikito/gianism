@@ -3,7 +3,7 @@
  * Utility Class for WP Gianism.
  * @package wp_gianism
  */
-class WP_Gianism extends Hametuha_Library{
+class WP_Gianism{
 	
 	/**
 	 * @var Facebook_Controller
@@ -11,10 +11,48 @@ class WP_Gianism extends Hametuha_Library{
 	public $fb = null;
 	
 	/**
-	 * @see Hametuha_Plugin
+	 * @var string
+	 */
+	private $version;
+	
+	/**
 	 * @var string
 	 */
 	protected $name = "wp_gianism";
+	
+	/**
+	 * @var string
+	 */
+	private $domain = 'wp-gianism';
+	
+	/**
+	 * @var string
+	 */
+	public $dir;
+	
+	/**
+	 * @var string
+	 */
+	public $url;
+	
+	/**
+	 * @var array
+	 */
+	protected $admin_error = array();
+	
+	/**
+	 * @var array
+	 */
+	protected $admin_message = array();
+	
+	/**
+	 * @var array
+	 */
+	protected $container = array();
+	/**
+	 * @var array
+	 */
+	public $option = array();
 	
 	/**
 	 * オプション初期値
@@ -33,20 +71,56 @@ class WP_Gianism extends Hametuha_Library{
 	);
 	
 	/**
+	 * 
+	 * @param string $base_file
+	 * @param string $version 
+	 */
+	public function __construct($base_file, $version) {
+		//Setup Configs
+		$this->dir = plugin_dir_path($base_file);
+		$this->url = plugin_dir_url($base_file);
+		$this->version = $version;
+		$saved_option = get_option($this->name."_option");
+		foreach($this->default_option as $key => $value){
+			if(!isset($saved_option[$key])){
+				$this->option[$key] = $value;
+			}else{
+				$this->option[$key] = $saved_option[$key];
+			}
+		}
+		//Register Hooks
+		add_action("init", array($this, "init"));
+		add_action("admin_init", array($this, "admin_init"));
+		add_action("admin_menu", array($this, "admin_menu"));
+		add_action("admin_notice", array($this, "admin_notice"));
+		//Add i18n
+		load_plugin_textdomain($this->domain, false, basename($this->dir).DIRECTORY_SEPARATOR."language");
+	}
+	
+	/**
 	 * Common Hook
 	 */
 	public function init(){
-		if($this->option['fb_enabled']){
+		//Facebook
+		if($this->is_enabled('facebook')){
 			require_once $this->dir."/sdks/facebook/facebook_controller.php";
-			$this->fb = new Facebook_Controller($this->option['fb_app_id'], $this->option['fb_app_secret'], $this->option['fb_fan_gate']);
+			$this->fb = new Facebook_Controller($this->option);
 		}
-		if($this->option['fb_enabled']){
+		//Twitter
+		if($this->is_enabled('twitter')){
+			require_once $this->dir."/sdks/twitter/twitter_controller.php";
+			$this->twitter = new Twitter_Controller($this->option);
+		}
+		if($this->is_enabled()){
 			//Show Login button on profile page
 			add_action('show_user_profile', array($this, 'show_user_profile'));
 			//Show Login button on login page
 			add_action('login_form', array($this, 'show_login_form'));
 			//Show Register button on Register page
 			add_action('register_form', array($this, 'show_regsiter_form'));
+			//Load CSS
+			add_action('admin_print_styles', array($this, 'enqueue_style'));
+			add_action('wp_print_styles', array($this, 'enqueue_style'));
 		}
 		//Add Assets
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -92,7 +166,7 @@ class WP_Gianism extends Hametuha_Library{
 	 * @return void
 	 */
 	public function admin_menu(){
-		add_users_page($this->_('WP Gianism setting'), $this->_("Social Connect"), 'edit_users', 'gianism', array($this, 'render'));
+		add_users_page($this->_('WP Gianism setting'), $this->_("External Service"), 'edit_users', 'gianism', array($this, 'render'));
 	}
 	
 	/**
@@ -148,9 +222,37 @@ class WP_Gianism extends Hametuha_Library{
 	 * @param string $hook
 	 */
 	public function enqueue_scripts($hook){
-		if(defined('IS_PROFILE_PAGE')){
-			wp_enqueue_script('jquery');
+		
+	}
+	
+	/**
+	 * Enqueue CSS on both Public and Admin
+	 */
+	public function enqueue_style(){
+		if($this->is_enabled()){
+			wp_enqueue_style($this->name, $this->url."/assets/gianism-style.css", array(), $this->version);
 		}
+	}
+	
+	/**
+	 * Returns whether service is enbaled.
+	 * @param string $service
+	 * @return boolean
+	 */
+	public function is_enabled($service = 'any'){
+		$flg = false;
+		switch($service){
+			case "facebook":
+				$flg = (boolean)$this->option['fb_enabled'];
+				break;
+			case "twitter":
+				$flg = (boolean)$this->option['tw_enabled'];
+				break;
+			default:
+				$flg = (boolean)($this->option['fb_enabled'] || $this->option['tw_enabled']);
+				break;
+		}
+		return $flg;
 	}
 	
 	/**
@@ -178,5 +280,130 @@ class WP_Gianism extends Hametuha_Library{
 			}
 		}
 		return (string) $default;
+	}
+	
+	
+	/**
+	 * $_GETに値が設定されていたら返す
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function get($key){
+		if(isset($_GET[$key])){
+			return $_GET[$key];
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * $_POSTに値が設定されていたら返す
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function post($key){
+		if(isset($_POST[$key])){
+			return $_POST[$key];
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * $_REQUESTに値が設定されていたら返す
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function request($key){
+		if(isset($_REQUEST[$key])){
+			return $_REQUEST[$key];
+		}else{
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * nonce用に接頭辞をつけて返す
+	 * @param string $action
+	 * @return string
+	 */
+	public function nonce_action($action){
+		return $this->name."_".$action;
+	}
+	
+	/**
+	 * wp_nonce_fieldのエイリアス
+	 * @param type $action 
+	 */
+	public function nonce_field($action){
+		wp_nonce_field($this->nonce_action($action), "_{$this->name}_nonce");
+	}
+	
+	/**
+	 * nonceが合っているか確かめる
+	 * @param string $action
+	 * @param string $referrer
+	 * @return boolean
+	 */
+	public function verify_nonce($action, $referrer = false){
+		if($referrer){
+			return ( (wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action)) && $referrer == $this->request("_wp_http_referer")) );
+		}else{
+			return wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action));
+		}
+	}
+	
+		
+	/**
+	 * 管理画面にメッセージを表示する
+	 * @return void
+	 */
+	public function admin_notice(){
+		if(!empty($this->admin_error)){
+			?><div class="error"><?php
+			foreach($this->admin_error as $err){
+				?><p><?php echo $err; ?></p><?php
+			}
+			?></div><?php
+		}
+		if(!empty($this->admin_message)){
+			?><div class="updated"><?php
+			foreach($this->admin_message as $message){
+				?><p><?php echo $message; ?></p><?php
+			} ?></div><?php
+		}
+	}
+	
+	/**
+	 * 管理画面に表示するメッセージを追加する
+	 * @param string $string
+	 * @param boolean $error (optional) trueにするとエラーメッセージ
+	 * @return void
+	 */
+	public function add_message($string, $error = false){
+		if($error){
+			$this->admin_error[] = (string) $string;
+		}else{
+			$this->admin_message[] = (string) $string;
+		}
+	}
+	
+	/**
+	 * WordPressの_eのエイリアス
+	 * @param string $text
+	 * @return void
+	 */
+	public function e($text){
+		_e($text, $this->domain);
+	}
+	
+	/**
+	 * WordPressの__のエイリアス
+	 * @param string $text
+	 * @return string
+	 */
+	public function _($text){
+		return __($text, $this->domain);
 	}
 }

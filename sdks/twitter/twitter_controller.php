@@ -40,13 +40,13 @@ class Twitter_Controller extends Gianism_Controller{
 	/**
 	 * @var string
 	 */
-	private $pseudo_domain = 'pseudo.twitter.com';
+	protected $pseudo_domain = 'pseudo.twitter.com';
 	
 	/**
 	 * Constructor
 	 * @param array $option 
 	 */
-	private function set_option($option) {
+	protected function set_option($option) {
 		$option = shortcode_atts(array(
 			"tw_consumer_key" => "",
 			"tw_consumer_secret" => "",
@@ -64,9 +64,10 @@ class Twitter_Controller extends Gianism_Controller{
 	 * Executed on init hook
 	 * @global wpdb $wpdb
 	 * @global int $user_ID
+	 * @global WP_Gianism $gianism
 	 */
 	public function init_action(){
-		global $user_ID, $wpdb;
+		global $user_ID, $wpdb, $gianism;
 		switch($this->get_action()){
 			case 'twitter_connect':
 				if(isset($_GET['oauth_verifier']) && is_user_logged_in()){
@@ -79,15 +80,31 @@ class Twitter_Controller extends Gianism_Controller{
 							//Check if other user has registered.
 							$sql = <<<EOS
 								SELECT umeta_id FROM {$wpdb->usermeta}
-								WHERE ((meta_key = %s) AND (meta_value = %s))
-								   OR ((meta_key = %s) AND (meta_value = %s))
+								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
+								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
 EOS;
-							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $this->umeta_screen_name, $access_token['screen_name'])){
+							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $user_ID, $this->umeta_screen_name, $access_token['screen_name'], $user_ID)){
 								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
+								$this->add_alert(sprintf($gianism->_('Welcome, @%s!'), $access_token['screen_name']));
+							}else{
+								$this->add_alert($gianism->_('Mm...? This twitter account seems to be connected to another account.'));
 							}
+						}else{
+							$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
 						}
+					}else{
+						$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
 					}
+				}else{
+					$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+				}
+				break;
+			case "twitter_disconnect":
+				if(wp_verify_nonce($gianism->request('_wpnonce'), 'twitter_disconnect') && is_user_logged_in()){
+					delete_user_meta($user_ID, $this->umeta_id);
+					delete_user_meta($user_ID, $this->umeta_screen_name);
+					$this->add_alert($gianism->_('Disconnect now :('));
 				}
 				break;
 		}
@@ -98,7 +115,7 @@ EOS;
 	 * @global WP_Gianism $gianism
 	 * @return void
 	 */
-	public function show_profile(){
+	public function user_profile(){
 		if(!defined("IS_PROFILE_PAGE")){
 			return;
 		}

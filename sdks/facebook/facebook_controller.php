@@ -52,7 +52,7 @@ class Facebook_Controller extends Gianism_Controller{
 	 * Setup Everything
 	 * @param array $option
 	 */
-	private function set_option($option) {
+	protected function set_option($option) {
 		$option = shortcode_atts(array(
 			'fb_app_id' => '',
 			'fb_app_secret' => '',

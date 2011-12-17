@@ -113,7 +113,7 @@ class Gianism_Controller {
 	 * @param string $mail
 	 * @return boolean
 	 */
-	private function is_pseudo_mail($mail){
+	protected function is_pseudo_mail($mail){
 		return !empty($this->pseudo_domain) && (false !== strpos($mail, "@".$this->pseudo_domain));
 	}
 }

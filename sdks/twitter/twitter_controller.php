@@ -1,21 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR."gianism_controller.php";
 /**
  * Description of twitter_controller
  *
- * @author guy
+ * @package gianism
  */
-class Twitter_Controller {
-	
-	/**
-	 * @var boolean
-	 */
-	public $enabled = false;
+class Twitter_Controller extends Gianism_Controller{
 	
 	/**
 	 * @var string
@@ -50,31 +40,24 @@ class Twitter_Controller {
 	/**
 	 * @var string
 	 */
-	public $pseudo_domain = 'pseudo.twitter.com';
+	private $pseudo_domain = 'pseudo.twitter.com';
 	
 	/**
 	 * Constructor
 	 * @param array $option 
 	 */
-	public function __construct($option) {
+	private function set_option($option) {
 		$option = shortcode_atts(array(
 			"tw_consumer_key" => "",
 			"tw_consumer_secret" => "",
 			"tw_access_token" => "",
 			"tw_access_token_secret" => ""
 		), $option);
-		session_start();
 		$this->consumer_key = (string)$option['tw_consumer_key'];
 		$this->consumer_secret = (string)$option['tw_consumer_secret'];
 		$this->my_access_token = (string)$option['tw_access_token'];
 		$this->my_access_token_secret = (string)$option['tw_access_token_secret'];
-		//Add Hook on Profile page
-		add_action('gianism_user_profile', array($this, 'show_profile'));
-		//Add Hook on Login Page
-		//add_action('gianism_login_form', array($this, 'show_login_button'));
-		//Add Hook on Regsiter Page
-		//add_action('gianism_regsiter_form', array($this, 'show_login_button'));
-		$this->init_action();
+		session_start();
 	}
 	
 	/**
@@ -83,32 +66,30 @@ class Twitter_Controller {
 	 * @global int $user_ID
 	 */
 	public function init_action(){
-		if(isset($_GET['wpg'])){
-			global $user_ID, $wpdb;
-			switch($_GET['wpg']){
-				case 'twitter_connect':
-					if(isset($_GET['oauth_verifier']) && is_user_logged_in()){
-						$token = $this->get_token();
-						$token_secret = $this->get_token(true);
-						if(!empty($token) && !empty($token_secret)){
-							$oauth = $this->get_oauth($token, $token_secret);
-							$access_token = $oauth->getAccessToken($_GET['oauth_verifier']);
-							if(isset($access_token['user_id'], $access_token['screen_name'])){
-								//Check if other user has registered.
-								$sql = <<<EOS
-									SELECT umeta_id FROM {$wpdb->usermeta}
-									WHERE ((meta_key = %s) AND (meta_value = %s))
-									   OR ((meta_key = %s) AND (meta_value = %s))
+		global $user_ID, $wpdb;
+		switch($this->get_action()){
+			case 'twitter_connect':
+				if(isset($_GET['oauth_verifier']) && is_user_logged_in()){
+					$token = $this->get_token();
+					$token_secret = $this->get_token(true);
+					if(!empty($token) && !empty($token_secret)){
+						$oauth = $this->get_oauth($token, $token_secret);
+						$access_token = $oauth->getAccessToken($_GET['oauth_verifier']);
+						if(isset($access_token['user_id'], $access_token['screen_name'])){
+							//Check if other user has registered.
+							$sql = <<<EOS
+								SELECT umeta_id FROM {$wpdb->usermeta}
+								WHERE ((meta_key = %s) AND (meta_value = %s))
+								   OR ((meta_key = %s) AND (meta_value = %s))
 EOS;
-								if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $this->umeta_screen_name, $access_token['screen_name'])){
-									update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
-									update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
-								}
+							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $this->umeta_screen_name, $access_token['screen_name'])){
+								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
+								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
 							}
 						}
 					}
-					break;
-			}
+				}
+				break;
 		}
 	}
 	
@@ -174,15 +155,6 @@ EOS;
 	}
 	
 	/**
-	 * Retuns if given mail address is pseudo.
-	 * @param string $mail
-	 * @return boolean
-	 */
-	private function is_pseudo_mail($mail){
-		return (false !== strpos($mail, "@".$this->pseudo_domain));
-	}
-	
-	/**
 	 * Get API wrapper
 	 * @param string $oauth_token
 	 * @param string $oauth_token_secret 
@@ -218,6 +190,33 @@ EOS;
 			return $_SESSION['_wpg_twitter_token'][$key];
 		}else{
 			return false;
+		}
+	}
+	
+	/**
+	 * Add alert message throw Javascript
+	 * @param string $text 
+	 */
+	public function add_alert($text){
+		$this->js = true;
+		if(!empty($this->scripts)){
+			$this->scripts .= "\n";
+		}
+		$this->scripts .= $text;
+	}
+	
+	/**
+	 * Print Javascript on footer
+	 */
+	public function print_script(){
+		if($this->js && !empty($this->scripts)){
+			?>
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+					alert("<?php echo esc_attr($this->scripts);  ?>");
+				});
+			</script>
+			<?php
 		}
 	}
 		

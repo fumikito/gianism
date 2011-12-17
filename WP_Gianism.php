@@ -222,7 +222,7 @@ class WP_Gianism{
 	 * @param string $hook
 	 */
 	public function enqueue_scripts($hook){
-		
+		wp_enqueue_script('jquery');
 	}
 	
 	/**

@@ -24,7 +24,12 @@ class WP_Gianism extends Hametuha_Library{
 		'fb_enabled' => 0,
 		'fb_app_id' => '',
 		'fb_app_secret' => '',
-		'fb_fan_gate' => 0
+		'fb_fan_gate' => 0,
+		'tw_enabled' => 0,
+		"tw_consumer_key" => "",
+		"tw_consumer_secret" => "",
+		"tw_access_token" => "",
+		"tw_access_token_secret" => ""
 	);
 	
 	/**
@@ -33,7 +38,7 @@ class WP_Gianism extends Hametuha_Library{
 	public function init(){
 		if($this->option['fb_enabled']){
 			require_once $this->dir."/sdks/facebook/facebook_controller.php";
-			$this->fb = new Facebook_Controller($this->option['fb_app_id'], $this->option['fb_app_secret']);
+			$this->fb = new Facebook_Controller($this->option['fb_app_id'], $this->option['fb_app_secret'], $this->option['fb_fan_gate']);
 		}
 		if($this->option['fb_enabled']){
 			//Show Login button on profile page
@@ -63,10 +68,17 @@ class WP_Gianism extends Hametuha_Library{
 	public function admin_init(){
 		//Execute when option updated.
 		if($this->verify_nonce('option')){
-			$this->option['fb_enabled'] = ($this->post('fb_enabled') == 1) ? 1 : 0;
-			$this->option['fb_app_id'] = (string)$this->post('fb_app_id');
-			$this->option['fb_app_secret'] = (string)$this->post('fb_app_secret');
-			$this->option['fb_fan_gate'] = (int)$this->post('fb_fan_gate');
+			$this->option = array(
+				'fb_enabled' => ($this->post('fb_enabled') == 1) ? 1 : 0,
+				'fb_app_id' => (string)$this->post('fb_app_id'),
+				'fb_app_secret' => (string)$this->post('fb_app_secret'),
+				'fb_fan_gate' => (int)$this->post('fb_fan_gate'),
+				'tw_enabled' => ($this->post('tw_enabled') == 1) ? 1 : 0,
+				"tw_consumer_key" => (string)$this->post('tw_consumer_key'),
+				"tw_consumer_secret" => (string)$this->post('tw_consumer_secret'),
+				"tw_access_token" => (string)$this->post('tw_access_token'),
+				"tw_access_token_secret" => (string)$this->post('tw_access_token_secret')
+			);
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));
 			}else{

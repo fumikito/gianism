@@ -45,5 +45,40 @@
 			</tr>
 		</tbody>
 	</table>
+	<h3>Twitter</h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th><label><?php printf($this->_('Connect with %s'), 'Twitter');?></label>
+				<td>
+					<label>
+						<input type="radio" name="tw_enabled" value="1"<?php if($this->option['tw_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Enable');?>
+					</label>
+					<label>
+						<input type="radio" name="tw_enabled" value="0"<?php if(!$this->option['tw_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Disable');?>
+					</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th><label for="tw_consumer_key"><?php $this->e('Consumer Key'); ?></label></th>
+				<td><input class="regular-text" type="text" name="tw_consumer_key" id="tw_consumer_key" value="<?php echo $this->option['tw_consumer_key']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="tw_consumer_secret"><?php $this->e('Consumer Secret'); ?></label></th>
+				<td><input class="regular-text" type="text" name="tw_consumer_secret" id="tw_consumer_secret" value="<?php echo $this->option['tw_consumer_secret']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="tw_access_token"><?php $this->e('Access Token'); ?></label></th>
+				<td><input class="regular-text" type="text" name="tw_access_token" id="tw_access_token" value="<?php echo $this->option['tw_access_token']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="tw_access_token_secret"><?php $this->e('Access token secret'); ?></label></th>
+				<td><input class="regular-text" type="text" name="tw_access_token_secret" id="tw_access_token_secret" value="<?php echo $this->option['tw_access_token_secret']?>" /></td>
+			</tr>
+		</tbody>
+	</table>
 	<?php submit_button(); ?>
 </form>

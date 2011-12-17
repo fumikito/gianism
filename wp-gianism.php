@@ -4,9 +4,9 @@
  * @version 0.8
  */
 /*
-Plugin Name: WP Gianism
+Plugin Name: Gianism
 Plugin URI: http://hametuha.co.jp
-Description: Connect user accounts with major web services like Facebook, twitter, etc.
+Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 Author: Hametuha inc.
 Version: 0.8
 Author URI: http://hametuha.co.jp

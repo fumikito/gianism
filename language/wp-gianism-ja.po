@@ -1,0 +1,152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gianism\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-17 03:52+0900\n"
+"PO-Revision-Date: 2011-12-17 05:44+0900\n"
+"Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
+"Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: JAPAN\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../WP_Gianism.php:71
+msgid "Option updated."
+msgstr "設定が更新されました。"
+
+#: ../WP_Gianism.php:73
+msgid "Option failed to update."
+msgstr "設定を更新できませんでした。"
+
+#: ../WP_Gianism.php:83
+#: ../templates/setting.php:4
+msgid "WP Gianism setting"
+msgstr "WP Gianism設定"
+
+#: ../WP_Gianism.php:83
+msgid "Social Connect"
+msgstr "ソーシャルコネクト"
+
+#: ../WP_Gianism.php:101
+msgid "External Service"
+msgstr "外部サービス連携"
+
+#: ../lib/Hametuha_Library.php:231
+msgid "Uploaded file size exceeds the &quot;upload_max_filesize&quot; value defined in php.ini"
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:235
+msgid "Uploaded file size exceeds"
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:239
+msgid "File has been uploaded incompletely. Check your internet connection."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:243
+msgid "No file was uploaded."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:247
+msgid "No tmp directory exists. Contact to your server administrator."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:251
+msgid "Failed to save the uploaded file. Contact to your server administrator."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:255
+msgid "PHP stops uploading."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:263
+msgid "File isn't uploaded."
+msgstr ""
+
+#: ../lib/Hametuha_Library.php:472
+#, php-format
+msgid "Admin Template file dosen't exist. [FILE NAME: %s]"
+msgstr ""
+
+#: ../sdks/facebook/facebook_controller.php:227
+msgid "Connect"
+msgstr "コネクト"
+
+#: ../sdks/facebook/facebook_controller.php:228
+#, php-format
+msgid "Connecting with Facebook account, you can log in %s via Facebook account."
+msgstr "Facebookアカウントに接続すると、%sにFacebookアカウントでログインできるようになります。"
+
+#: ../sdks/facebook/facebook_controller.php:235
+msgid "Disconnect"
+msgstr "切断"
+
+#: ../sdks/facebook/facebook_controller.php:237
+msgid "Your account is already connected with Facebook account."
+msgstr "あなたのアカウントはすでにFacebookアカウントに接続されています。"
+
+#: ../sdks/facebook/facebook_controller.php:238
+msgid "You really disconnect this account?"
+msgstr "アカウントを切断しますか？"
+
+#: ../sdks/facebook/facebook_controller.php:243
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../sdks/facebook/facebook_controller.php:273
+msgid "Log in with Facebook"
+msgstr "Facebookでログイン"
+
+#: ../sdks/facebook/facebook_controller.php:343
+msgid "Your account was successfully connected with Facebook"
+msgstr "あなたのアカウントはFacebookと接続されました。"
+
+#: ../sdks/facebook/facebook_controller.php:346
+#, php-format
+msgid "You need to log in %s"
+msgstr "%sにログインする必要があります"
+
+#: ../sdks/facebook/facebook_controller.php:410
+#, php-format
+msgid "This email address is registered. You can log in <a href=\"%s\">here</a>."
+msgstr "このメールアドレスは登録されています。<a href=\"%s\">ここ</a>からログインしてください。"
+
+#: ../sdks/facebook/facebook_controller.php:420
+msgid "Failed to create account. Try to register with mail address and password."
+msgstr "アカウントの作成に失敗しました。メールアドレスとパスワードで登録してください。"
+
+#: ../templates/setting.php:11
+msgid "Connect with Facebook"
+msgstr "Facebookと接続"
+
+#: ../templates/setting.php:15
+msgid "Enable"
+msgstr "有効"
+
+#: ../templates/setting.php:19
+msgid "Disable"
+msgstr "無効"
+
+#: ../templates/setting.php:24
+msgid "App ID"
+msgstr "App ID"
+
+#: ../templates/setting.php:30
+msgid "App Secret"
+msgstr "アプリの秘訣"
+
+#: ../templates/setting.php:36
+msgid "Facebook Fan Gate"
+msgstr "Facebookファンゲート"
+
+#: ../templates/setting.php:39
+msgid "No Fan Gate"
+msgstr "ファンゲートを使わない"
+

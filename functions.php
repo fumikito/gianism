@@ -2,11 +2,13 @@
 
 /**
  * Returns Facebook ID
+ * @global WP_Gianism $gianism
  * @param int $user_id
  * @return string
  */
 function get_facebook_id($user_id){
-	return get_user_meta($user_id, 'wpg_facebook_id', true);
+	global $gianism;
+	return get_user_meta($user_id, '_wpg_facebook_id', true);
 }
 
 /**
@@ -48,5 +50,71 @@ function get_user_by_service($service, $credential){
 		default:
 			return null;
 			break;
+	}
+}
+
+/**
+ * Returns if current user liked or not.
+ * 
+ * You can this function only on Facebook fan page tab.
+ * 
+ * @global WP_Gianism $gianism
+ * @return boolean
+ */
+function is_user_like_me(){
+	global $gianism;
+	if($gianism->fb){
+		$signed = $gianism->fb->api->getSignedRequest();
+		if(isset($signed['page']['liked'])){
+			return (boolean) $signed['page']['liked'];
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+}
+
+/**
+ * Returns if current user has wordpress account.
+ * 
+ * You can this function only on Facebook fan page tab.
+ * 
+ * @global WP_Gianism $gianism
+ * @return boolean
+ */
+function is_user_registered_with($service){
+	global $gianism, $wpdb;
+	switch($service){
+		case 'facebook':
+			$user_id = get_user_id_on_fangate();
+			$sql = <<<EOS
+				SELECT user_id FROM {$wpdb->usermeta}
+				WHERE meta_key = 'wpg_facebook_id' AND meta_value = %s
+EOS;
+			return $wpdb->get_var($wpdb->prepare($sql, $signed['user_id']));
+			break;
+		default:
+			return false;
+			break;
+	}
+}
+
+/**
+ * Returns facebook id on fan gate.
+ * @global WP_Gianism $gianism
+ * @return stiring|boolean
+ */
+function get_user_id_on_fangate(){
+	global $gianism;
+	if($gianism->fb){
+		$signed = $gianism->fb->api->getSignedRequest();
+		if(isset($signed['user_id'])){
+			return $signed['user_id'];
+		}else{
+			return false;
+		}
+	}else{
+		return false;
 	}
 }

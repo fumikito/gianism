@@ -49,6 +49,11 @@ class Facebook_Controller extends Gianism_Controller{
 	public $umeta_mail = '_wpg_facebook_mail';
 	
 	/**
+	 * @var string
+	 */
+	private $message = "";
+	
+	/**
 	 * Setup Everything
 	 * @param array $option
 	 */
@@ -78,29 +83,46 @@ class Facebook_Controller extends Gianism_Controller{
 	/**
 	 * Executed on init hook.
 	 * @global wpdb $wpdb
+	 * @global int $user_ID
+	 * @global WP_Gianism $giasnism
 	 */
 	public function init_action(){
+		global $user_ID, $wpdb, $gianism;
 		switch($this->get_action()){
 			case "facebook_connect":
 				$uid = $this->api->getUser();
 				if($uid && is_user_logged_in()){
-					global $user_ID;
 					try{
 						$profile = $this->api->api('/me', 'GET');
-						update_user_meta($user_ID, $this->umeta_id, $uid);
 						if(isset($profile['email'])){
-							update_user_meta($user_ID, $this->umeta_mail, $profile['email']);
+							//Check if other user has these as meta_value
+							$sql = <<<EOS
+								SELECT user_id FROM {$wpdb->usermeta}
+								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
+								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
+EOS;
+							$others = $wpdb->get_row($wpdb->prepare($sql, $this->umeta_id, $uid, $user_ID, $this->umeta_mail, $profile['email'], $user_ID));
+							$email_exitance = email_exists($profile['email']);
+							if(!$others && (!$email_exitance || $user_ID == $email_exitance)){
+								update_user_meta($user_ID, $this->umeta_id, $uid);
+								update_user_meta($user_ID, $this->umeta_mail, $profile['email']);
+								$this->message = sprintf($gianism->_('Welcome!, %s'), $profile['name']);
+							}else{
+								$this->message = sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
+							}
+						}else{
+							$this->message = $gianism->_("Oops, Failed to Authenticate.");
 						}
 					}catch(FacebookApiException $e){
-
+						$this->message = $gianism->_("Oops, Failed to Authenticate.");
 					}
 				}
 				break;
 			case "facebook_disconnect":
 				if(is_user_logged_in() && isset($_REQUEST['_wpnonce']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'facebook_disconnect')){
-					global $user_ID;
 					delete_user_meta($user_ID, $this->umeta_id);
 					delete_user_meta($user_ID, $this->umeta_mail);
+					$this->message = $gianism->_("Disconect your Facebook account.");
 				}
 				break;
 			case "facebook_login":
@@ -293,6 +315,13 @@ EOS;
 		</script>
 		<?php
 		endif;
+		if(!empty($this->message)): ?>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				alert("<?php echo esc_attr($this->message); ?>");
+			});
+		</script>
+		<?php endif;
 	}
 	
 	/**

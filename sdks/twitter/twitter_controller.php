@@ -88,7 +88,7 @@ EOS;
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
 								$this->add_alert(sprintf($gianism->_('Welcome, @%s!'), $access_token['screen_name']));
 							}else{
-								$this->add_alert($gianism->_('Mm...? This twitter account seems to be connected to another account.'));
+								$this->add_alert(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
 							}
 						}else{
 							$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));

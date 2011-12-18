@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-17 03:52+0900\n"
-"PO-Revision-Date: 2011-12-17 03:52+0900\n"
+"POT-Creation-Date: 2011-12-19 04:00+0900\n"
+"PO-Revision-Date: 2011-12-19 04:01+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,109 +17,111 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:71
+#: ../WP_Gianism.php:157
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:73
+#: ../WP_Gianism.php:159
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:83
+#: ../WP_Gianism.php:169
 #: ../templates/setting.php:4
 msgid "WP Gianism setting"
 msgstr ""
 
-#: ../WP_Gianism.php:83
-msgid "Social Connect"
-msgstr ""
-
-#: ../WP_Gianism.php:101
+#: ../WP_Gianism.php:169
+#: ../WP_Gianism.php:187
 msgid "External Service"
 msgstr ""
 
-#: ../lib/Hametuha_Library.php:231
-msgid "Uploaded file size exceeds the &quot;upload_max_filesize&quot; value defined in php.ini"
+#: ../sdks/facebook/facebook_controller.php:90
+#: ../sdks/facebook/facebook_controller.php:120
+#: ../sdks/facebook/facebook_controller.php:133
+#: ../sdks/twitter/twitter_controller.php:94
+#: ../sdks/twitter/twitter_controller.php:97
+#: ../sdks/twitter/twitter_controller.php:100
+#: ../sdks/twitter/twitter_controller.php:159
+msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: ../lib/Hametuha_Library.php:235
-msgid "Uploaded file size exceeds"
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:239
-msgid "File has been uploaded incompletely. Check your internet connection."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:243
-msgid "No file was uploaded."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:247
-msgid "No tmp directory exists. Contact to your server administrator."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:251
-msgid "Failed to save the uploaded file. Contact to your server administrator."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:255
-msgid "PHP stops uploading."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:263
-msgid "File isn't uploaded."
-msgstr ""
-
-#: ../lib/Hametuha_Library.php:472
+#: ../sdks/facebook/facebook_controller.php:114
 #, php-format
-msgid "Admin Template file dosen't exist. [FILE NAME: %s]"
+msgid "Welcome!, %s"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:227
+#: ../sdks/facebook/facebook_controller.php:116
+#: ../sdks/twitter/twitter_controller.php:91
+#, php-format
+msgid "Mm...? This %s account seems to be connected to another account."
+msgstr ""
+
+#: ../sdks/facebook/facebook_controller.php:128
+msgid "Disconect your Facebook account."
+msgstr ""
+
+#: ../sdks/facebook/facebook_controller.php:216
+#: ../sdks/twitter/twitter_controller.php:194
 msgid "Connect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:228
+#: ../sdks/facebook/facebook_controller.php:217
 #, php-format
 msgid "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:235
+#: ../sdks/facebook/facebook_controller.php:224
+#: ../sdks/twitter/twitter_controller.php:177
 msgid "Disconnect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:237
+#: ../sdks/facebook/facebook_controller.php:226
 msgid "Your account is already connected with Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:238
+#: ../sdks/facebook/facebook_controller.php:227
+#: ../sdks/twitter/twitter_controller.php:186
 msgid "You really disconnect this account?"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:243
+#: ../sdks/facebook/facebook_controller.php:232
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:273
+#: ../sdks/facebook/facebook_controller.php:262
 msgid "Log in with Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:343
-msgid "Your account was successfully connected with Facebook"
-msgstr ""
-
-#: ../sdks/facebook/facebook_controller.php:346
+#: ../sdks/twitter/twitter_controller.php:89
 #, php-format
-msgid "You need to log in %s"
+msgid "Welcome, @%s!"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:410
+#: ../sdks/twitter/twitter_controller.php:107
+msgid "Disconnect now :("
+msgstr ""
+
+#: ../sdks/twitter/twitter_controller.php:180
 #, php-format
-msgid "This email address is registered. You can log in <a href=\"%s\">here</a>."
+msgid "Your account is already connected with Twitter <a target=\"_blank\" href=\"%1$s\">%2$s</a> ."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:420
-msgid "Failed to create account. Try to register with mail address and password."
+#: ../sdks/twitter/twitter_controller.php:184
+#, php-format
+msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address."
+msgstr ""
+
+#: ../sdks/twitter/twitter_controller.php:195
+#, php-format
+msgid "Connecting Twitter account, you can log in %s via Twitter account."
+msgstr ""
+
+#: ../sdks/twitter/twitter_controller.php:200
+msgid "Twitter"
+msgstr ""
+
+#: ../sdks/twitter/twitter_controller.php:226
+msgid "Login with Twitter"
 msgstr ""
 
 #: ../templates/setting.php:11
@@ -127,10 +129,12 @@ msgid "Connect with Facebook"
 msgstr ""
 
 #: ../templates/setting.php:15
+#: ../templates/setting.php:56
 msgid "Enable"
 msgstr ""
 
 #: ../templates/setting.php:19
+#: ../templates/setting.php:60
 msgid "Disable"
 msgstr ""
 
@@ -148,5 +152,26 @@ msgstr ""
 
 #: ../templates/setting.php:39
 msgid "No Fan Gate"
+msgstr ""
+
+#: ../templates/setting.php:52
+#, php-format
+msgid "Connect with %s"
+msgstr ""
+
+#: ../templates/setting.php:66
+msgid "Consumer Key"
+msgstr ""
+
+#: ../templates/setting.php:70
+msgid "Consumer Secret"
+msgstr ""
+
+#: ../templates/setting.php:74
+msgid "Access Token"
+msgstr ""
+
+#: ../templates/setting.php:78
+msgid "Access token secret"
 msgstr ""
 

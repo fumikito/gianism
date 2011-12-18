@@ -176,11 +176,12 @@ EOS;
 			$url = wp_nonce_url(admin_url('profile.php?wpg=twitter_disconnect'), 'twitter_disconnect');
 			$link_text = $gianism->_('Disconnect');
 			$account = get_user_meta($user_ID, $this->umeta_screen_name, true);
-			$desc = sprintf($gianism->_('Your account is already connected with Twitter <a target="_blank" href="%1$s">%2$s</a> .'), 'https://twitter.com/#!/'.$account, "@".$account);
+			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
+			        .sprintf($gianism->_('Your account is already connected with Twitter <a target="_blank" href="%1$s">%2$s</a> .'), 'https://twitter.com/#!/'.$account, "@".$account);
 			//If user has pseudo mail, add caution.
 			global $user_email;
 			if($this->is_pseudo_mail($user_email)){
-				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your mail address is pseudo &quot;%1$s&quot;. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address.'), $user_email, get_bloginfo('name'));
+				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address.'), $user_email, get_bloginfo('name'));
 			}
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
 		}else{

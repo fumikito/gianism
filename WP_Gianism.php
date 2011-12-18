@@ -67,7 +67,10 @@ class WP_Gianism{
 		"tw_consumer_key" => "",
 		"tw_consumer_secret" => "",
 		"tw_access_token" => "",
-		"tw_access_token_secret" => ""
+		"tw_access_token_secret" => "",
+		"ggl_enabled" => 0,
+		"ggl_consumer_key" => "",
+		"ggl_consumer_secret" => ""
 	);
 	
 	/**
@@ -111,6 +114,11 @@ class WP_Gianism{
 			require_once $this->dir."/sdks/twitter/twitter_controller.php";
 			$this->twitter = new Twitter_Controller($this->option);
 		}
+		//Google
+		if($this->is_enabled("google")){
+			require_once $this->dir."/sdks/google/google_controller.php";
+			$this->google = new Google_Controller($this->option);
+		}
 		if($this->is_enabled()){
 			//Show Login button on profile page
 			add_action('show_user_profile', array($this, 'show_user_profile'));
@@ -151,7 +159,10 @@ class WP_Gianism{
 				"tw_consumer_key" => (string)$this->post('tw_consumer_key'),
 				"tw_consumer_secret" => (string)$this->post('tw_consumer_secret'),
 				"tw_access_token" => (string)$this->post('tw_access_token'),
-				"tw_access_token_secret" => (string)$this->post('tw_access_token_secret')
+				"tw_access_token_secret" => (string)$this->post('tw_access_token_secret'),
+				'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
+				"ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
+				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret')
 			);
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));
@@ -247,6 +258,9 @@ class WP_Gianism{
 				break;
 			case "twitter":
 				$flg = (boolean)$this->option['tw_enabled'];
+				break;
+			case "google":
+				$flg = (boolean)$this->option['ggl_enabled'];
 				break;
 			default:
 				$flg = (boolean)($this->option['fb_enabled'] || $this->option['tw_enabled']);

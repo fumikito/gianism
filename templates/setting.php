@@ -80,5 +80,32 @@
 			</tr>
 		</tbody>
 	</table>
+	<h3>Google</h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th><label><?php printf($this->_('Connect with %s'), 'Google');?></label>
+				<td>
+					<label>
+						<input type="radio" name="ggl_enabled" value="1"<?php if($this->option['ggl_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Enable');?>
+					</label>
+					<label>
+						<input type="radio" name="ggl_enabled" value="0"<?php if(!$this->option['ggl_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Disable');?>
+					</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th><label for="ggl_consumer_key"><?php $this->e('Consumer Key'); ?></label></th>
+				<td><input class="regular-text" type="text" name="ggl_consumer_key" id="ggl_consumer_key" value="<?php echo $this->option['ggl_consumer_key']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="ggl_consumer_secret"><?php $this->e('Consumer Secret'); ?></label></th>
+				<td><input class="regular-text" type="text" name="ggl_consumer_secret" id="ggl_consumer_secret" value="<?php echo $this->option['ggl_consumer_secret']?>" /></td>
+			</tr>
+		</tbody>
+	</table>
 	<?php submit_button(); ?>
 </form>

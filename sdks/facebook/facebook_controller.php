@@ -54,6 +54,11 @@ class Facebook_Controller extends Gianism_Controller{
 	private $message = "";
 	
 	/**
+	 * @var array
+	 */
+	private $_signed_request = array();
+	
+	/**
 	 * Setup Everything
 	 * @param array $option
 	 */
@@ -264,6 +269,68 @@ EOS;
 		<?php
 	}
 	
+	/**
+	 * Returns if user like my page. Only available on Facebook Tab page or application.
+	 * @return boolean
+	 */
+	public function is_user_like_me_on_fangate(){
+		if($this->fan_gate > 0){
+			$page = $this->signed_request('page');
+			return (isset($page['liked']) && $page['liked']);
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns if current facebook user is wordpress registered user.
+	 * 
+	 * If current Facebook user is registerd on your WordPress, returns user ID on WordPress.
+	 * 
+	 * @global wpdb $wpdb
+	 * @return int
+	 */
+	public function is_registered_user_on_fangate(){
+		global $wpdb;
+		if($this->fan_gate > 0){
+			$uid = $this->signed_request('user_id');
+			$sql = <<<EOS
+				SELECT user_id FROM {$wpdb->usermeta}
+				WHERE meta_key = %s AND meta_value = %s
+EOS;
+			return $wpdb->get_var($wpdb->prepare($sql, $this->umeta_id, $uid));
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns if current page is fan gate.
+	 * @return string
+	 */
+	public function is_fangate(){
+		if($this->fan_gate > 0){
+			$page = $this->signed_request('page');
+			if($page){
+				return is_page($this->fan_gate);
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Get signed request
+	 * @return string
+	 */
+	private function signed_request($key){
+		if(empty($this->_signed_request)){
+			$this->_signed_request = $this->facebook()->getSignedRequest();
+		}
+		return isset($this->_signed_request[$key]) ? $this->_signed_request[$key]: null;
+	}
 	
 	/**
 	 * Initialize Facebook Fangate Scripts

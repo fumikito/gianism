@@ -63,16 +63,7 @@ function get_user_by_service($service, $credential){
  */
 function is_user_like_me(){
 	global $gianism;
-	if($gianism->fb){
-		$signed = $gianism->fb->api->getSignedRequest();
-		if(isset($signed['page']['liked'])){
-			return (boolean) $signed['page']['liked'];
-		}else{
-			return false;
-		}
-	}else{
-		return false;
-	}
+	return $gianism->fb->is_user_like_me_on_fangate();
 }
 
 /**
@@ -107,14 +98,5 @@ EOS;
  */
 function get_user_id_on_fangate(){
 	global $gianism;
-	if($gianism->fb){
-		$signed = $gianism->fb->api->getSignedRequest();
-		if(isset($signed['user_id'])){
-			return $signed['user_id'];
-		}else{
-			return false;
-		}
-	}else{
-		return false;
-	}
+	return $gianism->fb->is_registered_user_on_fangate();
 }

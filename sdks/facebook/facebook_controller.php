@@ -22,7 +22,7 @@ class Facebook_Controller extends Gianism_Controller{
 	 * Facebook API Controller
 	 * @var Facebook
 	 */
-	public $api = null;
+	public $_api = null;
 	
 	/**
 	 * Page ID of Fan gate.
@@ -67,16 +67,12 @@ class Facebook_Controller extends Gianism_Controller{
 		$this->app_secret = (string)$option['fb_app_secret'];
 		$this->fan_gate = (int) $option['fb_fan_gate'];
 		$this->cert_path = dirname(__FILE__).DIRECTORY_SEPARATOR."fb_ca_chain_bundle.crt";
-		//BASECLASS
-		require_once dirname(__FILE__).DIRECTORY_SEPARATOR."facebook.php";
-		$this->api = new Facebook(array(
-			'appId'  => $app_id,
-			'secret' => $app_secret,
-		));
 		//Add Hook on Fan Gate
 		if($fan_gate){
 			add_action('template_redirect', array($this, 'fan_gate_helper'));
 		}
+		//Start Session
+		session_start();
 	}
 	
 	
@@ -90,31 +86,38 @@ class Facebook_Controller extends Gianism_Controller{
 		global $user_ID, $wpdb, $gianism;
 		switch($this->get_action()){
 			case "facebook_connect":
-				$uid = $this->api->getUser();
+				$uid = $this->facebook()->getUser();
+				$this->message = $gianism->_("Oops, Failed to Authenticate.");
 				if($uid && is_user_logged_in()){
 					try{
-						$profile = $this->api->api('/me', 'GET');
+						if(!isset($_SESSION['uid'])){
+							$_SESSION['uid'] = $uid;
+						}
+						try{
+							$profile = $this->facebook()->api('/me');
+						}catch(FacebookApiException $e){
+							$profile = $this->facebook()->api('/'.$uid);
+						}
 						if(isset($profile['email'])){
 							//Check if other user has these as meta_value
+							$email = $profile['email'];
 							$sql = <<<EOS
 								SELECT user_id FROM {$wpdb->usermeta}
 								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
 								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
 EOS;
-							$others = $wpdb->get_row($wpdb->prepare($sql, $this->umeta_id, $uid, $user_ID, $this->umeta_mail, $profile['email'], $user_ID));
-							$email_exitance = email_exists($profile['email']);
+							$others = $wpdb->get_row($wpdb->prepare($sql, $this->umeta_id, $uid, $user_ID, $this->umeta_mail, $email, $user_ID));
+							$email_exitance = email_exists($email);
 							if(!$others && (!$email_exitance || $user_ID == $email_exitance)){
 								update_user_meta($user_ID, $this->umeta_id, $uid);
-								update_user_meta($user_ID, $this->umeta_mail, $profile['email']);
+								update_user_meta($user_ID, $this->umeta_mail, $email);
 								$this->message = sprintf($gianism->_('Welcome!, %s'), $profile['name']);
 							}else{
 								$this->message = sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
 							}
-						}else{
-							$this->message = $gianism->_("Oops, Failed to Authenticate.");
 						}
 					}catch(FacebookApiException $e){
-						$this->message = $gianism->_("Oops, Failed to Authenticate.");
+						$this->message = $gianism->_("Oops, Failed to Authenticate.\n").$e->getMessage();
 					}
 				}
 				break;
@@ -128,7 +131,7 @@ EOS;
 			case "facebook_login":
 				if(!is_user_logged_in()){
 					$redirect = false;
-					$facebook_id = $this->api->getUser();
+					$facebook_id = $this->facebook()->getUser();
 					if($facebook_id){
 						//Get Facebook ID, So try to find registered user.
 						global $wpdb;
@@ -140,7 +143,7 @@ EOS;
 						if(!$user_id){
 							//Cant Find user, try to find by email
 							try{
-								$profile = $this->api->api('/me', 'GET');
+								$profile = $this->facebook()->api('/me', 'GET');
 								if(isset($profile['email'])){
 									$email = (string)$profile['email'];
 									//Try to find registered user
@@ -171,21 +174,15 @@ EOS;
 													array('%s', '%s'),
 													array('%d')
 												);
-											}else{
-												$redirect = false;
 											}
 										}
 									}
-								}else{
-									$redirect = true;
 								}
 							}catch(FacebookApiException $e){
 								//Can't get email, so, error.
 								$redirect = true;
 							}
 						}
-					}else{
-						$redirect = true;
 					}
 					if($user_id && !is_wp_error($user_id)){
 						wp_set_auth_cookie($user_id, true);
@@ -215,7 +212,7 @@ EOS;
 			$link_text = $gianism->_('Connect');
 			$desc = sprintf($gianism->_('Connecting with Facebook account, you can log in %s via Facebook account.'), get_bloginfo('name'));
 			$onclick = '';
-			$url = $this->api->getLoginUrl(array(
+			$url = $this->facebook()->getLoginUrl(array(
 				'scope' => 'email',
 				'redirect_uri' => admin_url('profile.php?wpg=facebook_connect')
 			));
@@ -250,7 +247,7 @@ EOS;
 		global $gianism;
 		$redirect = isset($_REQUEST['redirect_to']) ? $gianism->request('redirect_to') : admin_url('profile.php');
 		$login_url = wp_login_url($redirect)."&wpg=facebook_login";	
-		$url = $this->api->getLoginUrl(array(
+		$url = $this->facebook()->getLoginUrl(array(
 			'scope' => 'email',
 			'redirect_uri' => $login_url,
 		));
@@ -316,11 +313,11 @@ EOS;
 		<?php
 		endif;
 		if(!empty($this->message)): ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($){
-				alert("<?php echo esc_attr($this->message); ?>");
-			});
-		</script>
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+					alert("<?php echo esc_attr($this->message); ?>");
+				});
+			</script>
 		<?php endif;
 	}
 	
@@ -389,5 +386,21 @@ EOS;
 			$user_id = $user_ID;
 		}
 		return (int)$user_id;
+	}
+	
+	/**
+	 * Returns facebook Controller
+	 * @return Facebook
+	 */
+	private function facebook(){
+		if(is_null($this->_api)){
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR."facebook.php";
+			$this->_api = new Facebook(array(
+				'appId'  => $this->app_id,
+				'secret' => $this->app_secret,
+				'cookie' => true
+			));
+		}
+		return $this->_api;
 	}
 }

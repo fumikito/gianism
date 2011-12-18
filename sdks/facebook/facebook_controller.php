@@ -305,6 +305,18 @@ EOS;
 	}
 	
 	/**
+	 * Return true if current user is not logged in Facebook
+	 * @return boolean
+	 */
+	public function is_guest_on_fangate(){
+		if($this->fan_gate > 0){
+			return (false == (boolean)$this->signed_request('user_id'));
+		}else{
+			return false;
+		}
+	}
+	
+	/**
 	 * Returns if current page is fan gate.
 	 * @return string
 	 */

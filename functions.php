@@ -61,9 +61,19 @@ function get_user_by_service($service, $credential){
  * @global WP_Gianism $gianism
  * @return boolean
  */
-function is_user_like_me(){
+function is_user_like_fangate(){
 	global $gianism;
 	return $gianism->fb->is_user_like_me_on_fangate();
+}
+
+/**
+ * Returns if current user is guest.
+ * @global WP_Gianism $gianism
+ * @return boolean
+ */
+function is_guest_on_fangate(){
+	global $gianism;
+	return $gianism->fb->is_guest_on_fangate();
 }
 
 /**

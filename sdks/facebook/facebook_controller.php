@@ -117,7 +117,7 @@ EOS;
 							}
 						}
 					}catch(FacebookApiException $e){
-						$this->message = $gianism->_("Oops, Failed to Authenticate.\n").$e->getMessage();
+						$this->message = $gianism->_("Oops, Failed to Authenticate.")."\n".$e->getMessage();
 					}
 				}
 				break;
@@ -130,7 +130,7 @@ EOS;
 				break;
 			case "facebook_login":
 				if(!is_user_logged_in()){
-					$redirect = false;
+					$this->message = $giasnism->_('Oops, Failed to Authenticate.');
 					$facebook_id = $this->facebook()->getUser();
 					if($facebook_id){
 						//Get Facebook ID, So try to find registered user.
@@ -143,7 +143,11 @@ EOS;
 						if(!$user_id){
 							//Cant Find user, try to find by email
 							try{
-								$profile = $this->facebook()->api('/me', 'GET');
+								try{
+									$profile = $this->facebook()->api('/me');
+								}catch(FacebookApiException $e){
+									$profile = $this->facebook()->api('/'.$facebook_id);
+								}
 								if(isset($profile['email'])){
 									$email = (string)$profile['email'];
 									//Try to find registered user
@@ -180,7 +184,7 @@ EOS;
 								}
 							}catch(FacebookApiException $e){
 								//Can't get email, so, error.
-								$redirect = true;
+								$this->message .= "\n".$e->getMessage();
 							}
 						}
 					}

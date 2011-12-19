@@ -116,6 +116,54 @@ EOS;
 					$this->do_redirect();
 				}
 				break;
+			case "google_login":
+				if(isset($_GET['code']) && !is_user_logged_in()){
+					$this->api()->authenticate();
+					if($this->api()->getAccessToken()){
+						$profile = $this->get_profile();
+						if(!empty($profile)){
+							$email = $profile['email'];
+							$plus_id = isset($profile['id']) ? $profile['id'] : 0;
+							$user_id = email_exists($email);
+							if(!$user_id){
+								$query = <<<EOS
+									SELECT user_id FROM {$wpdb->usermeta}
+									WHERE meta_key = %s AND meta_value = %s
+EOS;
+								$user_id = $wpdb->get_var($wpdb->prepare($query, $this->umeta_account, $email));
+								if(!$user_id){
+									//Not found, Create New User
+									require_once(ABSPATH . WPINC . '/registration.php');
+									//Check if username exists
+									$user_id = wp_create_user($email, wp_generate_password(), $email);
+									if(!is_wp_error($user_id)){
+										update_user_meta($user_id, $this->umeta_account, $email);
+										if($plus_id){
+											update_user_meta($user_id, $this->umeta_plus, $plus_id);
+										}
+										$wpdb->update(
+											$wpdb->users,
+											array(
+												'display_name' => $profile['name']
+											),
+											array('ID' => $user_id),
+											array('%s'),
+											array('%d')
+										);
+									}
+								}
+							}
+						}
+					}
+					if(!$user_id || is_wp_error($user_id)){
+						$this->add_message('Oops, Failed to Authenticate.');
+						$this->set_redirect(wp_login_url($this->get_redirect()));
+					}else{
+						wp_set_auth_cookie($user_id, true);
+					}
+					$this->do_redirect();
+				}
+				break;
 		}
 	}
 	
@@ -158,6 +206,25 @@ EOS;
 				<p class="description"><?php echo $desc;?></p>
 			</td>
 		</tr>
+		<?php
+	}
+	
+	/**
+	 * Echo login form
+	 * @global WP_Gianism $gianism 
+	 */
+	public function login_form(){
+		global $gianism;
+		$this->set_redirect($this->get_redirect_to(admin_url('profile.php')));
+		$this->set_action('google_login');
+		$url = $this->api()->createAuthUrl();
+		$link_text = $gianism->_('Login with Google');
+		$onclick = '';
+		?>
+		<a class="wpg_ggl_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
+			<i></i>
+			<?php echo $link_text;?>
+		</a>
 		<?php
 	}
 	
@@ -208,12 +275,25 @@ EOS;
 	}
 	
 	/**
+	 * Returns currentlly saved url.
+	 * @return string
+	 */
+	private function get_redirect(){
+		if(isset($_SESSION['_wpg_ggl_redirect']) && !empty($_SESSION['_wpg_ggl_redirect'])){
+			$url = (string)$_SESSION['_wpg_ggl_redirect'];
+			unset($_SESSION['_wpg_ggl_redirect']);
+			return $url;
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * Do redirect on session information
 	 */
 	private function do_redirect(){
-		if(isset($_SESSION['_wpg_ggl_redirect']) && !empty($_SESSION['_wpg_ggl_redirect'])){
-			$url = (string)$_SESSION['_wpg_ggl_redirect'];
-			$_SESSION['_wpg_ggl_redirect'] = "";
+		$url = $this->get_redirect();
+		if($url){
 			header("Location: ".$url);
 			die();
 		}
@@ -236,7 +316,7 @@ EOS;
 	protected function get_action(){
 		if(isset($_SESSION['_wpg_ggl_action']) && !empty($_SESSION['_wpg_ggl_action'])){
 			$action = (string)$_SESSION['_wpg_ggl_action'];
-			$_SESSION['_wpg_ggl_action'] = "";
+			unset($_SESSION['_wpg_ggl_action']);
 			return $action;
 		}else{
 			return "";

@@ -192,7 +192,7 @@ EOS;
 			$this->save_token($token);
 			$url = $oauth->getAuthorizeURL($token);
 			$link_text = $gianism->_('Connect');
-			$desc = sprintf($gianism->_("Connecting Twitter account, you can log in %s via Twitter account."), get_bloginfo('name'));
+			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"Twitter", get_bloginfo('name'));
 			$onclick = '';
 		}
 		?>

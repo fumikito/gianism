@@ -98,12 +98,16 @@
 			</tr>
 
 			<tr>
-				<th><label for="ggl_consumer_key"><?php $this->e('Consumer Key'); ?></label></th>
+				<th><label for="ggl_consumer_key"><?php $this->e('Client ID'); ?></label></th>
 				<td><input class="regular-text" type="text" name="ggl_consumer_key" id="ggl_consumer_key" value="<?php echo $this->option['ggl_consumer_key']?>" /></td>
 			</tr>
 			<tr>
-				<th><label for="ggl_consumer_secret"><?php $this->e('Consumer Secret'); ?></label></th>
+				<th><label for="ggl_consumer_secret"><?php $this->e('Client Secret'); ?></label></th>
 				<td><input class="regular-text" type="text" name="ggl_consumer_secret" id="ggl_consumer_secret" value="<?php echo $this->option['ggl_consumer_secret']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="ggl_redirect_uri"><?php $this->e('Redirect URI'); ?></label></th>
+				<td><input class="regular-text" type="text" name="ggl_redirect_uri" id="ggl_redirect_uri" value="<?php echo $this->option['ggl_redirect_uri']?>" /></td>
 			</tr>
 		</tbody>
 	</table>

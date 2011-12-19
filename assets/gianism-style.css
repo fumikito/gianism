@@ -86,3 +86,52 @@
 	margin-top: -7px;
 	top: 50%;
 }
+
+/* Google */
+.wpg_ggl_btn{
+	position: relative;
+	background-color: whiteSmoke;
+	background-image: -webkit-linear-gradient(top,whiteSmoke,#F1F1F1);
+	background-image: -moz-linear-gradient(top,whiteSmoke,#F1F1F1);
+	background-image: -ms-linear-gradient(top,whiteSmoke,#F1F1F1);
+	background-image: -o-linear-gradient(top,whiteSmoke,#F1F1F1);
+	background-image: linear-gradient(top,whiteSmoke,#F1F1F1);
+	color: #444;
+	border: 1px solid gainsboro;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 11px;
+	font-weight: bold;
+	height: 27px;
+	line-height: 27px;
+	outline: 0;
+	padding: 0 8px 0 24px;
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	cursor: pointer;
+}
+.wpg_ggl_btn:link,
+.wpg_ggl_btn:visited{
+	text-decoration: none;
+}
+
+.wpg_ggl_btn:hover,
+.wpg_ggl_btn:active{
+	text-decoration: none;
+	-webkit-box-shadow:0 2px 4px #ccc;
+	-moz-box-shadow:0 2px 4px #ccc;
+	box-shadow:0 2px 4px #ccc;	
+}
+.wpg_ggl_btn i {
+	position: absolute;
+	background: transparent url('./google.png') 0 0 no-repeat;
+	width: 16px;
+	height: 16px;
+	left: 5px;
+	margin-top: -7px;
+	top: 50%;
+}

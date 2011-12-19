@@ -11,6 +11,16 @@ class WP_Gianism{
 	public $fb = null;
 	
 	/**
+	 * @var Twitter_Controller
+	 */
+	public $twitter = null;
+	
+	/**
+	 * @var Google_Controller
+	 */
+	public $google = null;
+	
+	/**
 	 * @var string
 	 */
 	private $version;
@@ -70,7 +80,8 @@ class WP_Gianism{
 		"tw_access_token_secret" => "",
 		"ggl_enabled" => 0,
 		"ggl_consumer_key" => "",
-		"ggl_consumer_secret" => ""
+		"ggl_consumer_secret" => "",
+		"ggl_redirect_uri" => ""
 	);
 	
 	/**
@@ -162,7 +173,8 @@ class WP_Gianism{
 				"tw_access_token_secret" => (string)$this->post('tw_access_token_secret'),
 				'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
 				"ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
-				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret')
+				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),
+				"ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri')
 			);
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));

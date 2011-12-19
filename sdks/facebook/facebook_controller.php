@@ -130,7 +130,7 @@ EOS;
 				if(is_user_logged_in() && isset($_REQUEST['_wpnonce']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'facebook_disconnect')){
 					delete_user_meta($user_ID, $this->umeta_id);
 					delete_user_meta($user_ID, $this->umeta_mail);
-					$this->message = $gianism->_("Disconect your Facebook account.");
+					$this->message = sprintf($gianism->_("Disconected your %s account."), "Facebook");
 				}
 				break;
 			case "facebook_login":

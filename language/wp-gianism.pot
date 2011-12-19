@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-19 04:00+0900\n"
-"PO-Revision-Date: 2011-12-19 04:01+0900\n"
+"POT-Creation-Date: 2011-12-20 06:04+0900\n"
+"PO-Revision-Date: 2011-12-20 06:04+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,79 +17,100 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:157
+#: ../WP_Gianism.php:180
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:159
+#: ../WP_Gianism.php:182
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:169
-#: ../templates/setting.php:4
+#: ../WP_Gianism.php:192
 msgid "WP Gianism setting"
 msgstr ""
 
-#: ../WP_Gianism.php:169
-#: ../WP_Gianism.php:187
+#: ../WP_Gianism.php:192
+#: ../WP_Gianism.php:210
 msgid "External Service"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:90
-#: ../sdks/facebook/facebook_controller.php:120
-#: ../sdks/facebook/facebook_controller.php:133
-#: ../sdks/twitter/twitter_controller.php:94
-#: ../sdks/twitter/twitter_controller.php:97
-#: ../sdks/twitter/twitter_controller.php:100
-#: ../sdks/twitter/twitter_controller.php:159
+#: ../sdks/facebook/facebook_controller.php:95
+#: ../sdks/facebook/facebook_controller.php:125
+#: ../sdks/facebook/facebook_controller.php:138
+#: ../sdks/google/google_controller.php:77
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:114
+#: ../sdks/facebook/facebook_controller.php:119
 #, php-format
 msgid "Welcome!, %s"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:116
-#: ../sdks/twitter/twitter_controller.php:91
+#: ../sdks/facebook/facebook_controller.php:121
+#: ../sdks/google/google_controller.php:104
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:128
-msgid "Disconect your Facebook account."
+#: ../sdks/facebook/facebook_controller.php:133
+#: ../sdks/google/google_controller.php:115
+#, php-format
+msgid "Disconected your %s account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:216
-#: ../sdks/twitter/twitter_controller.php:194
+#: ../sdks/facebook/facebook_controller.php:221
+#: ../sdks/google/google_controller.php:194
 msgid "Connect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:217
+#: ../sdks/facebook/facebook_controller.php:222
 #, php-format
 msgid "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:224
-#: ../sdks/twitter/twitter_controller.php:177
+#: ../sdks/facebook/facebook_controller.php:229
+#: ../sdks/google/google_controller.php:186
 msgid "Disconnect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:226
+#: ../sdks/facebook/facebook_controller.php:231
 msgid "Your account is already connected with Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:227
-#: ../sdks/twitter/twitter_controller.php:186
+#: ../sdks/facebook/facebook_controller.php:232
+#: ../sdks/google/google_controller.php:189
 msgid "You really disconnect this account?"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:232
+#: ../sdks/facebook/facebook_controller.php:237
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:262
+#: ../sdks/facebook/facebook_controller.php:267
 msgid "Log in with Facebook"
+msgstr ""
+
+#: ../sdks/google/google_controller.php:102
+#, php-format
+msgid "Welcom, %s!"
+msgstr ""
+
+#: ../sdks/google/google_controller.php:188
+#, php-format
+msgid "Your account is already connected with Google &lt;%s&gt;."
+msgstr ""
+
+#: ../sdks/google/google_controller.php:195
+#, php-format
+msgid "Connecting %1$s account, you can log in %2$s via %1$s account."
+msgstr ""
+
+#: ../sdks/google/google_controller.php:200
+msgid "Google"
+msgstr ""
+
+#: ../sdks/google/google_controller.php:221
+msgid "Login with Google"
 msgstr ""
 
 #: ../sdks/twitter/twitter_controller.php:89
@@ -111,11 +132,6 @@ msgstr ""
 msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:195
-#, php-format
-msgid "Connecting Twitter account, you can log in %s via Twitter account."
-msgstr ""
-
 #: ../sdks/twitter/twitter_controller.php:200
 msgid "Twitter"
 msgstr ""
@@ -130,11 +146,13 @@ msgstr ""
 
 #: ../templates/setting.php:15
 #: ../templates/setting.php:56
+#: ../templates/setting.php:91
 msgid "Enable"
 msgstr ""
 
 #: ../templates/setting.php:19
 #: ../templates/setting.php:60
+#: ../templates/setting.php:95
 msgid "Disable"
 msgstr ""
 
@@ -155,6 +173,7 @@ msgid "No Fan Gate"
 msgstr ""
 
 #: ../templates/setting.php:52
+#: ../templates/setting.php:87
 #, php-format
 msgid "Connect with %s"
 msgstr ""
@@ -173,5 +192,17 @@ msgstr ""
 
 #: ../templates/setting.php:78
 msgid "Access token secret"
+msgstr ""
+
+#: ../templates/setting.php:101
+msgid "Client ID"
+msgstr ""
+
+#: ../templates/setting.php:105
+msgid "Client Secret"
+msgstr ""
+
+#: ../templates/setting.php:109
+msgid "Redirect URI"
 msgstr ""
 

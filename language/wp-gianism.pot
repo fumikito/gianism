@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 16:47+0900\n"
-"PO-Revision-Date: 2011-12-21 16:47+0900\n"
+"POT-Creation-Date: 2011-12-21 17:39+0900\n"
+"PO-Revision-Date: 2011-12-21 17:39+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgid "Delete"
 msgstr ""
 
 #: ../WP_Gianism.php:195
-#: ../WP_Gianism.php:307
+#: ../WP_Gianism.php:311
 msgid "No message."
 msgstr ""
 
@@ -40,16 +40,20 @@ msgid "Option failed to update."
 msgstr ""
 
 #: ../WP_Gianism.php:242
-#: ../WP_Gianism.php:260
+#: ../WP_Gianism.php:264
 msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:305
+#: ../WP_Gianism.php:309
 msgid "You really delete this message?"
 msgstr ""
 
-#: ../WP_Gianism.php:306
+#: ../WP_Gianism.php:310
 msgid "You cannot delete this message."
+msgstr ""
+
+#: ../WP_Gianism.php:528
+msgid "Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!"
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:95

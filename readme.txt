@@ -1,4 +1,4 @@
-=== Literally WordPress ===
+=== Gianism ===
 Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,account,oauth,community
 Requires at least: 3.1

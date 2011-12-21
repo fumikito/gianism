@@ -311,5 +311,47 @@ EOS;
 			<?php
 		}
 	}
-		
+	
+	/**
+	 * Mail Handler for pseudo mail
+	 * @global WP_Gianism $gianism
+	 * @param int $user_id
+	 * @param string $subject
+	 * @param string $message
+	 * @param array $headers
+	 * @param array $attchment 
+	 */
+	public function wp_mail($user_id, $subject, $message, $headers, $attchment){
+		global $gianism;
+		//Save Message
+		wp_insert_post(array(
+			'post_type' => $gianism->message_post_type,
+			'post_title' => $subject,
+			'post_content' => $message,
+			'post_author' => $user_id,
+			'post_status' => 'publish'
+		));
+		//Send DM
+		$this->send_dm($user_id, $subject);
+	}
+	
+	/**
+	 * Send direct message on twitter.
+	 * @global WP_Gianism $gianism
+	 * @param int $user_id
+	 * @param string $text 
+	 */
+	private function send_dm($user_id, $subject){
+		global $gianism;
+		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
+		$twitter_id = get_user_meta($user_id, $this->umeta_id, true);
+		if($twitter_id){
+			$endpoint = "https://api.twitter.com/1/direct_messages/new.json";
+			$body = sprintf($gianism->_('You have message "%1$s" on %2$s. %3$s'), $subject, get_bloginfo('name'), admin_url('profile.php'));
+			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+				'user_id' => $twitter_id,
+				'text' => $body
+			));
+		}
+	}
 }

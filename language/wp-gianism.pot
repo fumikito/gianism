@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-20 06:04+0900\n"
-"PO-Revision-Date: 2011-12-20 06:04+0900\n"
+"POT-Creation-Date: 2011-12-21 16:47+0900\n"
+"PO-Revision-Date: 2011-12-21 16:47+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,21 +17,39 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:180
+#: ../WP_Gianism.php:172
+#, php-format
+msgid "Message to %s"
+msgstr ""
+
+#: ../WP_Gianism.php:187
+msgid "Delete"
+msgstr ""
+
+#: ../WP_Gianism.php:195
+#: ../WP_Gianism.php:307
+msgid "No message."
+msgstr ""
+
+#: ../WP_Gianism.php:230
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:182
+#: ../WP_Gianism.php:232
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:192
-msgid "WP Gianism setting"
+#: ../WP_Gianism.php:242
+#: ../WP_Gianism.php:260
+msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:192
-#: ../WP_Gianism.php:210
-msgid "External Service"
+#: ../WP_Gianism.php:305
+msgid "You really delete this message?"
+msgstr ""
+
+#: ../WP_Gianism.php:306
+msgid "You cannot delete this message."
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:95
@@ -140,69 +158,92 @@ msgstr ""
 msgid "Login with Twitter"
 msgstr ""
 
+#: ../sdks/twitter/twitter_controller.php:350
+#, php-format
+msgid "You have message \"%1$s\" on %2$s. %3$s"
+msgstr ""
+
 #: ../templates/setting.php:11
 msgid "Connect with Facebook"
 msgstr ""
 
 #: ../templates/setting.php:15
-#: ../templates/setting.php:56
-#: ../templates/setting.php:91
+#: ../templates/setting.php:62
+#: ../templates/setting.php:100
 msgid "Enable"
 msgstr ""
 
 #: ../templates/setting.php:19
-#: ../templates/setting.php:60
-#: ../templates/setting.php:95
+#: ../templates/setting.php:66
+#: ../templates/setting.php:104
 msgid "Disable"
 msgstr ""
 
-#: ../templates/setting.php:24
+#: ../templates/setting.php:22
+#: ../templates/setting.php:69
+#: ../templates/setting.php:107
+#, php-format
+msgid "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to get required infomation."
+msgstr ""
+
+#: ../templates/setting.php:27
 msgid "App ID"
 msgstr ""
 
-#: ../templates/setting.php:30
+#: ../templates/setting.php:33
 msgid "App Secret"
 msgstr ""
 
-#: ../templates/setting.php:36
+#: ../templates/setting.php:39
 msgid "Facebook Fan Gate"
 msgstr ""
 
-#: ../templates/setting.php:39
+#: ../templates/setting.php:42
 msgid "No Fan Gate"
 msgstr ""
 
-#: ../templates/setting.php:52
-#: ../templates/setting.php:87
+#: ../templates/setting.php:48
+#, php-format
+msgid "If you have fan page and use WordPress page as it, specify it here. Some functions are available. For details, see <strong>%s</strong>"
+msgstr ""
+
+#: ../templates/setting.php:58
+#: ../templates/setting.php:96
 #, php-format
 msgid "Connect with %s"
 msgstr ""
 
-#: ../templates/setting.php:66
+#: ../templates/setting.php:75
 msgid "Consumer Key"
 msgstr ""
 
-#: ../templates/setting.php:70
+#: ../templates/setting.php:79
 msgid "Consumer Secret"
 msgstr ""
 
-#: ../templates/setting.php:74
+#: ../templates/setting.php:83
 msgid "Access Token"
 msgstr ""
 
-#: ../templates/setting.php:78
+#: ../templates/setting.php:87
 msgid "Access token secret"
 msgstr ""
 
-#: ../templates/setting.php:101
+#: ../templates/setting.php:113
 msgid "Client ID"
 msgstr ""
 
-#: ../templates/setting.php:105
+#: ../templates/setting.php:117
 msgid "Client Secret"
 msgstr ""
 
-#: ../templates/setting.php:109
+#: ../templates/setting.php:121
+#: ../templates/setting.php:125
 msgid "Redirect URI"
+msgstr ""
+
+#: ../templates/setting.php:125
+#, php-format
+msgid "Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http with https."
 msgstr ""
 

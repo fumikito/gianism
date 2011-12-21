@@ -1,15 +1,17 @@
 <?php
 /**
  * @package wp_gianism
- * @version 0.8
+ * @version 1.0
  */
 /*
 Plugin Name: Gianism
-Plugin URI: http://hametuha.co.jp
+Plugin URI: http://wordpress.org/extend/plugins/gianism/
 Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
-Author: Hametuha inc.
-Version: 0.8
-Author URI: http://hametuha.co.jp
+Author: Takahashi Fumiki
+Version: 1.0
+Author URI: http://takahashifumiki.com
+Text Domain: wp-gianism
+Domain Path: /language/
 */
 
 //Load Utility Classes
@@ -18,7 +20,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR."WP_Gianism.php";
 /**
  * @var $gianism WP_Gianism
  */
-$gianism = new WP_Gianism(__FILE__, "0.8");
+$gianism = new WP_Gianism(__FILE__, "1.0");
 
 //Load global functions
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR."functions.php";

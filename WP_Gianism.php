@@ -59,10 +59,16 @@ class WP_Gianism{
 	 * @var array
 	 */
 	protected $container = array();
+	
 	/**
 	 * @var array
 	 */
 	public $option = array();
+	
+	/**
+	 * @var string
+	 */
+	public $message_post_type = 'gianism_message';
 	
 	/**
 	 * オプション初期値
@@ -131,8 +137,11 @@ class WP_Gianism{
 			$this->google = new Google_Controller($this->option);
 		}
 		if($this->is_enabled()){
+			//Create Post type
+			$this->create_message_post_type();
 			//Show Login button on profile page
 			add_action('show_user_profile', array($this, 'show_user_profile'));
+			add_action('show_user_profile', array($this, 'show_direct_message'));
 			//Show Login button on login page
 			add_action('login_form', array($this, 'show_login_form'));
 			//Show Register button on Register page
@@ -140,10 +149,51 @@ class WP_Gianism{
 			//Load CSS
 			add_action('admin_print_styles', array($this, 'enqueue_style'));
 			add_action('wp_print_styles', array($this, 'enqueue_style'));
+			//Add Ajax Action
+			add_action('wp_ajax_wpg_ajax', array($this, 'ajax'));
 		}
 		//Add Assets
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
-		add_action('enqueue_scripts', array($this, 'enqueue_scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+	}
+	
+	public function create_message_post_type(){
+		register_post_type($this->message_post_type,array(
+			'public' => false
+		));
+	}
+	
+	public function show_direct_message(){
+		global $user_ID, $user_email, $user_identity;
+		if(!defined("IS_PROFILE_PAGE")){
+			return;
+		}
+		?>
+		<h3><?php printf($this->_('Message to %s'), $user_identity); ?></h3>
+		<?php
+		$query = new WP_Query("post_type={$this->message_post_type}&author={$user_ID}&posts_per_page=-1&post_status=publish,private");
+		if($query->have_posts()): ?>
+		<div class="wpg-message">
+			<table class="form-table">
+				<tbody>
+		<?php while($query->have_posts()): $query->the_post(); ?>
+					<tr>
+						<th>
+							<?php the_title(); ?><br />
+							<small><?php the_time('Y-m-d H:i:s'); ?></small>
+						</th>
+						<td><?php the_content(); ?></td>
+						<td>
+							<a href="#<?php the_ID(); ?>" class="button delete"><?php $this->e('Delete'); ?></a>
+						</td>
+					</tr>
+		<?php endwhile; wp_reset_query(); ?>
+				</tbody>
+			</table>
+		</div>
+		<?php else:
+			printf("<p>%s</p>", $this->_('No message.'));
+		endif;
 	}
 	
 	/**
@@ -189,7 +239,11 @@ class WP_Gianism{
 	 * @return void
 	 */
 	public function admin_menu(){
-		add_users_page($this->_('WP Gianism setting'), $this->_("External Service"), 'edit_users', 'gianism', array($this, 'render'));
+		add_users_page($this->_('External Service'), $this->_("External Service"), 'edit_users', 'gianism', array($this, 'render'));
+		//Create plugin link
+		add_filter('plugin_action_links', array($this, 'plugin_page_link'), 10, 2);
+		add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
+		
 	}
 	
 	/**
@@ -246,6 +300,40 @@ class WP_Gianism{
 	 */
 	public function enqueue_scripts($hook){
 		wp_enqueue_script('jquery');
+		if(defined('IS_PROFILE_PAGE') && IS_PROFILE_PAGE){
+			wp_enqueue_script('wpg-ajax', $this->url."/assets/message-manager.js", array('jquery'), $this->version);
+			wp_localize_script('wpg-ajax', 'WPG', array(
+				'endpoint' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('wpg_ajax'),
+				'action' => 'wpg_ajax',
+				'deleteConfirm' => $this->_('You really delete this message?'),
+				'deleteFailed' => $this->_('You cannot delete this message.'),
+				'deleteComplete' => $this->_('No message.')
+			));
+		}
+	}
+	
+	/**
+	 * Manage Ajax Request
+	 * @global int $user_ID 
+	 */
+	public function ajax(){
+		global $user_ID;
+		if(wp_verify_nonce($this->request('_wpnonce'), 'wpg_ajax')){
+			switch($this->request('type')){
+				default:
+					$post = wp_get_single_post($this->request('post_id'));
+					$json = array('status' => false);
+					if($post && $post->post_author == $user_ID){
+						wp_delete_post($post->ID);
+						$json['status'] = true;
+					}
+					header('Content-Type: application/json; charset=utf-8');
+					echo json_encode($json);
+					die();
+					break;
+			}
+		}
 	}
 	
 	/**
@@ -431,5 +519,32 @@ class WP_Gianism{
 	 */
 	public function _($text){
 		return __($text, $this->domain);
+	}
+	
+	/**
+	 * For not called gettext
+	 */
+	private function ___(){
+		$this->_('Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!');
+	}
+	
+	/**
+	 * Setup plugin links.
+	 * @param array $links
+	 * @param string $file
+	 * @return array
+	 */
+	public function plugin_page_link($links, $file){
+		if(false !== strpos($file, 'wp-gianism')){
+			array_unshift($links, '<a href="'.admin_url('users.php?page=gianism').'">'.__('Settings').'</a>');
+		}
+		return $links;
+	}
+	
+	public function plugin_row_meta($links, $file){
+		if(false !== strpos($file, 'wp-gianism')){
+			
+		}
+		return $links;
 	}
 }

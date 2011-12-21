@@ -54,6 +54,9 @@ class Gianism_Controller {
 			add_action('admin_print_footer_scripts', array($this, 'print_script'));
 			add_action('wp_footer', array($this, 'print_script'));
 		}
+		if(method_exists($this, 'wp_mail')){
+			add_filter('wp_mail', array($this, '_wp_mail'));
+		}
 	}
 	
 	/**
@@ -115,5 +118,18 @@ class Gianism_Controller {
 	 */
 	protected function is_pseudo_mail($mail){
 		return !empty($this->pseudo_domain) && (false !== strpos($mail, "@".$this->pseudo_domain));
+	}
+	
+	/**
+	 *
+	 * @param type $args
+	 * @return type 
+	 */
+	public function _wp_mail($args){
+		extract($args);
+		if(!empty($this->pseudo_domain) && false !== strpos($to, "@".$this->pseudo_domain) && ($user_id = email_exists($to))){
+			$this->wp_mail($user_id, $subject, $message, $headers, $attchment);
+		}
+		return $args;
 	}
 }

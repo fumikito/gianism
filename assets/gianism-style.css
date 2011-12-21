@@ -135,3 +135,8 @@
 	margin-top: -7px;
 	top: 50%;
 }
+/* Message box*/
+.wpg-message{
+	max-height: 500px;
+	overflow: auto;
+}

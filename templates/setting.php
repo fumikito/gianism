@@ -1,10 +1,10 @@
 <?php do_action('admin_notice'); ?>
 <?php /* @var $this WP_Gianism */ ?>
 <div id="icon-users" class="icon32"><br></div>
-<h2><?php $this->e('WP Gianism setting'); ?></h2>
+<h2><?php $this->e('External Service'); ?></h2>
 <form method="post">
 	<?php $this->nonce_field('option'); ?>
-	<h3>Facebook</h3>
+	<h3 style="clear: left;">Facebook</h3>
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -18,6 +18,9 @@
 						<input type="radio" name="fb_enabled" value="0"<?php if(!$this->option['fb_enabled']) echo ' checked="checked"';?> />
 						<?php $this->e('Disable');?>
 					</label>
+					<p class="description">
+						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Facebook", "https://developers.facebook.com/apps"); ?>
+					</p>
 				</td>
 			</tr>
 			<tr>
@@ -41,6 +44,9 @@
 						<option value="<?php the_ID(); ?>"<?php if($this->option['fb_fan_gate'] == get_the_ID()) echo ' selected="selected"';?>><?php the_title(); ?></option>
 						<?php endwhile; endif; wp_reset_query();?>
 					</select>
+					<p class="description">
+						<?php printf($this->_('If you have fan page and use WordPress page as it, specify it here. Some functions are available. For details, see <strong>%s</strong>'), dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR."functions.php"); ?>
+					</p>
 				</td>
 			</tr>
 		</tbody>
@@ -59,6 +65,9 @@
 						<input type="radio" name="tw_enabled" value="0"<?php if(!$this->option['tw_enabled']) echo ' checked="checked"';?> />
 						<?php $this->e('Disable');?>
 					</label>
+					<p class="description">
+						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Twitter", "https://dev.twitter.com/apps"); ?>
+					</p>
 				</td>
 			</tr>
 
@@ -94,6 +103,9 @@
 						<input type="radio" name="ggl_enabled" value="0"<?php if(!$this->option['ggl_enabled']) echo ' checked="checked"';?> />
 						<?php $this->e('Disable');?>
 					</label>
+					<p class="description">
+						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Google API Console", "https://code.google.com/apis/console"); ?>
+					</p>
 				</td>
 			</tr>
 
@@ -107,7 +119,12 @@
 			</tr>
 			<tr>
 				<th><label for="ggl_redirect_uri"><?php $this->e('Redirect URI'); ?></label></th>
-				<td><input class="regular-text" type="text" name="ggl_redirect_uri" id="ggl_redirect_uri" value="<?php echo $this->option['ggl_redirect_uri']?>" /></td>
+				<td>
+					<input class="regular-text" type="text" name="ggl_redirect_uri" id="ggl_redirect_uri" value="<?php echo $this->option['ggl_redirect_uri']?>" />
+					<p class="description">
+						<?php printf($this->_('Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it\'s http with https.'), $this->_('Redirect URI'), get_bloginfo('url'), "Google API Console"); ?>
+					</p>
+				</td>
 			</tr>
 		</tbody>
 	</table>

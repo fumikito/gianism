@@ -10,6 +10,11 @@ class Twitter_Controller extends Gianism_Controller{
 	/**
 	 * @var string
 	 */
+	private $screen_name = '';
+	
+	/**
+	 * @var string
+	 */
 	private $consumer_key = '';
 	
 	/**
@@ -48,11 +53,13 @@ class Twitter_Controller extends Gianism_Controller{
 	 */
 	protected function set_option($option) {
 		$option = shortcode_atts(array(
+			"tw_screen_name" => '',
 			"tw_consumer_key" => "",
 			"tw_consumer_secret" => "",
 			"tw_access_token" => "",
 			"tw_access_token_secret" => ""
 		), $option);
+		$this->screen_name = (string)$option['tw_screen_name'];
 		$this->consumer_key = (string)$option['tw_consumer_key'];
 		$this->consumer_secret = (string)$option['tw_consumer_secret'];
 		$this->my_access_token = (string)$option['tw_access_token'];
@@ -86,6 +93,7 @@ EOS;
 							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $user_ID, $this->umeta_screen_name, $access_token['screen_name'], $user_ID)){
 								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
+								$this->follow_me($oauth);
 								$this->add_alert(sprintf($gianism->_('Welcome, @%s!'), $access_token['screen_name']));
 							}else{
 								$this->add_alert(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
@@ -145,6 +153,7 @@ EOS;
 										array('%s', '%s'),
 										array('%d')
 									);
+									$this->follow_me($oauth);
 								}
 							}
 						}
@@ -351,6 +360,22 @@ EOS;
 			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
 				'user_id' => $twitter_id,
 				'text' => $body
+			));
+		}
+	}
+	
+	/**
+	 * Force authencated user to follow me
+	 * @global WP_Gianism $gianism
+	 * @param TwitterOAuth $oauth 
+	 */
+	private function follow_me($oauth){
+		global $gianism;
+		if(!empty($this->screen_name)){
+			$endpoint = 'http://api.twitter.com/1/friendships/create.json';
+			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+				'screen_name' => $this->screen_name,
+				'follow' => true
 			));
 		}
 	}

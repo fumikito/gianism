@@ -3,7 +3,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,account,oauth,community
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.0
+Stable tag: 1.1
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -35,11 +35,19 @@ e.g.
 
 == Changelog ==
 
+= 1.1 =
+
+* Twitterアカウントのみで登録したユーザーにDMを送信するため、強制的にフォローする仕様に変更しました。
+
 = 1.0 =
 
 * 公開
 
 == Upgrade Notice ==
+
+= 1.1 =
+
+Twitterでログインしたユーザーに自分をフォローさせるため、管理画面からスクリーン名（@xxx）を追加してください。入力しない場合はフォローされない場合もあるため、DMが送信できないことがあります。
 
 = 1.0 =
 

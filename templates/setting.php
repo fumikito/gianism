@@ -72,6 +72,10 @@
 			</tr>
 
 			<tr>
+				<th><label for="tw_screen_name"><?php $this->e('Screen Name'); ?></label></th>
+				<td><input class="regular-text" type="text" name="tw_screen_name" id="tw_screen_name" value="<?php echo $this->option['tw_screen_name']?>" /></td>
+			</tr>
+			<tr>
 				<th><label for="tw_consumer_key"><?php $this->e('Consumer Key'); ?></label></th>
 				<td><input class="regular-text" type="text" name="tw_consumer_key" id="tw_consumer_key" value="<?php echo $this->option['tw_consumer_key']?>" /></td>
 			</tr>
@@ -87,6 +91,7 @@
 				<th><label for="tw_access_token_secret"><?php $this->e('Access token secret'); ?></label></th>
 				<td><input class="regular-text" type="text" name="tw_access_token_secret" id="tw_access_token_secret" value="<?php echo $this->option['tw_access_token_secret']?>" /></td>
 			</tr>
+			
 		</tbody>
 	</table>
 	<h3>Google</h3>

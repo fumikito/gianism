@@ -135,7 +135,7 @@ EOS;
 				break;
 			case "facebook_login":
 				if(!is_user_logged_in()){
-					$this->message = $giasnism->_('Oops, Failed to Authenticate.');
+					$this->message = $gianism->_('Oops, Failed to Authenticate.');
 					$facebook_id = $this->facebook()->getUser();
 					if($facebook_id){
 						//Get Facebook ID, So try to find registered user.

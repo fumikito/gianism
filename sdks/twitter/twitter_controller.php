@@ -173,6 +173,7 @@ EOS;
 	
 	/**
 	 * Show connect button on login form
+	 * 
 	 * @global WP_Gianism $gianism
 	 * @return void
 	 */
@@ -350,7 +351,7 @@ EOS;
 	 * @param int $user_id
 	 * @param string $text 
 	 */
-	private function send_dm($user_id, $subject){
+	public function send_dm($user_id, $subject){
 		global $gianism;
 		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
 		$twitter_id = get_user_meta($user_id, $this->umeta_id, true);
@@ -362,6 +363,20 @@ EOS;
 				'text' => $body
 			));
 		}
+	}
+	
+	/**
+	 * Tweet with Owner ID
+	 * @global WP_Gianism $gianism
+	 * @param string $string 
+	 */
+	public function tweet($string){
+		global $gianism;
+		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
+		$endpoint = 'https://api.twitter.com/1/statuses/update.json';
+		$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+			'status' => $string
+		));
 	}
 	
 	/**

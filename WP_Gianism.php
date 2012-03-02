@@ -166,7 +166,7 @@ class WP_Gianism{
 	
 	public function show_direct_message(){
 		global $user_ID, $user_email, $user_identity;
-		if(!defined("IS_PROFILE_PAGE")){
+		if(!defined("IS_PROFILE_PAGE") && !IS_PROFILE_PAGE){
 			return;
 		}
 		?>

@@ -110,3 +110,40 @@ function get_user_id_on_fangate(){
 	global $gianism;
 	return $gianism->fb->is_registered_user_on_fangate();
 }
+
+/**
+ * Get Twitter Screen Name 
+ * @global WP_Gianism $gianism
+ * @param int $user_id
+ * @return string|false 
+ */
+function get_twitter_screen_name($user_id){
+	global $gianism;
+	return get_user_meta($user_id, $gianism->twitter->umeta_screen_name, true);
+}
+
+/**
+ * Update Twitter timeline
+ * @global WP_Gianism $gianism
+ * @param string $string 
+ */
+function update_twitter_status($string){
+	global $gianism;
+	$gianism->twitter->tweet($string);
+}
+
+/**
+ * Reply to specified user by Owner Account
+ * @param int $user_id
+ * @param string $string
+ * @return boolean 
+ */
+function twitter_reply_to($user_id, $string){
+	$screen_name = get_twitter_screen_name($user_id);
+	if($screen_name){
+		update_twitter_status("@{$screen_name} ".$string);
+		return true;
+	}else{
+		return false;
+	}
+}

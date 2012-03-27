@@ -1,14 +1,14 @@
 <?php
 /**
  * @package wp_gianism
- * @version 1.1.2
+ * @version 1.1.3
  */
 /*
 Plugin Name: Gianism
 Plugin URI: http://wordpress.org/extend/plugins/gianism/
 Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 Author: Takahashi Fumiki
-Version: 1.1.2
+Version: 1.1.3
 Author URI: http://takahashifumiki.com
 Text Domain: wp-gianism
 Domain Path: /language/

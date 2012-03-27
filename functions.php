@@ -147,3 +147,12 @@ function twitter_reply_to($user_id, $string){
 		return false;
 	}
 }
+
+/**
+ * Show Login buttons
+ * @global WP_Gianism $gianism 
+ */
+function gianism_login(){
+	global $gianism;
+	$gianism->show_login_form();
+}

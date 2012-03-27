@@ -220,13 +220,14 @@ EOS;
 		$url = $this->api()->createAuthUrl();
 		$link_text = $gianism->_('Login with Google');
 		$onclick = '';
-		?>
-		<a class="wpg_ggl_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
-			<i></i>
-			<?php echo $link_text;?>
-		</a>
-		<?php
-	}
+		$mark_up = <<<EOS
+			<a class="wpg_ggl_btn" href="{$url}"{$onclick}>
+				<i></i>
+				{$link_text}
+			</a>
+EOS;
+		echo $this->filter_link($mark_up, $url, $link_text, 'google');
+}
 	
 	/**
 	 *

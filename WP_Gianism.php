@@ -150,6 +150,7 @@ class WP_Gianism{
 			//Load CSS
 			add_action('admin_print_styles', array($this, 'enqueue_style'));
 			add_action('wp_print_styles', array($this, 'enqueue_style'));
+			add_action('login_enqueue_scripts', array($this, 'enqueue_style'));
 			//Add Ajax Action
 			add_action('wp_ajax_wpg_ajax', array($this, 'ajax'));
 		}
@@ -160,7 +161,12 @@ class WP_Gianism{
 	
 	public function create_message_post_type(){
 		register_post_type($this->message_post_type,array(
-			'public' => false
+			'public' => false,
+			'label' => $this->_('Messages'),
+			'labels' => array(
+				'name' => $this->_('Messages'),
+				'singular_name' => $this->_('Message')
+			)
 		));
 	}
 	
@@ -343,7 +349,7 @@ class WP_Gianism{
 	 */
 	public function enqueue_style(){
 		if($this->is_enabled()){
-			wp_enqueue_style($this->name, $this->url."/assets/gianism-style.css", array(), $this->version);
+			wp_enqueue_style($this->name, $this->url."assets/gianism-style.css", array(), $this->version);
 		}
 	}
 	

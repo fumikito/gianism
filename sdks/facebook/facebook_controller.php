@@ -260,13 +260,15 @@ EOS;
 			'scope' => 'email',
 			'redirect_uri' => $login_url,
 		));
+		$link_text = $gianism->e('Log in with Facebook');
 		//Show Login Button
 		$this->js = true;
-		?>
-		<a class="fb_button fb_button_medium" id="fb-login" href="<?php echo $url; ?>">
-			<span class="fb_button_text"><?php $gianism->e('Log in with Facebook');?></span>
+		$mark_up = <<<EOS
+		<a class="fb_button fb_button_medium" id="fb-login" href="{$url}">
+			<span class="fb_button_text">{$link_text}</span>
 		</a>
-		<?php
+EOS;
+		echo $this->filter_link($mark_up, $url, $link_text, 'facebook');
 	}
 	
 	/**

@@ -235,12 +235,13 @@ EOS;
 		$url = $oauth->getAuthorizeURL($token);
 		$link_text = $gianism->_('Login with Twitter');
 		$onclick = '';
-		?>
-		<a class="wpg_tw_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
+		$markup = <<<EOS
+		<a class="wpg_tw_btn" href="{$url}"{$onclick}>
 			<i></i>
-			<span class="label"><?php echo $link_text;?></span>
+			<span class="label">{$link_text}</span>
 		</a>
-		<?php
+EOS;
+		echo $this->filter_link($markup, $url, $link_text, 'twitter');
 	}
 	
 	/**

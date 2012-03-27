@@ -132,4 +132,17 @@ class Gianism_Controller {
 		}
 		return $args;
 	}
+	
+	/**
+	 * Resturns link to filter
+	 * @param string $markup
+	 * @param string $href
+	 * @param string $text
+	 * @param string $hook_name
+	 * @return string 
+	 */
+	public function filter_link($markup, $href, $text, $hook_name){
+		$markup = apply_filters('gianism_link_'.$hook_name, $markup, $href, $text);
+		return $markup;
+	}
 }

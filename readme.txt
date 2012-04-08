@@ -3,7 +3,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,account,oauth,community
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -34,6 +34,11 @@ e.g.
 2. プロフィール編集画面で接続ステータスを表示します。既存のユーザーはこの画面からアカウントを接続できます。
 
 == Changelog ==
+
+= 1.1.4 =
+
+* バグフィックス。Facebookボタンにバグがあったので修正
+* リダイレクト先を変更できるフックを追加
 
 = 1.1.3 =
 

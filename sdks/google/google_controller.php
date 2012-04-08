@@ -287,10 +287,11 @@ EOS;
 		if(isset($_SESSION['_wpg_ggl_redirect']) && !empty($_SESSION['_wpg_ggl_redirect'])){
 			$url = (string)$_SESSION['_wpg_ggl_redirect'];
 			unset($_SESSION['_wpg_ggl_redirect']);
-			return $url;
+			$redirect = $url;
 		}else{
-			return null;
+			$redirect = null;
 		}
+		return apply_filter('gianism_redirect_to', $redirect);
 	}
 	
 	/**

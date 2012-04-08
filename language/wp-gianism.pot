@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-25 17:42+0900\n"
-"PO-Revision-Date: 2011-12-25 17:42+0900\n"
+"POT-Creation-Date: 2012-04-08 11:41+0900\n"
+"PO-Revision-Date: 2012-04-08 11:41+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,42 +17,51 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:173
+#: ../WP_Gianism.php:165
+#: ../WP_Gianism.php:167
+msgid "Messages"
+msgstr ""
+
+#: ../WP_Gianism.php:168
+msgid "Message"
+msgstr ""
+
+#: ../WP_Gianism.php:179
 #, php-format
 msgid "Message to %s"
 msgstr ""
 
-#: ../WP_Gianism.php:188
+#: ../WP_Gianism.php:194
 msgid "Delete"
 msgstr ""
 
-#: ../WP_Gianism.php:196
-#: ../WP_Gianism.php:313
+#: ../WP_Gianism.php:202
+#: ../WP_Gianism.php:319
 msgid "No message."
 msgstr ""
 
-#: ../WP_Gianism.php:232
+#: ../WP_Gianism.php:238
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:234
+#: ../WP_Gianism.php:240
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:244
-#: ../WP_Gianism.php:266
+#: ../WP_Gianism.php:250
+#: ../WP_Gianism.php:272
 msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:311
+#: ../WP_Gianism.php:317
 msgid "You really delete this message?"
 msgstr ""
 
-#: ../WP_Gianism.php:312
+#: ../WP_Gianism.php:318
 msgid "You cannot delete this message."
 msgstr ""
 
-#: ../WP_Gianism.php:530
+#: ../WP_Gianism.php:536
 msgid "Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!"
 msgstr ""
 
@@ -108,7 +117,7 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:267
+#: ../sdks/facebook/facebook_controller.php:263
 msgid "Log in with Facebook"
 msgstr ""
 
@@ -135,34 +144,34 @@ msgstr ""
 msgid "Login with Google"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:89
+#: ../sdks/twitter/twitter_controller.php:97
 #, php-format
 msgid "Welcome, @%s!"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:107
+#: ../sdks/twitter/twitter_controller.php:115
 msgid "Disconnect now :("
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:180
+#: ../sdks/twitter/twitter_controller.php:190
 #, php-format
 msgid "Your account is already connected with Twitter <a target=\"_blank\" href=\"%1$s\">%2$s</a> ."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:184
+#: ../sdks/twitter/twitter_controller.php:194
 #, php-format
 msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:200
+#: ../sdks/twitter/twitter_controller.php:210
 msgid "Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:226
+#: ../sdks/twitter/twitter_controller.php:236
 msgid "Login with Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:350
+#: ../sdks/twitter/twitter_controller.php:363
 #, php-format
 msgid "You have message \"%1$s\" on %2$s. %3$s"
 msgstr ""
@@ -253,5 +262,41 @@ msgstr ""
 #: ../templates/setting.php:130
 #, php-format
 msgid "Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http with https."
+msgstr ""
+
+#: ../templates/setting.php:141
+msgid "Customizatin"
+msgstr ""
+
+#: ../templates/setting.php:143
+msgid "Change Login Button"
+msgstr ""
+
+#: ../templates/setting.php:145
+msgid "You can change the appearance of login button. Available hooks are below:"
+msgstr ""
+
+#: ../templates/setting.php:152
+msgid "You can customize Facebook login button like this"
+msgstr ""
+
+#: ../templates/setting.php:160
+msgid "Change Redirect"
+msgstr ""
+
+#: ../templates/setting.php:163
+msgid "You can hook on redirect URL after user logged in."
+msgstr ""
+
+#: ../templates/setting.php:164
+msgid "<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs."
+msgstr ""
+
+#: ../templates/setting.php:168
+msgid "Now you can get redirect URL."
+msgstr ""
+
+#: ../templates/setting.php:170
+msgid "Not specified, $url is null."
 msgstr ""
 

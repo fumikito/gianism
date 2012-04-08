@@ -90,13 +90,13 @@ class Gianism_Controller {
 						$counter++;
 					}
 				}
-				return $redirect_to;
 			}else{
-				return $default;
+				$redirect_to = $default;
 			}
 		}else{
-			return $default;
+			$redirect_to = $default;
 		}
+		return apply_filters('gianism_redirect_to', $redirect_to);
 	}
 	
 	/**

@@ -7,7 +7,10 @@
  */
 
 /* Load OAuth lib. You can find it at http://oauth.net */
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'OAuth.php';
+if(!class_exists('OAuthException')){
+	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'OAuth.php';
+}
+
 
 /**
  * Twitter OAuth class

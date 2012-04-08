@@ -260,7 +260,7 @@ EOS;
 			'scope' => 'email',
 			'redirect_uri' => $login_url,
 		));
-		$link_text = $gianism->e('Log in with Facebook');
+		$link_text = $gianism->_('Log in with Facebook');
 		//Show Login Button
 		$this->js = true;
 		$mark_up = <<<EOS
@@ -479,7 +479,9 @@ EOS;
 	 */
 	private function facebook(){
 		if(is_null($this->_api)){
-			require_once dirname(__FILE__).DIRECTORY_SEPARATOR."facebook.php";
+			if(!class_exists('Facebook')){
+				require_once dirname(__FILE__).DIRECTORY_SEPARATOR."facebook.php";
+			}
 			$this->_api = new Facebook(array(
 				'appId'  => $this->app_id,
 				'secret' => $this->app_secret,

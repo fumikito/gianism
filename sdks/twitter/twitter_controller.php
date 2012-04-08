@@ -264,7 +264,9 @@ EOS;
 	 * @return TwitterOAuth
 	 */
 	private function get_oauth($oauth_token = NULL, $oauth_token_secret = NULL){
-		require_once dirname(__FILE__).DIRECTORY_SEPARATOR."twitteroauth.php";
+		if(!class_exists('TwitterOAuth')){
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR."twitteroauth.php";
+		}
 		return new TwitterOAuth($this->consumer_key, $this->consumer_secret, $oauth_token, $oauth_token_secret);
 	}
 	

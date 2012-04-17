@@ -371,7 +371,7 @@ class WP_Gianism{
 				$flg = (boolean)$this->option['ggl_enabled'];
 				break;
 			default:
-				$flg = (boolean)($this->option['fb_enabled'] || $this->option['tw_enabled']);
+				$flg = (boolean)($this->option['fb_enabled'] || $this->option['tw_enabled'] || $this->option['ggl_enabled']);
 				break;
 		}
 		return $flg;

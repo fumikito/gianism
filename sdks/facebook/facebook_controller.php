@@ -77,7 +77,9 @@ class Facebook_Controller extends Gianism_Controller{
 			add_action('template_redirect', array($this, 'fan_gate_helper'));
 		}
 		//Start Session
-		session_start();
+		if(!isset($_SESSION)){
+			session_start();
+		}
 	}
 	
 	
@@ -91,8 +93,12 @@ class Facebook_Controller extends Gianism_Controller{
 		global $user_ID, $wpdb, $gianism;
 		switch($this->get_action()){
 			case "facebook_connect":
-				$uid = $this->facebook()->getUser();
 				$this->message = $gianism->_("Oops, Failed to Authenticate.");
+				try{
+					$uid = $this->facebook()->getUser();
+				}catch(FacebookApiException $e){
+					$this->message .= '\n'.$e->getMessage();
+				}
 				if($uid && is_user_logged_in()){
 					try{
 						if(!isset($_SESSION['uid'])){
@@ -122,8 +128,10 @@ EOS;
 							}
 						}
 					}catch(FacebookApiException $e){
-						$this->message = $gianism->_("Oops, Failed to Authenticate.")."\n".$e->getMessage();
+						$this->message = $gianism->_("Oops, Failed to Authenticate.").'\n'.$e->getMessage();
 					}
+				}else{
+					$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.');
 				}
 				break;
 			case "facebook_disconnect":
@@ -183,15 +191,21 @@ EOS;
 													array('%s', '%s'),
 													array('%d')
 												);
+											}else{
+												$this->message .= '\n'.$user_id->get_error_message();
 											}
 										}
 									}
+								}else{
+									$this->message .= '\n'.$gianism->_('Cannot get e-mail.');
 								}
 							}catch(FacebookApiException $e){
 								//Can't get email, so, error.
-								$this->message .= "\n".$e->getMessage();
+								$this->message .= '\n'.$e->getMessage();
 							}
 						}
+					}else{
+						$this->message .= '\n'.$giasnism->_('Cannot get Facebook ID.');
 					}
 					if($user_id && !is_wp_error($user_id)){
 						wp_set_auth_cookie($user_id, true);

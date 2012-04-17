@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-08 11:41+0900\n"
-"PO-Revision-Date: 2012-04-08 11:45+0900\n"
+"POT-Creation-Date: 2012-04-17 17:36+0900\n"
+"PO-Revision-Date: 2012-04-17 17:37+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -65,59 +65,68 @@ msgstr "このメッセージを削除できません。"
 msgid "Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!"
 msgstr "ユーザーアカウントをFacebookやTwitterなどのwebサービスと接続します。巨人の肩に乗りましょう！"
 
-#: ../sdks/facebook/facebook_controller.php:95
-#: ../sdks/facebook/facebook_controller.php:125
-#: ../sdks/facebook/facebook_controller.php:138
+#: ../sdks/facebook/facebook_controller.php:96
+#: ../sdks/facebook/facebook_controller.php:131
+#: ../sdks/facebook/facebook_controller.php:146
 #: ../sdks/google/google_controller.php:77
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: ../sdks/facebook/facebook_controller.php:119
+#: ../sdks/facebook/facebook_controller.php:125
 #, php-format
 msgid "Welcome!, %s"
 msgstr "ようこそ、%sさん！"
 
-#: ../sdks/facebook/facebook_controller.php:121
+#: ../sdks/facebook/facebook_controller.php:127
 #: ../sdks/google/google_controller.php:104
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr "...この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: ../sdks/facebook/facebook_controller.php:133
+#: ../sdks/facebook/facebook_controller.php:134
+#: ../sdks/facebook/facebook_controller.php:208
+msgid "Cannot get Facebook ID."
+msgstr "Facebook IDを取得できません。"
+
+#: ../sdks/facebook/facebook_controller.php:141
 #: ../sdks/google/google_controller.php:115
 #, php-format
 msgid "Disconected your %s account."
 msgstr "%sアカウントを切断しました。"
 
-#: ../sdks/facebook/facebook_controller.php:221
+#: ../sdks/facebook/facebook_controller.php:200
+msgid "Cannot get e-mail."
+msgstr "メールアドレスを取得できません。"
+
+#: ../sdks/facebook/facebook_controller.php:235
 #: ../sdks/google/google_controller.php:194
 msgid "Connect"
 msgstr "コネクト"
 
-#: ../sdks/facebook/facebook_controller.php:222
+#: ../sdks/facebook/facebook_controller.php:236
 #, php-format
 msgid "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr "Facebookアカウントに接続すると、%sにFacebookアカウントでログインできるようになります。"
 
-#: ../sdks/facebook/facebook_controller.php:229
+#: ../sdks/facebook/facebook_controller.php:243
 #: ../sdks/google/google_controller.php:186
 msgid "Disconnect"
 msgstr "切断"
 
-#: ../sdks/facebook/facebook_controller.php:231
+#: ../sdks/facebook/facebook_controller.php:245
 msgid "Your account is already connected with Facebook account."
 msgstr "あなたのアカウントはすでにFacebookアカウントに接続されています。"
 
-#: ../sdks/facebook/facebook_controller.php:232
+#: ../sdks/facebook/facebook_controller.php:246
 #: ../sdks/google/google_controller.php:189
 msgid "You really disconnect this account?"
 msgstr "アカウントを切断しますか？"
 
-#: ../sdks/facebook/facebook_controller.php:237
+#: ../sdks/facebook/facebook_controller.php:251
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../sdks/facebook/facebook_controller.php:263
+#: ../sdks/facebook/facebook_controller.php:277
 msgid "Log in with Facebook"
 msgstr "Facebookでログイン"
 

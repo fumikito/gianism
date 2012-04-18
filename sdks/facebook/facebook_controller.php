@@ -73,7 +73,7 @@ class Facebook_Controller extends Gianism_Controller{
 		$this->fan_gate = (int) $option['fb_fan_gate'];
 		$this->cert_path = dirname(__FILE__).DIRECTORY_SEPARATOR."fb_ca_chain_bundle.crt";
 		//Add Hook on Fan Gate
-		if($fan_gate){
+		if($this->fan_gate){
 			add_action('template_redirect', array($this, 'fan_gate_helper'));
 		}
 		//Start Session
@@ -205,7 +205,7 @@ EOS;
 							}
 						}
 					}else{
-						$this->message .= '\n'.$giasnism->_('Cannot get Facebook ID.');
+						$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.');
 					}
 					if($user_id && !is_wp_error($user_id)){
 						wp_set_auth_cookie($user_id, true);

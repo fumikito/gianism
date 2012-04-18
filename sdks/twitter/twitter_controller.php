@@ -64,7 +64,9 @@ class Twitter_Controller extends Gianism_Controller{
 		$this->consumer_secret = (string)$option['tw_consumer_secret'];
 		$this->my_access_token = (string)$option['tw_access_token'];
 		$this->my_access_token_secret = (string)$option['tw_access_token_secret'];
-		session_start();
+		if(!isset($_SESSION)){
+			session_start();
+		}
 	}
 	
 	/**

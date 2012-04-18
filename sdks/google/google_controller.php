@@ -57,7 +57,9 @@ class Google_Controller extends Gianism_Controller{
 		$this->consumer_key = $option['ggl_consumer_key'];
 		$this->consumer_secret = $option['ggl_consumer_secret'];
 		$this->redirect_uri = $option['ggl_redirect_uri'];
-		session_start();
+		if(!isset($_SESSION)){
+			session_start();
+		}
 	}
 	
 	/**
@@ -289,9 +291,9 @@ EOS;
 			unset($_SESSION['_wpg_ggl_redirect']);
 			$redirect = $url;
 		}else{
-			$redirect = null;
+			$redirect = admin_url('profile.php');
 		}
-		return apply_filter('gianism_redirect_to', $redirect);
+		return apply_filters('gianism_redirect_to', $redirect);
 	}
 	
 	/**
@@ -299,7 +301,7 @@ EOS;
 	 */
 	private function do_redirect(){
 		$url = $this->get_redirect();
-		if($url){
+		if($url && preg_match("/^".str_replace("http://", 'https?:\/\/', str_replace('https:', 'http:', home_url()))."/u", $url)){
 			header("Location: ".$url);
 			die();
 		}

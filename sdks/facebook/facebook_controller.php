@@ -175,9 +175,16 @@ EOS;
 										if(!$user_id){
 											//Not found, Create New User
 											require_once(ABSPATH . WPINC . '/registration.php');
+											//Get Username
+											if(isset($profile['username'])){
+												$user_name = $profile['username'];
+											}elseif(isset($profile['name']) && !username_exists($profile['name'])){
+												$user_name = $profile['name'];
+											}else{
+												$user_name = $email;
+											}
 											//Check if username exists
-											$user_name = (!username_exists($profile['username'])) ? $profile['username'] :  $email;
-											$user_id = wp_create_user($user_name, wp_generate_password(), $email);
+											$user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
 											if(!is_wp_error($user_id)){
 												update_user_meta($user_id, $this->umeta_id, $facebook_id);
 												update_user_meta($user_id, $this->umeta_mail, $email);

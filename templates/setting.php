@@ -175,6 +175,7 @@
 					</p>
 				</td>
 			</tr>
+			<?php if($this->is_enabled('mixi')): ?>
 			<tr>
 				<th><?php $this->e('Token'); ?></th>
 				<td>
@@ -193,9 +194,10 @@
 						<?php $this->e('If you want to send a message via mixi to your use who has only pseudo mail(@pseudo.mixi.jp), set up auth information by login to mixi from the link below as your account by which messages will be sent . Do not forget to check &quot;Always allow&quot;. <strong>Notice: </strong>You can send message to only your friend.');  ?>
 					</p>
 					<a href="<?php echo $this->mixi->get_admin_auth_link(); ?>" class="button"><?php $this->e('Auth on mixi'); ?></a>
+					
 				</td>
 			</tr>
-			
+			<?php endif; ?>
 		</tbody>
 	</table>
 	<?php submit_button(); ?>

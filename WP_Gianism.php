@@ -233,7 +233,7 @@ class WP_Gianism{
 	public function admin_init(){
 		//Execute when option updated.
 		if($this->verify_nonce('option')){
-			$this->option = array(
+			$this->option = shortcode_atts($this->option, array(
 				'fb_enabled' => ($this->post('fb_enabled') == 1) ? 1 : 0,
 				'fb_app_id' => (string)$this->post('fb_app_id'),
 				'fb_app_secret' => (string)$this->post('fb_app_secret'),
@@ -251,7 +251,7 @@ class WP_Gianism{
 				"mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
 				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
 				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret')
-			);
+			));
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));
 			}else{

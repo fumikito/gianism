@@ -335,7 +335,7 @@ EOS;
 	 * Save message
 	 * @param string $string 
 	 */
-	private function add_message($string){
+	protected function add_message($string){
 		if(isset($_SESSION)){
 			$_SESSION['_wpg_ggl_message'] = $string;
 		}
@@ -358,13 +358,7 @@ EOS;
 	 */
 	public function print_script(){
 		if(isset($_SESSION) && !empty($_SESSION['_wpg_ggl_message'])){
-			?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($){
-				alert("<?php echo esc_attr($_SESSION['_wpg_ggl_message'])?>");
-			});
-		</script>
-			<?php
+			$this->generate_message_script($_SESSION['_wpg_ggl_message']);
 			unset($_SESSION['_wpg_ggl_message']);
 		}
 	}

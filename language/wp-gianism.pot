@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-17 17:36+0900\n"
-"PO-Revision-Date: 2012-04-17 17:36+0900\n"
+"POT-Creation-Date: 2012-04-22 18:39+0900\n"
+"PO-Revision-Date: 2012-04-22 18:39+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,170 +17,198 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:165
-#: ../WP_Gianism.php:167
+#: ../WP_Gianism.php:180
+#: ../WP_Gianism.php:182
 msgid "Messages"
 msgstr ""
 
-#: ../WP_Gianism.php:168
+#: ../WP_Gianism.php:183
 msgid "Message"
 msgstr ""
 
-#: ../WP_Gianism.php:179
+#: ../WP_Gianism.php:194
 #, php-format
 msgid "Message to %s"
 msgstr ""
 
-#: ../WP_Gianism.php:194
+#: ../WP_Gianism.php:209
 msgid "Delete"
 msgstr ""
 
-#: ../WP_Gianism.php:202
-#: ../WP_Gianism.php:319
+#: ../WP_Gianism.php:217
+#: ../WP_Gianism.php:337
 msgid "No message."
 msgstr ""
 
-#: ../WP_Gianism.php:238
+#: ../WP_Gianism.php:256
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:240
+#: ../WP_Gianism.php:258
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:250
-#: ../WP_Gianism.php:272
+#: ../WP_Gianism.php:268
+#: ../WP_Gianism.php:290
 msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:317
+#: ../WP_Gianism.php:335
 msgid "You really delete this message?"
 msgstr ""
 
-#: ../WP_Gianism.php:318
+#: ../WP_Gianism.php:336
 msgid "You cannot delete this message."
 msgstr ""
 
-#: ../WP_Gianism.php:536
+#: ../WP_Gianism.php:562
 msgid "Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:96
-#: ../sdks/facebook/facebook_controller.php:131
-#: ../sdks/facebook/facebook_controller.php:146
-#: ../sdks/google/google_controller.php:77
+#: ../sdks/facebook/facebook_controller.php:91
+#: ../sdks/facebook/facebook_controller.php:126
+#: ../sdks/facebook/facebook_controller.php:141
+#: ../sdks/google/google_controller.php:79
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:125
+#: ../sdks/facebook/facebook_controller.php:120
 #, php-format
 msgid "Welcome!, %s"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:127
-#: ../sdks/google/google_controller.php:104
+#: ../sdks/facebook/facebook_controller.php:122
+#: ../sdks/google/google_controller.php:106
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:134
-#: ../sdks/facebook/facebook_controller.php:208
+#: ../sdks/facebook/facebook_controller.php:129
+#: ../sdks/facebook/facebook_controller.php:213
 msgid "Cannot get Facebook ID."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:141
-#: ../sdks/google/google_controller.php:115
+#: ../sdks/facebook/facebook_controller.php:136
+#: ../sdks/google/google_controller.php:117
 #, php-format
 msgid "Disconected your %s account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:200
+#: ../sdks/facebook/facebook_controller.php:205
 msgid "Cannot get e-mail."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:235
-#: ../sdks/google/google_controller.php:194
+#: ../sdks/facebook/facebook_controller.php:205
+#: ../sdks/facebook/facebook_controller.php:213
+msgid "Please try again later."
+msgstr ""
+
+#: ../sdks/facebook/facebook_controller.php:240
+#: ../sdks/google/google_controller.php:196
 msgid "Connect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:236
+#: ../sdks/facebook/facebook_controller.php:241
 #, php-format
 msgid "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:243
-#: ../sdks/google/google_controller.php:186
+#: ../sdks/facebook/facebook_controller.php:248
+#: ../sdks/google/google_controller.php:188
 msgid "Disconnect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:245
+#: ../sdks/facebook/facebook_controller.php:250
 msgid "Your account is already connected with Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:246
-#: ../sdks/google/google_controller.php:189
+#: ../sdks/facebook/facebook_controller.php:251
+#: ../sdks/google/google_controller.php:191
 msgid "You really disconnect this account?"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:251
+#: ../sdks/facebook/facebook_controller.php:256
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:277
+#: ../sdks/facebook/facebook_controller.php:282
 msgid "Log in with Facebook"
 msgstr ""
 
-#: ../sdks/google/google_controller.php:102
+#: ../sdks/google/google_controller.php:104
 #, php-format
 msgid "Welcom, %s!"
 msgstr ""
 
-#: ../sdks/google/google_controller.php:188
+#: ../sdks/google/google_controller.php:190
 #, php-format
 msgid "Your account is already connected with Google &lt;%s&gt;."
 msgstr ""
 
-#: ../sdks/google/google_controller.php:195
+#: ../sdks/google/google_controller.php:197
 #, php-format
 msgid "Connecting %1$s account, you can log in %2$s via %1$s account."
 msgstr ""
 
-#: ../sdks/google/google_controller.php:200
+#: ../sdks/google/google_controller.php:202
 msgid "Google"
 msgstr ""
 
-#: ../sdks/google/google_controller.php:221
+#: ../sdks/google/google_controller.php:223
 msgid "Login with Google"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:97
-#, php-format
-msgid "Welcome, @%s!"
-msgstr ""
-
-#: ../sdks/twitter/twitter_controller.php:115
+#: ../sdks/mixi/mixi_controller.php:103
+#: ../sdks/twitter/twitter_controller.php:117
 msgid "Disconnect now :("
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:190
-#, php-format
-msgid "Your account is already connected with Twitter <a target=\"_blank\" href=\"%1$s\">%2$s</a> ."
+#: ../sdks/mixi/mixi_controller.php:168
+#: ../sdks/mixi/mixi_controller.php:229
+#: ../sdks/mixi/mixi_controller.php:235
+msgid "Failed to get mixi ID."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:194
-#, php-format
-msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address."
+#: ../sdks/mixi/mixi_controller.php:171
+#: ../sdks/mixi/mixi_controller.php:232
+msgid "Invalid access token."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:210
+#: ../sdks/mixi/mixi_controller.php:216
+#: ../sdks/twitter/twitter_controller.php:99
+#, php-format
+msgid "Welcome, %s!"
+msgstr ""
+
+#: ../sdks/mixi/mixi_controller.php:257
+msgid "Login with mixi"
+msgstr ""
+
+#: ../sdks/mixi/mixi_controller.php:284
+#: ../sdks/twitter/twitter_controller.php:192
+#, php-format
+msgid "Your account is already connected with %1$s <a target=\"_blank\" href=\"%2$s\">%3$s</a> ."
+msgstr ""
+
+#: ../sdks/mixi/mixi_controller.php:284
+msgid "View Profile"
+msgstr ""
+
+#: ../sdks/mixi/mixi_controller.php:288
+#: ../sdks/twitter/twitter_controller.php:196
+#, php-format
+msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address."
+msgstr ""
+
+#: ../sdks/twitter/twitter_controller.php:212
 msgid "Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:236
+#: ../sdks/twitter/twitter_controller.php:238
 msgid "Login with Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:363
+#: ../sdks/twitter/twitter_controller.php:338
 #, php-format
 msgid "You have message \"%1$s\" on %2$s. %3$s"
 msgstr ""
@@ -192,18 +220,21 @@ msgstr ""
 #: ../templates/setting.php:15
 #: ../templates/setting.php:62
 #: ../templates/setting.php:105
+#: ../templates/setting.php:144
 msgid "Enable"
 msgstr ""
 
 #: ../templates/setting.php:19
 #: ../templates/setting.php:66
 #: ../templates/setting.php:109
+#: ../templates/setting.php:148
 msgid "Disable"
 msgstr ""
 
 #: ../templates/setting.php:22
 #: ../templates/setting.php:69
 #: ../templates/setting.php:112
+#: ../templates/setting.php:151
 #, php-format
 msgid "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to get required infomation."
 msgstr ""
@@ -231,6 +262,7 @@ msgstr ""
 
 #: ../templates/setting.php:58
 #: ../templates/setting.php:101
+#: ../templates/setting.php:140
 #, php-format
 msgid "Connect with %s"
 msgstr ""
@@ -248,6 +280,7 @@ msgid "Consumer Secret"
 msgstr ""
 
 #: ../templates/setting.php:87
+#: ../templates/setting.php:183
 msgid "Access Token"
 msgstr ""
 
@@ -256,15 +289,19 @@ msgid "Access token secret"
 msgstr ""
 
 #: ../templates/setting.php:118
+#: ../templates/setting.php:157
 msgid "Client ID"
 msgstr ""
 
 #: ../templates/setting.php:122
+#: ../templates/setting.php:161
 msgid "Client Secret"
 msgstr ""
 
 #: ../templates/setting.php:126
 #: ../templates/setting.php:130
+#: ../templates/setting.php:165
+#: ../templates/setting.php:173
 msgid "Redirect URI"
 msgstr ""
 
@@ -273,39 +310,64 @@ msgstr ""
 msgid "Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http with https."
 msgstr ""
 
-#: ../templates/setting.php:141
+#: ../templates/setting.php:173
+#, php-format
+msgid "Please set %1$s to %2$s on %3$s."
+msgstr ""
+
+#: ../templates/setting.php:179
+msgid "Token"
+msgstr ""
+
+#: ../templates/setting.php:187
+msgid "Refresh Token"
+msgstr ""
+
+#: ../templates/setting.php:189
+msgid "Your refresh token is invalid. Please reset it from link below."
+msgstr ""
+
+#: ../templates/setting.php:193
+msgid "If you want to send a message via mixi to your use who has only pseudo mail(@pseudo.mixi.jp), set up auth information by login to mixi from the link below as your account by which messages will be sent . Do not forget to check &quot;Always allow&quot;. <strong>Notice: </strong>You can send message to only your friend."
+msgstr ""
+
+#: ../templates/setting.php:195
+msgid "Auth on mixi"
+msgstr ""
+
+#: ../templates/setting.php:206
 msgid "Customizatin"
 msgstr ""
 
-#: ../templates/setting.php:143
+#: ../templates/setting.php:208
 msgid "Change Login Button"
 msgstr ""
 
-#: ../templates/setting.php:145
+#: ../templates/setting.php:210
 msgid "You can change the appearance of login button. Available hooks are below:"
 msgstr ""
 
-#: ../templates/setting.php:152
+#: ../templates/setting.php:217
 msgid "You can customize Facebook login button like this"
 msgstr ""
 
-#: ../templates/setting.php:160
+#: ../templates/setting.php:225
 msgid "Change Redirect"
 msgstr ""
 
-#: ../templates/setting.php:163
+#: ../templates/setting.php:228
 msgid "You can hook on redirect URL after user logged in."
 msgstr ""
 
-#: ../templates/setting.php:164
+#: ../templates/setting.php:229
 msgid "<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs."
 msgstr ""
 
-#: ../templates/setting.php:168
+#: ../templates/setting.php:233
 msgid "Now you can get redirect URL."
 msgstr ""
 
-#: ../templates/setting.php:170
+#: ../templates/setting.php:235
 msgid "Not specified, $url is null."
 msgstr ""
 

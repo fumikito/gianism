@@ -8,7 +8,7 @@
  */
 function get_facebook_id($user_id){
 	global $gianism;
-	return get_user_meta($user_id, '_wpg_facebook_id', true);
+	return get_user_meta($user_id, $gianism->fb->umeta_id, true);
 }
 
 /**

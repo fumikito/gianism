@@ -96,25 +96,25 @@ EOS;
 								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
 								$this->follow_me($oauth);
-								$this->add_alert(sprintf($gianism->_('Welcome, @%s!'), $access_token['screen_name']));
+								$this->add_message(sprintf($gianism->_('Welcome, %s!'), '@'.$access_token['screen_name']));
 							}else{
-								$this->add_alert(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
+								$this->add_message(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
 							}
 						}else{
-							$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+							$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
 						}
 					}else{
-						$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+						$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
 					}
 				}else{
-					$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+					$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
 				}
 				break;
 			case "twitter_disconnect":
 				if(wp_verify_nonce($gianism->request('_wpnonce'), 'twitter_disconnect') && is_user_logged_in()){
 					delete_user_meta($user_ID, $this->umeta_id);
 					delete_user_meta($user_ID, $this->umeta_screen_name);
-					$this->add_alert($gianism->_('Disconnect now :('));
+					$this->add_message($gianism->_('Disconnect now :('));
 				}
 				break;
 			case "twitter_login":
@@ -167,7 +167,7 @@ EOS;
 					header('Location: '.$redirect);
 					die();
 				}else{
-					$this->add_alert($gianism->_('Oops, Failed to Authenticate.'));
+					$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
 				}
 				break;
 		}
@@ -180,7 +180,7 @@ EOS;
 	 * @return void
 	 */
 	public function user_profile(){
-		if(!defined("IS_PROFILE_PAGE")){
+		if(!defined("IS_PROFILE_PAGE") || !IS_PROFILE_PAGE){
 			return;
 		}
 		global $gianism, $user_ID;
@@ -189,11 +189,11 @@ EOS;
 			$link_text = $gianism->_('Disconnect');
 			$account = get_user_meta($user_ID, $this->umeta_screen_name, true);
 			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-			        .sprintf($gianism->_('Your account is already connected with Twitter <a target="_blank" href="%1$s">%2$s</a> .'), 'https://twitter.com/#!/'.$account, "@".$account);
+			        .sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'Twitter', 'https://twitter.com/#!/'.$account, "@".$account);
 			//If user has pseudo mail, add caution.
 			global $user_email;
 			if($this->is_pseudo_mail($user_email)){
-				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect twitter account, you may not be able to log in %2$s. Please change it to available e-mail address.'), $user_email, get_bloginfo('name'));
+				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_email, 'Twitter', get_bloginfo('name'));
 			}
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
 		}else{
@@ -297,33 +297,6 @@ EOS;
 			return $_SESSION['_wpg_twitter_token'][$key];
 		}else{
 			return false;
-		}
-	}
-	
-	/**
-	 * Add alert message throw Javascript
-	 * @param string $text 
-	 */
-	public function add_alert($text){
-		$this->js = true;
-		if(!empty($this->scripts)){
-			$this->scripts .= "\n";
-		}
-		$this->scripts .= $text;
-	}
-	
-	/**
-	 * Print Javascript on footer
-	 */
-	public function print_script(){
-		if($this->js && !empty($this->scripts)){
-			?>
-			<script type="text/javascript">
-				jQuery(document).ready(function($){
-					alert("<?php echo esc_attr($this->scripts);  ?>");
-				});
-			</script>
-			<?php
 		}
 	}
 	

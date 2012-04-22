@@ -47,12 +47,7 @@ class Facebook_Controller extends Gianism_Controller{
 	 * @var string
 	 */
 	public $umeta_mail = '_wpg_facebook_mail';
-	
-	/**
-	 * @var string
-	 */
-	private $message = "";
-	
+		
 	/**
 	 * @var array
 	 */
@@ -177,11 +172,14 @@ EOS;
 											require_once(ABSPATH . WPINC . '/registration.php');
 											//Get Username
 											if(isset($profile['username'])){
+												//if set, use username. but this is optional setting.
 												$user_name = $profile['username'];
-											}elseif(isset($profile['name']) && !username_exists($profile['name'])){
+											}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-ZA-Z0-9 ]+$/", $profile['name'])){
+												//If name is alpabetical, use it.
 												$user_name = $profile['name'];
 											}else{
-												$user_name = $email;
+												//There is no available string for login name, so use Facebook id for login.
+												$user_name = 'fb-'.$facebook_id;
 											}
 											//Check if username exists
 											$user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
@@ -204,15 +202,15 @@ EOS;
 										}
 									}
 								}else{
-									$this->message .= '\n'.$gianism->_('Cannot get e-mail.');
+									$this->message .= '\n'.$gianism->_('Cannot get e-mail.').$gianism->_('Please try again later.');
 								}
 							}catch(FacebookApiException $e){
-								//Can't get email, so, error.
+								//Can't get Profile, so, error.
 								$this->message .= '\n'.$e->getMessage();
 							}
 						}
 					}else{
-						$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.');
+						$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.').$gianism->_('Please try again later.');
 					}
 					if($user_id && !is_wp_error($user_id)){
 						wp_set_auth_cookie($user_id, true);
@@ -369,10 +367,8 @@ EOS;
 	
 	/**
 	 * Initialize Facebook Fangate Scripts
-	 * @global WP_Gianism $gianism 
 	 */
 	public function fan_gate_helper(){
-		global $gianism;
 		if(is_page($this->fan_gate)){
 			$this->js = true;
 		}
@@ -418,13 +414,9 @@ EOS;
 		</script>
 		<?php
 		endif;
-		if(!empty($this->message)): ?>
-			<script type="text/javascript">
-				jQuery(document).ready(function($){
-					alert("<?php echo esc_attr($this->message); ?>");
-				});
-			</script>
-		<?php endif;
+		if(!empty($this->message)){
+			echo $this->generate_message_script($this->message);
+		}
 	}
 	
 	/**

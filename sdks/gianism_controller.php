@@ -25,6 +25,12 @@ class Gianism_Controller {
 	protected $pseudo_domain = '';
 	
 	/**
+	 * Message to show
+	 * @var string
+	 */
+	protected $message = '';
+	
+	/**
 	 * Constructor
 	 * @param array $option 
 	 */
@@ -145,4 +151,51 @@ class Gianism_Controller {
 		$markup = apply_filters('gianism_link_'.$hook_name, $markup, $href, $text);
 		return $markup;
 	}
+	
+	/**
+	 * Detect if current client is smartphone. 
+	 * @return boolean
+	 */
+	protected function is_smartphone(){
+		return (boolean)preg_match("/(iPhone|iPad|Android|MSIEMobile)/", $_SERVER['HTTP_USER_AGENT']);
+	}
+	
+	/**
+	 * Add message to alert. Can be overriden
+	 * @param string $text 
+	 */
+	protected function add_message($text){
+		$this->js = true;
+		if(!empty($this->message)){
+			$this->message .= '\n';
+		}
+		$this->message .= $text;
+	}
+	
+	/**
+	 * Print Javascript on footer. Can be overriden.
+	 */
+	public function print_script(){
+		if($this->js && !empty($this->message)){
+			echo $this->generate_message_script($this->message);
+		}
+	}
+	
+	/**
+	 * Generate JS for alert
+	 * @param string $message
+	 * @return string 
+	 */
+	protected function generate_message_script($message){
+		$message = esc_attr($message);
+		$script = <<<EOS
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+					alert("{$message}");
+				});
+			</script>
+EOS;
+		return apply_filters('gianism_alert', $script, $message);
+	}
+
 }

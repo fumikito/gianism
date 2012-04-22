@@ -133,6 +133,71 @@
 			</tr>
 		</tbody>
 	</table>
+	<h3>Mixi</h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th><label><?php printf($this->_('Connect with %s'), 'mixi');?></label>
+				<td>
+					<label>
+						<input type="radio" name="mixi_enabled" value="1"<?php if($this->option['mixi_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Enable');?>
+					</label>
+					<label>
+						<input type="radio" name="mixi_enabled" value="0"<?php if(!$this->option['mixi_enabled']) echo ' checked="checked"';?> />
+						<?php $this->e('Disable');?>
+					</label>
+					<p class="description">
+						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "mixi Graph API", "http://developer.mixi.co.jp/connect/mixi_graph_api/services/"); ?>
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<th><label for="mixi_consumer_key"><?php $this->e('Client ID'); ?></label></th>
+				<td><input class="regular-text" type="text" name="mixi_consumer_key" id="mixi_consumer_key" value="<?php echo $this->option['mixi_consumer_key']?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="mixi_consumer_secret"><?php $this->e('Client Secret'); ?></label></th>
+				<td><input class="regular-text" type="text" name="mixi_consumer_secret" id="mixi_consumer_secret" value="<?php echo $this->option['mixi_consumer_secret']?>" /></td>
+			</tr>
+			<tr>
+				<th><label><?php $this->e('Redirect URI'); ?></label></th>
+				<td>
+					<p class="description">
+						<?php
+							$mixi_end_point = trailingslashit(get_bloginfo('url')).'mixi/';
+							if((defined('FORCE_SSL_LOGIN') && FORCE_SSL_LOGIN) || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN)){
+								$mixi_end_point = str_replace('http:', 'https:', $mixi_end_point);
+							}
+							printf($this->_('Please set %1$s to %2$s on %3$s.'), $this->_('Redirect URI'), "<code>{$mixi_end_point}</code>", "mixi Partner Dashboard");
+						?>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th><?php $this->e('Token'); ?></th>
+				<td>
+					<label>
+						<input class="regular-text" type="text" readonly="readonly" name="mixi_access_token" id="mixi_access_token" value="<?php echo $this->option['mixi_access_token']?>" />
+						<?php $this->e('Access Token'); ?>
+					</label><br />
+					<label>
+						<input class="regular-text" type="text" readonly="readonly" name="mixi_refresh_token" id="mixi_refresh_token" value="<?php echo $this->option['mixi_refresh_token']; ?>" />
+						<?php $this->e('Refresh Token'); ?>
+						<?php if(!$this->mixi->has_valid_refresh_token()): ?>
+						<small>(<?php $this->e('Your refresh token is invalid. Please reset it from link below.'); ?>)</small>
+						<?php endif; ?>
+					</label>
+					<p class="description">
+						<?php $this->e('If you want to send a message via mixi to your use who has only pseudo mail(@pseudo.mixi.jp), set up auth information by login to mixi from the link below as your account by which messages will be sent . Do not forget to check &quot;Always allow&quot;. <strong>Notice: </strong>You can send message to only your friend.');  ?>
+					</p>
+					<a href="<?php echo $this->mixi->get_admin_auth_link(); ?>" class="button"><?php $this->e('Auth on mixi'); ?></a>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
 	<?php submit_button(); ?>
 </form>
 

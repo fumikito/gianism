@@ -21,6 +21,11 @@ class WP_Gianism{
 	public $google = null;
 	
 	/**
+	 * @var Mixi_Controller
+	 */
+	public $mixi = null;
+	
+	/**
 	 * @var string
 	 */
 	private $version;
@@ -28,7 +33,7 @@ class WP_Gianism{
 	/**
 	 * @var string
 	 */
-	protected $name = "wp_gianism";
+	public $name = "wp_gianism";
 	
 	/**
 	 * @var string
@@ -88,7 +93,12 @@ class WP_Gianism{
 		"ggl_enabled" => 0,
 		"ggl_consumer_key" => "",
 		"ggl_consumer_secret" => "",
-		"ggl_redirect_uri" => ""
+		"ggl_redirect_uri" => "",
+		"mixi_enabled" => 0,
+		"mixi_consumer_key" => "",
+		"mixi_consumer_secret" => "",
+		"mixi_access_token" => "",
+		"mixi_refresh_token" => ""
 	);
 	
 	/**
@@ -136,6 +146,11 @@ class WP_Gianism{
 		if($this->is_enabled("google")){
 			require_once $this->dir."/sdks/google/google_controller.php";
 			$this->google = new Google_Controller($this->option);
+		}
+		//mixi
+		if($this->is_enabled('mixi')){
+			require_once $this->dir."/sdks/mixi/mixi_controller.php";
+			$this->mixi = new Mixi_Controller($this->option);
 		}
 		if($this->is_enabled()){
 			//Create Post type
@@ -232,7 +247,10 @@ class WP_Gianism{
 				'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
 				"ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
 				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),
-				"ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri')
+				"ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri'),
+				"mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
+				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
+				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret')
 			);
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));
@@ -370,8 +388,16 @@ class WP_Gianism{
 			case "google":
 				$flg = (boolean)$this->option['ggl_enabled'];
 				break;
+			case "mixi":
+				$flg = (boolean)$this->option['mixi_enabled'];
+				break;
 			default:
-				$flg = (boolean)($this->option['fb_enabled'] || $this->option['tw_enabled'] || $this->option['ggl_enabled']);
+				foreach($this->option as $key => $val){
+					if(preg_match("/_enabled$/", $key) && $val){
+						$flg = true;
+						break;
+					}
+				}
 				break;
 		}
 		return $flg;

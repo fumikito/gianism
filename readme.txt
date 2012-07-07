@@ -3,7 +3,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,account,oauth,community
 Requires at least: 3.1
 Tested up to: 3.3.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 

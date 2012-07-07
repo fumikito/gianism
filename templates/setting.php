@@ -186,7 +186,7 @@
 					<label>
 						<input class="regular-text" type="text" readonly="readonly" name="mixi_refresh_token" id="mixi_refresh_token" value="<?php echo $this->option['mixi_refresh_token']; ?>" />
 						<?php $this->e('Refresh Token'); ?>
-						<?php if(!$this->mixi->has_valid_refresh_token()): ?>
+						<?php if($this->mixi && !$this->mixi->has_valid_refresh_token()): ?>
 						<small>(<?php $this->e('Your refresh token is invalid. Please reset it from link below.'); ?>)</small>
 						<?php endif; ?>
 					</label>

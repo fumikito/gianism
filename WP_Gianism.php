@@ -132,26 +132,7 @@ class WP_Gianism{
 	 * Common Hook
 	 */
 	public function init(){
-		//Facebook
-		if($this->is_enabled('facebook')){
-			require_once $this->dir."/sdks/facebook/facebook_controller.php";
-			$this->fb = new Facebook_Controller($this->option);
-		}
-		//Twitter
-		if($this->is_enabled('twitter')){
-			require_once $this->dir."/sdks/twitter/twitter_controller.php";
-			$this->twitter = new Twitter_Controller($this->option);
-		}
-		//Google
-		if($this->is_enabled("google")){
-			require_once $this->dir."/sdks/google/google_controller.php";
-			$this->google = new Google_Controller($this->option);
-		}
-		//mixi
-		if($this->is_enabled('mixi')){
-			require_once $this->dir."/sdks/mixi/mixi_controller.php";
-			$this->mixi = new Mixi_Controller($this->option);
-		}
+		$this->make_instance();
 		if($this->is_enabled()){
 			//Create Post type
 			$this->create_message_post_type();
@@ -172,6 +153,32 @@ class WP_Gianism{
 		//Add Assets
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+	}
+	
+	/**
+	 * Create all controllers 
+	 */
+	public function make_instance(){
+		//Facebook
+		if($this->is_enabled('facebook')){
+			require_once $this->dir."/sdks/facebook/facebook_controller.php";
+			$this->fb = new Facebook_Controller($this->option);
+		}
+		//Twitter
+		if($this->is_enabled('twitter')){
+			require_once $this->dir."/sdks/twitter/twitter_controller.php";
+			$this->twitter = new Twitter_Controller($this->option);
+		}
+		//Google
+		if($this->is_enabled("google")){
+			require_once $this->dir."/sdks/google/google_controller.php";
+			$this->google = new Google_Controller($this->option);
+		}
+		//mixi
+		if($this->is_enabled('mixi')){
+			require_once $this->dir."/sdks/mixi/mixi_controller.php";
+			$this->mixi = new Mixi_Controller($this->option);
+		}
 	}
 	
 	public function create_message_post_type(){
@@ -252,6 +259,11 @@ class WP_Gianism{
 				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
 				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret')
 			));
+			//If mixi is enabled, create instance
+			if($this->is_enabled('mixi') && !$this->mixi){
+				require_once $this->dir."/sdks/mixi/mixi_controller.php";
+				$this->mixi = new Mixi_Controller($this->option);
+			}
 			if(update_option("{$this->name}_option", $this->option)){
 				$this->add_message($this->_('Option updated.'));
 			}else{

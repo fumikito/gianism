@@ -32,12 +32,13 @@ function is_user_connected_with($service){
 /**
  * Get user object by credencial
  * @global wpdb $wpdb
+ * @global WP_Gianism $gianism
  * @param string $service
  * @param mixed $credential
  * @return Object 
  */
 function get_user_by_service($service, $credential){
-	global $wpdb;
+	global $wpdb, $gianism;
 	switch($service){
 		case 'facebook':
 			$user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wpg_facebook_id' AND meta_value = %s", $credential));

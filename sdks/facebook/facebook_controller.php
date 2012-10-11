@@ -273,7 +273,7 @@ EOS;
 	 */
 	function login_form(){
 		global $gianism;
-		$redirect = isset($_REQUEST['redirect_to']) ? $gianism->request('redirect_to') : admin_url('profile.php');
+		$redirect = $this->get_redirect_to(admin_url('profile.php'));
 		$login_url = wp_login_url($redirect)."&wpg=facebook_login";	
 		$url = $this->facebook()->getLoginUrl(array(
 			'scope' => 'email',

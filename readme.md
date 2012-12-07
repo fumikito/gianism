@@ -1,4 +1,4 @@
-=== Gianism ===
+#  Gianism 
 
 Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,mixi,account,oauth,community
@@ -8,7 +8,7 @@ Stable tag: 1.2.3
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
-== Description ==
+##  Description 
 
 This plugin enables allow users to login/register with mager SNS accounts. Below is supported SNSs.
 
@@ -20,21 +20,21 @@ If your site needs user's login action, **signing-up is the most difficult step*
 
 登録制のWordPressサイトを作っている場合、**ユーザーにアカウントを作ってもらうのが一苦労**。このプラグインを使えば、Webサービスの情報を使ってログインできるようになります。ユーザーは新しいユーザー名とパスワードを覚える必要がありません。
 
-= Supported SNS =
+###  Supported SNS 
 
 * Facebook
 * Twitter
 * Google *(requires Gmail account)*
 * mixi
 
-= Acknowledgements  =
+###  Acknowledgements  
 
 * Use [Abraham Williams' twitteroauth](https://github.com/abraham/twitteroauth). Thanks.
 * Use [Facebook's official PHP SDK](https://github.com/facebook/facebook-php-sdk). 
 * Use [Google API PHP Client](http://code.google.com/p/google-api-php-client/).
 * Iconsets for banner image is by [Arabiki's スタンプみたいなソーシャルアイコン](http://arabikinet.com/sns/sns10.html). Thanks lots.
  
-== Installation ==
+##  Installation 
 
 Install itself is easy. Auto install from admin panel is recommended. Search with `gianism`.
 
@@ -48,7 +48,7 @@ Install itself is easy. Auto install from admin panel is recommended. Search wit
 1. プラグインをダウンロード／解凍したら、`gianism`フォルダーを`/wp-content/plugins/`ディレクトリーにアップロード。
 2. 管理画面からプラグインを有効化。
 
-= How to set up =
+###  How to set up 
 
 After plugin's activation, you have to set it up. Every setup has 2 step. One is on SNS, the other is on your site.
 
@@ -64,7 +64,7 @@ It seems too difficult? Don't panic. Howtos and manuals are on setting page *(Us
 
 なんだか複雑なようですが、登録方法については設定画面*（ユーザー > 外部サービス連携）*にマニュアルおよびリンクをつけているので心配いりません。
 
-== Frequently Asked Questions ==
+##  Frequently Asked Questions 
 
 > Can I use this in English?
 
@@ -80,78 +80,78 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 [WordPress.orgのサポートフォーラム](http://wordpress.org/support/plugin/gianism)を使うか、 [Githubのリポジトリ](https://github.com/fumikito/Gianism/)にプルリクエストを送ってください。
 
 
-== Screenshots ==
+##  Screenshots 
 
 1. Buttons on Login/registeration screen. （ログイン／新規登録画面にボタンが追加されます）
 2. Show connection status on profile screen. Registered users can connect account here.（プロフィール編集画面に接続ステータスが表示されます。既存のユーザーはここでアカウントを接続できます）
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
 
-== Changelog ==
+##  Changelog 
 
-= 1.2.3 =
+###  1.2.3 
 
 * Make manual on admin screen. （管理画面にマニュアルを追記しました）
 * Readme is now in English.
 
-= 1.2.2 =
+###  1.2.2 
 
 * バグフィックス
     * Facebookログインがgianism_redirect_toフィルターを通らない問題を修正。サンキュー、[確認さん](http://profiles.wordpress.org/horike/)!
     * mixiログインを有効化したときにエラーが発生する問題を修正
 
-= 1.2.1 =
+###  1.2.1 
 
 * バグフィックス。mixiの値によって画面が表示されないときがあるので修正。
 
-= 1.2.0 =
+###  1.2.0 
 
 * mixiでログインできるようにしました。
 
-= 1.1.7 =
+###  1.1.7 
 
 * バグフィックス。なんということでしょう、Facebookユーザーでユーザー名を持っていない人が登録できない問題を修正
 
-= 1.1.6 =
+###  1.1.6 
 
 * バグフィックス。Googleアカウントでログインする際にリダイレクトエラーが発生する問題を解消。
 
-= 1.1.5 = 
+###  1.1.5  
 
 * バグフィックス。特定の環境でFacebookへの接続がタイムアウトする問題を修正
 * バグフィクス。 Googleアカウントだけを有効にした場合、ボタンが出力されない問題を修正
 
-= 1.1.4 =
+###  1.1.4 
 
 * バグフィックス。Facebookボタンにバグがあったので修正
 * リダイレクト先を変更できるフックを追加
 
-= 1.1.3 =
+###  1.1.3 
 
 * ログインボタンを好きな場所で出せる関数を追加
 * 各ボタンのマークアップを変更するためのフィルターを追加
 
-= 1.1.2 =
+###  1.1.2 
 
 * Twitterでつぶやく機能を追加しました。詳しくはgianism/functions.phpをご覧下さい。
 
-= 1.1.1 =
+###  1.1.1 
 
 * Bugfix. Facebookでログインするときのエラーを修正しました。ごめんなさい。
 
-= 1.1 =
+###  1.1 
 
 * Twitterアカウントのみで登録したユーザーにDMを送信するため、強制的にフォローする仕様に変更しました。
 
-= 1.0 =
+###  1.0 
 
 * 公開
 
-== Upgrade Notice ==
+##  Upgrade Notice 
 
-= 1.1 =
+###  1.1 
 
 Twitterでログインしたユーザーに自分をフォローさせるため、管理画面からスクリーン名（@xxx）を追加してください。入力しない場合はフォローされない場合もあるため、DMが送信できないことがあります。
 
-= 1.0 =
+###  1.0 
 
 特になし。

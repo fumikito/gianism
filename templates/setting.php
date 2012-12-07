@@ -1,10 +1,54 @@
-<?php do_action('admin_notice'); ?>
+<div class="wrap gianism-wrap">
+
 <?php /* @var $this WP_Gianism */ ?>
 <div id="icon-users" class="icon32"><br></div>
-<h2><?php $this->e('External Service'); ?></h2>
+
+<h2 class="nav-tab-wrapper">
+	<a class="nav-tab<?php if(!isset($_REQUEST['view'])) echo ' nav-tab-active'; ?>" href="<?php echo admin_url('users.php?page=gianism');?>">
+		<?php $this->e('External Service'); ?>
+	</a>
+	<?php
+		foreach(array(
+			'setup' => $this->_('How to set up'),
+			'customize' => $this->_('Customize'),
+			'advanced' => $this->_('Advanced Usage')
+		) as $key => $val):
+	?>
+	<a class="nav-tab<?php if(isset($_REQUEST['view']) && $_REQUEST['view'] == $key) echo ' nav-tab-active'; ?>" href="<?php echo admin_url('users.php?page=gianism&view='.$key);?>">
+		<?php echo $val; ?>
+	</a>
+	<?php endforeach; ?>
+</h2>
+
+<br class="clear" />
+
+<div class="sidebar">
+	<div id="index">
+		<h4><?php $this->e('Index'); ?></h4>
+		<ol>
+		</ol>
+	</div>
+</div>
+
+<div class="main-content">
+
+<?php
+	$view = isset($_REQUEST['view']) ? (string)$_REQUEST['view'] : '';
+	switch($view):
+		case 'setup':
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'how-to-setup.php';
+			break;
+		case 'customize':
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'customize.php';
+			break;
+		case 'advanced':
+			require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'advanced.php';
+			break;
+		default:
+?>
 <form method="post">
 	<?php $this->nonce_field('option'); ?>
-	<h3 style="clear: left;">Facebook</h3>
+	<h3>Facebook</h3>
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -202,41 +246,13 @@
 	</table>
 	<?php submit_button(); ?>
 </form>
+<?php 
+			break;
+	endswitch;
+?>
 
-<hr />
+</div><!-- //.main-content -->
+	
+<br class="clear" />
 
-<h3><?php $this->e('Customizatin');?></h3>
-
-<h4><?php $this->e('Change Login Button'); ?></h4>
-<p class="description">
-	<?php $this->e('You can change the appearance of login button. Available hooks are below:'); ?>
-</p>
-<ol>
-	<li>gianism_link_facebook</li>
-	<li>gianism_link_twitter</li>
-	<li>gianism_link_google</li>
-</ol>
-<pre><code>//<?php $this->e('You can customize Facebook login button like this'); ?>
-
-function _my_login_link_facebook($markup, $link, $title){
-	return '&lt;a class="my_fb_link" href="'.$link.'"&gt;'.$title.'&lt;/a&gt;';
-}
-add_filter('_my_login_link_facebook', 10, 3);
-</code></pre>
-
-<h4><?php $this->e('Change Redirect'); ?></h4>
-
-<p class="description">
-	<?php $this->e('You can hook on redirect URL after user logged in.'); ?><br />
-	<?php $this->e('<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs.'); ?>
-</p>
-
-<pre><code>function _my_redirect_to($url){
-	//<?php $this->e('Now you can get redirect URL.'); ?>
-
-	//<?php $this->e('Not specified, $url is null.'); ?>
-
-	return home_url();
-}
-add_filter('gianism_redirect_to', '_my_redirect_to');
-</code></pre>
+</div><!-- //.gianism-wrap -->

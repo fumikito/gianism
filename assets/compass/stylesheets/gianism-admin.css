@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* line 5, ../sass/gianism-admin.scss */
+.gianism-wrap {
+  position: relative;
+}
+/* line 7, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content {
+  margin-right: 320px;
+}
+/* line 9, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content h3 {
+  clear: both;
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px dotted #ddd;
+  font-size: 1.8em;
+}
+/* line 15, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content h3:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+/* line 21, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content h4 {
+  margin-top: 2em;
+}
+/* line 24, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content .last-updated {
+  font-size: 0.9em;
+  color: #999;
+  text-align: right;
+}
+/* line 29, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content .gianism-example-table {
+  border-collapse: collapse;
+}
+/* line 31, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content .gianism-example-table th, .gianism-wrap .main-content .gianism-example-table td {
+  padding: 5px 10px;
+  border: 1px solid #f0f0f0;
+}
+/* line 35, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content .gianism-example-table th {
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+}
+/* line 40, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content .gianism-example-table span.description {
+  background: #06c;
+  color: #fff;
+  padding: 3px 5px;
+  margin-top: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 49, ../sass/gianism-admin.scss */
+.gianism-wrap .sidebar {
+  width: 300px;
+  right: 0;
+  position: absolute;
+  margin-left: -300px;
+}
+/* line 54, ../sass/gianism-admin.scss */
+.gianism-wrap .sidebar #index {
+  width: 278px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 60, ../sass/gianism-admin.scss */
+.gianism-wrap .sidebar #index.floating {
+  position: fixed;
+  top: 38px;
+}
+/* line 64, ../sass/gianism-admin.scss */
+.gianism-wrap .sidebar #index.pinned-bottom {
+  position: absolute;
+  bottom: 0;
+  _position: static;
+}

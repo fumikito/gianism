@@ -102,7 +102,7 @@ class WP_Gianism{
 	);
 	
 	/**
-	 * 
+	 * Constructor
 	 * @param string $base_file
 	 * @param string $version 
 	 */
@@ -123,7 +123,8 @@ class WP_Gianism{
 		add_action("init", array($this, "init"));
 		add_action("admin_init", array($this, "admin_init"));
 		add_action("admin_menu", array($this, "admin_menu"));
-		add_action("admin_notice", array($this, "admin_notice"));
+		add_action("admin_enqueue_scripts", array($this, 'admin_enqueue_scripts'));
+		add_action("admin_notices", array($this, "admin_notice"));
 		//Add i18n
 		load_plugin_textdomain($this->domain, false, basename($this->dir).DIRECTORY_SEPARATOR."language");
 	}
@@ -181,6 +182,9 @@ class WP_Gianism{
 		}
 	}
 	
+	/**
+	 * Register post type for direct message.
+	 */
 	public function create_message_post_type(){
 		register_post_type($this->message_post_type,array(
 			'public' => false,
@@ -192,6 +196,12 @@ class WP_Gianism{
 		));
 	}
 	
+	/**
+	 * Show direct message on admin panel.
+	 * @global int $user_ID
+	 * @global string $user_email
+	 * @global string $user_identity
+	 */
 	public function show_direct_message(){
 		global $user_ID, $user_email, $user_identity;
 		if(!defined("IS_PROFILE_PAGE") && !IS_PROFILE_PAGE){
@@ -290,6 +300,22 @@ class WP_Gianism{
 	 */
 	public function render(){
 		require_once $this->dir.DIRECTORY_SEPARATOR."templates".DIRECTORY_SEPARATOR."setting.php";
+	}
+	
+	/**
+	 * Load assets for Admin panel
+	 */
+	public function admin_enqueue_scripts(){
+		if(isset($_GET['page']) && $_GET['page'] == 'gianism'){
+			if(isset($_REQUEST['view']) && !empty($_REQUEST['view'])){
+				wp_enqueue_style('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.css', null, '3.0.83');
+				wp_enqueue_style('gianism-syntax-highlighter-default', $this->url.'assets/syntax-highlighter/shThemeDefault.css', null, '3.0.83');
+				wp_enqueue_script('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.js', null, '3.0.83');
+				wp_enqueue_script('gianism-syntax-highlighter-php', $this->url.'assets/syntax-highlighter/shBrushPhp.js', null, '3.0.83');
+			}
+			wp_enqueue_style('gianism-admin-panel', $this->url.'assets/compass/stylesheets/gianism-admin.css', null, $this->version);
+			wp_enqueue_script('gianism-admin-helper', $this->url.'assets/admin-helper.js', array('jquery'), $this->version);
+		}
 	}
 	
 	/**

@@ -1,0 +1,71 @@
+@charset 'utf-8';
+
+@import "compass/css3/border-radius";
+
+.gianism-wrap{
+	position: relative;
+	.main-content{
+		margin-right: 320px;
+		h3{
+			clear: both;
+			margin-top: 2em;
+			padding-top: 1em;
+			border-top: 1px dotted #ddd;
+			font-size: 1.8em;
+			&:first-child{
+				margin-top: 0;
+				padding-top: 0;
+				border-top: none;
+			}
+		}
+		h4{
+			margin-top: 2em;
+		}
+		.last-updated{
+			font-size: 0.9em;
+			color: #999;
+			text-align: right;
+		}
+		.gianism-example-table{
+			border-collapse: collapse;
+			th,td{
+				padding: 5px 10px;
+				border: 1px solid #f0f0f0;
+			}
+			th{
+				font-weight: bold;
+				text-align: left;
+				white-space: nowrap;
+			}
+			span.description{
+				background: #06c;
+				color: #fff;
+				padding: 3px 5px;
+				margin-top: 5px;
+				@include border-radius(3px);
+			}
+		}
+	}
+	.sidebar{
+		width: 300px;
+		right: 0;
+		position: absolute;
+		margin-left: -300px;
+		#index{
+			width: 278px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			background-color: #f9f9f9;
+			@include border-radius(3px);
+			&.floating {
+				position: fixed;
+				top: 38px;
+			}
+			&.pinned-bottom {
+				position: absolute;
+				bottom: 0;
+				_position: static;
+			}
+		}
+	}
+}

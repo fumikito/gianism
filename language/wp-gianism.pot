@@ -2,73 +2,77 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-22 18:39+0900\n"
-"PO-Revision-Date: 2012-04-22 18:39+0900\n"
+"POT-Creation-Date: 2012-12-09 16:23+0900\n"
+"PO-Revision-Date: 2012-12-09 16:23+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:180
-#: ../WP_Gianism.php:182
+#: ../WP_Gianism.php:191 ../WP_Gianism.php:193
 msgid "Messages"
 msgstr ""
 
-#: ../WP_Gianism.php:183
+#: ../WP_Gianism.php:194
 msgid "Message"
 msgstr ""
 
-#: ../WP_Gianism.php:194
+#: ../WP_Gianism.php:211
 #, php-format
 msgid "Message to %s"
 msgstr ""
 
-#: ../WP_Gianism.php:209
+#: ../WP_Gianism.php:226
 msgid "Delete"
 msgstr ""
 
-#: ../WP_Gianism.php:217
-#: ../WP_Gianism.php:337
+#: ../WP_Gianism.php:234 ../WP_Gianism.php:375
 msgid "No message."
 msgstr ""
 
-#: ../WP_Gianism.php:256
+#: ../WP_Gianism.php:278
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:258
+#: ../WP_Gianism.php:280
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:268
-#: ../WP_Gianism.php:290
+#: ../WP_Gianism.php:290 ../WP_Gianism.php:328 ../templates/setting.php:17
 msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:335
+#: ../WP_Gianism.php:373
 msgid "You really delete this message?"
 msgstr ""
 
-#: ../WP_Gianism.php:336
+#: ../WP_Gianism.php:374
 msgid "You cannot delete this message."
 msgstr ""
 
-#: ../WP_Gianism.php:562
-msgid "Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!"
+#: ../WP_Gianism.php:600
+msgid ""
+"Connect user accounts with major web services like Facebook, twitter, etc. "
+"Stand on the shoulders of giants!"
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:91
 #: ../sdks/facebook/facebook_controller.php:126
 #: ../sdks/facebook/facebook_controller.php:141
 #: ../sdks/google/google_controller.php:79
+#: ../sdks/mixi/mixi_controller.php:137 ../sdks/mixi/mixi_controller.php:181
+#: ../sdks/twitter/twitter_controller.php:104
+#: ../sdks/twitter/twitter_controller.php:107
+#: ../sdks/twitter/twitter_controller.php:110
+#: ../sdks/twitter/twitter_controller.php:170
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
@@ -79,6 +83,8 @@ msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:122
 #: ../sdks/google/google_controller.php:106
+#: ../sdks/mixi/mixi_controller.php:150
+#: ../sdks/twitter/twitter_controller.php:101
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr ""
@@ -105,16 +111,21 @@ msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:240
 #: ../sdks/google/google_controller.php:196
+#: ../sdks/mixi/mixi_controller.php:293
+#: ../sdks/twitter/twitter_controller.php:206
 msgid "Connect"
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:241
 #, php-format
-msgid "Connecting with Facebook account, you can log in %s via Facebook account."
+msgid ""
+"Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:248
 #: ../sdks/google/google_controller.php:188
+#: ../sdks/mixi/mixi_controller.php:282
+#: ../sdks/twitter/twitter_controller.php:189
 msgid "Disconnect"
 msgstr ""
 
@@ -124,6 +135,8 @@ msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:251
 #: ../sdks/google/google_controller.php:191
+#: ../sdks/mixi/mixi_controller.php:290
+#: ../sdks/twitter/twitter_controller.php:198
 msgid "You really disconnect this account?"
 msgstr ""
 
@@ -136,6 +149,7 @@ msgid "Log in with Facebook"
 msgstr ""
 
 #: ../sdks/google/google_controller.php:104
+#: ../sdks/mixi/mixi_controller.php:152
 #, php-format
 msgid "Welcom, %s!"
 msgstr ""
@@ -146,6 +160,8 @@ msgid "Your account is already connected with Google &lt;%s&gt;."
 msgstr ""
 
 #: ../sdks/google/google_controller.php:197
+#: ../sdks/mixi/mixi_controller.php:295
+#: ../sdks/twitter/twitter_controller.php:207
 #, php-format
 msgid "Connecting %1$s account, you can log in %2$s via %1$s account."
 msgstr ""
@@ -163,14 +179,12 @@ msgstr ""
 msgid "Disconnect now :("
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:168
-#: ../sdks/mixi/mixi_controller.php:229
+#: ../sdks/mixi/mixi_controller.php:168 ../sdks/mixi/mixi_controller.php:229
 #: ../sdks/mixi/mixi_controller.php:235
 msgid "Failed to get mixi ID."
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:171
-#: ../sdks/mixi/mixi_controller.php:232
+#: ../sdks/mixi/mixi_controller.php:171 ../sdks/mixi/mixi_controller.php:232
 msgid "Invalid access token."
 msgstr ""
 
@@ -187,7 +201,9 @@ msgstr ""
 #: ../sdks/mixi/mixi_controller.php:284
 #: ../sdks/twitter/twitter_controller.php:192
 #, php-format
-msgid "Your account is already connected with %1$s <a target=\"_blank\" href=\"%2$s\">%3$s</a> ."
+msgid ""
+"Your account is already connected with %1$s <a target=\"_blank\" href=\"%2$s"
+"\">%3$s</a> ."
 msgstr ""
 
 #: ../sdks/mixi/mixi_controller.php:284
@@ -197,7 +213,10 @@ msgstr ""
 #: ../sdks/mixi/mixi_controller.php:288
 #: ../sdks/twitter/twitter_controller.php:196
 #, php-format
-msgid "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address."
+msgid ""
+"Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail "
+"for. If you disconnect %2$s account, you may not be able to log in %3$s. "
+"Please change it to available e-mail address."
 msgstr ""
 
 #: ../sdks/twitter/twitter_controller.php:212
@@ -213,161 +232,485 @@ msgstr ""
 msgid "You have message \"%1$s\" on %2$s. %3$s"
 msgstr ""
 
-#: ../templates/setting.php:11
-msgid "Connect with Facebook"
+#: ../templates/advanced.php:2
+msgid "Create Facebook page tab"
 msgstr ""
 
-#: ../templates/setting.php:15
-#: ../templates/setting.php:62
-#: ../templates/setting.php:105
-#: ../templates/setting.php:144
-msgid "Enable"
+#: ../templates/advanced.php:4
+msgid ""
+"<a href=\"https://developers.facebook.com/docs/appsonfacebook/pagetabs/"
+"\">Page tab</a> is page which you can add to your facebook page. If you "
+"create Facebook Web application and connect it with Gianism, you can assign "
+"WordPress page to page tab."
 msgstr ""
 
-#: ../templates/setting.php:19
-#: ../templates/setting.php:66
-#: ../templates/setting.php:109
-#: ../templates/setting.php:148
-msgid "Disable"
+#: ../templates/advanced.php:6
+#, php-format
+msgid ""
+"You can assign page tab <a href=\"%s\">here</a>. But it is not sufficient, "
+"because page tab itself should be assigned on <a href=\"https://developers."
+"facebook.com/apps\">Facebook Develpers</a>. You can intergrate your "
+"WordPress page to Facebook tab there."
+msgstr ""
+
+#: ../templates/advanced.php:8
+msgid ""
+"<strong>Note:</strong> Page tab will be embedded in Facebook and should have "
+"fixed width(520px or 810px). Be careful to your theme layout. If you would "
+"like to see how it looks, please visit and check <a href=\"https://www."
+"facebook.com/TakahashiFumiki.Page/app_264573556888294\">plugin authors "
+"Facebook page tab</a>."
+msgstr ""
+
+#: ../templates/advanced.php:10
+msgid ""
+"Now you have completed connecting WordPress page to Facebook page tab. "
+"Several utility functions are available. For example, assume that you have "
+"page template named <code>page-facebook.php</code> and edit like below."
+msgstr ""
+
+#: ../templates/advanced.php:51
+msgid "Make tweet with your account"
+msgstr ""
+
+#: ../templates/advanced.php:53
+msgid "You can make tweet by registered application's account."
+msgstr ""
+
+#: ../templates/advanced.php:60
+msgid "Hello, my followers. I updated new post."
+msgstr ""
+
+#: ../templates/advanced.php:64
+msgid ""
+"This function itself makes no sense, but you can use some hook to make auto "
+"post."
+msgstr ""
+
+#: ../templates/advanced.php:96
+#, php-format
+msgid "%1$s pulbished %2$s. Please visit %3$s"
+msgstr ""
+
+#: ../templates/advanced.php:100
+msgid ""
+"<strong>Note:</strong> Currently, only twitter application's account(thus, "
+"admin's twitter account) can tweet."
+msgstr ""
+
+#: ../templates/customize.php:1
+msgid "Change Login Button"
+msgstr ""
+
+#: ../templates/customize.php:3
+msgid ""
+"You can change the appearance of login button. Available hooks are below:"
+msgstr ""
+
+#: ../templates/customize.php:13
+msgid "You can customize Facebook login button like this"
+msgstr ""
+
+#: ../templates/customize.php:26
+msgid "Change Redirect"
+msgstr ""
+
+#: ../templates/customize.php:29
+msgid "You can hook on redirect URL after user logged in."
+msgstr ""
+
+#: ../templates/customize.php:39
+msgid "Now you can get redirect URL."
+msgstr ""
+
+#: ../templates/customize.php:41
+msgid "Not specified, $url is null."
+msgstr ""
+
+#: ../templates/customize.php:50
+msgid ""
+"<strong>Note:</strong> Redirect occurs on various situations. If you are not "
+"enough aware of WordPress URL process, some troubles might occurs."
+msgstr ""
+
+#: ../templates/how-to-setup.php:4
+#, php-format
+msgid "Last Updated: %s"
+msgstr ""
+
+#: ../templates/how-to-setup.php:10
+msgid ""
+"First of all, Facebook account is required. If you don't have one, create it "
+"at <a href=\"https://www.facebook.com\">facebook.com</a>"
+msgstr ""
+
+#: ../templates/how-to-setup.php:12
+msgid "Create App on Facebook developers"
+msgstr ""
+
+#: ../templates/how-to-setup.php:14
+msgid ""
+"Gianism refers user's Facebook credential as Facebook app. Go to <a href="
+"\"https://developers.facebook.com\">Facebook developers</a> and sign up as "
+"developer. On registeration flow, you will have to enter mobile phone number "
+"or credit card number."
+msgstr ""
+
+#: ../templates/how-to-setup.php:16
+#, php-format
+msgid ""
+"Authenticated as developer, go to <a href=\"https://developers.facebook.com/"
+"apps\">Apps</a> and create new App. You can enter name as you like, but the "
+"same name as WordPress site name <code>%s</code> is recommended for "
+"usability."
+msgstr ""
+
+#: ../templates/how-to-setup.php:18
+msgid ""
+"Though App credential is available for various usage(iOS app, Android app, "
+"Page tab, etc), minimum requirments are like below."
+msgstr ""
+
+#: ../templates/how-to-setup.php:24
+msgid ""
+"App name. Blog name is recommended. User will see this name on "
+"authentication screen."
+msgstr ""
+
+#: ../templates/how-to-setup.php:25 ../templates/how-to-setup.php:32
+#: ../templates/how-to-setup.php:39 ../templates/how-to-setup.php:46
+#: ../templates/how-to-setup.php:53
+#, php-format
+msgid "e.g. %s"
+msgstr ""
+
+#: ../templates/how-to-setup.php:31
+msgid "Unique string which identifies your app."
+msgstr ""
+
+#: ../templates/how-to-setup.php:36
+msgid "Contact mail address"
+msgstr ""
+
+#: ../templates/how-to-setup.php:38
+msgid ""
+"Contact mail address. It will be displayed on authentication screen on "
+"Facebook."
+msgstr ""
+
+#: ../templates/how-to-setup.php:45
+msgid "Your domain."
+msgstr ""
+
+#: ../templates/how-to-setup.php:52
+msgid "On development environment or test flight, turn sandbox ON."
+msgstr ""
+
+#: ../templates/how-to-setup.php:53
+msgid "OFF"
+msgstr ""
+
+#: ../templates/how-to-setup.php:59
+msgid "You can activate several connection types, but below is required."
+msgstr ""
+
+#: ../templates/how-to-setup.php:65
+msgid "Enter App ID and App secret"
+msgstr ""
+
+#: ../templates/how-to-setup.php:67
+#, php-format
+msgid ""
+"Once you create Facebook App, App ID and App secret will be provided. Now "
+"you can enter it on <a href=\"%s\">WordPress Admin screen</a>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:71
+msgid ""
+"First of all, your twitter account is required. If you don't have one, "
+"create it at <a href=\"https://twitter.com\">twitter</a>"
+msgstr ""
+
+#: ../templates/how-to-setup.php:73
+msgid "Create twitter application"
+msgstr ""
+
+#: ../templates/how-to-setup.php:75
+msgid ""
+"Go to <a href=\"https://dev.twitter.com\">Twitter Developer</a> and sign in "
+"with your twitter account. Then go to <a href=\"https://dev.twitter.com/apps"
+"\">My Applications</a> and click <code>Create new application</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:77
+#, php-format
+msgid ""
+"In Application detail section, enter appilcation name(same as <code>%s</"
+"code> recommended), description and Website. If you are not bot, enter "
+"reCaptha and creation flow will be done :)"
+msgstr ""
+
+#: ../templates/how-to-setup.php:79
+msgid ""
+"Now you have new application. Go to your new app's detail page. On "
+"<code>Settings</code> tab, various information can be editted. Besides the "
+"required informations, you had better to upload Application icon which will "
+"be displayed on authentication screen."
+msgstr ""
+
+#: ../templates/how-to-setup.php:81
+msgid ""
+"Futhermore, take care of application access type. Default is <code>readonly</"
+"code> and it's sufficient. Users tend to avoid strong access like <code>Read "
+"and Write</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:83
+msgid "Now you have finished setting application up."
+msgstr ""
+
+#: ../templates/how-to-setup.php:85
+msgid "Enter app information"
+msgstr ""
+
+#: ../templates/how-to-setup.php:87
+msgid "Gianism requires 5 informations. "
+msgstr ""
+
+#: ../templates/how-to-setup.php:89
+msgid ""
+"You can get them at <a href=\"https://dev.twitter.com/apps\">your "
+"application's detail page</a>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:93
+msgid ""
+"Google API system is very complex, but don't be afraid. Anyway if you don't "
+"have Google account, go to <a hreF=\"https://www.google.com/accounts/"
+"NewAccount\">Create Google account</a> and get it."
+msgstr ""
+
+#: ../templates/how-to-setup.php:95
+msgid "Create new Project"
+msgstr ""
+
+#: ../templates/how-to-setup.php:97
+msgid ""
+"Go to <a href=\"https://code.google.com/apis/console\">Google API Console</"
+"a> and select <code>Create...</code> from pulldown."
+msgstr ""
+
+#: ../templates/how-to-setup.php:99
+msgid ""
+"On project page, go to <code>API Access</code> menu in sidebar. You can get "
+"<code>Client ID</code> and <code>Client secret</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:101
+#, php-format
+msgid ""
+"Besiteds credential informations, you have to save <coce>Redirect URIs</"
+"code>. Click <code>Edit settings...</code> and enter redirect URI. "
+"Typically, your blog home URL <code>%s</code>. If you force SSL on login, "
+"make it to start with <code>https</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:103
+msgid "Enter API Information"
+msgstr ""
+
+#: ../templates/how-to-setup.php:105
+#, php-format
+msgid ""
+"Input and save 3 informations(Client ID, Client Secret and Redirect URI) on "
+"<a href=\"%s\">WordPress admin screen</a>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:109
+msgid ""
+"mixi account is required. If you don't have one, create it at <a href="
+"\"http://developer.mixi.co.jp/\">mixi Developer Center</a>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:111
+msgid "Create mixi applicaiton"
+msgstr ""
+
+#: ../templates/how-to-setup.php:113
+msgid ""
+"Log in to <a href=\"http://developer.mixi.co.jp/\">Partner Dashboard</a> and "
+"clik <code>mixi Graph API</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:121
+#, php-format
+msgid "Create new service. Redirect URL should be <code>%s</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:125
+msgid "Input credentials"
+msgstr ""
+
+#: ../templates/how-to-setup.php:127
+msgid ""
+"Get <code>Consumer Key</code> and <code>Consumer Secret</code> at service "
+"detail page, and save it."
+msgstr ""
+
+#: ../templates/setting.php:21 ../templates/setting.php:87
+#: ../templates/setting.php:135 ../templates/setting.php:179
+#: ../templates/setting.php:219
+msgid "How to set up"
 msgstr ""
 
 #: ../templates/setting.php:22
-#: ../templates/setting.php:69
-#: ../templates/setting.php:112
-#: ../templates/setting.php:151
-#, php-format
-msgid "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to get required infomation."
+msgid "Customize"
 msgstr ""
 
-#: ../templates/setting.php:27
+#: ../templates/setting.php:23 ../templates/setting.php:113
+msgid "Advanced Usage"
+msgstr ""
+
+#: ../templates/setting.php:36
+msgid "Index"
+msgstr ""
+
+#: ../templates/setting.php:40
+msgid ""
+"Have some questions? Go to <a href=\"http://wordpress.org/support/plugin/"
+"gianism\">support forum</a> and create thread."
+msgstr ""
+
+#: ../templates/setting.php:43
+#, php-format
+msgid ""
+"If you find this plugin usefull, don't hesitate to buy me some present from "
+"<a href=\"%s\">my wishlist</a>."
+msgstr ""
+
+#: ../templates/setting.php:75
+msgid "Connect with Facebook"
+msgstr ""
+
+#: ../templates/setting.php:79 ../templates/setting.php:127
+#: ../templates/setting.php:171 ../templates/setting.php:211
+msgid "Enable"
+msgstr ""
+
+#: ../templates/setting.php:83 ../templates/setting.php:131
+#: ../templates/setting.php:175 ../templates/setting.php:215
+msgid "Disable"
+msgstr ""
+
+#: ../templates/setting.php:86 ../templates/setting.php:134
+#: ../templates/setting.php:178 ../templates/setting.php:218
+#, php-format
+msgid ""
+"You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
+"get required infomation."
+msgstr ""
+
+#: ../templates/setting.php:87 ../templates/setting.php:135
+#: ../templates/setting.php:179 ../templates/setting.php:219
+#, php-format
+msgid "See detail at <a href=\"%1$s\">%2$s</a>."
+msgstr ""
+
+#: ../templates/setting.php:92
 msgid "App ID"
 msgstr ""
 
-#: ../templates/setting.php:33
+#: ../templates/setting.php:98
 msgid "App Secret"
 msgstr ""
 
-#: ../templates/setting.php:39
+#: ../templates/setting.php:104
 msgid "Facebook Fan Gate"
 msgstr ""
 
-#: ../templates/setting.php:42
+#: ../templates/setting.php:107
 msgid "No Fan Gate"
 msgstr ""
 
-#: ../templates/setting.php:48
+#: ../templates/setting.php:113
 #, php-format
-msgid "If you have fan page and use WordPress page as it, specify it here. Some functions are available. For details, see <strong>%s</strong>"
+msgid ""
+"If you have fan page and use WordPress page as it, specify it here. Some "
+"functions are available. For details, see <strong>%s</strong>"
 msgstr ""
 
-#: ../templates/setting.php:58
-#: ../templates/setting.php:101
-#: ../templates/setting.php:140
+#: ../templates/setting.php:123 ../templates/setting.php:167
+#: ../templates/setting.php:207
 #, php-format
 msgid "Connect with %s"
 msgstr ""
 
-#: ../templates/setting.php:75
+#: ../templates/setting.php:141
 msgid "Screen Name"
 msgstr ""
 
-#: ../templates/setting.php:79
+#: ../templates/setting.php:145
 msgid "Consumer Key"
 msgstr ""
 
-#: ../templates/setting.php:83
+#: ../templates/setting.php:149
 msgid "Consumer Secret"
 msgstr ""
 
-#: ../templates/setting.php:87
-#: ../templates/setting.php:183
+#: ../templates/setting.php:153 ../templates/setting.php:252
 msgid "Access Token"
 msgstr ""
 
-#: ../templates/setting.php:91
+#: ../templates/setting.php:157
 msgid "Access token secret"
 msgstr ""
 
-#: ../templates/setting.php:118
-#: ../templates/setting.php:157
+#: ../templates/setting.php:185 ../templates/setting.php:225
 msgid "Client ID"
 msgstr ""
 
-#: ../templates/setting.php:122
-#: ../templates/setting.php:161
+#: ../templates/setting.php:189 ../templates/setting.php:229
 msgid "Client Secret"
 msgstr ""
 
-#: ../templates/setting.php:126
-#: ../templates/setting.php:130
-#: ../templates/setting.php:165
-#: ../templates/setting.php:173
+#: ../templates/setting.php:193 ../templates/setting.php:197
+#: ../templates/setting.php:233 ../templates/setting.php:241
 msgid "Redirect URI"
 msgstr ""
 
-#: ../templates/setting.php:130
+#: ../templates/setting.php:197
 #, php-format
-msgid "Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http with https."
+msgid ""
+"Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http "
+"with https."
 msgstr ""
 
-#: ../templates/setting.php:173
+#: ../templates/setting.php:241
 #, php-format
 msgid "Please set %1$s to %2$s on %3$s."
 msgstr ""
 
-#: ../templates/setting.php:179
+#: ../templates/setting.php:248
 msgid "Token"
 msgstr ""
 
-#: ../templates/setting.php:187
+#: ../templates/setting.php:256
 msgid "Refresh Token"
 msgstr ""
 
-#: ../templates/setting.php:189
+#: ../templates/setting.php:258
 msgid "Your refresh token is invalid. Please reset it from link below."
 msgstr ""
 
-#: ../templates/setting.php:193
-msgid "If you want to send a message via mixi to your use who has only pseudo mail(@pseudo.mixi.jp), set up auth information by login to mixi from the link below as your account by which messages will be sent . Do not forget to check &quot;Always allow&quot;. <strong>Notice: </strong>You can send message to only your friend."
+#: ../templates/setting.php:262
+msgid ""
+"If you want to send a message via mixi to your use who has only pseudo mail"
+"(@pseudo.mixi.jp), set up auth information by login to mixi from the link "
+"below as your account by which messages will be sent . Do not forget to "
+"check &quot;Always allow&quot;. <strong>Notice: </strong>You can send "
+"message to only your friend."
 msgstr ""
 
-#: ../templates/setting.php:195
+#: ../templates/setting.php:264
 msgid "Auth on mixi"
 msgstr ""
-
-#: ../templates/setting.php:206
-msgid "Customizatin"
-msgstr ""
-
-#: ../templates/setting.php:208
-msgid "Change Login Button"
-msgstr ""
-
-#: ../templates/setting.php:210
-msgid "You can change the appearance of login button. Available hooks are below:"
-msgstr ""
-
-#: ../templates/setting.php:217
-msgid "You can customize Facebook login button like this"
-msgstr ""
-
-#: ../templates/setting.php:225
-msgid "Change Redirect"
-msgstr ""
-
-#: ../templates/setting.php:228
-msgid "You can hook on redirect URL after user logged in."
-msgstr ""
-
-#: ../templates/setting.php:229
-msgid "<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs."
-msgstr ""
-
-#: ../templates/setting.php:233
-msgid "Now you can get redirect URL."
-msgstr ""
-
-#: ../templates/setting.php:235
-msgid "Not specified, $url is null."
-msgstr ""
-

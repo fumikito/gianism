@@ -1,5 +1,14 @@
 <div class="wrap gianism-wrap">
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=264573556888294";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <?php /* @var $this WP_Gianism */ ?>
 <div id="icon-users" class="icon32"><br></div>
 
@@ -27,6 +36,17 @@
 		<h4><?php $this->e('Index'); ?></h4>
 		<ol>
 		</ol>
+		<p class="forum-link">
+			<?php $this->e('Have some questions? Go to <a href="http://wordpress.org/support/plugin/gianism">support forum</a> and create thread.'); ?>
+		</p>
+		<p class="amazon-link">
+			<?php printf($this->_('If you find this plugin usefull, don\'t hesitate to buy me some present from <a href="%s">my wishlist</a>.'), 'http://www.amazon.co.jp/registry/wishlist/29NJ4F9NRNIKB'); ?>
+		</p>
+		<div class="fb-like-box" data-href="https://www.facebook.com/TakahashiFumiki.Page" data-width="278" data-height="72" data-show-faces="false" data-stream="false" data-border-color="f9f9f9" data-header="false"></div>
+		<p class="social-link">
+			<a href="https://twitter.com/intent/tweet?screen_name=takahashifumiki" class="twitter-mention-button" data-lang="ja" data-related="takahashifumiki">Tweet to @takahashifumiki</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</p>
 	</div>
 </div>
 
@@ -64,6 +84,7 @@
 					</label>
 					<p class="description">
 						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Facebook", "https://developers.facebook.com/apps"); ?>
+						<?php printf($this->_('See detail at <a href="%1$s">%2$s</a>.'), admin_url('users.php?page=gianism&view=setup'), $this->_('How to set up')); ?>
 					</p>
 				</td>
 			</tr>
@@ -89,7 +110,7 @@
 						<?php endwhile; endif; wp_reset_query();?>
 					</select>
 					<p class="description">
-						<?php printf($this->_('If you have fan page and use WordPress page as it, specify it here. Some functions are available. For details, see <strong>%s</strong>'), dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR."functions.php"); ?>
+						<?php printf($this->_('If you have fan page and use WordPress page as it, specify it here. Some functions are available. For details, see <strong>%s</strong>'), sprintf('<a href="%s">%s</a>', admin_url('users.php?page=gianism&view=advanced'), $this->_('Advanced Usage'))); ?>
 					</p>
 				</td>
 			</tr>
@@ -111,6 +132,7 @@
 					</label>
 					<p class="description">
 						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Twitter", "https://dev.twitter.com/apps"); ?>
+						<?php printf($this->_('See detail at <a href="%1$s">%2$s</a>.'), admin_url('users.php?page=gianism&view=setup'), $this->_('How to set up')); ?>
 					</p>
 				</td>
 			</tr>
@@ -154,6 +176,7 @@
 					</label>
 					<p class="description">
 						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Google API Console", "https://code.google.com/apis/console"); ?>
+						<?php printf($this->_('See detail at <a href="%1$s">%2$s</a>.'), admin_url('users.php?page=gianism&view=setup'), $this->_('How to set up')); ?>
 					</p>
 				</td>
 			</tr>
@@ -177,7 +200,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h3>Mixi</h3>
+	<h3>mixi</h3>
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -193,6 +216,7 @@
 					</label>
 					<p class="description">
 						<?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "mixi Graph API", "http://developer.mixi.co.jp/connect/mixi_graph_api/services/"); ?>
+						<?php printf($this->_('See detail at <a href="%1$s">%2$s</a>.'), admin_url('users.php?page=gianism&view=setup'), $this->_('How to set up')); ?>
 					</p>
 				</td>
 			</tr>

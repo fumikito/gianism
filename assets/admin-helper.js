@@ -27,4 +27,8 @@ jQuery(document).ready(function($){
 			}
 		});
 	}
+	//Syntax highlight
+	if($('.gianism-wrap pre').length > 0){
+		SyntaxHighlighter.all();
+	}
 });

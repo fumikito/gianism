@@ -103,3 +103,14 @@
   background: url("../../icon-amazon-32.png") left center no-repeat;
   padding: 0.5em 0.5em 0.5em 40px;
 }
+
+@media screen and (max-width: 799px) {
+  /* line 84, ../sass/gianism-admin.scss */
+  .gianism-wrap .main-content {
+    margin-right: 0;
+  }
+  /* line 87, ../sass/gianism-admin.scss */
+  .gianism-wrap .sidebar {
+    display: none;
+  }
+}

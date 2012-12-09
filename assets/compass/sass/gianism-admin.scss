@@ -78,3 +78,14 @@
 		}
 	}
 }
+
+@media screen and (max-width: 799px){
+	.gianism-wrap{
+		.main-content{
+			margin-right: 0;
+		}
+		.sidebar{
+			display: none;
+		}
+	}
+}

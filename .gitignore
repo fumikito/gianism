@@ -1,4 +1,3 @@
 .svn
 .DS_Store
-assets/compass/.sass-cache
-
+assets/compass/.sass-cache/*

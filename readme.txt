@@ -91,7 +91,7 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 = 1.2.3 =
 
 * Make manual on admin screen. （管理画面にマニュアルを追記しました）
-* Readme is now in English.
+* Readme is now in English.（readmeが日本語だとユーザーが混乱するようなので、英語も追加）
 
 = 1.2.2 =
 

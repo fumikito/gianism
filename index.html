@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Gianism by fumikito</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Gianism</h1>
+          <h2>WordPress Plugin to enable user to login with Social Account(Twitter, Facebook, Google etc.)</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/fumikito/Gianism/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/fumikito/Gianism/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/fumikito/Gianism" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>Gianism</h1>
+
+<p>Contributors: Takahashi_Fumiki
+Tags: facebook,twitter,google,mixi,account,oauth,community
+Requires at least: 3.1
+Tested up to: 3.5
+Stable tag: 1.2.3</p>
+
+<p>Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!</p>
+
+<h2>Description</h2>
+
+<p>This plugin enables allow users to login/register with mager SNS accounts. Below is supported SNSs.</p>
+
+<p>If your site needs user's login action, <strong>signing-up is the most difficult step</strong>. With this plugin, users can sign up without inputting email nor password.</p>
+
+<hr><p>このプラグインを使うと、有名なSNSアカウントで新規登録／ログインできるようになります。現在対応しているのは次の通り。</p>
+
+<p>登録制のWordPressサイトを作っている場合、**ユーザーにアカウントを作ってもらうのが一苦労**。このプラグインを使えば、Webサービスの情報を使ってログインできるようになります。ユーザーは新しいユーザー名とパスワードを覚える必要がありません。</p>
+
+<h3>Supported SNS</h3>
+
+<ul>
+<li>Facebook</li>
+<li>Twitter</li>
+<li>Google <em>(requires Gmail account)</em>
+</li>
+<li>mixi</li>
+</ul><h3>Acknowledgements</h3>
+
+<ul>
+<li>Use <a href="https://github.com/abraham/twitteroauth">Abraham Williams' twitteroauth</a>. Thanks.</li>
+<li>Use <a href="https://github.com/facebook/facebook-php-sdk">Facebook's official PHP SDK</a>. </li>
+<li>Use <a href="http://code.google.com/p/google-api-php-client/">Google API PHP Client</a>.</li>
+<li>Iconsets for banner image is by <a href="http://arabikinet.com/sns/sns10.html">Arabiki's スタンプみたいなソーシャルアイコン</a>. Thanks lots.</li>
+</ul><h2>Installation</h2>
+
+<p>Install itself is easy. Auto install from admin panel is recommended. Search with <code>gianism</code>.</p>
+
+<ol>
+<li>Donwload and unpack plugin file, upload <code>gianims</code> folder to <code>/wp-content/plugins</code> directory.</li>
+<li>Activate it from admin panel.</li>
+</ol><hr><p>インストール自体は簡単です。管理画面から<code>gianism</code>で検索し、自動インストールをお勧めします。</p>
+
+<ol>
+<li>プラグインをダウンロード／解凍したら、<code>gianism</code>フォルダーを<code>/wp-content/plugins/</code>ディレクトリーにアップロード。</li>
+<li>管理画面からプラグインを有効化。</li>
+</ol><h3>How to set up</h3>
+
+<p>After plugin's activation, you have to set it up. Every setup has 2 step. One is on SNS, the other is on your site.</p>
+
+<p>For example, if you use Facebook, register new app on Facebook, then input app ID and token on WordPress admin panel. Every SNS requires <strong>registeration of Apps</strong> and <strong>credentials related to it</strong>.</p>
+
+<p>It seems too difficult? Don't panic. Howtos and manuals are on setting page <em>(Users &gt; External)</em>.</p>
+
+<hr><p>プラグインを有効化した後、設定を行う必要があります。それぞれの設定には2つのステップがあります。1つは利用するSNSでの設定、もう一つはあなたのサイト上での設定です。</p>
+
+<p>たとえばFacebookを利用する場合、まずFacebookでアプリを登録し、そのアプリに対して発行されたIDとトークンをWordPressの管理画面から入力する必要があります。すべてのSNSは**アプリの登録**と**それに紐づいた認証情報**を求めています。</p>
+
+<p>なんだか複雑なようですが、登録方法については設定画面*（ユーザー &gt; 外部サービス連携）*にマニュアルおよびリンクをつけているので心配いりません。</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<blockquote>
+<p>Can I use this in English?</p>
+</blockquote>
+
+<p>Maybe yes.</p>
+
+<hr><blockquote>
+<p>Found bug. It sucks.
+バグがありました。ふざけんな。</p>
+</blockquote>
+
+<p>Use <a href="http://wordpress.org/support/plugin/gianism">support forum on WordPress.org</a> or send pull request to <a href="https://github.com/fumikito/Gianism/">repository on Github</a>.</p>
+
+<p><a href="http://wordpress.org/support/plugin/gianism">WordPress.orgのサポートフォーラム</a>を使うか、 <a href="https://github.com/fumikito/Gianism/">Githubのリポジトリ</a>にプルリクエストを送ってください。</p>
+
+<h2>Screenshots</h2>
+
+<ol>
+<li>Buttons on Login/registeration screen. （ログイン／新規登録画面にボタンが追加されます）</li>
+<li>Show connection status on profile screen. Registered users can connect account here.（プロフィール編集画面に接続ステータスが表示されます。既存のユーザーはここでアカウントを接続できます）</li>
+<li>Suit to plugins which customize login screen, e.g. <a href="http://wordpress.org/extend/plugins/theme-my-login/">Theme My Login</a>. （<a href="http://wordpress.org/extend/plugins/theme-my-login/">Theme My Login</a>のようにログイン画面をカスタマイズするプラグインとも同時に動きます）</li>
+</ol><h2>Changelog</h2>
+
+<h3>1.2.3</h3>
+
+<ul>
+<li>Make manual on admin screen. （管理画面にマニュアルを追記しました）</li>
+<li>Readme is now in English.（readmeが日本語だとユーザーが混乱するようなので、英語も追加）</li>
+</ul><h3>1.2.2</h3>
+
+<ul>
+<li>バグフィックス
+
+<ul>
+<li>Facebookログインがgianism_redirect_toフィルターを通らない問題を修正。サンキュー、<a href="http://profiles.wordpress.org/horike/">確認さん</a>!</li>
+<li>mixiログインを有効化したときにエラーが発生する問題を修正</li>
+</ul>
+</li>
+</ul><h3>1.2.1</h3>
+
+<ul>
+<li>バグフィックス。mixiの値によって画面が表示されないときがあるので修正。</li>
+</ul><h3>1.2.0</h3>
+
+<ul>
+<li>mixiでログインできるようにしました。</li>
+</ul><h3>1.1.7</h3>
+
+<ul>
+<li>バグフィックス。なんということでしょう、Facebookユーザーでユーザー名を持っていない人が登録できない問題を修正</li>
+</ul><h3>1.1.6</h3>
+
+<ul>
+<li>バグフィックス。Googleアカウントでログインする際にリダイレクトエラーが発生する問題を解消。</li>
+</ul><h3>1.1.5</h3>
+
+<ul>
+<li>バグフィックス。特定の環境でFacebookへの接続がタイムアウトする問題を修正</li>
+<li>バグフィクス。 Googleアカウントだけを有効にした場合、ボタンが出力されない問題を修正</li>
+</ul><h3>1.1.4</h3>
+
+<ul>
+<li>バグフィックス。Facebookボタンにバグがあったので修正</li>
+<li>リダイレクト先を変更できるフックを追加</li>
+</ul><h3>1.1.3</h3>
+
+<ul>
+<li>ログインボタンを好きな場所で出せる関数を追加</li>
+<li>各ボタンのマークアップを変更するためのフィルターを追加</li>
+</ul><h3>1.1.2</h3>
+
+<ul>
+<li>Twitterでつぶやく機能を追加しました。詳しくはgianism/functions.phpをご覧下さい。</li>
+</ul><h3>1.1.1</h3>
+
+<ul>
+<li>Bugfix. Facebookでログインするときのエラーを修正しました。ごめんなさい。</li>
+</ul><h3>1.1</h3>
+
+<ul>
+<li>Twitterアカウントのみで登録したユーザーにDMを送信するため、強制的にフォローする仕様に変更しました。</li>
+</ul><h3>1.0</h3>
+
+<ul>
+<li>公開</li>
+</ul><h2>Upgrade Notice</h2>
+
+<h3>1.1</h3>
+
+<p>Twitterでログインしたユーザーに自分をフォローさせるため、管理画面からスクリーン名（@xxx）を追加してください。入力しない場合はフォローされない場合もあるため、DMが送信できないことがあります。</p>
+
+<h3>1.0</h3>
+
+<p>特になし。</p>
+        </section>
+
+        <footer>
+          Gianism is maintained by <a href="https://github.com/fumikito">fumikito</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>

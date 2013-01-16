@@ -178,6 +178,10 @@ class WP_Gianism{
 			require_once $this->dir."/sdks/google/google_controller.php";
 			$this->google = new Google_Controller($this->option);
 		}
+		if($this->is_enabled('yahoo')){
+			require_once $this->dir."/sdks/yahoo/yahoo_controller.php";
+			$this->yahoo = new Yahoo_Controller($this->option);
+		}
 		//mixi
 		if($this->is_enabled('mixi')){
 			require_once $this->dir."/sdks/mixi/mixi_controller.php";

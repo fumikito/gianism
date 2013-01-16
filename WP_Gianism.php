@@ -94,6 +94,9 @@ class WP_Gianism{
 		"ggl_consumer_key" => "",
 		"ggl_consumer_secret" => "",
 		"ggl_redirect_uri" => "",
+		'yahoo_enabled' => 0,
+		'yahoo_application_id' => '',
+		'yahoo_consumer_secret' => '',
 		"mixi_enabled" => 0,
 		"mixi_consumer_key" => "",
 		"mixi_consumer_secret" => "",
@@ -265,6 +268,9 @@ class WP_Gianism{
 				"ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
 				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),
 				"ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri'),
+				"yahoo_enabled" => ($this->post('yahoo_enabled') == 1) ? 1 : 0,
+				"yahoo_application_id" => (string)$this->post('yahoo_application_id'),
+				"yahoo_consumer_secret" => (string)$this->post('yahoo_consumer_secret'),
 				"mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
 				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
 				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret')
@@ -429,9 +435,12 @@ class WP_Gianism{
 			case "mixi":
 				$flg = (boolean)$this->option['mixi_enabled'];
 				break;
+			case 'yahoo':
+				$flg = (boolean)$this->option['yahoo_enabled'];
+				break;
 			default:
 				foreach($this->option as $key => $val){
-					if(preg_match("/_enabled$/", $key) && $val){
+					if(preg_match("/{$service}_enabled$/", $key) && $val){
 						$flg = true;
 						break;
 					}

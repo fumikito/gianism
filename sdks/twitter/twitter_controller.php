@@ -92,10 +92,12 @@ class Twitter_Controller extends Gianism_Controller{
 								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
 								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
 EOS;
-							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $user_ID, $this->umeta_screen_name, $access_token['screen_name'], $user_ID)){
+							$user_exists = $wpdb->get_row($wpdb->prepare($sql, $this->umeta_id, $access_token['user_id'], $user_ID, $this->umeta_screen_name, $access_token['screen_name'], $user_ID));
+							if(!$user_exists){
 								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
 								$this->follow_me($oauth);
+								do_action('wpg_connect', $user_ID, $access_token, 'twitter', false);
 								$this->add_message(sprintf($gianism->_('Welcome, %s!'), '@'.$access_token['screen_name']));
 							}else{
 								$this->add_message(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
@@ -141,7 +143,6 @@ EOS;
 								$email = $screen_name."@".$this->pseudo_domain;
 								$user_name = (!username_exists('@'.$screen_name)) ? '@'.$screen_name :  $email;
 								$user_id = wp_create_user($user_name, wp_generate_password(), $email);
-								
 								if(!is_wp_error($user_id)){
 									update_user_meta($user_id, $this->umeta_id, $twitter_id);
 									update_user_meta($user_id, $this->umeta_screen_name, $screen_name);
@@ -149,12 +150,13 @@ EOS;
 										$wpdb->users,
 										array(
 											'display_name' => "@{$screen_name}",
-											'user_url' => 'https://twitter.com/#!/'.$screen_name
+											'user_url' => 'https://twitter.com/'.$screen_name
 										),
 										array('ID' => $user_id),
 										array('%s', '%s'),
 										array('%d')
 									);
+									do_action('wpg_connect', $user_id, $access_token, 'twitter', true);
 									$this->follow_me($oauth);
 								}
 							}
@@ -184,18 +186,19 @@ EOS;
 			return;
 		}
 		global $gianism, $user_ID;
-		if($this->is_connected()){
+		$extra_desc = '';
+		if(is_user_connected_with('twitter')){
 			$url = wp_nonce_url(admin_url('profile.php?wpg=twitter_disconnect'), 'twitter_disconnect');
 			$link_text = $gianism->_('Disconnect');
 			$account = get_user_meta($user_ID, $this->umeta_screen_name, true);
-			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-			        .sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'Twitter', 'https://twitter.com/#!/'.$account, "@".$account);
+			$desc = sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'Twitter', 'https://twitter.com/'.$account, "@".$account);
 			//If user has pseudo mail, add caution.
-			global $user_email;
-			if($this->is_pseudo_mail($user_email)){
-				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_email, 'Twitter', get_bloginfo('name'));
+			$user_info = get_userdata(get_current_user_id());
+			if($this->is_pseudo_mail($user_info->user_email)){
+				$extra_desc .= '<p class="desc-extra"><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_info->user_email, 'Twitter', get_bloginfo('name')).'</p>';
 			}
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
+			$p_class = 'description desc-connected desc-connected-twitter';
 		}else{
 			//Create Link
 			$callback_url = admin_url('profile.php?wpg=twitter_connect');
@@ -206,6 +209,7 @@ EOS;
 			$link_text = $gianism->_('Connect');
 			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"Twitter", get_bloginfo('name'));
 			$onclick = '';
+			$p_class = 'description';
 		}
 		?>
 		<tr>
@@ -215,7 +219,8 @@ EOS;
 					<i></i>
 					<span class="label"><?php echo $link_text;?></span>
 				</a>
-				<p class="description"><?php echo $desc;?></p>
+				<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
+				<?php echo $extra_desc; ?>
 			</td>
 		</tr>
 		<?php

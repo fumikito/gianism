@@ -13,15 +13,31 @@ function get_facebook_id($user_id){
 
 /**
  * Returns if user is connected with particular web service.
- * @global int $user_ID
- * @param string $service
+ * @global WP_Gianism $gianism
+ * @param string $service One of facebook, mixi, yahoo, twitter or google.
+ * @param int $user_id If not specified, current user id will be used.
  * @return boolean 
  */
-function is_user_connected_with($service){
-	global $user_ID;
+function is_user_connected_with($service, $user_id = 0){
+	global $gianism;
+	if(!$user_id){
+		$user_id = get_current_user_id();
+	}
 	switch($service){
 		case 'facebook':
-			return (boolean) get_facebook_id($user_ID);
+			return $gianism->fb && (boolean) get_facebook_id($user_id);
+			break;
+		case 'mixi':
+			return $gianism->mixi && get_user_meta($user_id, $gianism->mixi->umeta_id, true);
+			break;
+		case 'yahoo':
+			return $gianism->yahoo && get_user_meta($user_id, $gianism->yahoo->umeta_id, true);
+			break;
+		case 'twitter':
+			return $gianism->twitter && get_user_meta($user_id, $gianism->twitter->umeta_id, true);
+			break;
+		case 'google':
+			return $gianism->google && get_user_meta($user_id, $gianism->google->umeta_account, true);
 			break;
 		default:
 			return false;

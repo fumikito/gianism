@@ -117,6 +117,7 @@ EOS;
 							if(!$others && (!$email_exitance || $user_ID == $email_exitance)){
 								update_user_meta($user_ID, $this->umeta_id, $uid);
 								update_user_meta($user_ID, $this->umeta_mail, $email);
+								do_action('wpg_connect', $user_ID, $profile, 'facebook', false);
 								$this->message = sprintf($gianism->_('Welcome!, %s'), $profile['name']);
 							}else{
 								$this->message = sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
@@ -196,6 +197,7 @@ EOS;
 													array('%s', '%s'),
 													array('%d')
 												);
+												do_action('wpg_connect', $user_id, $profile, 'facebook', true);
 											}else{
 												$this->message .= '\n'.$user_id->get_error_message();
 											}

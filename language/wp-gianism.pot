@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-09 16:23+0900\n"
-"PO-Revision-Date: 2012-12-09 16:23+0900\n"
+"POT-Creation-Date: 2013-01-17 17:13+0900\n"
+"PO-Revision-Date: 2013-01-17 17:13+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -17,134 +17,138 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:191 ../WP_Gianism.php:193
+#: ../WP_Gianism.php:203 ../WP_Gianism.php:205
 msgid "Messages"
 msgstr ""
 
-#: ../WP_Gianism.php:194
+#: ../WP_Gianism.php:206
 msgid "Message"
 msgstr ""
 
-#: ../WP_Gianism.php:211
+#: ../WP_Gianism.php:223
 #, php-format
 msgid "Message to %s"
 msgstr ""
 
-#: ../WP_Gianism.php:226
+#: ../WP_Gianism.php:238
 msgid "Delete"
 msgstr ""
 
-#: ../WP_Gianism.php:234 ../WP_Gianism.php:375
+#: ../WP_Gianism.php:246 ../WP_Gianism.php:390
 msgid "No message."
 msgstr ""
 
-#: ../WP_Gianism.php:278
+#: ../WP_Gianism.php:293
 msgid "Option updated."
 msgstr ""
 
-#: ../WP_Gianism.php:280
+#: ../WP_Gianism.php:295
 msgid "Option failed to update."
 msgstr ""
 
-#: ../WP_Gianism.php:290 ../WP_Gianism.php:328 ../templates/setting.php:17
+#: ../WP_Gianism.php:305 ../WP_Gianism.php:343 ../templates/setting.php:17
 msgid "External Service"
 msgstr ""
 
-#: ../WP_Gianism.php:373
+#: ../WP_Gianism.php:388
 msgid "You really delete this message?"
 msgstr ""
 
-#: ../WP_Gianism.php:374
+#: ../WP_Gianism.php:389
 msgid "You cannot delete this message."
 msgstr ""
 
-#: ../WP_Gianism.php:600
+#: ../WP_Gianism.php:630
 msgid ""
 "Connect user accounts with major web services like Facebook, twitter, etc. "
 "Stand on the shoulders of giants!"
 msgstr ""
 
 #: ../sdks/facebook/facebook_controller.php:91
-#: ../sdks/facebook/facebook_controller.php:126
-#: ../sdks/facebook/facebook_controller.php:141
+#: ../sdks/facebook/facebook_controller.php:127
+#: ../sdks/facebook/facebook_controller.php:142
 #: ../sdks/google/google_controller.php:79
-#: ../sdks/mixi/mixi_controller.php:137 ../sdks/mixi/mixi_controller.php:181
-#: ../sdks/twitter/twitter_controller.php:104
-#: ../sdks/twitter/twitter_controller.php:107
-#: ../sdks/twitter/twitter_controller.php:110
-#: ../sdks/twitter/twitter_controller.php:170
+#: ../sdks/mixi/mixi_controller.php:137 ../sdks/mixi/mixi_controller.php:182
+#: ../sdks/twitter/twitter_controller.php:106
+#: ../sdks/twitter/twitter_controller.php:109
+#: ../sdks/twitter/twitter_controller.php:112
+#: ../sdks/twitter/twitter_controller.php:172
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:120
+#: ../sdks/facebook/facebook_controller.php:121
 #, php-format
 msgid "Welcome!, %s"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:122
-#: ../sdks/google/google_controller.php:106
+#: ../sdks/facebook/facebook_controller.php:123
+#: ../sdks/google/google_controller.php:107
 #: ../sdks/mixi/mixi_controller.php:150
-#: ../sdks/twitter/twitter_controller.php:101
+#: ../sdks/twitter/twitter_controller.php:103
+#: ../sdks/yahoo/yahoo_controller.php:195
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:129
-#: ../sdks/facebook/facebook_controller.php:213
+#: ../sdks/facebook/facebook_controller.php:130
+#: ../sdks/facebook/facebook_controller.php:215
 msgid "Cannot get Facebook ID."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:136
-#: ../sdks/google/google_controller.php:117
+#: ../sdks/facebook/facebook_controller.php:137
+#: ../sdks/google/google_controller.php:118
 #, php-format
 msgid "Disconected your %s account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:205
+#: ../sdks/facebook/facebook_controller.php:207
 msgid "Cannot get e-mail."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:205
-#: ../sdks/facebook/facebook_controller.php:213
+#: ../sdks/facebook/facebook_controller.php:207
+#: ../sdks/facebook/facebook_controller.php:215
 msgid "Please try again later."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:240
-#: ../sdks/google/google_controller.php:196
-#: ../sdks/mixi/mixi_controller.php:293
-#: ../sdks/twitter/twitter_controller.php:206
+#: ../sdks/facebook/facebook_controller.php:242
+#: ../sdks/google/google_controller.php:199
+#: ../sdks/mixi/mixi_controller.php:295
+#: ../sdks/twitter/twitter_controller.php:209
+#: ../sdks/yahoo/yahoo_controller.php:264
 msgid "Connect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:241
+#: ../sdks/facebook/facebook_controller.php:243
 #, php-format
 msgid ""
 "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:248
-#: ../sdks/google/google_controller.php:188
-#: ../sdks/mixi/mixi_controller.php:282
-#: ../sdks/twitter/twitter_controller.php:189
+#: ../sdks/facebook/facebook_controller.php:250
+#: ../sdks/google/google_controller.php:191
+#: ../sdks/mixi/mixi_controller.php:284
+#: ../sdks/twitter/twitter_controller.php:192
+#: ../sdks/yahoo/yahoo_controller.php:256
 msgid "Disconnect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:250
+#: ../sdks/facebook/facebook_controller.php:252
 msgid "Your account is already connected with Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:251
-#: ../sdks/google/google_controller.php:191
-#: ../sdks/mixi/mixi_controller.php:290
-#: ../sdks/twitter/twitter_controller.php:198
+#: ../sdks/facebook/facebook_controller.php:253
+#: ../sdks/google/google_controller.php:193
+#: ../sdks/mixi/mixi_controller.php:291
+#: ../sdks/twitter/twitter_controller.php:200
+#: ../sdks/yahoo/yahoo_controller.php:258
 msgid "You really disconnect this account?"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:256
+#: ../sdks/facebook/facebook_controller.php:258
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:282
+#: ../sdks/facebook/facebook_controller.php:284
 msgid "Log in with Facebook"
 msgstr ""
 
@@ -154,64 +158,71 @@ msgstr ""
 msgid "Welcom, %s!"
 msgstr ""
 
-#: ../sdks/google/google_controller.php:190
+#: ../sdks/google/google_controller.php:156
+#: ../sdks/yahoo/yahoo_controller.php:219
+#, php-format
+msgid "Welcome, %1$s! You are now logged in with %2$s."
+msgstr ""
+
+#: ../sdks/google/google_controller.php:192
 #, php-format
 msgid "Your account is already connected with Google &lt;%s&gt;."
 msgstr ""
 
-#: ../sdks/google/google_controller.php:197
-#: ../sdks/mixi/mixi_controller.php:295
-#: ../sdks/twitter/twitter_controller.php:207
+#: ../sdks/google/google_controller.php:200
+#: ../sdks/mixi/mixi_controller.php:297
+#: ../sdks/twitter/twitter_controller.php:210
+#: ../sdks/yahoo/yahoo_controller.php:266
 #, php-format
 msgid "Connecting %1$s account, you can log in %2$s via %1$s account."
 msgstr ""
 
-#: ../sdks/google/google_controller.php:202
+#: ../sdks/google/google_controller.php:206
 msgid "Google"
 msgstr ""
 
-#: ../sdks/google/google_controller.php:223
+#: ../sdks/google/google_controller.php:227
 msgid "Login with Google"
 msgstr ""
 
 #: ../sdks/mixi/mixi_controller.php:103
-#: ../sdks/twitter/twitter_controller.php:117
+#: ../sdks/twitter/twitter_controller.php:119
 msgid "Disconnect now :("
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:168 ../sdks/mixi/mixi_controller.php:229
-#: ../sdks/mixi/mixi_controller.php:235
+#: ../sdks/mixi/mixi_controller.php:169 ../sdks/mixi/mixi_controller.php:231
+#: ../sdks/mixi/mixi_controller.php:237
 msgid "Failed to get mixi ID."
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:171 ../sdks/mixi/mixi_controller.php:232
+#: ../sdks/mixi/mixi_controller.php:172 ../sdks/mixi/mixi_controller.php:234
 msgid "Invalid access token."
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:216
-#: ../sdks/twitter/twitter_controller.php:99
+#: ../sdks/mixi/mixi_controller.php:218
+#: ../sdks/twitter/twitter_controller.php:101
 #, php-format
 msgid "Welcome, %s!"
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:257
+#: ../sdks/mixi/mixi_controller.php:259
 msgid "Login with mixi"
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:284
-#: ../sdks/twitter/twitter_controller.php:192
+#: ../sdks/mixi/mixi_controller.php:285
+#: ../sdks/twitter/twitter_controller.php:194
 #, php-format
 msgid ""
 "Your account is already connected with %1$s <a target=\"_blank\" href=\"%2$s"
 "\">%3$s</a> ."
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:284
+#: ../sdks/mixi/mixi_controller.php:285
 msgid "View Profile"
 msgstr ""
 
-#: ../sdks/mixi/mixi_controller.php:288
-#: ../sdks/twitter/twitter_controller.php:196
+#: ../sdks/mixi/mixi_controller.php:289
+#: ../sdks/twitter/twitter_controller.php:198
 #, php-format
 msgid ""
 "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail "
@@ -219,17 +230,59 @@ msgid ""
 "Please change it to available e-mail address."
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:212
+#: ../sdks/twitter/twitter_controller.php:216
 msgid "Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:238
+#: ../sdks/twitter/twitter_controller.php:243
 msgid "Login with Twitter"
 msgstr ""
 
-#: ../sdks/twitter/twitter_controller.php:338
+#: ../sdks/twitter/twitter_controller.php:343
 #, php-format
 msgid "You have message \"%1$s\" on %2$s. %3$s"
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:97
+#, php-format
+msgid "Your accont is now disconnected from %s."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:137
+#: ../sdks/yahoo/yahoo_controller.php:160
+#: ../sdks/yahoo/yahoo_controller.php:162
+#: ../sdks/yahoo/yahoo_controller.php:164
+#: ../sdks/yahoo/yahoo_controller.php:176
+#: ../sdks/yahoo/yahoo_controller.php:226
+#: ../sdks/yahoo/yahoo_controller.php:228
+#: ../sdks/yahoo/yahoo_controller.php:230
+msgid "Cannot connect with Yahoo! JAPAN. Please try again later."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:150
+msgid "Ooops, another account uses same Yahoo! ID."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:155
+#, php-format
+msgid "Welcome, %s! Your account is now connected with Yahoo! JAPAN."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:201
+msgid "Sorry, but cannot create account. Please try again later."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:257
+#, php-format
+msgid "Your account is already connected with %1$s."
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:271
+msgid "Yahoo! JAPAN"
+msgstr ""
+
+#: ../sdks/yahoo/yahoo_controller.php:289
+msgid "Log in with Yahoo! JAPAN"
 msgstr ""
 
 #: ../templates/advanced.php:2
@@ -296,6 +349,41 @@ msgstr ""
 msgid ""
 "<strong>Note:</strong> Currently, only twitter application's account(thus, "
 "admin's twitter account) can tweet."
+msgstr ""
+
+#: ../templates/advanced.php:103
+msgid "Save additional infomration"
+msgstr ""
+
+#: ../templates/advanced.php:106
+msgid ""
+"Gianism uses only user name or ID and email(if possible) which are required "
+"on creating WordPress user account. but in some cases, you may need "
+"additional information provided from SNS."
+msgstr ""
+
+#: ../templates/advanced.php:107
+msgid ""
+"For example, Facebook provides various information like educationla "
+"background, friends and so on."
+msgstr ""
+
+#: ../templates/advanced.php:133
+msgid "Save additional information on SNS connection."
+msgstr ""
+
+#: ../templates/advanced.php:137
+msgid ""
+"Data structure is different by service. For more detail, read documentation "
+"or make thread on <a href=\"http://wordpress.org/support/plugin/gianism"
+"\">WordPress.org</a>."
+msgstr ""
+
+#: ../templates/advanced.php:139
+msgid ""
+"<strong>Note:</strong> information about user is different by service, so "
+"you shouldn't relay on specific service. Facebook provides educationla "
+"background or sex, but twitter doesn't."
 msgstr ""
 
 #: ../templates/customize.php:1
@@ -528,38 +616,113 @@ msgstr ""
 
 #: ../templates/how-to-setup.php:109
 msgid ""
+"Yahoo! JAPAN account is required. If you don't have one, create it at <a "
+"href=\"https://e.developer.yahoo.co.jp/dashboard/\">Yahoo! JAPAN Developer "
+"Center</a>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:112
+msgid ""
+"<strong>Note:</strong> Yahoo! JAPAN is different from Yahoo! and is Japanese "
+"domestic service."
+msgstr ""
+
+#: ../templates/how-to-setup.php:115
+msgid "Create applicaiton"
+msgstr ""
+
+#: ../templates/how-to-setup.php:117
+msgid ""
+"Log in to Yahoo! JAPAN developer network and clik <a href=\"https://e."
+"developer.yahoo.co.jp/register\" target=\"_blank\">Register</a> to fill "
+"required information below."
+msgstr ""
+
+#: ../templates/how-to-setup.php:122
+msgid "Application Type"
+msgstr ""
+
+#: ../templates/how-to-setup.php:123
+msgid "Server side application"
+msgstr ""
+
+#: ../templates/how-to-setup.php:126
+msgid "Contact email address"
+msgstr ""
+
+#: ../templates/how-to-setup.php:127
+msgid "Choose from pull down."
+msgstr ""
+
+#: ../templates/how-to-setup.php:130
+msgid "Application name"
+msgstr ""
+
+#: ../templates/how-to-setup.php:131
+#, php-format
+msgid "Same as the blog name <code>%s</code> is the best."
+msgstr ""
+
+#: ../templates/how-to-setup.php:134
+msgid "Site URL"
+msgstr ""
+
+#: ../templates/how-to-setup.php:135
+#, php-format
+msgid "Use root URI of your site <code>%s</code>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:140 ../templates/how-to-setup.php:166
+msgid "Input credentials"
+msgstr ""
+
+#: ../templates/how-to-setup.php:142
+msgid ""
+"After registeration, you will redirect to application detail. There you can "
+"get <strong>application ID</strong> and <strong>secret key</strong>."
+msgstr ""
+
+#: ../templates/how-to-setup.php:144
+#, php-format
+msgid "Besides them, you must enter callback URL. This must be <code>%s</code>"
+msgstr ""
+
+#: ../templates/how-to-setup.php:146
+msgid ""
+"Now come back to WP admin panel, enter application ID and secret key. That's "
+"all done."
+msgstr ""
+
+#: ../templates/how-to-setup.php:150
+msgid ""
 "mixi account is required. If you don't have one, create it at <a href="
 "\"http://developer.mixi.co.jp/\">mixi Developer Center</a>."
 msgstr ""
 
-#: ../templates/how-to-setup.php:111
+#: ../templates/how-to-setup.php:152
 msgid "Create mixi applicaiton"
 msgstr ""
 
-#: ../templates/how-to-setup.php:113
+#: ../templates/how-to-setup.php:154
 msgid ""
 "Log in to <a href=\"http://developer.mixi.co.jp/\">Partner Dashboard</a> and "
 "clik <code>mixi Graph API</code>."
 msgstr ""
 
-#: ../templates/how-to-setup.php:121
+#: ../templates/how-to-setup.php:162
 #, php-format
 msgid "Create new service. Redirect URL should be <code>%s</code>."
 msgstr ""
 
-#: ../templates/how-to-setup.php:125
-msgid "Input credentials"
-msgstr ""
-
-#: ../templates/how-to-setup.php:127
+#: ../templates/how-to-setup.php:168
 msgid ""
 "Get <code>Consumer Key</code> and <code>Consumer Secret</code> at service "
 "detail page, and save it."
 msgstr ""
 
 #: ../templates/setting.php:21 ../templates/setting.php:87
-#: ../templates/setting.php:135 ../templates/setting.php:179
-#: ../templates/setting.php:219
+#: ../templates/setting.php:136 ../templates/setting.php:180
+#: ../templates/setting.php:223 ../templates/setting.php:268
 msgid "How to set up"
 msgstr ""
 
@@ -592,26 +755,30 @@ msgstr ""
 msgid "Connect with Facebook"
 msgstr ""
 
-#: ../templates/setting.php:79 ../templates/setting.php:127
-#: ../templates/setting.php:171 ../templates/setting.php:211
+#: ../templates/setting.php:79 ../templates/setting.php:128
+#: ../templates/setting.php:172 ../templates/setting.php:215
+#: ../templates/setting.php:260
 msgid "Enable"
 msgstr ""
 
-#: ../templates/setting.php:83 ../templates/setting.php:131
-#: ../templates/setting.php:175 ../templates/setting.php:215
+#: ../templates/setting.php:83 ../templates/setting.php:132
+#: ../templates/setting.php:176 ../templates/setting.php:219
+#: ../templates/setting.php:264
 msgid "Disable"
 msgstr ""
 
-#: ../templates/setting.php:86 ../templates/setting.php:134
-#: ../templates/setting.php:178 ../templates/setting.php:218
+#: ../templates/setting.php:86 ../templates/setting.php:135
+#: ../templates/setting.php:179 ../templates/setting.php:222
+#: ../templates/setting.php:267
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
 "get required infomation."
 msgstr ""
 
-#: ../templates/setting.php:87 ../templates/setting.php:135
-#: ../templates/setting.php:179 ../templates/setting.php:219
+#: ../templates/setting.php:87 ../templates/setting.php:136
+#: ../templates/setting.php:180 ../templates/setting.php:223
+#: ../templates/setting.php:268
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
 msgstr ""
@@ -639,8 +806,8 @@ msgid ""
 "functions are available. For details, see <strong>%s</strong>"
 msgstr ""
 
-#: ../templates/setting.php:123 ../templates/setting.php:167
-#: ../templates/setting.php:207
+#: ../templates/setting.php:124 ../templates/setting.php:168
+#: ../templates/setting.php:211 ../templates/setting.php:256
 #, php-format
 msgid "Connect with %s"
 msgstr ""
@@ -657,7 +824,7 @@ msgstr ""
 msgid "Consumer Secret"
 msgstr ""
 
-#: ../templates/setting.php:153 ../templates/setting.php:252
+#: ../templates/setting.php:153 ../templates/setting.php:298
 msgid "Access Token"
 msgstr ""
 
@@ -665,44 +832,51 @@ msgstr ""
 msgid "Access token secret"
 msgstr ""
 
-#: ../templates/setting.php:185 ../templates/setting.php:225
+#: ../templates/setting.php:186 ../templates/setting.php:274
 msgid "Client ID"
 msgstr ""
 
-#: ../templates/setting.php:189 ../templates/setting.php:229
+#: ../templates/setting.php:190 ../templates/setting.php:232
+#: ../templates/setting.php:278
 msgid "Client Secret"
 msgstr ""
 
-#: ../templates/setting.php:193 ../templates/setting.php:197
-#: ../templates/setting.php:233 ../templates/setting.php:241
+#: ../templates/setting.php:194 ../templates/setting.php:198
+#: ../templates/setting.php:282 ../templates/setting.php:287
 msgid "Redirect URI"
 msgstr ""
 
-#: ../templates/setting.php:197
+#: ../templates/setting.php:198 ../templates/setting.php:241
+#: ../templates/setting.php:287
 #, php-format
-msgid ""
-"Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's http "
-"with https."
+msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
+msgstr ""
+
+#: ../templates/setting.php:228
+msgid "Application ID"
+msgstr ""
+
+#: ../templates/setting.php:236 ../templates/setting.php:241
+msgid "Callback URI"
 msgstr ""
 
 #: ../templates/setting.php:241
-#, php-format
-msgid "Please set %1$s to %2$s on %3$s."
+msgid "Yahoo! JAPAN Developer Network"
 msgstr ""
 
-#: ../templates/setting.php:248
+#: ../templates/setting.php:294
 msgid "Token"
 msgstr ""
 
-#: ../templates/setting.php:256
+#: ../templates/setting.php:302
 msgid "Refresh Token"
 msgstr ""
 
-#: ../templates/setting.php:258
+#: ../templates/setting.php:304
 msgid "Your refresh token is invalid. Please reset it from link below."
 msgstr ""
 
-#: ../templates/setting.php:262
+#: ../templates/setting.php:308
 msgid ""
 "If you want to send a message via mixi to your use who has only pseudo mail"
 "(@pseudo.mixi.jp), set up auth information by login to mixi from the link "
@@ -711,6 +885,6 @@ msgid ""
 "message to only your friend."
 msgstr ""
 
-#: ../templates/setting.php:264
+#: ../templates/setting.php:310
 msgid "Auth on mixi"
 msgstr ""

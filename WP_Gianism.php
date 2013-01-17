@@ -21,6 +21,11 @@ class WP_Gianism{
 	public $google = null;
 	
 	/**
+	 * @var Yahoo_Controller
+	 */
+	public $yahoo = null;
+	
+	/**
 	 * @var Mixi_Controller
 	 */
 	public $mixi = null;
@@ -324,7 +329,7 @@ class WP_Gianism{
 				wp_enqueue_script('gianism-syntax-highlighter-php', $this->url.'assets/syntax-highlighter/shBrushPhp.js', null, '3.0.83');
 			}
 			wp_enqueue_style('gianism-admin-panel', $this->url.'assets/compass/stylesheets/gianism-admin.css', null, $this->version);
-			wp_enqueue_script('gianism-admin-helper', $this->url.'assets/admin-helper.js', array('jquery'), $this->version);
+			wp_enqueue_script('gianism-admin-helper', $this->url.'assets/compass/js/admin-helper.js', array('jquery'), $this->version);
 		}
 	}
 	
@@ -375,7 +380,7 @@ class WP_Gianism{
 	public function enqueue_scripts($hook){
 		wp_enqueue_script('jquery');
 		if(defined('IS_PROFILE_PAGE') && IS_PROFILE_PAGE){
-			wp_enqueue_script('wpg-ajax', $this->url."/assets/message-manager.js", array('jquery'), $this->version);
+			wp_enqueue_script('wpg-ajax', $this->url."/assets/compass/js/message-manager.js", array('jquery'), $this->version);
 			wp_localize_script('wpg-ajax', 'WPG', array(
 				'endpoint' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('wpg_ajax'),
@@ -415,7 +420,7 @@ class WP_Gianism{
 	 */
 	public function enqueue_style(){
 		if($this->is_enabled()){
-			wp_enqueue_style($this->name, $this->url."assets/gianism-style.css", array(), $this->version);
+			wp_enqueue_style($this->name, $this->url."assets/compass/stylesheets/gianism-style.css", array(), $this->version);
 		}
 	}
 	
@@ -444,7 +449,7 @@ class WP_Gianism{
 				break;
 			default:
 				foreach($this->option as $key => $val){
-					if(preg_match("/{$service}_enabled$/", $key) && $val){
+					if(preg_match("/_enabled$/", $key) && $val){
 						$flg = true;
 						break;
 					}
@@ -452,6 +457,18 @@ class WP_Gianism{
 				break;
 		}
 		return $flg;
+	}
+	
+	/**
+	 * Returns if login is forced to use SSL.
+	 * 
+	 * To override it, use filter `gianism_force_ssl_login`
+	 * 
+	 * @return boolean
+	 */
+	public function is_ssl_required(){
+		$is_ssl = (defined('FORCE_SSL_LOGIN') && FORCE_SSL_LOGIN) || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN);
+		return apply_filters('gianism_force_ssl_login', $is_ssl);
 	}
 	
 	/**

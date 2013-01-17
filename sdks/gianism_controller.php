@@ -152,6 +152,23 @@ class Gianism_Controller {
 		return $markup;
 	}
 	
+	
+	/**
+	 * Get URL for emdiate endpoint.
+	 * @param string $action
+	 * @param array $args
+	 * @return string 
+	 */
+	protected function get_redirect_endpoint($action, $args = array()){
+		$url = home_url();
+		$grew = (false === strpos('?', $url)) ? '?' : "&";
+		$url .= $grew."wpg={$action}";
+		foreach($args as $key => $value){
+			$url .= "&".$key."=".$value;
+		}
+		return $url;
+	}
+	
 	/**
 	 * Detect if current client is smartphone. 
 	 * @return boolean
@@ -197,5 +214,14 @@ class Gianism_Controller {
 EOS;
 		return apply_filters('gianism_alert', $script, $message);
 	}
-
+	
+	/**
+	 * Returns if ssl is required
+	 * @global WP_Gianism $gianism
+	 * @return boolean
+	 */
+	protected function is_ssl_required(){
+		global $gianism;
+		return $gianism->is_ssl_required();
+	}
 }

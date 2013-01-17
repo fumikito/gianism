@@ -104,6 +104,47 @@
 
 <p><?php printf($this->_('Input and save 3 informations(Client ID, Client Secret and Redirect URI) on <a href="%s">WordPress admin screen</a>.'), admin_url('users.php?page=gianism')); ?></p>
 
+<h3>Yahoo! JAPAN</h3>
+
+<p class="description"><?php $this->e('Yahoo! JAPAN account is required. If you don\'t have one, create it at <a href="https://e.developer.yahoo.co.jp/dashboard/">Yahoo! JAPAN Developer Center</a>.'); ?></p>
+
+<p class="notice">
+	<?php $this->e('<strong>Note:</strong> Yahoo! JAPAN is different from Yahoo! and is Japanese domestic service.'); ?>
+</p>
+
+<h4>Step1. <?php $this->e('Create applicaiton'); ?></h4>
+
+<p><?php $this->e('Log in to Yahoo! JAPAN developer network and clik <a href="https://e.developer.yahoo.co.jp/register" target="_blank">Register</a> to fill required information below.'); ?></p>
+
+<table class="gianism-example-table">
+	<tbody>
+		<tr>
+			<th><?php $this->e('Application Type'); ?></th>
+			<td><?php $this->e('Server side application'); ?></td>
+		</tr>
+		<tr>
+			<th><?php $this->e('Contact email address'); ?></th>
+			<td><?php $this->e('Choose from pull down.'); ?></td>
+		</tr>
+		<tr>
+			<th><?php $this->e('Application name'); ?></th>
+			<td><?php printf($this->_('Same as the blog name <code>%s</code> is the best.'), get_bloginfo('name')); ?></td>
+		</tr>
+		<tr>
+			<th><?php $this->e('Site URL'); ?></th>
+			<td><?php printf($this->_('Use root URI of your site <code>%s</code>.'), home_url('/', 'http')); ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<h4>Step2. <?php $this->e('Input credentials'); ?></h4>
+
+<p><?php $this->e('After registeration, you will redirect to application detail. There you can get <strong>application ID</strong> and <strong>secret key</strong>.'); ?></p>
+
+<p><?php printf($this->_('Besides them, you must enter callback URL. This must be <code>%s</code>'), home_url('/yconnect/', ($this->is_ssl_required() ? 'https' : 'http'))); ?></p>
+
+<p><?php $this->e('Now come back to WP admin panel, enter application ID and secret key. That\'s all done.'); ?></p>
+
 <h3>mixi</h3>
 
 <p class="description"><?php $this->e('mixi account is required. If you don\'t have one, create it at <a href="http://developer.mixi.co.jp/">mixi Developer Center</a>.'); ?></p>

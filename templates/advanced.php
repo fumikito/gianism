@@ -98,3 +98,42 @@ echo esc_html(sprintf($code, $this->_('%1$s pulbished %2$s. Please visit %3$s'))
 </pre>
 
 <p class="notice"><?php $this->e('<strong>Note:</strong> Currently, only twitter application\'s account(thus, admin\'s twitter account) can tweet.'); ?></p>
+
+
+<h3><?php $this->e('Save additional infomration'); ?></h3>
+
+<p class="description">
+	<?php $this->e('Gianism uses only user name or ID and email(if possible) which are required on creating WordPress user account. but in some cases, you may need additional information provided from SNS.'); ?><br />
+	<?php $this->e('For example, Facebook provides various information like educationla background, friends and so on.'); ?>
+</p>
+
+<pre class="brush: php">
+<?php
+$code = <<<EOS
+/**
+ * %s
+ * @param int \$user_id
+ * @param mixed \$data Inforamtioon provided from Service
+ * @param string \$service Service name(facebook, twitter, google, yahoo, mixi)
+ * @param boolean \$on_creation If user is newly created, true.
+ */
+function _my_additional_info(\$user_id, \$data, \$service, \$on_creation){
+	switch(\$data){
+		case 'facebook':
+			//Save Facebook bio as user description
+			if(isset(\$data['bio'])){
+				update_user_meta(\$user_id, 'description', \$data['bio']);
+			}
+			break;
+	}
+}
+//Add hook. Don't forget to pass 4th argument(arguments length).
+add_action('wpg_connect', '_my_additional_info', 10, 4);
+EOS;
+echo esc_html(sprintf($code, $this->_('Save additional information on SNS connection.')));
+?>
+</pre>
+
+<p><?php $this->e('Data structure is different by service. For more detail, read documentation or make thread on <a href="http://wordpress.org/support/plugin/gianism">WordPress.org</a>.'); ?></p>
+
+<p class="notice"><?php $this->e('<strong>Note:</strong> information about user is different by service, so you shouldn\'t relay on specific service. Facebook provides educationla background or sex, but twitter doesn\'t.'); ?></p>

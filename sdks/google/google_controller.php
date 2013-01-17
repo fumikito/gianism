@@ -26,12 +26,12 @@ class Google_Controller extends Gianism_Controller{
 	/**
 	 * @var string
 	 */
-	private $umeta_account = '_wpg_google_account';
+	public $umeta_account = '_wpg_google_account';
 	
 	/**
 	 * @var string
 	 */
-	private $umeta_plus = "_wpg_google_plus_id";
+	public $umeta_plus = "_wpg_google_plus_id";
 	
 	/**
 	 * @var apiClient
@@ -102,6 +102,7 @@ EOS;
 									update_user_meta($user_ID, $this->umeta_plus, $plus_id);
 								}
 								$this->add_message(sprintf($gianism->_('Welcom, %s!'), $profile['name']));
+								do_action('wpg_connect', $user_ID, $profile, 'google', false);
 							}else{
 								$this->add_message(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Google"));
 							}
@@ -152,6 +153,8 @@ EOS;
 											array('%s'),
 											array('%d')
 										);
+										$this->add_message(sprintf($gianism->_('Welcome, %1$s! You are now logged in with %2$s.'), $profile['name'], 'Google'));
+										do_action('wpg_connect', $user_id, $profile, 'google', true);
 									}
 								}
 							}
@@ -186,9 +189,9 @@ EOS;
 			$this->set_redirect(admin_url('profile.php'));
 			$this->set_action('google_disconnect');
 			$link_text = $gianism->_('Disconnect');
-			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-			        .sprintf($gianism->_('Your account is already connected with Google &lt;%s&gt;.'), esc_html($google_account));
+			$desc = sprintf($gianism->_('Your account is already connected with Google &lt;%s&gt;.'), esc_html($google_account));
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
+			$p_class = 'description desc-connected desc-connected-google';
 		}else{
 			$this->set_redirect(admin_url('profile.php'));
 			$this->set_action("google_connect");
@@ -196,6 +199,7 @@ EOS;
 			$link_text = $gianism->_('Connect');
 			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"Google", get_bloginfo('name'));
 			$onclick = '';
+			$p_class = 'description';
 		}
 		?>
 		<tr>
@@ -205,7 +209,7 @@ EOS;
 					<i></i>
 					<?php echo $link_text;?>
 				</a>
-				<p class="description"><?php echo $desc;?></p>
+				<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
 			</td>
 		</tr>
 		<?php
@@ -358,7 +362,7 @@ EOS;
 	 */
 	public function print_script(){
 		if(isset($_SESSION) && !empty($_SESSION['_wpg_ggl_message'])){
-			$this->generate_message_script($_SESSION['_wpg_ggl_message']);
+			echo $this->generate_message_script($_SESSION['_wpg_ggl_message']);
 			unset($_SESSION['_wpg_ggl_message']);
 		}
 	}

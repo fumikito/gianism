@@ -12,7 +12,7 @@
   clear: both;
   margin-top: 2em;
   padding-top: 1em;
-  border-top: 1px dotted #ddd;
+  border-top: 1px dotted #dddddd;
   font-size: 1.8em;
 }
 /* line 16, ../sass/gianism-admin.scss */
@@ -74,7 +74,7 @@
 .gianism-wrap .sidebar #index {
   width: 278px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   background-color: #f9f9f9;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -95,12 +95,12 @@
 }
 /* line 70, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link {
-  background: url("../../icon-wordpress-logo-32.png") left center no-repeat;
+  background: url("../img/icon-wordpress-logo-32.png") left center no-repeat;
   padding: 0.5em 0.5em 0.5em 40px;
 }
 /* line 74, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .amazon-link {
-  background: url("../../icon-amazon-32.png") left center no-repeat;
+  background: url("../img/icon-amazon-32.png") left center no-repeat;
   padding: 0.5em 0.5em 0.5em 40px;
 }
 

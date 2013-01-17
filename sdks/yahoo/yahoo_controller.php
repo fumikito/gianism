@@ -25,14 +25,20 @@ class Yahoo_Controller extends Gianism_Controller{
 	/**
 	 * @var string
 	 */
-	public $umeta_name = '_wpg_yahoo_name';
-		
+	public $umeta_access_token = '_wpg_yahoo_access_token';
+	
+	/**
+	 * @var string
+	 */
+	public $umeta_refresh_token = '_wpg_yahoo_refresh_token';
+	
 	/**
 	 * Constructor
 	 * @param array $option 
 	 */
 	protected function set_option($option) {
 		$option = shortcode_atts(array(
+			'yahoo_enabled' => 0,
 			"yahoo_application_id" => '',
 			"yahoo_consumer_secret" => "",
 		), $option);
@@ -41,107 +47,195 @@ class Yahoo_Controller extends Gianism_Controller{
 		if(!isset($_SESSION)){
 			session_start();
 		}
+		//Load Libraries
+		if($option['yahoo_enabled']){
+			set_include_path(implode(PATH_SEPARATOR, array(
+				get_include_path(),
+				dirname(__FILE__).'/lib',
+				dirname(__FILE__).'/jwt')));
+			require_once dirname(__FILE__).'/lib/YConnect.inc';
+		}
 	}
 	
 	/**
 	 * Executed on init hook
 	 * @global wpdb $wpdb
-	 * @global int $user_ID
 	 * @global WP_Gianism $gianism
 	 */
 	public function init_action(){
-		global $user_ID, $wpdb, $gianism;
+		global $wpdb, $gianism;
 		switch($this->get_action()){
-			case 'twitter_connect':
-				if(isset($_GET['oauth_verifier']) && is_user_logged_in()){
-					$token = $this->get_token();
-					$token_secret = $this->get_token(true);
-					if(!empty($token) && !empty($token_secret)){
-						$oauth = $this->get_oauth($token, $token_secret);
-						$access_token = $oauth->getAccessToken($_GET['oauth_verifier']);
-						if(isset($access_token['user_id'], $access_token['screen_name'])){
-							//Check if other user has registered.
-							$sql = <<<EOS
-								SELECT umeta_id FROM {$wpdb->usermeta}
-								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
-								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
-EOS;
-							if(!$wpdb->get_row($sql, $this->umeta_id, $access_token['user_id'], $user_ID, $this->umeta_screen_name, $access_token['screen_name'], $user_ID)){
-								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
-								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
-								$this->follow_me($oauth);
-								$this->add_message(sprintf($gianism->_('Welcome, %s!'), '@'.$access_token['screen_name']));
-							}else{
-								$this->add_message(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Twitter"));
-							}
-						}else{
-							$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
-						}
-					}else{
-						$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
-					}
+			case 'yahoo_connect':
+				//Start Redirect if nonce is set
+				if(is_user_logged_in() && isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce'], 'yahoo_connect')){
+					$_SESSION['yahoo_nonce'] = $_GET['_wpnonce'];
+					$_SESSION['yahoo_state'] = sha1(get_current_user_id());
+					$_SESSION['yahoo_redirect'] = admin_url('profile.php');
+					$_SESSION['yahoo_action'] = 'connect';
+					$this->get_client()->requestAuth(
+						$this->get_callback_uri(),
+						$_SESSION['yahoo_state'],
+						$_SESSION['yahoo_nonce'],
+						OAuth2ResponseType::CODE_IDTOKEN,
+						array(
+							OIDConnectScope::PROFILE,
+							OIDConnectScope::EMAIL,
+						),
+						($this->is_smartphone() ? OIDConnectDisplay::SMART_PHONE : OIDConnectDisplay::DEFAULT_DISPLAY ),
+						OIDConnectPrompt::LOGIN
+					);
 				}else{
-					$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
+					header('Location:'.admin_url('profile.php'));
+				}
+				die();
+				break;
+			case "yahoo_disconnect":
+				if(isset($_REQUEST['_wpnonce']) && wp_verify_nonce($gianism->request('_wpnonce'), 'yahoo_disconnect') && is_user_logged_in()){
+					delete_user_meta(get_current_user_id(), $this->umeta_id);
+					delete_user_meta(get_current_user_id(), $this->umeta_access_token);
+					delete_user_meta(get_current_user_id(), $this->umeta_refresh_token);
+					$this->add_message(sprintf($gianism->_('Your accont is now disconnected from %s.'), 'Yahoo! JAPAN'));
+					header('Location: '.admin_url('profile.php'));
+					exit();
 				}
 				break;
-			case "twitter_disconnect":
-				if(wp_verify_nonce($gianism->request('_wpnonce'), 'twitter_disconnect') && is_user_logged_in()){
-					delete_user_meta($user_ID, $this->umeta_id);
-					delete_user_meta($user_ID, $this->umeta_screen_name);
-					$this->add_message($gianism->_('Disconnect now :('));
+			case "yahoo_login":
+				if(isset($_REQUEST['_wpnonce']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'yahoo_login') && !is_user_logged_in()){
+					$_SESSION['yahoo_nonce'] = $_REQUEST['_wpnonce'];
+					$_SESSION['yahoo_state'] = sha1($_REQUEST['_wpnonce']);
+					$_SESSION['yahoo_redirect'] = $this->get_redirect_to(admin_url('profile.php'));
+					$_SESSION['yahoo_action'] = 'login';
+					$this->get_client()->requestAuth(
+						$this->get_callback_uri(),
+						$_SESSION['yahoo_state'],
+						$_SESSION['yahoo_nonce'],
+						OAuth2ResponseType::CODE_IDTOKEN,
+						array(
+							OIDConnectScope::PROFILE,
+							OIDConnectScope::EMAIL,
+						),
+						($this->is_smartphone() ? OIDConnectDisplay::SMART_PHONE : OIDConnectDisplay::DEFAULT_DISPLAY ),
+						OIDConnectPrompt::LOGIN
+					);
+				}else{
+					header('Location: '.wp_login_url($this->get_redirect_to(null), true));
 				}
+				exit();
 				break;
-			case "twitter_login":
-				$user_id = false;
-				if(isset($_GET['oauth_verifier'])){
-					$token = $this->get_token();
-					$token_secret = $this->get_token(true);
-					if(!empty($token) && !empty($token_secret)){
-						$oauth = $this->get_oauth($token, $token_secret);
-						$access_token = $oauth->getAccessToken($_GET['oauth_verifier']);
-						if(isset($access_token['user_id'], $access_token['screen_name'])){
-							$twitter_id = $access_token['user_id'];
-							$screen_name = $access_token['screen_name'];
-							//Get User ID.
-							$sql = <<<EOS
-								SELECT user_id FROM {$wpdb->usermeta}
-								WHERE meta_key = %s AND meta_value = %s
-EOS;
-							$user_id = $wpdb->get_var($wpdb->prepare($sql, $this->umeta_id, $twitter_id));
-							if(!$user_id){
-								//Not found, Create New User
-								require_once(ABSPATH . WPINC . '/registration.php');
-								//Check if username exists
-								$email = $screen_name."@".$this->pseudo_domain;
-								$user_name = (!username_exists('@'.$screen_name)) ? '@'.$screen_name :  $email;
-								$user_id = wp_create_user($user_name, wp_generate_password(), $email);
-								
-								if(!is_wp_error($user_id)){
-									update_user_meta($user_id, $this->umeta_id, $twitter_id);
-									update_user_meta($user_id, $this->umeta_screen_name, $screen_name);
-									$wpdb->update(
-										$wpdb->users,
-										array(
-											'display_name' => "@{$screen_name}",
-											'user_url' => 'https://twitter.com/#!/'.$screen_name
-										),
-										array('ID' => $user_id),
-										array('%s', '%s'),
-										array('%d')
-									);
-									$this->follow_me($oauth);
+			default:
+				if(isset($_SESSION['yahoo_action'])){
+					switch($_SESSION['yahoo_action']){
+						case 'connect':
+							try{
+								$state = $_SESSION['yahoo_state'];
+								$nonce = $_SESSION['yahoo_nonce'];
+								$redirect = $_SESSION['yahoo_redirect'];
+								$client = $this->get_client();
+								$code_result = $client->getAuthorizationCode($state);
+								if(!$code_result){
+									//Cannot get Code
+									$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+								}else{
+									//Got code.
+									$client->requestAccessToken($this->get_callback_uri(), $code_result);
+									$client->verifyIdToken($nonce);
+									$id_token = $client->getIdToken();
+									if($id_token->nonce != $nonce){
+										throw new Exception('Invalid nonce.');
+									}
+									$client->requestUserInfo($client->getAccessToken());
+									$user_info = $client->getUserInfo();
+									//Check if user is not exists.
+									if($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->usermeta} WHERE user_id != %d AND meta_key = %s AND meta_value = %s", get_current_user_id(), $this->umeta_id, $id_token->user_id))){
+										$this->add_message($gianism->_('Ooops, another account uses same Yahoo! ID.'));
+									}else{
+										update_user_meta(get_current_user_id(), $this->umeta_id, $id_token->user_id);
+										update_user_meta(get_current_user_id(), $this->umeta_access_token, $client->getAccessToken());
+										update_user_meta(get_current_user_id(), $this->umeta_refresh_token, $client->getRefreshToken());
+										$this->add_message(sprintf($gianism->_('Welcome, %s! Your account is now connected with Yahoo! JAPAN.'), $user_info->name));
+										do_action('wpg_connect', get_current_user_id(), $user_info, 'yahoo', false);
+									}
 								}
+							}catch(OAuth2ApiException $ae){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+							}catch(OAuth2TokenException $te){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+							}catch(Exception $e){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
 							}
-						}
+							break;
+						case 'login':
+							$redirect = wp_login_url();
+							try{
+								$state = $_SESSION['yahoo_state'];
+								$nonce = $_SESSION['yahoo_nonce'];
+								$client = $this->get_client();
+								$code_result = $client->getAuthorizationCode($state);
+								if(!$code_result){
+									//Cannot get Code
+									$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+								}else{
+									//Got code.
+									$client->requestAccessToken($this->get_callback_uri(), $code_result);
+									$client->verifyIdToken($nonce);
+									$id_token = $client->getIdToken();
+									if($id_token->nonce != $nonce){
+										throw new Exception('Invalid nonce.');
+									}
+									if(($user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value = %s", $this->umeta_id, $id_token->user_id)))){
+										//If user is exits, logged in as him.
+										wp_set_auth_cookie($user_id, true);
+										$redirect = $_SESSION['yahoo_redirect'];
+									}else{
+										//User doesn't exit, let's create new one.
+										$client->requestUserInfo($client->getAccessToken());
+										$user_info = $client->getUserInfo();
+										if(email_exists($user_info->email)){
+											//Search email and if exist, cannot create user.
+											$this->add_message(sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), 'Yahoo! JAPAN'));
+										}else{
+											//Not found, Create New User
+											require_once(ABSPATH . WPINC . '/registration.php');
+											$user_id = wp_create_user('yahoo-'.$id_token->user_id, wp_generate_password(), $user_info->email);
+											if(is_wp_error($user_id)){
+												$this->add_message($gianism->_('Sorry, but cannot create account. Please try again later.'));
+											}else{
+												if($user_info->name){
+													$wpdb->update(
+														$wpdb->users,
+														array('display_name' => $user_info->name),
+														array('ID' => $user_id),
+														array('%s'),
+														array('%d')
+													);
+													update_user_meta($user_id, 'nickname', $user_info->name);
+												}
+												update_user_meta($user_id, 'first_name', $user_info->given_name);
+												update_user_meta($user_id, 'last_name', $user_info->family_name);
+												update_user_meta($user_id, $this->umeta_id, $id_token->user_id);
+												update_user_meta($user_id, $this->umeta_access_token, $client->getAccessToken());
+												update_user_meta($user_id, $this->umeta_refresh_token, $client->getRefreshToken());
+												wp_set_auth_cookie($user_id, true);
+												$this->add_message(sprintf($gianism->_('Welcome, %1$s! You are now logged in with %2$s.'), $user_info->name, 'Yahoo! JAPAN account'));
+												do_action('wpg_connect', $user_id, $user_info, 'yahoo', true);
+											}
+										}
+									}
+								}
+							}catch(OAuth2ApiException $ae){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+							}catch(OAuth2TokenException $te){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+							}catch(Exception $e){
+								$this->add_message($gianism->_('Cannot connect with Yahoo! JAPAN. Please try again later.'));
+							}
+							break;
 					}
-				}
-				if($user_id && !is_wp_error($user_id)){
-					wp_set_auth_cookie($user_id, true);
-					$redirect = $this->get_redirect_to(admin_url('profile.php'));
-					header('Location: '.$redirect);
-					die();
-				}else{
-					$this->add_message($gianism->_('Oops, Failed to Authenticate.'));
+					unset($_SESSION['yahoo_nonce'], $_SESSION['yahoo_state'], $_SESSION['yahoo_redirect'], $_SESSION['yahoo_action']);
+					if(isset($redirect)){
+						header('Location:'.$redirect);
+						die();
+					}
 				}
 				break;
 		}
@@ -156,40 +250,31 @@ EOS;
 	public function user_profile(){
 		if(!defined("IS_PROFILE_PAGE") || !IS_PROFILE_PAGE){
 			return;
-		}
-		global $gianism, $user_ID;
-		if($this->is_connected()){
-			$url = wp_nonce_url(admin_url('profile.php?wpg=twitter_disconnect'), 'twitter_disconnect');
+		} 
+		global $gianism;
+		if(is_user_connected_with('yahoo')){
 			$link_text = $gianism->_('Disconnect');
-			$account = get_user_meta($user_ID, $this->umeta_screen_name, true);
-			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-			        .sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'Twitter', 'https://twitter.com/#!/'.$account, "@".$account);
-			//If user has pseudo mail, add caution.
-			global $user_email;
-			if($this->is_pseudo_mail($user_email)){
-				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_email, 'Twitter', get_bloginfo('name'));
-			}
+			$desc = sprintf($gianism->_('Your account is already connected with %1$s.'), 'Yahoo! JAPAN');
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
+			$url = esc_url(wp_nonce_url($this->get_redirect_endpoint('yahoo_disconnect'), 'yahoo_disconnect'));
+			$p_class = 'description desc-connected desc-connected-yahoo';
 		}else{
 			//Create Link
-			$callback_url = admin_url('profile.php?wpg=twitter_connect');
-			$oauth = $this->get_oauth();
-			$token = $oauth->getRequestToken($callback_url);
-			$this->save_token($token);
-			$url = $oauth->getAuthorizeURL($token);
+			$url = esc_url(wp_nonce_url($this->get_redirect_endpoint('yahoo_connect'), "yahoo_connect"));
 			$link_text = $gianism->_('Connect');
-			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"Twitter", get_bloginfo('name'));
 			$onclick = '';
+			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"Yahoo! JAPAN", get_bloginfo('name'));
+			$p_class = 'description';
 		}
 		?>
 		<tr>
-			<th><?php $gianism->e('Twitter'); ?></th>
+			<th><?php $gianism->e('Yahoo! JAPAN'); ?></th>
 			<td>
-				<a class="wpg_tw_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
+				<a class="wpg_yahoo_btn" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
 					<i></i>
 					<span class="label"><?php echo $link_text;?></span>
 				</a>
-				<p class="description"><?php echo $desc;?></p>
+				<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
 			</td>
 		</tr>
 		<?php
@@ -201,149 +286,52 @@ EOS;
 	 */
 	public function login_form(){
 		global $gianism;
-		$redirect_to = $this->get_redirect_to(admin_url('profile.php'));
-		$login_url = wp_login_url($redirect_to);
-		$login_url .= (false !== strpos($login_url, '?')) ? "&" : '?';
-		$login_url .= 'wpg=twitter_login';
-		$oauth = $this->get_oauth();
-		$token = $oauth->getRequestToken($login_url);
-		$this->save_token($token);
-		$url = $oauth->getAuthorizeURL($token);
-		$link_text = $gianism->_('Login with Twitter');
+		$link_text = $gianism->_('Log in with Yahoo! JAPAN');
+		$url = wp_nonce_url($this->get_redirect_endpoint('yahoo_login', array('redirect_to' => $this->get_redirect_to(admin_url('profile.php')))), 'yahoo_login');
 		$onclick = '';
 		$markup = <<<EOS
-		<a class="wpg_tw_btn" href="{$url}"{$onclick}>
+		<a class="wpg_yahoo_btn" href="{$url}"{$onclick}>
 			<i></i>
 			<span class="label">{$link_text}</span>
 		</a>
 EOS;
-		echo $this->filter_link($markup, $url, $link_text, 'twitter');
+		echo $this->filter_link($markup, $url, $link_text, 'yahoo');
 	}
 	
 	/**
-	 * Returns whether user has twitter account
-	 * @global int $user_ID
-	 * @param int $user_ID
-	 * @return boolean
+	 * Returns YConnect Client
+	 * @return \YConnectClient
 	 */
-	private function is_connected($user_ID = null){
-		if(is_null($user_ID)){
-			global $user_ID;
-		}
-		return (boolean)get_user_meta($user_ID, $this->umeta_id, true);
+	private function get_client(){
+		$cred = new ClientCredential($this->application_id, $this->consumer_secret);
+		return new YConnectClient($cred);
 	}
 	
 	/**
-	 * Get API wrapper
-	 * @param string $oauth_token
-	 * @param string $oauth_token_secret 
-	 * @return TwitterOAuth
+	 * Returns callback URL
+	 * @return string
 	 */
-	private function get_oauth($oauth_token = NULL, $oauth_token_secret = NULL){
-		if(!class_exists('TwitterOAuth')){
-			require_once dirname(__FILE__).DIRECTORY_SEPARATOR."twitteroauth.php";
-		}
-		return new TwitterOAuth($this->consumer_key, $this->consumer_secret, $oauth_token, $oauth_token_secret);
+	private function get_callback_uri(){
+		return home_url('/yconnect/', $this->is_ssl_required() ? 'https' : 'http');
 	}
 	
 	/**
-	 * Save token. if failed, return false.
-	 * @param array $token
-	 * @return booelan 
-	 */
-	private function save_token($token){
-		if(isset($token['oauth_token'], $token['oauth_token_secret'])){
-			$_SESSION['_wpg_twitter_token'] = $token;
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	/**
-	 * Returns session stored token.
-	 * @param boolean $secret
-	 * @return string 
-	 */
-	private function get_token($secret = false){
-		$key = $secret ? 'oauth_token_secret' : 'oauth_token';
-		if(isset($_SESSION['_wpg_twitter_token'][$key])){
-			return $_SESSION['_wpg_twitter_token'][$key];
-		}else{
-			return false;
-		}
-	}
-	
-	/**
-	 * Mail Handler for pseudo mail
-	 * @global WP_Gianism $gianism
-	 * @param int $user_id
-	 * @param string $subject
+	 * Save message on Session
 	 * @param string $message
-	 * @param array $headers
-	 * @param array $attchment 
 	 */
-	public function wp_mail($user_id, $subject, $message, $headers, $attchment){
-		global $gianism;
-		//Save Message
-		wp_insert_post(array(
-			'post_type' => $gianism->message_post_type,
-			'post_title' => $subject,
-			'post_content' => $message,
-			'post_author' => $user_id,
-			'post_status' => 'publish'
-		));
-		//Send DM
-		$this->send_dm($user_id, $subject);
-	}
-	
-	/**
-	 * Send direct message on twitter.
-	 * @global WP_Gianism $gianism
-	 * @param int $user_id
-	 * @param string $text 
-	 */
-	public function send_dm($user_id, $subject){
-		global $gianism;
-		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
-		$twitter_id = get_user_meta($user_id, $this->umeta_id, true);
-		if($twitter_id){
-			$endpoint = "https://api.twitter.com/1/direct_messages/new.json";
-			$body = sprintf($gianism->_('You have message "%1$s" on %2$s. %3$s'), $subject, get_bloginfo('name'), admin_url('profile.php'));
-			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
-				'user_id' => $twitter_id,
-				'text' => $body
-			));
+	protected function add_message($string){
+		if(isset($_SESSION)){
+			$_SESSION['_wpg_yahoo_message'] = $string;
 		}
 	}
 	
 	/**
-	 * Tweet with Owner ID
-	 * @global WP_Gianism $gianism
-	 * @param string $string 
+	 * Echo message
 	 */
-	public function tweet($string){
-		global $gianism;
-		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
-		$endpoint = 'https://api.twitter.com/1/statuses/update.json';
-		$result = $oauth->oAuthRequest($endpoint, 'POST', array(
-			'status' => $string
-		));
-	}
-	
-	/**
-	 * Force authencated user to follow me
-	 * @global WP_Gianism $gianism
-	 * @param TwitterOAuth $oauth 
-	 */
-	private function follow_me($oauth){
-		global $gianism;
-		if(!empty($this->screen_name)){
-			$endpoint = 'http://api.twitter.com/1/friendships/create.json';
-			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
-				'screen_name' => $this->screen_name,
-				'follow' => true
-			));
+	public function print_script(){
+		if(isset($_SESSION) && !empty($_SESSION['_wpg_yahoo_message'])){
+			echo $this->generate_message_script($_SESSION['_wpg_yahoo_message']);
+			unset($_SESSION['_wpg_yahoo_message']);
 		}
 	}
 }

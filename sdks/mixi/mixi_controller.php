@@ -163,6 +163,7 @@ EOS;
 													array('%s'), array('%d')
 												);
 											}
+											do_action('wpg_connect', $user_ID, $profile, 'mixi', false);
 										}
 									}else{
 										$message .= '\n'.$gianism->_("Failed to get mixi ID.");
@@ -212,6 +213,7 @@ EOS;
 													array('%s', '%s'),
 													array('%d')
 												);
+												do_action('wpg_connect', $user_id, $profile, 'mixi', true);
 												$redirect_to = $_SESSION['mixi_redirect_to'];
 												$message = sprintf($gianism->_('Welcome, %s!'), $profile->entry->displayName);
 											}else{
@@ -276,24 +278,25 @@ EOS;
 		if(!defined('IS_PROFILE_PAGE') || !IS_PROFILE_PAGE){
 			return;
 		}
-		global $gianism, $user_ID;
-		$account = get_user_meta($user_ID, $this->umeta_id, true);
-		if($account){
+		global $gianism;
+		$extra_desc = '';
+		if(is_user_connected_with('mixi')){
 			$link_text = $gianism->_('Disconnect');
-			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-			        .sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'mixi', get_user_meta($user_ID, $this->umeta_profile_url, true), " (&raquo;".$gianism->_('View Profile').')');
+			$desc = sprintf($gianism->_('Your account is already connected with %1$s <a target="_blank" href="%2$s">%3$s</a> .'), 'mixi', get_user_meta(get_current_user_id(), $this->umeta_profile_url, true), " (&raquo;".$gianism->_('View Profile').')');
 			//If user has pseudo mail, add caution.
-			global $user_email;
-			if($this->is_pseudo_mail($user_email)){
-				$desc .= '<br /><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_email, 'mixi', get_bloginfo('name'));
+			$user_info = get_userdata(get_current_user_id());
+			if($this->is_pseudo_mail($user_info->user_email)){
+				$extra_desc .= '<p class="desc-extra"><strong>Note:</strong> '.sprintf($gianism->_('Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail for. If you disconnect %2$s account, you may not be able to log in %3$s. Please change it to available e-mail address.'), $user_info->user_email, 'mixi', get_bloginfo('name')).'</p>';
 			}
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';;
 			$url = esc_url(wp_nonce_url($this->get_redirect_endpoint('mixi_disconnect'), 'mixi_disconnect'));
+			$p_class = 'description desc-connected desc-connected-mixi';
 		}else{
 			$link_text = $gianism->_('Connect');
 			$onclick = '';
 			$desc = sprintf($gianism->_('Connecting %1$s account, you can log in %2$s via %1$s account.'),"mixi", get_bloginfo('name'));
 			$url = esc_url(wp_nonce_url($this->get_redirect_endpoint('mixi_connect'), "mixi_connect"));
+			$p_class = 'description';
 		}
 		?>
 		<tr>
@@ -303,26 +306,11 @@ EOS;
 					<i></i>
 					<span class="label"><?php echo $link_text;?></span>
 				</a>
-				<p class="description"><?php echo $desc;?></p>
+				<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
+				<?php echo $extra_desc; ?>
 			</td>
 		</tr>
 		<?php
-	}
-	
-	/**
-	 * Get URL for emdiate endpoint.
-	 * @param string $action
-	 * @param array $args
-	 * @return string 
-	 */
-	private function get_redirect_endpoint($action, $args = array()){
-		$url = home_url();
-		$grew = (false === strpos('?', $url)) ? '?' : "&";
-		$url .= $grew."wpg={$action}";
-		foreach($args as $key => $value){
-			$url .= "&".$key."=".$value;
-		}
-		return $url;
 	}
 	
 	/**

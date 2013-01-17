@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,mixi,account,oauth,community
 Requires at least: 3.1
 Tested up to: 3.5
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -26,12 +26,14 @@ If your site needs user's login action, **signing-up is the most difficult step*
 * Twitter
 * Google *(requires Gmail account)*
 * mixi
+* Yahoo! JAPAN
 
 = Acknowledgements  =
 
 * Use [Abraham Williams' twitteroauth](https://github.com/abraham/twitteroauth). Thanks.
 * Use [Facebook's official PHP SDK](https://github.com/facebook/facebook-php-sdk). 
 * Use [Google API PHP Client](http://code.google.com/p/google-api-php-client/).
+* Use [Neuman Vong's JWT](https://github.com/luciferous/jwt).
 * Iconsets for banner image is by [Arabiki's スタンプみたいなソーシャルアイコン](http://arabikinet.com/sns/sns10.html). Thanks lots.
  
 == Installation ==
@@ -87,6 +89,11 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
 
 == Changelog ==
+
+= 1.2.4 =
+
+* Yahoo! JAPAN is added.
+* Fixed bug on twitter connection.
 
 = 1.2.3 =
 

@@ -246,12 +246,13 @@ EOS;
 				'scope' => 'email',
 				'redirect_uri' => admin_url('profile.php?wpg=facebook_connect')
 			));
+			$p_class = 'description';
 		}else{
 			$link_text = $gianism->_('Disconnect');
-			$desc = '<img src="'.$gianism->url.'/assets/icon-checked.png" alt="Connected" width="16" height="16" />'
-					.$gianism->_('Your account is already connected with Facebook account.');
+			$desc = $gianism->_('Your account is already connected with Facebook account.');
 			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
 			$url = wp_nonce_url(admin_url('profile.php?wpg=facebook_disconnect'), 'facebook_disconnect');
+			$p_class = 'description desc-connected desc-connected-google';
 		}
 		?>
 		<tr>
@@ -261,7 +262,7 @@ EOS;
 					<a class="fb_button fb_button_medium" id="fb-login" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
 						<span class="fb_button_text"><?php echo $link_text;?></span>
 					</a>
-					<p class="description"><?php echo $desc;?></p>
+					<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
 				</div>
 				<!-- #fb-connector -->
 			</td>

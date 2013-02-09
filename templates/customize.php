@@ -6,6 +6,7 @@
 	<li>gianism_link_facebook</li>
 	<li>gianism_link_twitter</li>
 	<li>gianism_link_google</li>
+	<li>gianism_link_yahoo</li>
 	<li>gianism_link_mixi</li>
 </ol>
 <pre class="brush: php">
@@ -20,7 +21,7 @@ function _my_login_link_facebook($markup, $link, $title){
 	return '&lt;a class="my_fb_link" href="'.$link.'"&gt;'.$title.'&lt;/a&gt;';
 }
 // Add filter.
-add_filter('_my_login_link_facebook', 10, 3);
+add_filter('gianism_link_facebook', '_my_login_link_facebook', 10, 3);
 </pre>
 
 <h3><?php $this->e('Change Redirect'); ?></h3>
@@ -49,3 +50,41 @@ add_filter('gianism_redirect_to', '_my_redirect_to');
 <p class="notice">
 	<?php $this->e('<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs.'); ?>
 </p>
+
+<h3><?php $this->e('Controll login button display'); ?></h3>
+<p class="description">
+	<?php $this->e('By default, all login buttons of each services are displayed on both login screen and register screen. You can turn it off on admin screen. Besides it, you can controll it with filter hook.'); ?>
+</p>
+
+<pre class="brush: php">
+<?php
+$code = <<<EOS
+/**
+ * This function determines whether buttons will be displayed.
+ * 
+ * @param boolean \$display If true, buttons will be display
+ * @param string \$context 'login' or 'register'.
+ * @return boolean Don't forget to return true or false.
+ */
+function _my_login_button_condition(\$display, \$context){
+	// Use switch statement is good practice.
+	// Because \$context may got more options.
+	switch(\$context){
+		case 'register':
+			// You don't like to display on registeration.
+			return false;
+			break;
+		default:
+			// Otherwise, returns as it is.
+			return \$display;
+			break;
+	}
+}
+
+//Add filter on display condition of buttons
+//You will get 2 arguments, the 1st is display flag and another is context string.
+add_filter('gianism_show_button_on_login', '_my_login_button_condition', 10, 2);
+EOS;
+echo esc_html($code);
+?>
+</pre>

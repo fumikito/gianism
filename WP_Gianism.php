@@ -106,7 +106,8 @@ class WP_Gianism{
 		"mixi_consumer_key" => "",
 		"mixi_consumer_secret" => "",
 		"mixi_access_token" => "",
-		"mixi_refresh_token" => ""
+		"mixi_refresh_token" => "",
+		'show_button_on_login' => true
 	);
 	
 	/**
@@ -149,9 +150,13 @@ class WP_Gianism{
 			add_action('show_user_profile', array($this, 'show_user_profile'));
 			add_action('show_user_profile', array($this, 'show_direct_message'));
 			//Show Login button on login page
-			add_action('login_form', array($this, 'show_login_form'));
+			if($this->show_button_on_login('login')){
+				add_action('login_form', array($this, 'show_login_form'));
+			}
 			//Show Register button on Register page
-			add_action('register_form', array($this, 'show_regsiter_form'));
+			if($this->show_button_on_login('register')){
+				add_action('register_form', array($this, 'show_regsiter_form'));
+			}
 			//Load CSS
 			add_action('admin_print_styles', array($this, 'enqueue_style'));
 			add_action('wp_print_styles', array($this, 'enqueue_style'));
@@ -215,14 +220,14 @@ class WP_Gianism{
 	 * @global string $user_identity
 	 */
 	public function show_direct_message(){
-		global $user_ID, $user_email, $user_identity;
-		if(!defined("IS_PROFILE_PAGE") && !IS_PROFILE_PAGE){
+		if(!defined("IS_PROFILE_PAGE") || !IS_PROFILE_PAGE){
 			return;
 		}
+		$user = wp_get_current_user();
 		?>
-		<h3><?php printf($this->_('Message to %s'), $user_identity); ?></h3>
+		<h3><?php printf($this->_('Message to %s'), $user->display_name); ?></h3>
 		<?php
-		$query = new WP_Query("post_type={$this->message_post_type}&author={$user_ID}&posts_per_page=-1&post_status=publish,private");
+		$query = new WP_Query("post_type={$this->message_post_type}&author={$user->ID}&posts_per_page=-1&post_status=publish,private");
 		if($query->have_posts()): ?>
 		<div class="wpg-message">
 			<table class="form-table">
@@ -282,7 +287,8 @@ class WP_Gianism{
 				"yahoo_consumer_secret" => (string)$this->post('yahoo_consumer_secret'),
 				"mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
 				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
-				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret')
+				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret'),
+				'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
 			));
 			//If mixi is enabled, create instance
 			if($this->is_enabled('mixi') && !$this->mixi){
@@ -351,14 +357,22 @@ class WP_Gianism{
 	
 	/**
 	 * Show Login Form
+	 * @param string $before
+	 * @param string $after
 	 * @return void
 	 */
-	public function show_login_form(){
-		?>
-		<p id="wpg-login">
+	public function show_login_form($before = '', $after = ''){
+		if(empty($before)): ?>
+			<p id="wpg-login">
+		<?php else: ?>
+			<?php echo $before; ?>
+		<?php endif; ?>
 			<?php do_action('gianism_login_form');?>
-		</p>
-		<?php
+		<?php if(empty($after)): ?>
+			</p>
+		<?php else: ?>
+			<?php echo $after; ?>
+		<?php endif;
 	}
 	
 	/**
@@ -457,6 +471,14 @@ class WP_Gianism{
 				break;
 		}
 		return $flg;
+	}
+	
+	/**
+	 * Returns if button must be displayed on login screen
+	 * @return boolean
+	 */
+	function show_button_on_login($context = 'login'){
+		return apply_filters('gianism_show_button_on_login', $this->option['show_button_on_login'], $context);
 	}
 	
 	/**

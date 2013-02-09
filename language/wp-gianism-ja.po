@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-17 17:13+0900\n"
-"PO-Revision-Date: 2013-01-17 17:24+0900\n"
+"POT-Creation-Date: 2013-02-09 23:40+0900\n"
+"PO-Revision-Date: 2013-02-09 23:42+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -17,48 +17,48 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../WP_Gianism.php:203 ../WP_Gianism.php:205
+#: ../WP_Gianism.php:208 ../WP_Gianism.php:210
 msgid "Messages"
 msgstr "メッセージ"
 
-#: ../WP_Gianism.php:206
+#: ../WP_Gianism.php:211
 msgid "Message"
 msgstr "メッセージ"
 
-#: ../WP_Gianism.php:223
+#: ../WP_Gianism.php:228
 #, php-format
 msgid "Message to %s"
 msgstr "%sさんへのメッセージ"
 
-#: ../WP_Gianism.php:238
+#: ../WP_Gianism.php:243
 msgid "Delete"
 msgstr "削除"
 
-#: ../WP_Gianism.php:246 ../WP_Gianism.php:390
+#: ../WP_Gianism.php:251 ../WP_Gianism.php:404
 msgid "No message."
 msgstr "メッセージはありません。"
 
-#: ../WP_Gianism.php:293
+#: ../WP_Gianism.php:299
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: ../WP_Gianism.php:295
+#: ../WP_Gianism.php:301
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: ../WP_Gianism.php:305 ../WP_Gianism.php:343 ../templates/setting.php:17
+#: ../WP_Gianism.php:311 ../WP_Gianism.php:349 ../templates/setting.php:17
 msgid "External Service"
 msgstr "外部サービス連携"
 
-#: ../WP_Gianism.php:388
+#: ../WP_Gianism.php:402
 msgid "You really delete this message?"
 msgstr "このメッセージを削除しますか？"
 
-#: ../WP_Gianism.php:389
+#: ../WP_Gianism.php:403
 msgid "You cannot delete this message."
 msgstr "このメッセージを削除できません。"
 
-#: ../WP_Gianism.php:630
+#: ../WP_Gianism.php:652
 msgid ""
 "Connect user accounts with major web services like Facebook, twitter, etc. "
 "Stand on the shoulders of giants!"
@@ -128,7 +128,7 @@ msgstr ""
 "Facebookアカウントに接続すると、%sにFacebookアカウントでログインできるように"
 "なります。"
 
-#: ../sdks/facebook/facebook_controller.php:250
+#: ../sdks/facebook/facebook_controller.php:251
 #: ../sdks/google/google_controller.php:191
 #: ../sdks/mixi/mixi_controller.php:284
 #: ../sdks/twitter/twitter_controller.php:192
@@ -148,11 +148,11 @@ msgstr "あなたのアカウントはすでにFacebookアカウントに接続�
 msgid "You really disconnect this account?"
 msgstr "アカウントを切断しますか？"
 
-#: ../sdks/facebook/facebook_controller.php:258
+#: ../sdks/facebook/facebook_controller.php:259
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../sdks/facebook/facebook_controller.php:284
+#: ../sdks/facebook/facebook_controller.php:285
 msgid "Log in with Facebook"
 msgstr "Facebookでログイン"
 
@@ -437,27 +437,27 @@ msgid ""
 "You can change the appearance of login button. Available hooks are below:"
 msgstr "ログインボタンの外観を変更できます。利用できるフックは以下の通りです。"
 
-#: ../templates/customize.php:13
+#: ../templates/customize.php:14
 msgid "You can customize Facebook login button like this"
 msgstr "Facebookボタンをこのようにカスタマイズできます。"
 
-#: ../templates/customize.php:26
+#: ../templates/customize.php:27
 msgid "Change Redirect"
 msgstr "リダイレクト先を変更する"
 
-#: ../templates/customize.php:29
+#: ../templates/customize.php:30
 msgid "You can hook on redirect URL after user logged in."
 msgstr "ユーザーがログインした後のリダイレクトをカスタマイズできます。"
 
-#: ../templates/customize.php:39
+#: ../templates/customize.php:40
 msgid "Now you can get redirect URL."
 msgstr "これでリダイレクトURLが取得できます"
 
-#: ../templates/customize.php:41
+#: ../templates/customize.php:42
 msgid "Not specified, $url is null."
 msgstr "指定されていなければ$urlはNULLです。"
 
-#: ../templates/customize.php:50
+#: ../templates/customize.php:51
 msgid ""
 "<strong>Note:</strong> Redirect occurs on various situations. If you are not "
 "enough aware of WordPress URL process, some troubles might occurs."
@@ -465,6 +465,20 @@ msgstr ""
 "<strong>※:</strong> リダイレクトは様々なシチュエーションで行われます。もしあ"
 "なたがWordPressのURL処理について詳しくない場合、トラブルの原因になることがあ"
 "ります。"
+
+#: ../templates/customize.php:54
+msgid "Controll login button display"
+msgstr "ログインボタンの表示をカスタマイズ"
+
+#: ../templates/customize.php:56
+msgid ""
+"By default, all login buttons of each services are displayed on both login "
+"screen and register screen. You can turn it off on admin screen. Besides it, "
+"you can controll it with filter hook."
+msgstr ""
+"デフォルトでは、すべてのログインボタンはログイン画面と新規登録画面に表示され"
+"ます。これは管理画面から切り替えができますが、フィルターフックでもコントロー"
+"ルできます。"
 
 #: ../templates/how-to-setup.php:4
 #, php-format
@@ -837,7 +851,7 @@ msgstr ""
 msgid "How to set up"
 msgstr "設定方法"
 
-#: ../templates/setting.php:22
+#: ../templates/setting.php:22 ../templates/setting.php:333
 msgid "Customize"
 msgstr "カスタマイズ"
 
@@ -1012,6 +1026,31 @@ msgstr ""
 #: ../templates/setting.php:310
 msgid "Auth on mixi"
 msgstr "mixiで認証"
+
+#: ../templates/setting.php:318
+msgid "Display Setting"
+msgstr "表示設定"
+
+#: ../templates/setting.php:322
+msgid "Login screen"
+msgstr "ログイン画面"
+
+#: ../templates/setting.php:326
+msgid "Show all button on Login screen."
+msgstr "すべてのボタンをログイン画面に表示する。"
+
+#: ../templates/setting.php:330
+msgid "Do not show login button."
+msgstr "ログインボタンを表示しない。"
+
+#: ../templates/setting.php:333
+#, php-format
+msgid ""
+"You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
+"a>."
+msgstr ""
+"ログインボタンは手動で表示できます。詳しくは<a href=\"%2$s\">%1$s</a>を見てく"
+"ださい。"
 
 #~ msgid ""
 #~ "Please set %1$s to %2$s on %3$s. If you use SSL on login, replace it's "

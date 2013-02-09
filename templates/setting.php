@@ -314,6 +314,30 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+	
+	<h3><?php $this->e('Display Setting'); ?></h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th><?php $this->e('Login screen'); ?></th>
+				<td>
+					<label>
+						<input type="radio" name="show_button_on_login" value="1"<?php if($this->show_button_on_login()) echo ' checked="checked"';?> />
+						<?php $this->e('Show all button on Login screen.'); ?>
+					</label><br />
+					<label>
+						<input type="radio" name="show_button_on_login" value="0"<?php if(!$this->show_button_on_login()) echo ' checked="checked"';?> />
+						<?php $this->e('Do not show login button.'); ?>
+					</label>
+					<p class="description">
+						<?php printf($this->_('You can output login button manually. See detail at <a href="%2$s">%1$s</a>.'), $this->_('Customize'), admin_url('users.php?page=gianism&view=customize')); ?>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
 	<?php submit_button(); ?>
 </form>
 <?php 

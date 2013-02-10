@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community
 Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 1.2.5
+Tested up to: 3.5.1
+Stable tag: 1.3.0
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -75,6 +75,7 @@ Maybe yes.
 -----------------
 
 > Found bug. It sucks.
+> 
 > バグがありました。ふざけんな。
 
 Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
@@ -89,6 +90,12 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
 
 == Changelog ==
+
+= 1.3.0 =
+
+* Updated Facebook PHP SDK to 3.2.2.
+* Add function to get publish permission of Faccebook.
+* Now you can controll login buttons display.
 
 = 1.2.5 =
 

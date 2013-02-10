@@ -12,6 +12,19 @@ function get_facebook_id($user_id){
 }
 
 /**
+ * Returns url to get Publish stream permission
+ * @global WP_Gianism $gianism
+ * @param string $redirect_url URL where user will be redirect afeter authentication
+ * @param string $action Action name which will be fired after authenticaction
+ * @param array $args Array which will be passed to action hook
+ * @return string
+ */
+function get_facebook_publish_permission_link($redirect_url = null, $action = '', $args = array()){
+	global $gianism;
+	return $gianism->fb->get_publish_permission_link($redirect_url, $action, $args);
+}
+
+/**
  * Returns if user is connected with particular web service.
  * @global WP_Gianism $gianism
  * @param string $service One of facebook, mixi, yahoo, twitter or google.

@@ -37,17 +37,23 @@ class Facebook_Controller extends Gianism_Controller{
 	private $cert_path = '';
 	
 	/**
-	 * Meta key of postmeta for facebook id
+	 * Meta key of usermeta for facebook id
 	 * @var string
 	 */
 	public $umeta_id = '_wpg_facebook_id';
 	
 	/**
-	 * Meta key of postmeta for facebook mail
+	 * Meta key of usermeta for facebook mail
 	 * @var string
 	 */
 	public $umeta_mail = '_wpg_facebook_mail';
-		
+	
+	/**
+	 * Meta key of usermeta for Facebook access token
+	 * @var type 
+	 */
+	public $umeta_token = '_wpg_facebook_access_token';
+	
 	/**
 	 * @var array
 	 */
@@ -159,49 +165,48 @@ EOS;
 								}
 								if(isset($profile['email'])){
 									$email = (string)$profile['email'];
-									//Try to find registered user
-									$user_id = email_exists($email);
-									if(!$user_id){
-										//Not found, thus seek usermeta
-										$sql = <<<EOS
-											SELECT user_id FROM {$wpdb->usermeta}
-											WHERE meta_key = %s AND meta_value = %s
+									// Try to find registered user.
+									// Same email must not be found.
+									$sql = <<<EOS
+										SELECT user_id FROM {$wpdb->usermeta}
+										WHERE meta_key = %s AND meta_value = %s
 EOS;
-										$user_id = $wpdb->get_var($wpdb->prepare($sql, $this->umeta_mail, $email));
-										if(!$user_id){
-											//Not found, Create New User
-											require_once(ABSPATH . WPINC . '/registration.php');
-											//Get Username
-											if(isset($profile['username'])){
-												//if set, use username. but this is optional setting.
-												$user_name = $profile['username'];
-											}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-ZA-Z0-9 ]+$/", $profile['name'])){
-												//If name is alpabetical, use it.
-												$user_name = $profile['name'];
-											}else{
-												//There is no available string for login name, so use Facebook id for login.
-												$user_name = 'fb-'.$facebook_id;
-											}
-											//Check if username exists
-											$user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
-											if(!is_wp_error($user_id)){
-												update_user_meta($user_id, $this->umeta_id, $facebook_id);
-												update_user_meta($user_id, $this->umeta_mail, $email);
-												$wpdb->update(
-													$wpdb->users,
-													array(
-														'display_name' => $profile['name'],
-														'user_url' => $profile['link']
-													),
-													array('ID' => $user_id),
-													array('%s', '%s'),
-													array('%d')
-												);
-												do_action('wpg_connect', $user_id, $profile, 'facebook', true);
-											}else{
-												$this->message .= '\n'.$user_id->get_error_message();
-											}
+									if(!email_exists($email && !$wpdb->get_var($wpdb->prepare($sql, $this->umeta_mail, $email)))){
+										//Not found, Create New User
+										require_once(ABSPATH . WPINC . '/registration.php');
+										//Get Username
+										if(isset($profile['username'])){
+											//if set, use username. but this is optional setting.
+											$user_name = $profile['username'];
+										}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-ZA-Z0-9 ]+$/", $profile['name'])){
+											//If name is alpabetical, use it.
+											$user_name = $profile['name'];
+										}else{
+											//There is no available string for login name, so use Facebook id for login.
+											$user_name = 'fb-'.$facebook_id;
 										}
+										//Check if username exists
+										$user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
+										if(!is_wp_error($user_id)){
+											update_user_meta($user_id, $this->umeta_id, $facebook_id);
+											update_user_meta($user_id, $this->umeta_mail, $email);
+											$wpdb->update(
+												$wpdb->users,
+												array(
+													'display_name' => $profile['name'],
+													'user_url' => $profile['link']
+												),
+												array('ID' => $user_id),
+												array('%s', '%s'),
+												array('%d')
+											);
+											update_user_meta($user_id, 'nickname', $profile['name']);
+											do_action('wpg_connect', $user_id, $profile, 'facebook', true);
+										}else{
+											$this->message .= '\n'.$user_id->get_error_message();
+										}
+									}else{
+										$this->message .= '\n'.sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
 									}
 								}else{
 									$this->message .= '\n'.$gianism->_('Cannot get e-mail.').$gianism->_('Please try again later.');
@@ -221,6 +226,29 @@ EOS;
 							die();
 						}
 					}
+				}
+				break;
+			case 'facebook_publish':
+				$facebook_id = $this->facebook()->getUser();
+				if(!is_user_logged_in() || !$facebook_id){
+					wp_die(get_status_header_desc(403), get_bloginfo('name'), array('response' => 403, 'back_link' => true));
+				}
+				try{
+					$redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : admin_url('profile.php');
+					//Check permission exists, save it.
+					$perms = $this->facebook()->api('/me/permissions');
+					if($perms && isset($perms['data'][0]['publish_actions']) && $perms['data'][0]['publish_actions']){
+						//Save access token.
+						update_user_meta(get_current_user_id(), $this->umeta_token, $this->facebook()->getAccessToken());
+						//If action is set, do it.
+						if(isset($_REQUEST['action'])){
+							do_action(strval($_REQUEST['action']), $this->facebook(), $_REQUEST);
+						}
+					}
+					header('Location: '.$redirect_to);
+					exit();
+				}catch(FacebookApiException $e){
+					wp_die(get_status_header_desc(500).": ".$e->getMessage(), get_bloginfo('name'), array('response' => 500, 'back_link' => true));
 				}
 				break;
 		}
@@ -274,7 +302,7 @@ EOS;
 	 * Show Login Button on Facebook.
 	 * @global WP_Gianism $gianism 
 	 */
-	function login_form(){
+	public function login_form(){
 		global $gianism;
 		$redirect = $this->get_redirect_to(admin_url('profile.php'));
 		$login_url = wp_login_url($redirect)."&wpg=facebook_login";	
@@ -291,6 +319,32 @@ EOS;
 		</a>
 EOS;
 		echo $this->filter_link($mark_up, $url, $link_text, 'facebook');
+	}
+	
+	/**
+	 * Returns login url which get additional permission
+	 * @param string $redirect_url
+	 * @param string $action This action hook will booted.
+	 * @param arrray $args Additional key-value
+	 * @return string
+	 */
+	public function get_publish_permission_link($redirect_url = null, $action = '', $args = array()){
+		if(!$redirect_url){
+			$redirect_url = admin_url('profile.php');
+		}
+		$url = home_url('/', ($this->is_ssl_required() ? 'https' : 'http'))."?wpg=facebook_publish&redirect_to=".rawurlencode($redirect_url);
+		if(!empty($action)){
+			$url .= '&action='.rawurlencode($action);
+		}
+		if(!empty($args)){
+			foreach($args as $key => $val){
+				$url .= "&".rawurlencode($key)."=".rawurlencode($val);
+			}
+		}
+		return $this->facebook()->getLoginUrl(array(
+			'scope' => 'publish_actions',
+			'redirect_uri' => $url,
+		));
 	}
 	
 	/**

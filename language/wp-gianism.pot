@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-09 23:40+0900\n"
-"PO-Revision-Date: 2013-02-09 23:40+0900\n"
+"POT-Creation-Date: 2013-02-10 20:34+0900\n"
+"PO-Revision-Date: 2013-02-10 20:34+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -64,9 +64,9 @@ msgid ""
 "Stand on the shoulders of giants!"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:91
-#: ../sdks/facebook/facebook_controller.php:127
-#: ../sdks/facebook/facebook_controller.php:142
+#: ../sdks/facebook/facebook_controller.php:97
+#: ../sdks/facebook/facebook_controller.php:133
+#: ../sdks/facebook/facebook_controller.php:148
 #: ../sdks/google/google_controller.php:79
 #: ../sdks/mixi/mixi_controller.php:137 ../sdks/mixi/mixi_controller.php:182
 #: ../sdks/twitter/twitter_controller.php:106
@@ -76,12 +76,13 @@ msgstr ""
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:121
+#: ../sdks/facebook/facebook_controller.php:127
 #, php-format
 msgid "Welcome!, %s"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:123
+#: ../sdks/facebook/facebook_controller.php:129
+#: ../sdks/facebook/facebook_controller.php:209
 #: ../sdks/google/google_controller.php:107
 #: ../sdks/mixi/mixi_controller.php:150
 #: ../sdks/twitter/twitter_controller.php:103
@@ -90,27 +91,27 @@ msgstr ""
 msgid "Mm...? This %s account seems to be connected to another account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:130
-#: ../sdks/facebook/facebook_controller.php:215
+#: ../sdks/facebook/facebook_controller.php:136
+#: ../sdks/facebook/facebook_controller.php:220
 msgid "Cannot get Facebook ID."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:137
+#: ../sdks/facebook/facebook_controller.php:143
 #: ../sdks/google/google_controller.php:118
 #, php-format
 msgid "Disconected your %s account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:207
+#: ../sdks/facebook/facebook_controller.php:212
 msgid "Cannot get e-mail."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:207
-#: ../sdks/facebook/facebook_controller.php:215
+#: ../sdks/facebook/facebook_controller.php:212
+#: ../sdks/facebook/facebook_controller.php:220
 msgid "Please try again later."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:242
+#: ../sdks/facebook/facebook_controller.php:270
 #: ../sdks/google/google_controller.php:199
 #: ../sdks/mixi/mixi_controller.php:295
 #: ../sdks/twitter/twitter_controller.php:209
@@ -118,13 +119,13 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:243
+#: ../sdks/facebook/facebook_controller.php:271
 #, php-format
 msgid ""
 "Connecting with Facebook account, you can log in %s via Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:251
+#: ../sdks/facebook/facebook_controller.php:279
 #: ../sdks/google/google_controller.php:191
 #: ../sdks/mixi/mixi_controller.php:284
 #: ../sdks/twitter/twitter_controller.php:192
@@ -132,11 +133,11 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:252
+#: ../sdks/facebook/facebook_controller.php:280
 msgid "Your account is already connected with Facebook account."
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:253
+#: ../sdks/facebook/facebook_controller.php:281
 #: ../sdks/google/google_controller.php:193
 #: ../sdks/mixi/mixi_controller.php:291
 #: ../sdks/twitter/twitter_controller.php:200
@@ -144,11 +145,11 @@ msgstr ""
 msgid "You really disconnect this account?"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:259
+#: ../sdks/facebook/facebook_controller.php:287
 msgid "Facebook"
 msgstr ""
 
-#: ../sdks/facebook/facebook_controller.php:285
+#: ../sdks/facebook/facebook_controller.php:313
 msgid "Log in with Facebook"
 msgstr ""
 
@@ -323,63 +324,128 @@ msgid ""
 msgstr ""
 
 #: ../templates/advanced.php:51
-msgid "Make tweet with your account"
+msgid "Get publish permission of Facebook account"
 msgstr ""
 
 #: ../templates/advanced.php:53
+msgid "You can get permission to publish information to user's Facebook wall."
+msgstr ""
+
+#: ../templates/advanced.php:55
+msgid ""
+"For example, display link to post action &quot;read an article&quot; to "
+"Facebook wall."
+msgstr ""
+
+#: ../templates/advanced.php:70
+msgid "URL which user will be redirected"
+msgstr ""
+
+#: ../templates/advanced.php:71
+msgid "Action name fired after authentication"
+msgstr ""
+
+#: ../templates/advanced.php:72
+msgid "Additional arguments passed to hook function"
+msgstr ""
+
+#: ../templates/advanced.php:76
+msgid ""
+"If user click this link, he will be redirected to Facebook and see "
+"permission dialog. After authentication, the aciton you registered will be "
+"fired. Now hook on it and execute publication."
+msgstr ""
+
+#: ../templates/advanced.php:110
+msgid "Register action hook which you registered above."
+msgstr ""
+
+#: ../templates/advanced.php:111
+msgid "This funciton will be executed after authentication"
+msgstr ""
+
+#: ../templates/advanced.php:112
+msgid "Check if argument is propery passed and if post exists."
+msgstr ""
+
+#: ../templates/advanced.php:113
+msgid "Read an artcile."
+msgstr ""
+
+#: ../templates/advanced.php:114
+msgid "Do error handling if you wish."
+msgstr ""
+
+#: ../templates/advanced.php:115
+msgid "This funcion been executed, user will be redirected."
+msgstr ""
+
+#: ../templates/advanced.php:119
+#, php-format
+msgid ""
+"<strong>Note:</strong> <code>$facebook</code> object is instance of Facebook "
+"class which is part of Facebook PHP SDK. To know what you can do with it, "
+"read the <a href=\"%s\">documentation</a>."
+msgstr ""
+
+#: ../templates/advanced.php:123
+msgid "Make tweet with your account"
+msgstr ""
+
+#: ../templates/advanced.php:125
 msgid "You can make tweet by registered application's account."
 msgstr ""
 
-#: ../templates/advanced.php:60
+#: ../templates/advanced.php:132
 msgid "Hello, my followers. I updated new post."
 msgstr ""
 
-#: ../templates/advanced.php:64
+#: ../templates/advanced.php:136
 msgid ""
 "This function itself makes no sense, but you can use some hook to make auto "
 "post."
 msgstr ""
 
-#: ../templates/advanced.php:96
+#: ../templates/advanced.php:168
 #, php-format
 msgid "%1$s pulbished %2$s. Please visit %3$s"
 msgstr ""
 
-#: ../templates/advanced.php:100
+#: ../templates/advanced.php:172
 msgid ""
 "<strong>Note:</strong> Currently, only twitter application's account(thus, "
 "admin's twitter account) can tweet."
 msgstr ""
 
-#: ../templates/advanced.php:103
+#: ../templates/advanced.php:175
 msgid "Save additional infomration"
 msgstr ""
 
-#: ../templates/advanced.php:106
+#: ../templates/advanced.php:178
 msgid ""
 "Gianism uses only user name or ID and email(if possible) which are required "
 "on creating WordPress user account. but in some cases, you may need "
 "additional information provided from SNS."
 msgstr ""
 
-#: ../templates/advanced.php:107
+#: ../templates/advanced.php:179
 msgid ""
 "For example, Facebook provides various information like educationla "
 "background, friends and so on."
 msgstr ""
 
-#: ../templates/advanced.php:133
+#: ../templates/advanced.php:205
 msgid "Save additional information on SNS connection."
 msgstr ""
 
-#: ../templates/advanced.php:137
+#: ../templates/advanced.php:209
 msgid ""
 "Data structure is different by service. For more detail, read documentation "
 "or make thread on <a href=\"http://wordpress.org/support/plugin/gianism"
 "\">WordPress.org</a>."
 msgstr ""
 
-#: ../templates/advanced.php:139
+#: ../templates/advanced.php:211
 msgid ""
 "<strong>Note:</strong> information about user is different by service, so "
 "you shouldn't relay on specific service. Facebook provides educationla "

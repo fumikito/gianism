@@ -48,6 +48,78 @@ echo esc_html(sprintf($code, get_bloginfo('name')));
 ?>
 </pre>
 
+<h3><?php $this->e('Get publish permission of Facebook account');?></h3>
+
+<p class="description"><?php $this->e('You can get permission to publish information to user\'s Facebook wall.'); ?></p>
+
+<p><?php $this->e('For example, display link to post action &quot;read an article&quot; to Facebook wall.'); ?></p>
+
+<pre class="brush: php">
+<?php 
+$code = <<<EOS
+<?php
+\$url = get_facebook_publish_permission_link(
+	\$redirect_url, //%s,
+	'my_facebook_auth_hook', //%s
+	array('post_id' => 10), //%s
+);
+?>
+<a href="<?php echo esc_url(\$url); ?>" rel="nofollow">Publish to Facebook</a>
+EOS;
+echo esc_html(sprintf($code, 
+		$this->_('URL which user will be redirected'),
+		$this->_('Action name fired after authentication'),
+		$this->_('Additional arguments passed to hook function')));
+?>
+</pre>
+
+<p><?php $this->e('If user click this link, he will be redirected to Facebook and see permission dialog. After authentication, the aciton you registered will be fired. Now hook on it and execute publication.'); ?></p>
+
+<pre class="brush: php">
+<?php 
+$code = <<<EOS
+// %s
+add_aciton('my_facebook_auth_hook', 'my_facebook_auth', 10, 2);
+
+/**
+ * %s
+ * @param Facebook \$facebook
+ * @param array \$args
+ */
+function my_facebook_auth(\$facebook, \$args){
+	// %s
+	if(isset(\$args['post_id']) && (\$post = get_post(\$args['post_id']))){
+		try{
+			\$facebook->api("/me/feed", "POST", array(
+				"message" => "%s",
+				"link" => get_permalink(\$post->ID),
+				"name" => get_the_title(\$post->ID),
+				"description" => strip_tags(\$post->post_content),
+				"action" => json_encode(array(
+					"name" => get_bloginfo('name'),
+					"link" => home_url('/')))
+			));
+		}catch(FacebookApiException \$e){
+			// %s
+		}
+	}
+	// %s
+}
+EOS;
+echo esc_html(sprintf($code, 
+		$this->_('Register action hook which you registered above.'), 
+		$this->_('This funciton will be executed after authentication'),
+		$this->_('Check if argument is propery passed and if post exists.'),
+		$this->_('Read an artcile.'),
+		$this->_('Do error handling if you wish.'),
+		$this->_('This funcion been executed, user will be redirected.')));
+?>
+</pre>
+
+<p class="notice"><?php printf($this->_('<strong>Note:</strong> <code>$facebook</code> object is instance of Facebook class which is part of Facebook PHP SDK. To know what you can do with it, read the <a href="%s">documentation</a>.' ), 'https://developers.facebook.com/docs/reference/php/');?></p>
+
+
+
 <h3><?php $this->e('Make tweet with your account'); ?></h3>
 
 <p class="description"><?php $this->e('You can make tweet by registered application\'s account.'); ?></p>

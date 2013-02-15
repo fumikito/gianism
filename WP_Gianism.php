@@ -434,6 +434,7 @@ class WP_Gianism{
 	 */
 	public function enqueue_style(){
 		if($this->is_enabled()){
+			wp_enqueue_script('jquery');
 			wp_enqueue_style($this->name, $this->url."assets/compass/stylesheets/gianism-style.css", array(), $this->version);
 		}
 	}

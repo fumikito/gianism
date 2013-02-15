@@ -59,6 +59,7 @@ class Gianism_Controller {
 			//Add Hook On footer
 			add_action('admin_print_footer_scripts', array($this, 'print_script'));
 			add_action('wp_footer', array($this, 'print_script'));
+			add_action('login_footer', array($this, 'print_script'));
 		}
 		if(method_exists($this, 'wp_mail')){
 			add_filter('wp_mail', array($this, '_wp_mail'));

@@ -220,10 +220,13 @@ EOS;
 						$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.').$gianism->_('Please try again later.');
 					}
 					if($user_id && !is_wp_error($user_id)){
+						$this->message = '';
 						wp_set_auth_cookie($user_id, true);
 						if(isset($_GET['redirect_to'])){
 							header('Location: '.$_GET['redirect_to']);
 							die();
+						}else{
+							wp_set_current_user($user_id);
 						}
 					}
 				}

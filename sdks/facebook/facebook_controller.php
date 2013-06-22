@@ -178,7 +178,7 @@ EOS;
 										if(isset($profile['username'])){
 											//if set, use username. but this is optional setting.
 											$user_name = $profile['username'];
-										}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-ZA-Z0-9 ]+$/", $profile['name'])){
+										}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-zA-Z0-9 ]+$/", $profile['name'])){
 											//If name is alpabetical, use it.
 											$user_name = $profile['name'];
 										}else{

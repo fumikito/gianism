@@ -339,7 +339,7 @@ EOS;
 		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
 		$twitter_id = get_user_meta($user_id, $this->umeta_id, true);
 		if($twitter_id){
-			$endpoint = "https://api.twitter.com/1/direct_messages/new.json";
+			$endpoint = "https://api.twitter.com/1.1/direct_messages/new.json";
 			$body = sprintf($gianism->_('You have message "%1$s" on %2$s. %3$s'), $subject, get_bloginfo('name'), admin_url('profile.php'));
 			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
 				'user_id' => $twitter_id,
@@ -356,7 +356,7 @@ EOS;
 	public function tweet($string){
 		global $gianism;
 		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
-		$endpoint = 'https://api.twitter.com/1/statuses/update.json';
+		$endpoint = 'https://api.twitter.com/1.1/statuses/update.json';
 		$result = $oauth->oAuthRequest($endpoint, 'POST', array(
 			'status' => $string
 		));
@@ -370,7 +370,7 @@ EOS;
 	private function follow_me($oauth){
 		global $gianism;
 		if(!empty($this->screen_name)){
-			$endpoint = 'http://api.twitter.com/1/friendships/create.json';
+			$endpoint = 'http://api.twitter.com/1.1/friendships/create.json';
 			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
 				'screen_name' => $this->screen_name,
 				'follow' => true

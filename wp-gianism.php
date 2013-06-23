@@ -4,7 +4,7 @@ Plugin Name: Gianism
 Plugin URI: http://wordpress.org/extend/plugins/gianism/
 Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 Author: Takahashi Fumiki
-Version: 1.3.0
+Version: 1.3.1
 Author URI: http://takahashifumiki.com
 Text Domain: wp-gianism
 Domain Path: /language/
@@ -27,13 +27,39 @@ Lisence: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-//Load Utility Classes
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR."WP_Gianism.php";
+
+// Don't allow plugin to be loaded directory
+defined( 'ABSPATH' ) OR exit;
+
 
 /**
- * @var $gianism WP_Gianism
+ * Instance of Gianism
+ *
+ * @var WP_Gianism
  */
-$gianism = new WP_Gianism(__FILE__, "1.3.0");
+$gianism = null;
 
-//Load global functions
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR."functions.php";
+
+// Add action after plugins are loaded.
+add_action( 'plugins_loaded', '_gianism_setup_after_plugins_loaded');
+
+
+/**
+ * Instanciate plugin
+ * 
+ * @global WP_Gianism $gianism
+ */
+function _gianism_setup_after_plugins_loaded(){
+	
+	global $gianism;
+	
+	// Load Utility Classes
+	require_once dirname(__FILE__).DIRECTORY_SEPARATOR."WP_Gianism.php";
+
+	// Instanciate
+	$gianism = new WP_Gianism(__FILE__, "1.3.1");
+
+	// Load global functions
+	require_once dirname(__FILE__).DIRECTORY_SEPARATOR."functions.php";
+	
+}

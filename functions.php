@@ -11,6 +11,8 @@ function get_facebook_id($user_id){
 	return get_user_meta($user_id, $gianism->fb->umeta_id, true);
 }
 
+
+
 /**
  * Returns url to get Publish stream permission
  * @global WP_Gianism $gianism
@@ -23,6 +25,8 @@ function get_facebook_publish_permission_link($redirect_url = null, $action = ''
 	global $gianism;
 	return $gianism->fb->get_publish_permission_link($redirect_url, $action, $args);
 }
+
+
 
 /**
  * Returns if user is connected with particular web service.
@@ -58,6 +62,8 @@ function is_user_connected_with($service, $user_id = 0){
 	}
 }
 
+
+
 /**
  * Get user object by credencial
  * @global wpdb $wpdb
@@ -83,6 +89,8 @@ function get_user_by_service($service, $credential){
 	}
 }
 
+
+
 /**
  * Returns if current user liked or not.
  * 
@@ -96,6 +104,8 @@ function is_user_like_fangate(){
 	return $gianism->fb->is_user_like_me_on_fangate();
 }
 
+
+
 /**
  * Returns if current user is guest.
  * @global WP_Gianism $gianism
@@ -105,6 +115,8 @@ function is_guest_on_fangate(){
 	global $gianism;
 	return $gianism->fb->is_guest_on_fangate();
 }
+
+
 
 /**
  * Returns if current user has wordpress account.
@@ -131,6 +143,8 @@ EOS;
 	}
 }
 
+
+
 /**
  * Returns facebook id on fan gate.
  * @global WP_Gianism $gianism
@@ -140,6 +154,8 @@ function get_user_id_on_fangate(){
 	global $gianism;
 	return $gianism->fb->is_registered_user_on_fangate();
 }
+
+
 
 /**
  * Get Twitter Screen Name 
@@ -152,6 +168,8 @@ function get_twitter_screen_name($user_id){
 	return get_user_meta($user_id, $gianism->twitter->umeta_screen_name, true);
 }
 
+
+
 /**
  * Update Twitter timeline
  * @global WP_Gianism $gianism
@@ -161,6 +179,8 @@ function update_twitter_status($string){
 	global $gianism;
 	$gianism->twitter->tweet($string);
 }
+
+
 
 /**
  * Reply to specified user by Owner Account
@@ -177,6 +197,27 @@ function twitter_reply_to($user_id, $string){
 		return false;
 	}
 }
+
+
+
+/**
+ * Get twitter timeline in JSON format object
+ * 
+ * @global WP_Gianism $gianism
+ * @param string $screen_name If not specified, admin user's screen name will be used.
+ * @param array $additional_data
+ * @return Object
+ */
+function twitter_get_timeline($screen_name = null, $additional_data = array()){
+	global $gianism;
+	if(is_null($screen_name)){
+		$screen_name = $gianism->twitter->screen_name;
+	}
+	$data = array_merge(array('screen_name' => $screen_name), $additional_data);
+	return $gianism->twitter->request('statuses/user_timeline', $data);
+}
+
+
 
 /**
  * Show Login buttons

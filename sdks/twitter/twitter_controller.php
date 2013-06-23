@@ -10,7 +10,7 @@ class Twitter_Controller extends Gianism_Controller{
 	/**
 	 * @var string
 	 */
-	private $screen_name = '';
+	public $screen_name = '';
 	
 	/**
 	 * @var string
@@ -46,6 +46,17 @@ class Twitter_Controller extends Gianism_Controller{
 	 * @var string
 	 */
 	protected $pseudo_domain = 'pseudo.twitter.com';
+	
+	/**
+	 * Endpoint root. Untrailed with slash.
+	 * @var string
+	 */
+	protected $api_root = 'https://api.twitter.com/1.1/';
+	
+	/**
+	 * @var TwitterOAuth
+	 */
+	private $oauth = null;
 	
 	/**
 	 * Constructor
@@ -96,7 +107,7 @@ EOS;
 							if(!$user_exists){
 								update_user_meta($user_ID, $this->umeta_id, $access_token['user_id']);
 								update_user_meta($user_ID, $this->umeta_screen_name, $access_token['screen_name']);
-								$this->follow_me($oauth);
+								$this->follow_me();
 								do_action('wpg_connect', $user_ID, $access_token, 'twitter', false);
 								$this->add_message(sprintf($gianism->_('Welcome, %s!'), '@'.$access_token['screen_name']));
 							}else{
@@ -336,45 +347,61 @@ EOS;
 	 */
 	public function send_dm($user_id, $subject){
 		global $gianism;
-		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
 		$twitter_id = get_user_meta($user_id, $this->umeta_id, true);
 		if($twitter_id){
-			$endpoint = "https://api.twitter.com/1/direct_messages/new.json";
 			$body = sprintf($gianism->_('You have message "%1$s" on %2$s. %3$s'), $subject, get_bloginfo('name'), admin_url('profile.php'));
-			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+			return $this->request('direct_messages/new', array(
 				'user_id' => $twitter_id,
 				'text' => $body
-			));
+			), 'POST');
 		}
 	}
 	
 	/**
 	 * Tweet with Owner ID
+	 * 
 	 * @global WP_Gianism $gianism
-	 * @param string $string 
+	 * @param string $string
+	 * @return Object Json format object.
 	 */
 	public function tweet($string){
-		global $gianism;
-		$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
-		$endpoint = 'https://api.twitter.com/1/statuses/update.json';
-		$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+		return $this->request('statuses/update', array(
 			'status' => $string
-		));
+		), 'POST');
 	}
 	
 	/**
 	 * Force authencated user to follow me
-	 * @global WP_Gianism $gianism
+	 * 
 	 * @param TwitterOAuth $oauth 
+	 * @return Object Json format object.
 	 */
 	private function follow_me($oauth){
-		global $gianism;
 		if(!empty($this->screen_name)){
-			$endpoint = 'http://api.twitter.com/1/friendships/create.json';
-			$result = $oauth->oAuthRequest($endpoint, 'POST', array(
+			return $this->request('friendships/create', array(
 				'screen_name' => $this->screen_name,
 				'follow' => true
-			));
+			), 'POST', $oauth);
 		}
+	}
+	
+	/**
+	 * Returns GET api request.
+	 * 
+	 * You should know what kind of APIs are available.
+	 * Please see
+	 * 
+	 * @global WP_Gianism $gianism
+	 * @param string $endpoint API URL. Must not be started with slash. i.e. 'statuses/user_timeline' Use 'Resource' here https://dev.twitter.com/docs/api/1.1 
+	 * @param array $data
+	 * @param string $method GET or POST. Default GET
+	 * @param TwitterOAuth $oauth If not set, create own.
+	 * @return Object Maybe JSON object.
+	 */
+	public function request($endpoint, $data, $method = 'GET', $oauth = null){
+		if(is_null($oauth)){
+			$oauth = $this->get_oauth($this->my_access_token, $this->my_access_token_secret);
+		}
+		return json_decode($oauth->oAuthRequest($this->api_root.$endpoint.'.json', $method, (array)$data));
 	}
 }

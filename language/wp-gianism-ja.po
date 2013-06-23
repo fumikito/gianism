@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-10 20:34+0900\n"
-"PO-Revision-Date: 2013-02-10 20:53+0900\n"
+"POT-Creation-Date: 2013-06-24 00:18+0900\n"
+"PO-Revision-Date: 2013-06-24 00:19+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -58,7 +58,7 @@ msgstr "このメッセージを削除しますか？"
 msgid "You cannot delete this message."
 msgstr "このメッセージを削除できません。"
 
-#: ../WP_Gianism.php:652
+#: ../WP_Gianism.php:653
 msgid ""
 "Connect user accounts with major web services like Facebook, twitter, etc. "
 "Stand on the shoulders of giants!"
@@ -71,10 +71,10 @@ msgstr ""
 #: ../sdks/facebook/facebook_controller.php:148
 #: ../sdks/google/google_controller.php:79
 #: ../sdks/mixi/mixi_controller.php:137 ../sdks/mixi/mixi_controller.php:182
-#: ../sdks/twitter/twitter_controller.php:106
-#: ../sdks/twitter/twitter_controller.php:109
-#: ../sdks/twitter/twitter_controller.php:112
-#: ../sdks/twitter/twitter_controller.php:172
+#: ../sdks/twitter/twitter_controller.php:117
+#: ../sdks/twitter/twitter_controller.php:120
+#: ../sdks/twitter/twitter_controller.php:123
+#: ../sdks/twitter/twitter_controller.php:183
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
@@ -87,7 +87,7 @@ msgstr "ようこそ、%sさん！"
 #: ../sdks/facebook/facebook_controller.php:209
 #: ../sdks/google/google_controller.php:107
 #: ../sdks/mixi/mixi_controller.php:150
-#: ../sdks/twitter/twitter_controller.php:103
+#: ../sdks/twitter/twitter_controller.php:114
 #: ../sdks/yahoo/yahoo_controller.php:195
 #, php-format
 msgid "Mm...? This %s account seems to be connected to another account."
@@ -113,15 +113,15 @@ msgstr "メールアドレスを取得できません。"
 msgid "Please try again later."
 msgstr "時間をおいてからもう一度試してみてください。"
 
-#: ../sdks/facebook/facebook_controller.php:270
+#: ../sdks/facebook/facebook_controller.php:273
 #: ../sdks/google/google_controller.php:199
 #: ../sdks/mixi/mixi_controller.php:295
-#: ../sdks/twitter/twitter_controller.php:209
+#: ../sdks/twitter/twitter_controller.php:220
 #: ../sdks/yahoo/yahoo_controller.php:264
 msgid "Connect"
 msgstr "コネクト"
 
-#: ../sdks/facebook/facebook_controller.php:271
+#: ../sdks/facebook/facebook_controller.php:274
 #, php-format
 msgid ""
 "Connecting with Facebook account, you can log in %s via Facebook account."
@@ -129,31 +129,31 @@ msgstr ""
 "Facebookアカウントに接続すると、%sにFacebookアカウントでログインできるように"
 "なります。"
 
-#: ../sdks/facebook/facebook_controller.php:279
+#: ../sdks/facebook/facebook_controller.php:282
 #: ../sdks/google/google_controller.php:191
 #: ../sdks/mixi/mixi_controller.php:284
-#: ../sdks/twitter/twitter_controller.php:192
+#: ../sdks/twitter/twitter_controller.php:203
 #: ../sdks/yahoo/yahoo_controller.php:256
 msgid "Disconnect"
 msgstr "切断"
 
-#: ../sdks/facebook/facebook_controller.php:280
+#: ../sdks/facebook/facebook_controller.php:283
 msgid "Your account is already connected with Facebook account."
 msgstr "あなたのアカウントはすでにFacebookアカウントに接続されています。"
 
-#: ../sdks/facebook/facebook_controller.php:281
+#: ../sdks/facebook/facebook_controller.php:284
 #: ../sdks/google/google_controller.php:193
 #: ../sdks/mixi/mixi_controller.php:291
-#: ../sdks/twitter/twitter_controller.php:200
+#: ../sdks/twitter/twitter_controller.php:211
 #: ../sdks/yahoo/yahoo_controller.php:258
 msgid "You really disconnect this account?"
 msgstr "アカウントを切断しますか？"
 
-#: ../sdks/facebook/facebook_controller.php:287
+#: ../sdks/facebook/facebook_controller.php:290
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../sdks/facebook/facebook_controller.php:313
+#: ../sdks/facebook/facebook_controller.php:316
 msgid "Log in with Facebook"
 msgstr "Facebookでログイン"
 
@@ -177,7 +177,7 @@ msgstr ""
 
 #: ../sdks/google/google_controller.php:200
 #: ../sdks/mixi/mixi_controller.php:297
-#: ../sdks/twitter/twitter_controller.php:210
+#: ../sdks/twitter/twitter_controller.php:221
 #: ../sdks/yahoo/yahoo_controller.php:266
 #, php-format
 msgid "Connecting %1$s account, you can log in %2$s via %1$s account."
@@ -194,7 +194,7 @@ msgid "Login with Google"
 msgstr "Googleでログイン"
 
 #: ../sdks/mixi/mixi_controller.php:103
-#: ../sdks/twitter/twitter_controller.php:119
+#: ../sdks/twitter/twitter_controller.php:130
 msgid "Disconnect now :("
 msgstr "切断なう :("
 
@@ -208,7 +208,7 @@ msgid "Invalid access token."
 msgstr "無効なアクセストークンです。"
 
 #: ../sdks/mixi/mixi_controller.php:218
-#: ../sdks/twitter/twitter_controller.php:101
+#: ../sdks/twitter/twitter_controller.php:112
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
@@ -218,7 +218,7 @@ msgid "Login with mixi"
 msgstr "mixiでログイン"
 
 #: ../sdks/mixi/mixi_controller.php:285
-#: ../sdks/twitter/twitter_controller.php:194
+#: ../sdks/twitter/twitter_controller.php:205
 #, php-format
 msgid ""
 "Your account is already connected with %1$s <a target=\"_blank\" href=\"%2$s"
@@ -232,7 +232,7 @@ msgid "View Profile"
 msgstr "プロフィールを見る"
 
 #: ../sdks/mixi/mixi_controller.php:289
-#: ../sdks/twitter/twitter_controller.php:198
+#: ../sdks/twitter/twitter_controller.php:209
 #, php-format
 msgid ""
 "Your e-mail address is pseudo &quot;%1$s&quot; and cannot be sent a mail "
@@ -243,15 +243,15 @@ msgstr ""
 "きません。%2$sアカウントを切断すると、%3$sにログインできなくなるかもしれませ"
 "ん。その前にメールアドレスを有効なものに変更してください。"
 
-#: ../sdks/twitter/twitter_controller.php:216
+#: ../sdks/twitter/twitter_controller.php:227
 msgid "Twitter"
 msgstr "Twitter"
 
-#: ../sdks/twitter/twitter_controller.php:243
+#: ../sdks/twitter/twitter_controller.php:254
 msgid "Login with Twitter"
 msgstr "Twitterでログイン"
 
-#: ../sdks/twitter/twitter_controller.php:343
+#: ../sdks/twitter/twitter_controller.php:352
 #, php-format
 msgid "You have message \"%1$s\" on %2$s. %3$s"
 msgstr "%2$sにメッセージ\"%1$s\"が届いています。 %3$s"
@@ -446,12 +446,12 @@ msgstr ""
 "この関数自体では意味を持ちませんが、自動つぶやきをするためにフックを使うこと"
 "ができます。"
 
-#: ../templates/advanced.php:168
+#: ../templates/advanced.php:167
 #, php-format
 msgid "%1$s pulbished %2$s. Please visit %3$s"
 msgstr "%1$s が %2$sを公開しました。URLはこちら %3$s"
 
-#: ../templates/advanced.php:172
+#: ../templates/advanced.php:171
 msgid ""
 "<strong>Note:</strong> Currently, only twitter application's account(thus, "
 "admin's twitter account) can tweet."
@@ -459,11 +459,11 @@ msgstr ""
 "<strong>注意:</strong> いまのところ、twitterアプリケーションのアカウント（お"
 "そらく管理者のtwitterアカウント）だけがつぶやけます。"
 
-#: ../templates/advanced.php:175
+#: ../templates/advanced.php:174
 msgid "Save additional infomration"
 msgstr "追加の情報を保存する"
 
-#: ../templates/advanced.php:178
+#: ../templates/advanced.php:177
 msgid ""
 "Gianism uses only user name or ID and email(if possible) which are required "
 "on creating WordPress user account. but in some cases, you may need "
@@ -473,17 +473,17 @@ msgstr ""
 "メール（可能であれば）だけを利用します。しかし、ときにはSNSから提供される追加"
 "の情報が必要なときもあるでしょう。"
 
-#: ../templates/advanced.php:179
+#: ../templates/advanced.php:178
 msgid ""
 "For example, Facebook provides various information like educationla "
 "background, friends and so on."
 msgstr "たとえば、Facebookは学歴やフレンドなどの様々な情報を提供してくれます。"
 
-#: ../templates/advanced.php:205
+#: ../templates/advanced.php:204
 msgid "Save additional information on SNS connection."
 msgstr "SNS接続時に追加情報を保存する"
 
-#: ../templates/advanced.php:209
+#: ../templates/advanced.php:208
 msgid ""
 "Data structure is different by service. For more detail, read documentation "
 "or make thread on <a href=\"http://wordpress.org/support/plugin/gianism"
@@ -493,7 +493,7 @@ msgstr ""
 "\"http://wordpress.org/support/plugin/gianism\">WordPress.org</a>でスレッドを"
 "立ててください。"
 
-#: ../templates/advanced.php:211
+#: ../templates/advanced.php:210
 msgid ""
 "<strong>Note:</strong> information about user is different by service, so "
 "you shouldn't relay on specific service. Facebook provides educationla "
@@ -541,11 +541,11 @@ msgstr ""
 "なたがWordPressのURL処理について詳しくない場合、トラブルの原因になることがあ"
 "ります。"
 
-#: ../templates/customize.php:54
+#: ../templates/customize.php:56
 msgid "Controll login button display"
 msgstr "ログインボタンの表示をカスタマイズ"
 
-#: ../templates/customize.php:56
+#: ../templates/customize.php:58
 msgid ""
 "By default, all login buttons of each services are displayed on both login "
 "screen and register screen. You can turn it off on admin screen. Besides it, "
@@ -554,6 +554,14 @@ msgstr ""
 "デフォルトでは、すべてのログインボタンはログイン画面と新規登録画面に表示され"
 "ます。これは管理画面から切り替えができますが、フィルターフックでもコントロー"
 "ルできます。"
+
+#: ../templates/customize.php:96
+msgid "Display login button as you like"
+msgstr "好きな場所にログインボタンを表示する"
+
+#: ../templates/customize.php:98
+msgid "You can display social login buttons anywhere."
+msgstr "ソーシャルログインボタンはどこにでも表示できます。"
 
 #: ../templates/how-to-setup.php:4
 #, php-format

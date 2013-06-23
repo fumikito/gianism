@@ -140,21 +140,20 @@ echo esc_html(sprintf($code, $this->_('Hello, my followers. I updated new post.'
 $code = <<<EOS
 /**
  * Tweet when post is published.
- * @param int \$post_id
+ * 
+ * @param string \$new_status
+ * @param string \$old_status
+ * @param int \$post
  */
-function _my_gianism_publish_tweet(\$post_id){
-	//Get post object
-	\$post = wp_get_single_post(\$post_id);
-	if(\$post // Post object exists
-		&& (!defined('DOING_AUTOSAVE') || !DOING_AUTOSAVE) // this is not autosave
-		&& isset(\$_POST['post_status'], \$_POST['original_post_status']) // Post status is set
-		&& \$_POST['post_status'] == 'publish' // Post status is "publish"
-		&& \$_POST['original_post_status'] != 'publish') // Previous post status is not "publish"
-	){ 
+function _my_gianism_publish_tweet(\$new_status, \$old_status, \$post){
+	// If post status is changed to publish, tweet.
+	if('publish' == \$new_status && 'post' == \$post->post->type){ 
 		switch(\$post->post_type){
-			case 'post':
-				// Tweet when post is published
-				\$url = wp_get_shortlink(\$posr->ID);
+			case 'draft':
+			case 'pending':
+			case 'auto-draft':
+			case 'future':
+				\$url = wp_get_shortlink(\$post->ID);
 				\$author = get_the_author_meta('display_name', \$post->post_author);
 				\$string = sprintf('%s', \$author,
 					\$post->post_title, \$url);
@@ -162,8 +161,8 @@ function _my_gianism_publish_tweet(\$post_id){
 		}
 	}
 }
-// Hook on publish post
-add_action('publish_post', '_my_gianism_publish_tweet');
+// Hook on post status transition
+add_action('transition_post_status', '_my_gianism_publish_tweet', 10, 3);
 EOS;
 echo esc_html(sprintf($code, $this->_('%1$s pulbished %2$s. Please visit %3$s')));
 ?>

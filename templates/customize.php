@@ -51,6 +51,8 @@ add_filter('gianism_redirect_to', '_my_redirect_to');
 	<?php $this->e('<strong>Note:</strong> Redirect occurs on various situations. If you are not enough aware of WordPress URL process, some troubles might occurs.'); ?>
 </p>
 
+
+
 <h3><?php $this->e('Controll login button display'); ?></h3>
 <p class="description">
 	<?php $this->e('By default, all login buttons of each services are displayed on both login screen and register screen. You can turn it off on admin screen. Besides it, you can controll it with filter hook.'); ?>
@@ -84,6 +86,24 @@ function _my_login_button_condition(\$display, \$context){
 //Add filter on display condition of buttons
 //You will get 2 arguments, the 1st is display flag and another is context string.
 add_filter('gianism_show_button_on_login', '_my_login_button_condition', 10, 2);
+EOS;
+echo esc_html($code);
+?>
+</pre>
+
+
+
+<h3><?php $this->e('Display login button as you like'); ?></h3>
+<p class="description">
+	<?php $this->e('You can display social login buttons anywhere.'); ?>
+</p>
+
+<pre class="brush: php">
+<?php
+$code = <<<EOS
+if(function_exists('gianism_login')){
+	gianism_login();
+}
 EOS;
 echo esc_html($code);
 ?>

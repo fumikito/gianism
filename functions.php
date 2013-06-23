@@ -214,7 +214,7 @@ function twitter_get_timeline($screen_name = null, $additional_data = array()){
 		$screen_name = $gianism->twitter->screen_name;
 	}
 	$data = array_merge(array('screen_name' => $screen_name), $additional_data);
-	return $gianism->twitter->get_api('statuses/user_timeline', $data);
+	return $gianism->twitter->request('statuses/user_timeline', $data);
 }
 
 

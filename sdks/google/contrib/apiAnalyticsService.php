@@ -211,28 +211,28 @@ require_once 'service/apiServiceRequest.php';
 
 
   /**
-   * The "ga" collection of methods.
+   * The "service" collection of methods.
    * Typical usage is:
    *  <code>
    *   $analyticsService = new apiAnalyticsService(...);
-   *   $ga = $analyticsService->ga;
+   *   $service = $analyticsService->service;
    *  </code>
    */
   class DataGaServiceResource extends apiServiceResource {
 
 
     /**
-     * Returns Analytics data for a profile. (ga.get)
+     * Returns Analytics data for a profile. (service.get)
      *
-     * @param string $ids Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is the Analytics profile ID.
+     * @param string $ids Unique table ID for retrieving Analytics data. Table ID is of the form service:XXXX, where XXXX is the Analytics profile ID.
      * @param string $start_date Start date for fetching Analytics data. All requests should specify a start date formatted as YYYY-MM-DD.
      * @param string $end_date End date for fetching Analytics data. All requests should specify an end date formatted as YYYY-MM-DD.
-     * @param string $metrics A comma-separated list of Analytics metrics. E.g., 'ga:visits,ga:pageviews'. At least one metric must be specified.
+     * @param string $metrics A comma-separated list of Analytics metrics. E.g., 'service:visits,service:pageviews'. At least one metric must be specified.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
      * @opt_param int max-results The maximum number of entries to include in this feed.
      * @opt_param string sort A comma-separated list of dimensions or metrics that determine the sort order for Analytics data.
-     * @opt_param string dimensions A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'.
+     * @opt_param string dimensions A comma-separated list of Analytics dimensions. E.g., 'service:browser,service:city'.
      * @opt_param int start-index An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
      * @opt_param string segment An Analytics advanced segment to be applied to data.
      * @opt_param string filters A comma-separated list of dimension or metric filters to be applied to Analytics data.
@@ -290,7 +290,7 @@ class apiAnalyticsService extends apiService {
     $this->management_accounts = new ManagementAccountsServiceResource($this, $this->serviceName, 'accounts', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}}, "response": {"$ref": "Accounts"}, "httpMethod": "GET", "path": "management/accounts", "id": "analytics.management.accounts.list"}}}', true));
     $this->management_goals = new ManagementGoalsServiceResource($this, $this->serviceName, 'goals', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "profileId": {"pattern": "~all|[0-9]+", "required": true, "type": "string", "location": "path"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "accountId": {"pattern": "~all|[0-9]+", "required": true, "type": "string", "location": "path"}, "webPropertyId": {"pattern": "~all|UA-[0-9]+-[0-9]+", "required": true, "type": "string", "location": "path"}}, "id": "analytics.management.goals.list", "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles/{profileId}/goals", "response": {"$ref": "Goals"}}}}', true));
     $this->management_profiles = new ManagementProfilesServiceResource($this, $this->serviceName, 'profiles', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "accountId": {"pattern": "~all|[0-9]+", "required": true, "type": "string", "location": "path"}, "webPropertyId": {"pattern": "~all|UA-[0-9]+-[0-9]+", "required": true, "type": "string", "location": "path"}}, "id": "analytics.management.profiles.list", "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles", "response": {"$ref": "Profiles"}}}}', true));
-    $this->data_ga = new DataGaServiceResource($this, $this->serviceName, 'ga', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "sort": {"pattern": "(-)?ga:.+", "type": "string", "location": "query"}, "dimensions": {"pattern": "(ga:.+)?", "type": "string", "location": "query"}, "start-date": {"pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}", "required": true, "type": "string", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "end-date": {"pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}", "required": true, "type": "string", "location": "query"}, "ids": {"pattern": "ga:[0-9]+", "required": true, "type": "string", "location": "query"}, "metrics": {"pattern": "ga:.+", "required": true, "type": "string", "location": "query"}, "filters": {"pattern": "ga:.+", "type": "string", "location": "query"}, "segment": {"type": "string", "location": "query"}}, "id": "analytics.data.ga.get", "httpMethod": "GET", "path": "data/ga", "response": {"$ref": "GaData"}}}}', true));
+    $this->data_ga = new DataGaServiceResource($this, $this->serviceName, 'service', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "sort": {"pattern": "(-)?service:.+", "type": "string", "location": "query"}, "dimensions": {"pattern": "(service:.+)?", "type": "string", "location": "query"}, "start-date": {"pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}", "required": true, "type": "string", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "end-date": {"pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}", "required": true, "type": "string", "location": "query"}, "ids": {"pattern": "service:[0-9]+", "required": true, "type": "string", "location": "query"}, "metrics": {"pattern": "service:.+", "required": true, "type": "string", "location": "query"}, "filters": {"pattern": "service:.+", "type": "string", "location": "query"}, "segment": {"type": "string", "location": "query"}}, "id": "analytics.data.service.get", "httpMethod": "GET", "path": "data/service", "response": {"$ref": "GaData"}}}}', true));
   }
 }
 

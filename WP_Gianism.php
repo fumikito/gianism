@@ -394,7 +394,7 @@ class WP_Gianism{
 	public function enqueue_scripts($hook){
 		wp_enqueue_script('jquery');
 		if(defined('IS_PROFILE_PAGE') && IS_PROFILE_PAGE){
-			wp_enqueue_script('wpg-ajax', $this->url."/assets/compass/js/message-manager.js", array('jquery'), $this->version);
+			wp_enqueue_script('wpg-ajax', $this->url."assets/compass/js/message-manager.js", array('jquery'), $this->version);
 			wp_localize_script('wpg-ajax', 'WPG', array(
 				'endpoint' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('wpg_ajax'),

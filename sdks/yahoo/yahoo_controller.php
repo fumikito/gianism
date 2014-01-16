@@ -82,7 +82,7 @@ class Yahoo_Controller extends Gianism_Controller{
 							OIDConnectScope::EMAIL,
 						),
 						($this->is_smartphone() ? OIDConnectDisplay::SMART_PHONE : OIDConnectDisplay::DEFAULT_DISPLAY ),
-						OIDConnectPrompt::LOGIN
+						array(OIDConnectPrompt::LOGIN)
 					);
 				}else{
 					header('Location:'.admin_url('profile.php'));
@@ -115,7 +115,7 @@ class Yahoo_Controller extends Gianism_Controller{
 							OIDConnectScope::EMAIL,
 						),
 						($this->is_smartphone() ? OIDConnectDisplay::SMART_PHONE : OIDConnectDisplay::DEFAULT_DISPLAY ),
-						OIDConnectPrompt::LOGIN
+						array(OIDConnectPrompt::LOGIN)
 					);
 				}else{
 					header('Location: '.wp_login_url($this->get_redirect_to(null), true));

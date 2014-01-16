@@ -3,6 +3,8 @@
 /**
  * Class auto loader
  *
+ * Load base class and vendor libraries.
+ *
  * @param string $class_name
  */
 function _gianism_autoloader($class_name){
@@ -77,6 +79,7 @@ function get_facebook_id($user_id){
 
 /**
  * Returns url to get Publish stream permission
+ *
  * @global WP_Gianism $gianism
  * @param string $redirect_url URL where user will be redirect afeter authentication
  * @param string $action Action name which will be fired after authenticaction

@@ -6,19 +6,59 @@
  * @param string $class_name
  */
 function _gianism_autoloader($class_name){
-    $base_dir = __DIR__.DIRECTORY_SEPARATOR.'app';
     $class_name = ltrim($class_name, '\\');
-    if( 0 === strpos( $class_name, 'Gianism\\') ){
-        $path_segments = explode('\\', $class_name);
-        $path_segments[0] = $base_dir;
-        $path = implode(DIRECTORY_SEPARATOR, array_map(function($path){
-            return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($matches){
-                return strtolower('-'.$matches[1]);
-            }, $path));
-        }, $path_segments)).'.php';
-        if( file_exists($path) ){
-            require $path;
-        }
+    $vendor_dir = __DIR__.DIRECTORY_SEPARATOR.'vendor';
+    $path = false;
+    switch( $class_name ){
+        case 'Facebook':
+            $path = implode(DIRECTORY_SEPARATOR, array( $vendor_dir, 'facebook-php-sdk', 'src', 'facebook.php' ));
+            break;
+        case 'TwitterOAuth':
+            $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'twitteroauth', 'twitteroauth', 'twitteroauth.php'));
+            break;
+        case 'OAuthException':
+        case 'OAuthConsumer':
+        case 'OAuthToken':
+        case 'OAuthSignatureMethod':
+        case 'OAuthSignatureMethod_HMAC_SHA1':
+        case 'OAuthSignatureMethod_PLAINTEXT':
+        case 'OAuthSignatureMethod_RSA_SHA1':
+        case 'OAuthRequest':
+        case 'OAuthServer':
+        case 'OAuthDataStore':
+        case 'OAuthUtil':
+            require_once implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'twitteroauth', 'twitteroauth', 'OAuth.php'));
+            return;
+            break;
+        case 'JWT':
+            $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'jwt', 'JWT.php'));
+            break;
+        default:
+            if( 0 === strpos( $class_name, 'Gianism\\') ){
+                // Original Class
+                $base_dir = __DIR__.DIRECTORY_SEPARATOR.'app';
+                $path_segments = explode('\\', $class_name);
+                $path_segments[0] = $base_dir;
+                $path = implode(DIRECTORY_SEPARATOR, array_map(function($path){
+                    return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($matches){
+                        return strtolower('-'.$matches[1]);
+                    }, $path));
+                }, $path_segments)).'.php';
+            }elseif( 0 === strpos( $class_name, 'Google_') ){
+                // Google
+                $path_segments = explode('_', $class_name);
+                $path = implode(DIRECTORY_SEPARATOR, array_merge(
+                        array($vendor_dir, 'google-api-php-client', 'src'),
+                        $path_segments
+                    )).'.php';
+            }elseif( 0 === strpos($class_name, 'YConnect\\')){
+                // YConnect
+                $path = str_replace('YConnect\\', implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'yconnect-php-sdk', 'lib', '')), $class_name).'.php';
+            }
+            break;
+    }
+    if( $path && file_exists($path)){
+        require $path;
     }
 }
 

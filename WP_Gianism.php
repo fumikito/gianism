@@ -491,7 +491,7 @@ class WP_Gianism{
 		}
 	}
 
-	
+
 	
 	/**
 	 * Setup plugin links.

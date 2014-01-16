@@ -1,3 +1,0 @@
-[submodule "sdks/yahoo/jwt"]
-	path = sdks/yahoo/jwt
-	url = git://github.com/luciferous/jwt.git

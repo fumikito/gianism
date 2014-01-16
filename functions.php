@@ -1,6 +1,28 @@
 <?php
 
 /**
+ * Class auto loader
+ *
+ * @param string $class_name
+ */
+function _gianism_autoloader($class_name){
+    $base_dir = __DIR__.DIRECTORY_SEPARATOR.'app';
+    $class_name = ltrim($class_name, '\\');
+    if( 0 === strpos( $class_name, 'Gianism\\') ){
+        $path_segments = explode('\\', $class_name);
+        $path_segments[0] = $base_dir;
+        $path = implode(DIRECTORY_SEPARATOR, array_map(function($path){
+            return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($matches){
+                return strtolower('-'.$matches[1]);
+            }, $path));
+        }, $path_segments)).'.php';
+        if( file_exists($path) ){
+            require $path;
+        }
+    }
+}
+
+/**
  * Returns Facebook ID
  * @global WP_Gianism $gianism
  * @param int $user_id

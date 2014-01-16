@@ -80,62 +80,19 @@ class WP_Gianism{
 	 */
 	public $message_post_type = 'gianism_message';
 	
-	/**
-	 * オプション初期値
-	 * @var array
-	 */
-	protected $default_option = array(
-		'fb_enabled' => 0,
-		'fb_app_id' => '',
-		'fb_app_secret' => '',
-		'fb_fan_gate' => 0,
-		'tw_enabled' => 0,
-		"tw_screen_name" => "",
-		"tw_consumer_key" => "",
-		"tw_consumer_secret" => "",
-		"tw_access_token" => "",
-		"tw_access_token_secret" => "",
-		"ggl_enabled" => 0,
-		"ggl_consumer_key" => "",
-		"ggl_consumer_secret" => "",
-		"ggl_redirect_uri" => "",
-		'yahoo_enabled' => 0,
-		'yahoo_application_id' => '',
-		'yahoo_consumer_secret' => '',
-		"mixi_enabled" => 0,
-		"mixi_consumer_key" => "",
-		"mixi_consumer_secret" => "",
-		"mixi_access_token" => "",
-		"mixi_refresh_token" => "",
-		'show_button_on_login' => true
-	);
-	
+
 	/**
 	 * Constructor
 	 * @param string $base_file
 	 * @param string $version 
 	 */
 	public function __construct($base_file, $version) {
-		//Setup Configs
-		$this->dir = plugin_dir_path($base_file);
-		$this->url = plugin_dir_url($base_file);
-		$this->version = $version;
-		$saved_option = get_option($this->name."_option");
-		foreach($this->default_option as $key => $value){
-			if(!isset($saved_option[$key])){
-				$this->option[$key] = $value;
-			}else{
-				$this->option[$key] = $saved_option[$key];
-			}
-		}
 		//Register Hooks
 		add_action("init", array($this, "init"));
 		add_action("admin_init", array($this, "admin_init"));
 		add_action("admin_menu", array($this, "admin_menu"));
 		add_action("admin_enqueue_scripts", array($this, 'admin_enqueue_scripts'));
 		add_action("admin_notices", array($this, "admin_notice"));
-		//Add i18n
-		load_plugin_textdomain($this->domain, false, basename($this->dir).DIRECTORY_SEPARATOR."language");
 	}
 	
 	/**
@@ -267,39 +224,13 @@ class WP_Gianism{
 	public function admin_init(){
 		//Execute when option updated.
 		if($this->verify_nonce('option')){
-			$this->option = shortcode_atts($this->option, array(
-				'fb_enabled' => ($this->post('fb_enabled') == 1) ? 1 : 0,
-				'fb_app_id' => (string)$this->post('fb_app_id'),
-				'fb_app_secret' => (string)$this->post('fb_app_secret'),
-				'fb_fan_gate' => (int)$this->post('fb_fan_gate'),
-				'tw_screen_name' => (string)$this->post('tw_screen_name'),
-				'tw_enabled' => (string)($this->post('tw_enabled') == 1) ? 1 : 0,
-				"tw_consumer_key" => (string)$this->post('tw_consumer_key'),
-				"tw_consumer_secret" => (string)$this->post('tw_consumer_secret'),
-				"tw_access_token" => (string)$this->post('tw_access_token'),
-				"tw_access_token_secret" => (string)$this->post('tw_access_token_secret'),
-				'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
-				"ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
-				"ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),
-				"ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri'),
-				"yahoo_enabled" => ($this->post('yahoo_enabled') == 1) ? 1 : 0,
-				"yahoo_application_id" => (string)$this->post('yahoo_application_id'),
-				"yahoo_consumer_secret" => (string)$this->post('yahoo_consumer_secret'),
-				"mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
-				"mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
-				"mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret'),
-				'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
-			));
+
 			//If mixi is enabled, create instance
 			if($this->is_enabled('mixi') && !$this->mixi){
 				require_once $this->dir."/sdks/mixi/mixi_controller.php";
 				$this->mixi = new Mixi_Controller($this->option);
 			}
-			if(update_option("{$this->name}_option", $this->option)){
-				$this->add_message($this->_('Option updated.'));
-			}else{
-				$this->add_message($this->_('Option failed to update.'), true);
-			}
+
 		}
 	}
 	
@@ -522,76 +453,8 @@ class WP_Gianism{
 	}
 	
 	
-	/**
-	 * $_GETに値が設定されていたら返す
-	 * @param string $key
-	 * @return mixed
-	 */
-	public function get($key){
-		if(isset($_GET[$key])){
-			return $_GET[$key];
-		}else{
-			return null;
-		}
-	}
-	
-	/**
-	 * $_POSTに値が設定されていたら返す
-	 * @param string $key
-	 * @return mixed
-	 */
-	public function post($key){
-		if(isset($_POST[$key])){
-			return $_POST[$key];
-		}else{
-			return null;
-		}
-	}
-	
-	/**
-	 * $_REQUESTに値が設定されていたら返す
-	 * @param string $key
-	 * @return mixed
-	 */
-	public function request($key){
-		if(isset($_REQUEST[$key])){
-			return $_REQUEST[$key];
-		}else{
-			return null;
-		}
-	}
-	
-	
-	/**
-	 * nonce用に接頭辞をつけて返す
-	 * @param string $action
-	 * @return string
-	 */
-	public function nonce_action($action){
-		return $this->name."_".$action;
-	}
-	
-	/**
-	 * wp_nonce_fieldのエイリアス
-	 * @param type $action 
-	 */
-	public function nonce_field($action){
-		wp_nonce_field($this->nonce_action($action), "_{$this->name}_nonce");
-	}
-	
-	/**
-	 * nonceが合っているか確かめる
-	 * @param string $action
-	 * @param string $referrer
-	 * @return boolean
-	 */
-	public function verify_nonce($action, $referrer = false){
-		if($referrer){
-			return ( (wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action)) && $referrer == $this->request("_wp_http_referer")) );
-		}else{
-			return wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action));
-		}
-	}
+
+
 	
 		
 	/**
@@ -627,31 +490,8 @@ class WP_Gianism{
 			$this->admin_message[] = (string) $string;
 		}
 	}
+
 	
-	/**
-	 * WordPressの_eのエイリアス
-	 * @param string $text
-	 * @return void
-	 */
-	public function e($text){
-		_e($text, $this->domain);
-	}
-	
-	/**
-	 * WordPressの__のエイリアス
-	 * @param string $text
-	 * @return string
-	 */
-	public function _($text){
-		return __($text, $this->domain);
-	}
-	
-	/**
-	 * For not called gettext
-	 */
-	private function ___(){
-		$this->_('Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!');
-	}
 	
 	/**
 	 * Setup plugin links.

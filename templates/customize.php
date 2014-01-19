@@ -1,3 +1,13 @@
+<?php
+
+defined('ABSPATH') or die();
+
+/** @var \Gianism\Admin $this */
+/** @var \Gianism\Option $option */
+?>
+
+
+
 <h3><?php $this->e('Change Login Button'); ?></h3>
 <p class="description">
 	<?php $this->e('You can change the appearance of login button. Available hooks are below:'); ?>

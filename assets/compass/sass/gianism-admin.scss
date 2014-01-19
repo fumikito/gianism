@@ -1,33 +1,75 @@
 @charset 'utf-8';
 
-@import "compass/css3/border-radius";
+@import "compass";
+@import 'gianism_variables';
+@import 'components';
+@import 'lsf_variables';
+@import 'profile';
 
 .gianism-wrap{
 	position: relative;
+
+    .nav-tab{
+      .lsf{
+        font-size: 24px;
+      }
+    }
+
 	.main-content{
-		margin-right: 320px;
-		h3{
-			clear: both;
-			margin-top: 2em;
-			padding-top: 1em;
-			border-top: 1px dotted #ddd;
-			font-size: 1.8em;
-		}
+      margin-right: 320px;
+	  h3{
+		clear: both;
+		margin-top: 2em;
+		padding-top: 1em;
+        border-top: 5px double #ddd;
+        font-size: 1.8em;
+        .lsf{
+          font-size: 1.8em;
+        }
+      }
 		h4{
+            font-size: 1.4em;
 			margin-top: 2em;
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+            border-bottom: 1px dotted #ddd;
 		}
+      img.gian{
+        float: right;
+        margin-left: 2em;
+        margin-bottom: 1em;
+      }
+      q.copy{
+        font-family: 'Gerogia', serif;
+        font-style: italic;
+        font-size: 1.8em;
+        cite{
+          font-size: 0.75em;
+          text-align: left;
+        }
+      }
 		.last-updated{
-			font-size: 0.9em;
-			color: #999;
-			text-align: right;
+          font-size: 0.9em;
+          color: #999;
+          text-align: right;
+          text-shadow: 1px 1px 2px #fff;
 		}
 		.gianism-example-table{
 			border-collapse: collapse;
+            width: 100%;
 			th,td{
 				padding: 5px 10px;
-				border: 1px solid #f0f0f0;
+				border-top: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                background: #fbfbfb;
 			}
+            tr:nth-child(even){
+              th, td{
+                background: #f8f8f8;
+              }
+            }
 			th{
+              border-right: 1px solid #ddd;
 				font-weight: bold;
 				text-align: left;
 				white-space: nowrap;
@@ -67,14 +109,36 @@
 				bottom: 0;
 				_position: static;
 			}
-			.forum-link{
-				background: url('../img/icon-wordpress-logo-32.png') left center no-repeat;
-				padding: 0.5em 0.5em 0.5em 40px;
+			.forum-link,
+            .amazon-link,
+            .github-link{
+                position: relative;
+                padding: 0.5em 0.5em 0.5em 40px;
+                min-height: 40px;
+                &:before{
+                  position: absolute;
+                  display: block;
+                  top: 50%;
+                  left: 0;
+                  margin-top: -20px;
+                  width: 40px;
+                  height: 40px;
+                  font-size: 40px;
+                  line-height: 1;
+                  font-family: 'LigatureSymbols';
+                  font-weight: normal;
+                  font-style: normal;
+                }
 			}
-			.amazon-link{
-				background: url('../img/icon-amazon-32.png') left center no-repeat;
-				padding: 0.5em 0.5em 0.5em 40px;
+			.amazon-link:before{
+              content: $lsf-amazon;
 			}
+            .forum-link:before{
+              content: $lsf-wordpress;
+            }
+          .github-link:before{
+            content: $lsf-github;
+          }
 		}
 	}
 }
@@ -83,6 +147,9 @@
 	.gianism-wrap{
 		.main-content{
 			margin-right: 0;
+          img.gian{
+            display: none;
+          }
 		}
 		.sidebar{
 			display: none;

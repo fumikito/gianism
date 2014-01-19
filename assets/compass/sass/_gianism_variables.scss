@@ -1,0 +1,37 @@
+
+$disabled: #acacac;
+$success: #5dc06e;
+
+$facebook-blue: #3C5A96;
+$twitter-blue:#1DAEEC;
+$mixi-orange: #D1AD60;
+$yahoo-red: #FD0F3A;
+$google-red: #DD4B39;
+
+// Icons
+i{
+  &.lsf-facebook{
+    color: $facebook-blue;
+  }
+  &.lsf-google{
+    color: $google-red;
+  }
+  &.lsf-yahoo{
+    color: $yahoo-red;
+  }
+  &.lsf-twitter{
+    color: $twitter-blue;
+  }
+  &.lsf-mixi{
+    color: $mixi-orange;
+  }
+}
+
+$button-bg: #f7f7f7;
+$button-border: #ccc;
+$button-text: #555;
+
+
+$button-bg-hover: #fafafa;
+$button-border-hover: #999;
+$button-text-hover: #222;

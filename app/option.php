@@ -2,8 +2,39 @@
 
 namespace Gianism;
 
-
-class Option extends Singleton
+/**
+ * Class Option
+ *
+ * @package Gianism
+ * @author Takahashi Fumiki
+ *
+ * @property-read bool $fb_enabled
+ * @property-read bool $facebook_enabled
+ * @property-read string $fb_app_id
+ * @property-read string $fb_app_secret
+ * @property-read int $fb_fan_gate
+ * @property-read bool $tw_enabled
+ * @property-read bool $twitter_enabled
+ * @property-read string $tw_screen_name
+ * @property-read string $tw_consumer_key
+ * @property-read string $tw_consumer_secret
+ * @property-read string $tw_access_token
+ * @property-read string $tw_access_token_secret
+ * @property-read bool $ggl_enabled
+ * @property-read bool $google_enabled
+ * @property-read string $ggl_consumer_key
+ * @property-read string $ggl_consumer_secret
+ * @property-read bool $yahoo_enabled
+ * @property-read string $yahoo_application_id
+ * @property-read string $yahoo_consumer_secret
+ * @property-read bool $mixi_enabled
+ * @property-read string $mixi_consumer_key
+ * @property-read string $mixi_consumer_secret
+ * @property-read string $mixi_access_token
+ * @property-read string $mixi_refresh_token
+ * @property-read bool $show_button_on_login
+ */
+class Option extends Pattern\Singleton
 {
 
     /**
@@ -44,7 +75,6 @@ class Option extends Singleton
         "ggl_enabled" => 0,
         "ggl_consumer_key" => "",
         "ggl_consumer_secret" => "",
-        "ggl_redirect_uri" => "",
         'yahoo_enabled' => 0,
         'yahoo_application_id' => '',
         'yahoo_consumer_secret' => '',
@@ -74,7 +104,9 @@ class Option extends Singleton
         }
     }
 
-
+    /**
+     * Save options with post data
+     */
     public function update(){
         $this->values = wp_parse_args(array(
             'fb_enabled' => ($this->post('fb_enabled') == 1) ? 1 : 0,
@@ -90,7 +122,6 @@ class Option extends Singleton
             'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
             "ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
             "ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),
-            "ggl_redirect_uri" => (string)$this->post('ggl_redirect_uri'),
             "yahoo_enabled" => ($this->post('yahoo_enabled') == 1) ? 1 : 0,
             "yahoo_application_id" => (string)$this->post('yahoo_application_id'),
             "yahoo_consumer_secret" => (string)$this->post('yahoo_consumer_secret'),
@@ -104,6 +135,49 @@ class Option extends Singleton
             do_action(self::UPDATED_ACTION, $this->values);
         }else{
             $this->add_message($this->_('Option failed to update.'), true);
+        }
+    }
+
+    /**
+     * Detect if show login buttons
+     *
+     * @param string $context
+     * @return mixed|void
+     */
+    public function show_button_on_login( $context = 'login' ){
+        /**
+         * Display Case-by-case filter
+         *
+         * @param bool $display Whether to display
+         * @param string $context 'login', 'register', etc.
+         */
+        return apply_filters('gianism_show_button_on_login', $this->show_button_on_login, $context);
+    }
+
+    /**
+     * Getter
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name){
+        switch($name){
+            case 'facebook_enabled':
+                return $this->fb_enabled;
+                break;
+            case 'twitter_enabled':
+                return $this->tw_enabled;
+                break;
+            case 'google_enabled':
+                return $this->ggl_enabled;
+                break;
+            default:
+                if( isset($this->values[$name]) ){
+                    return $this->values[$name];
+                }else{
+                    return parent::__get($name);
+                }
+                break;
         }
     }
 }

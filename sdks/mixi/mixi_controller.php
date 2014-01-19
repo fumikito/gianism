@@ -1,5 +1,5 @@
 <?php
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR."gianism_controller.php";
+require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "gianism_controller.php";
 
 class Mixi_Controller extends Gianism_Controller{
 	

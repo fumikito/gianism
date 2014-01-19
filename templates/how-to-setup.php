@@ -1,10 +1,13 @@
-<?php /* @var $this WP_Gianism */ ?>
+<?php
 
-<p class="last-updated">
-	<?php printf($this->_('Last Updated: %s'), mysql2date(get_option('date_format'), '2012-12-07')); ?>
-</p>
+defined('ABSPATH') or die();
 
-<h3>Facebook</h3>
+/** @var \Gianism\Admin $this */
+/** @var \Gianism\Option $option */
+?>
+
+
+<h3><i class="lsf lsf-facebook"></i> Facebook</h3>
 
 
 <p class="desrtiption"><?php $this->e('First of all, Facebook account is required. If you don\'t have one, create it at <a href="https://www.facebook.com">facebook.com</a>'); ?></p>
@@ -22,51 +25,55 @@
 		<th>Display Name</th>
 		<td>
 			<?php $this->e('App name. Blog name is recommended. User will see this name on authentication screen.'); ?><br />
-			<span class="description"><?php printf($this->_('e.g. %s'), get_bloginfo('name')); ?></span>
+			<?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), get_bloginfo('name')); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>Namespace</th>
 		<td>
 			<?php $this->e('Unique string which identifies your app.'); ?><br />
-			<span class="description"><?php printf($this->_('e.g. %s'), $_SERVER['HTTP_HOST']); ?></span>
+			<?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), $_SERVER['HTTP_HOST']); ?>
 		</td>
 	</tr>
 	<tr>
 		<th><?php $this->e('Contact mail address') ?></th>
 		<td>
 			<?php $this->e('Contact mail address. It will be displayed on authentication screen on Facebook.'); ?><br />
-			<span class="description"><?php printf($this->_('e.g. %s'), get_option('admin_email')); ?></span>
+			<?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), get_option('admin_email')); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>App Domains</th>
 		<td>
 			<?php $this->e('Your domain.'); ?><br />
-			<span class="description"><?php printf($this->_('e.g. %s'), $_SERVER['HTTP_HOST']); ?></span>
+			<?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), $_SERVER['HTTP_HOST']); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>Sandbox Mode</th>
 		<td>
 			<?php $this->e('On development environment or test flight, turn sandbox ON.'); ?><br />
-			<span class="description"><?php printf($this->_('e.g. %s'), $this->_('OFF')); ?></span>
+			<?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), $this->_('OFF')); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>Type</th>
 		<td>
 			<?php $this->e('You can activate several connection types, but below is required.'); ?><br />
-			<span class="description">Website with Facebook Login</span>
+			<code>Website with Facebook Login</code>
 		</td>
 	</tr>
 </table>
 
 <h4>Step2. <?php $this->e('Enter App ID and App secret'); ?></h4>
 
-<p><?php printf($this->_('Once you create Facebook App, App ID and App secret will be provided. Now you can enter it on <a href="%s">WordPress Admin screen</a>.'), admin_url('users.php?page=gianism')); ?></p>
+<p><?php printf($this->_('Once you create Facebook App, App ID and App secret will be provided. Now you can enter it on <a href="%s">WordPress Admin screen</a>.'),  $this->setting_url()); ?></p>
 
-<h3>Twitter</h3>
+
+
+
+
+<h3><i class="lsf lsf-twitter"></i> Twitter</h3>
 
 <p class="desrtiption"><?php $this->e('First of all, your twitter account is required. If you don\'t have one, create it at <a href="https://twitter.com">twitter</a>'); ?></p>
 
@@ -88,7 +95,12 @@
 
 <p><?php $this->e('You can get them at <a href="https://dev.twitter.com/apps">your application\'s detail page</a>.'); ?></p>
 
-<h3>Google</h3>
+
+
+
+
+
+<h3><i class="lsf lsf-google"></i> Google</h3>
 
 <p class="desrtiption"><?php $this->e('Google API system is very complex, but don\'t be afraid. Anyway if you don\'t have Google account, go to <a hreF="https://www.google.com/accounts/NewAccount">Create Google account</a> and get it.'); ?></p>
 
@@ -98,13 +110,16 @@
 
 <p><?php $this->e('On project page, go to <code>API Access</code> menu in sidebar. You can get <code>Client ID</code> and <code>Client secret</code>.'); ?></p>
 
-<p><?php printf($this->_('Besiteds credential informations, you have to save <coce>Redirect URIs</code>. Click <code>Edit settings...</code> and enter redirect URI. Typically, your blog home URL <code>%s</code>. If you force SSL on login, make it to start with <code>https</code>.'), get_bloginfo('url')); ?></p>
+<p><?php printf($this->_('Besiteds credential informations, you have to save <coce>Redirect URIs</code>. Click <code>Edit settings...</code> and enter redirect URI <code>%s</code>. If you force SSL on login, make it to start with <code>https</code>.'), home_url('/google-auth/', $this->is_ssl_required() ? 'https' : 'http')); ?></p>
 
 <h4>Step2. <?php $this->e('Enter API Information'); ?></h4>
 
-<p><?php printf($this->_('Input and save 3 informations(Client ID, Client Secret and Redirect URI) on <a href="%s">WordPress admin screen</a>.'), admin_url('users.php?page=gianism')); ?></p>
+<p><?php printf($this->_('Input and save 2 informations(Client ID and Client Secret) on <a href="%s">WordPress admin screen</a>.'), $this->setting_url()); ?></p>
 
-<h3>Yahoo! JAPAN</h3>
+
+
+
+<h3><i class="lsf lsf-yahoo"></i> Yahoo! JAPAN</h3>
 
 <p class="description"><?php $this->e('Yahoo! JAPAN account is required. If you don\'t have one, create it at <a href="https://e.developer.yahoo.co.jp/dashboard/">Yahoo! JAPAN Developer Center</a>.'); ?></p>
 
@@ -132,7 +147,7 @@
 		</tr>
 		<tr>
 			<th><?php $this->e('Site URL'); ?></th>
-			<td><?php printf($this->_('Use root URI of your site <code>%s</code>.'), home_url('/', 'http')); ?></td>
+			<td><?php printf($this->_('Use root URI of your site <code>%s</code>.'), home_url('/', ($this->is_ssl_required() ? 'https' : 'http'))); ?></td>
 		</tr>
 	</tbody>
 </table>
@@ -145,21 +160,22 @@
 
 <p><?php $this->e('Now come back to WP admin panel, enter application ID and secret key. That\'s all done.'); ?></p>
 
-<h3>mixi</h3>
+
+
+
+
+
+<h3><i class="lsf lsf-mixi"></i> mixi</h3>
 
 <p class="description"><?php $this->e('mixi account is required. If you don\'t have one, create it at <a href="http://developer.mixi.co.jp/">mixi Developer Center</a>.'); ?></p>
 
 <h4>Step1. <?php $this->e('Create mixi applicaiton'); ?></h4>
 
-<p><?php $this->e('Log in to <a href="http://developer.mixi.co.jp/">Partner Dashboard</a> and clik <code>mixi Graph API</code>.'); ?></p>
+<p><?php $this->e('Log in to <a href="http://developer.mixi.co.jp/">Partner Dashboard</a> and click <code>mixi Graph API</code>.'); ?></p>
 
 <p>
 	<?php
-		$mixi_end_point = trailingslashit(get_bloginfo('url')).'mixi/';
-		if((defined('FORCE_SSL_LOGIN') && FORCE_SSL_LOGIN) || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN)){
-			$mixi_end_point = str_replace('http:', 'https:', $mixi_end_point);
-		}
-		printf($this->_('Create new service. Redirect URL should be <code>%s</code>.'), $mixi_end_point);
+		printf($this->_('Create new service. Redirect URL should be <code>%s</code>.'), home_url('/mixi/', $this->is_ssl_required() ? 'https' : 'https'));
 	?>
 </p>
 

@@ -160,14 +160,6 @@ class WP_Gianism{
 	 * Register post type for direct message.
 	 */
 	public function create_message_post_type(){
-		register_post_type($this->message_post_type,array(
-			'public' => false,
-			'label' => $this->_('Messages'),
-			'labels' => array(
-				'name' => $this->_('Messages'),
-				'singular_name' => $this->_('Message')
-			)
-		));
 	}
 	
 	/**
@@ -239,11 +231,7 @@ class WP_Gianism{
 	 * @return void
 	 */
 	public function admin_menu(){
-		add_users_page($this->_('External Service'), $this->_("External Service"), 'edit_users', 'gianism', array($this, 'render'));
-		//Create plugin link
-		add_filter('plugin_action_links', array($this, 'plugin_page_link'), 10, 2);
-		add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
-		
+
 	}
 	
 	/**
@@ -258,16 +246,7 @@ class WP_Gianism{
 	 * Load assets for Admin panel
 	 */
 	public function admin_enqueue_scripts(){
-		if(isset($_GET['page']) && $_GET['page'] == 'gianism'){
-			if(isset($_REQUEST['view']) && !empty($_REQUEST['view'])){
-				wp_enqueue_style('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.css', null, '3.0.83');
-				wp_enqueue_style('gianism-syntax-highlighter-default', $this->url.'assets/syntax-highlighter/shThemeDefault.css', null, '3.0.83');
-				wp_enqueue_script('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.js', null, '3.0.83');
-				wp_enqueue_script('gianism-syntax-highlighter-php', $this->url.'assets/syntax-highlighter/shBrushPhp.js', null, '3.0.83');
-			}
-			wp_enqueue_style('gianism-admin-panel', $this->url.'assets/compass/stylesheets/gianism-admin.css', null, $this->version);
-			wp_enqueue_script('gianism-admin-helper', $this->url.'assets/compass/js/admin-helper.js', array('jquery'), $this->version);
-		}
+
 	}
 	
 	/**
@@ -276,14 +255,7 @@ class WP_Gianism{
 	 * @return void
 	 */
 	public function show_user_profile($profileuser){
-		?>
-		<h3><?php $this->e('External Service'); ?></h3>
-		<table class="form-table">
-			<tbody>
-				<?php do_action('gianism_user_profile', $profileuser);?>
-			</tbody>
-		</table>
-		<?php
+
 	}
 	
 	/**
@@ -342,22 +314,6 @@ class WP_Gianism{
 	 * @global int $user_ID 
 	 */
 	public function ajax(){
-		global $user_ID;
-		if(wp_verify_nonce($this->request('_wpnonce'), 'wpg_ajax')){
-			switch($this->request('type')){
-				default:
-					$post = wp_get_single_post($this->request('post_id'));
-					$json = array('status' => false);
-					if($post && $post->post_author == $user_ID){
-						wp_delete_post($post->ID);
-						$json['status'] = true;
-					}
-					header('Content-Type: application/json; charset=utf-8');
-					echo json_encode($json);
-					die();
-					break;
-			}
-		}
 	}
 	
 	/**
@@ -366,7 +322,7 @@ class WP_Gianism{
 	public function enqueue_style(){
 		if($this->is_enabled()){
 			wp_enqueue_script('jquery');
-			wp_enqueue_style($this->name, $this->url."assets/compass/stylesheets/gianism-style.css", array(), $this->version);
+
 		}
 	}
 	
@@ -377,31 +333,6 @@ class WP_Gianism{
 	 */
 	public function is_enabled($service = 'any'){
 		$flg = false;
-		switch($service){
-			case "facebook":
-				$flg = (boolean)$this->option['fb_enabled'];
-				break;
-			case "twitter":
-				$flg = (boolean)$this->option['tw_enabled'];
-				break;
-			case "google":
-				$flg = (boolean)$this->option['ggl_enabled'];
-				break;
-			case "mixi":
-				$flg = (boolean)$this->option['mixi_enabled'];
-				break;
-			case 'yahoo':
-				$flg = (boolean)$this->option['yahoo_enabled'];
-				break;
-			default:
-				foreach($this->option as $key => $val){
-					if(preg_match("/_enabled$/", $key) && $val){
-						$flg = true;
-						break;
-					}
-				}
-				break;
-		}
 		return $flg;
 	}
 	
@@ -410,7 +341,6 @@ class WP_Gianism{
 	 * @return boolean
 	 */
 	function show_button_on_login($context = 'login'){
-		return apply_filters('gianism_show_button_on_login', $this->option['show_button_on_login'], $context);
 	}
 	
 	/**
@@ -421,12 +351,12 @@ class WP_Gianism{
 	 * @return boolean
 	 */
 	public function is_ssl_required(){
-		$is_ssl = (defined('FORCE_SSL_LOGIN') && FORCE_SSL_LOGIN) || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN);
-		return apply_filters('gianism_force_ssl_login', $is_ssl);
 	}
 	
 	/**
 	 * Returns appropriate redirect url
+     *
+     * @deprecated
 	 * @param string $default
 	 * @param string $redirect_to
 	 * @return string
@@ -492,24 +422,4 @@ class WP_Gianism{
 	}
 
 
-	
-	/**
-	 * Setup plugin links.
-	 * @param array $links
-	 * @param string $file
-	 * @return array
-	 */
-	public function plugin_page_link($links, $file){
-		if(false !== strpos($file, 'wp-gianism')){
-			array_unshift($links, '<a href="'.admin_url('users.php?page=gianism').'">'.__('Settings').'</a>');
-		}
-		return $links;
-	}
-	
-	public function plugin_row_meta($links, $file){
-		if(false !== strpos($file, 'wp-gianism')){
-			
-		}
-		return $links;
-	}
 }

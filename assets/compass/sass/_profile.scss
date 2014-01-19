@@ -1,0 +1,41 @@
+@import 'compass';
+@import 'gianism_variables';
+@import 'lsf_variables';
+
+.wpg-message-header{
+  i{
+    font-size: 1.2em;
+  }
+}
+
+.wpg-message-message{
+
+}
+
+.wpg-connect-header,
+.wpg-message-header{
+  i{
+    font-size: 1.2em;
+  }
+}
+
+.wpg-connect-table{
+  .description{
+    .lsf{
+      font-size: 2em;
+    }
+    &.desc-diconnected{
+      .lsf{
+        color: $disabled;
+      }
+    }
+    &.desc-connected{
+      .lsf{
+        color: $success;
+      }
+    }
+  }
+ th{
+     font-size: 1.6em;
+ }
+}

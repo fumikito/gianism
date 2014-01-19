@@ -1,6 +1,6 @@
 <?php
 
-namespace Gianism;
+namespace Gianism\Pattern;
 
 /**
  * Singleton Pattern
@@ -17,7 +17,7 @@ abstract class Singleton extends Base
      *
      * @var \Gianism\Singleton
      */
-    protected static $instance = null;
+    private static $instances = array();
 
     /**
      * Constructor
@@ -30,14 +30,14 @@ abstract class Singleton extends Base
      * Get instance
      *
      * @param array $argument
-     * @return \Gianism\Singleton
+     * @return self
      */
     final public static function get_instance( array $argument = array() ){
         $class_name = get_called_class();
-        if( is_null($class_name::$instance) ){
-            $class_name::$instance = new $class_name($argument);
+        if( !isset(self::$instances[$class_name]) ){
+            self::$instances[$class_name] = new $class_name($argument);
         }
-        return $class_name::$instance;
+        return self::$instances[$class_name];
     }
 
 }

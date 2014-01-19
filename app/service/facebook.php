@@ -1,56 +1,71 @@
 <?php
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR."gianism_controller.php";
+
+namespace Gianism\Service;
 
 /**
  * Description of facebook_controller
  *
- * @package gianism
+ * @package Gianism\Service
+ * @author Takahashi Fumiki
+ * @property-read string $cert_path Path to cert file.
+ * @property-read \Facebook $api Facebook object
  */
-class Facebook_Controller extends Gianism_Controller{
-	
+class Facebook extends Common
+{
 	/**
+     * Service name to display
+     *
+     * @var string
+     */
+    public $verbose_service_name = 'Facebook';
+
+	/**
+     * Facebook application ID
+     *
 	 * @var string
 	 */
-	private $app_id = '';
+    protected $fb_app_id = '';
 	
 	/**
+     * Facebook application secret
+     *
 	 * @var string
 	 */
-	private $app_secret = '';
-	
-	/**
-	 * Facebook API Controller
-	 * @var Facebook
-	 */
-	public $_api = null;
+	protected  $fb_app_secret = '';
 	
 	/**
 	 * Page ID of Fan gate.
+     *
 	 * @var int
 	 */
-	private $fan_gate = 0;
-	
+	protected  $fb_fan_gate = 0;
+
 	/**
-	 * Path to cert file.
-	 * @var string
+	 * Facebook API Controller
+     *
+     * @ignore
+	 * @var \Facebook
 	 */
-	private $cert_path = '';
-	
+	private $_api = null;
+
 	/**
 	 * Meta key of usermeta for facebook id
+     *
 	 * @var string
 	 */
 	public $umeta_id = '_wpg_facebook_id';
 	
 	/**
 	 * Meta key of usermeta for facebook mail
+     *
 	 * @var string
 	 */
 	public $umeta_mail = '_wpg_facebook_mail';
 	
 	/**
 	 * Meta key of usermeta for Facebook access token
-	 * @var type 
+     *
+	 * @var string
 	 */
 	public $umeta_token = '_wpg_facebook_access_token';
 	
@@ -58,83 +73,146 @@ class Facebook_Controller extends Gianism_Controller{
 	 * @var array
 	 */
 	private $_signed_request = array();
-	
-	/**
-	 * Setup Everything
-	 * @param array $option
-	 */
-	protected function set_option($option) {
-		$option = shortcode_atts(array(
-			'fb_app_id' => '',
-			'fb_app_secret' => '',
-			'fb_fan_gate' => 0
-		), $option);
-		$this->app_id = (string)$option['fb_app_id'];
-		$this->app_secret = (string)$option['fb_app_secret'];
-		$this->fan_gate = (int) $option['fb_fan_gate'];
-		$this->cert_path = dirname(__FILE__).DIRECTORY_SEPARATOR."fb_ca_chain_bundle.crt";
+
+    /**
+     * Key to retrieve
+     *
+     * @var array
+     */
+    protected $option_keys = array('fb_app_id', 'fb_app_secret', 'fb_fan_gate');
+
+    /**
+     * Init action
+     */
+    protected function init_action(){
 		//Add Hook on Fan Gate
-		if($this->fan_gate){
+		if($this->fb_fan_gate){
 			add_action('template_redirect', array($this, 'fan_gate_helper'));
 		}
-		//Start Session
-		if(!isset($_SESSION)){
-			session_start();
-		}
-	}
-	
-	
+    }
+
+    /**
+     * Redirect user to facebook
+     *
+     * @param \WP_Query $wp_query
+     */
+    protected function handle_connect( \WP_Query $wp_query ){
+        // Set redirect URL
+        $url = $this->api->getLoginUrl(array(
+            'scope' => 'email',
+            'redirect_uri' => $this->get_redirect_endpoint(),
+        ));
+        $this->session_write('redirect_to', $this->get('redirect_to'));
+        $this->session_write('action', 'connect');
+        wp_redirect($url);
+        exit;
+    }
+
+    /**
+     * Delete facebook account
+     */
+    protected function handle_disconnect(){
+        $redirect_url = $this->get('redirect_to') ?: admin_url("profile.php");
+        try{
+            // Is user logged in?
+            if( !is_user_logged_in() ){
+                throw new \Exception($this->_('You must be logged in.'));
+            }
+            // Has safe book id
+            if( !$this->is_connected(get_current_user_id()) ){
+                throw new \Exception(sprintf($this->_('Your account is not connected with %s'), $this->verbose_service_name));
+            }
+            // O.K.
+            delete_user_meta(get_current_user_id(), $this->umeta_id);
+            delete_user_meta(get_current_user_id(), $this->umeta_mail);
+            $this->add_message(sprintf($this->_("Your account is now unlinked from %s."), $this->verbose_service_name));
+        }catch (\Exception $e){
+            $this->add_message($e->getMessage(), true);
+        }
+        wp_redirect($redirect_url);
+        exit;
+    }
+
+
+    /**
+     * Communicate with Facebook API
+     */
+    protected function handle_default(){
+        // Get common values
+        $action = $this->session_get('action');
+        $redirect_url = $this->session_get('redirect_to');
+        // Process actions
+        switch( $action ){
+            case 'connect': // Connect user account to Facebook
+                try{
+                    // Is user logged in?
+                    if( !is_user_logged_in() ){
+                        throw new \Exception($this->_('To connect facebook, you must be logged in.'));
+                    }
+                    // Is user already connect?
+                    if( $this->is_connected(get_current_user_id()) ){
+                        throw new \Exception(sprintf($this->_('You account is already connected with %s'), $this->verbose_service_name));
+                    }
+                    // Get facebook user
+                    $fb_uid = $this->api->getUser();
+                    // This FB ID eixsts?
+                    if( $this->id_owner($fb_uid) ){
+                        throw new \Exception(sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name));
+                    }
+                    // Set session if possible
+                    if( session_id() && !isset($_SESSION['uid'])){
+                        $_SESSION['uid'] = $fb_uid;
+                    }
+                    // Get profile
+                    try{
+                        $profile = $this->api->api('/me');
+                    }catch(\FacebookApiException $e){
+                        $profile = $this->api->api('/'.$fb_uid);
+                    }
+                    // Check email
+                    if( !isset($profile['email']) || !is_email($profile['email']) ){
+                        throw new \Exception($this->_('Cannot retrieve email address.'));
+                    }
+                    // Check if other user has these as meta_value
+                    if(  ($email_owner = $this->mail_owner($profile['email'])) && get_current_user_id() != $email_owner ){
+                        throw new \Exception($this->_('E-mail address is already used by others.'));
+                    }
+                    // Now let's save userdata
+                    update_user_meta(get_current_user_id(), $this->umeta_id, $fb_uid);
+                    update_user_meta(get_current_user_id(), $this->umeta_mail, $profile['email']);
+                    // Fires hook
+                    $this->hook_connect(get_current_user_id(), $this->api);
+                    // Save message
+                    $this->add_message(sprintf($this->_('Welcome!, %s'), $profile['name']));
+                }catch (\FacebookApiException $e){
+                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.sprintf($this->_('%s API returns error.'), $this->verbose_service_name), true);
+                }catch(\Exception $e){
+                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$e->getMessage(), true);
+                }
+                // Connection finished. Let's redirect.
+                if( !$redirect_url ){
+                    $redirect_url = admin_url('profile.php');
+                }
+                wp_redirect($redirect_url);
+                exit;
+                break;
+            default:
+                break;
+        }
+
+    }
+
 	/**
 	 * Executed on init hook.
 	 * @global wpdb $wpdb
 	 * @global int $user_ID
 	 * @global WP_Gianism $giasnism
 	 */
-	public function init_action(){
+	public function hoge(){
 		global $user_ID, $wpdb, $gianism;
 		switch($this->get_action()){
 			case "facebook_connect":
-				$this->message = $gianism->_("Oops, Failed to Authenticate.");
-				try{
-					$uid = $this->facebook()->getUser();
-				}catch(FacebookApiException $e){
-					$this->message .= '\n'.$e->getMessage();
-				}
-				if($uid && is_user_logged_in()){
-					try{
-						if(!isset($_SESSION['uid'])){
-							$_SESSION['uid'] = $uid;
-						}
-						try{
-							$profile = $this->facebook()->api('/me');
-						}catch(FacebookApiException $e){
-							$profile = $this->facebook()->api('/'.$uid);
-						}
-						if(isset($profile['email'])){
-							//Check if other user has these as meta_value
-							$email = $profile['email'];
-							$sql = <<<EOS
-								SELECT user_id FROM {$wpdb->usermeta}
-								WHERE ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
-								   OR ((meta_key = %s) AND (meta_value = %s) AND (user_id != %d))
-EOS;
-							$others = $wpdb->get_row($wpdb->prepare($sql, $this->umeta_id, $uid, $user_ID, $this->umeta_mail, $email, $user_ID));
-							$email_exitance = email_exists($email);
-							if(!$others && (!$email_exitance || $user_ID == $email_exitance)){
-								update_user_meta($user_ID, $this->umeta_id, $uid);
-								update_user_meta($user_ID, $this->umeta_mail, $email);
-								do_action('wpg_connect', $user_ID, $profile, 'facebook', false);
-								$this->message = sprintf($gianism->_('Welcome!, %s'), $profile['name']);
-							}else{
-								$this->message = sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
-							}
-						}
-					}catch(FacebookApiException $e){
-						$this->message = $gianism->_("Oops, Failed to Authenticate.").'\n'.$e->getMessage();
-					}
-				}else{
-					$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.');
-				}
+
 				break;
 			case "facebook_disconnect":
 				if(is_user_logged_in() && isset($_REQUEST['_wpnonce']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'facebook_disconnect')){
@@ -232,7 +310,7 @@ EOS;
 				}
 				break;
 			case 'facebook_publish':
-				$facebook_id = $this->facebook()->getUser();
+				$facebook_id = $this->api->getUser();
 				if(!is_user_logged_in() || !$facebook_id){
 					wp_die(get_status_header_desc(403), get_bloginfo('name'), array('response' => 403, 'back_link' => true));
 				}
@@ -256,51 +334,7 @@ EOS;
 				break;
 		}
 	}
-	
-	
-	/**
-	 * Add User form
-	 * @global WP_Gianism $gianism
-	 * @param WP_User $current_user 
-	 */
-	public function user_profile($current_user){
-		if(!defined("IS_PROFILE_PAGE")){
-			return;
-		}
-		global $gianism;
-		//Show Login button
-		if(!$this->get_user_id()){
-			$link_text = $gianism->_('Connect');
-			$desc = sprintf($gianism->_('Connecting with Facebook account, you can log in %s via Facebook account.'), get_bloginfo('name'));
-			$onclick = '';
-			$url = $this->facebook()->getLoginUrl(array(
-				'scope' => 'email',
-				'redirect_uri' => admin_url('profile.php?wpg=facebook_connect')
-			));
-			$p_class = 'description';
-		}else{
-			$link_text = $gianism->_('Disconnect');
-			$desc = $gianism->_('Your account is already connected with Facebook account.');
-			$onclick = ' onclick="if(!confirm(\''.$gianism->_('You really disconnect this account?').'\')) return false;"';
-			$url = wp_nonce_url(admin_url('profile.php?wpg=facebook_disconnect'), 'facebook_disconnect');
-			$p_class = 'description desc-connected desc-connected-google';
-		}
-		?>
-		<tr>
-			<th><?php $gianism->e('Facebook'); ?></th>
-			<td>
-				<div id="fb-connector">
-					<a class="fb_button fb_button_medium" id="fb-login" href="<?php echo $url; ?>"<?php echo $onclick; ?>>
-						<span class="fb_button_text"><?php echo $link_text;?></span>
-					</a>
-					<p class="<?php echo $p_class; ?>"><?php echo $desc;?></p>
-				</div>
-				<!-- #fb-connector -->
-			</td>
-		</tr>
-		<?php
-	}
-	
+
 	/**
 	 * Show Login Button on Facebook.
 	 * @global WP_Gianism $gianism 
@@ -326,6 +360,7 @@ EOS;
 	
 	/**
 	 * Returns login url which get additional permission
+     *
 	 * @param string $redirect_url
 	 * @param string $action This action hook will booted.
 	 * @param arrray $args Additional key-value
@@ -352,10 +387,11 @@ EOS;
 	
 	/**
 	 * Returns if user like my page. Only available on Facebook Tab page or application.
-	 * @return boolean
+     *
+	 * @return bool
 	 */
 	public function is_user_like_me_on_fangate(){
-		if($this->fan_gate > 0){
+		if($this->fan_gate){
 			$page = $this->signed_request('page');
 			return (isset($page['liked']) && $page['liked']);
 		}else{
@@ -368,12 +404,13 @@ EOS;
 	 * 
 	 * If current Facebook user is registerd on your WordPress, returns user ID on WordPress.
 	 * 
-	 * @global wpdb $wpdb
+	 * @global \wpdb $wpdb
 	 * @return int
 	 */
 	public function is_registered_user_on_fangate(){
+        /** @var \wpdb $wpdb */
 		global $wpdb;
-		if($this->fan_gate > 0){
+		if($this->fb_fan_gate){
 			$uid = $this->signed_request('user_id');
 			$sql = <<<EOS
 				SELECT user_id FROM {$wpdb->usermeta}
@@ -387,25 +424,23 @@ EOS;
 	
 	/**
 	 * Return true if current user is not logged in Facebook
+     *
 	 * @return boolean
 	 */
 	public function is_guest_on_fangate(){
-		if($this->fan_gate > 0){
-			return (false == (boolean)$this->signed_request('user_id'));
-		}else{
-			return false;
-		}
+        return $this->fb_fan_gate && (false == (boolean)$this->signed_request('user_id'));
 	}
 	
 	/**
 	 * Returns if current page is fan gate.
-	 * @return string
+     *
+	 * @return bool
 	 */
 	public function is_fangate(){
-		if($this->fan_gate > 0){
+		if($this->fb_fan_gate){
 			$page = $this->signed_request('page');
 			if($page){
-				return is_page($this->fan_gate);
+				return is_page($this->fb_fan_gate);
 			}else{
 				return false;
 			}
@@ -413,14 +448,39 @@ EOS;
 			return false;
 		}
 	}
+
+    /**
+     * Return user id of email if exists
+     *
+     * @param string $email
+     * @return int
+     */
+    public function mail_owner($email){
+        if( $owner = email_exists($email) ){
+            return $owner;
+        }
+        return $this->get_meta_owner($this->umeta_mail, $email);
+    }
+
+    /**
+     * Returns user id with facebook id
+     *
+     * @param string $fb_id
+     * @return int
+     */
+    public function id_owner($fb_id){
+        return $this->get_meta_owner($this->umeta_id, $fb_id);
+    }
 	
 	/**
 	 * Get signed request
+     *
+     * @param string $key
 	 * @return string
 	 */
 	private function signed_request($key){
-		if(empty($this->_signed_request)){
-			$this->_signed_request = $this->facebook()->getSignedRequest();
+		if( empty($this->_signed_request) ){
+			$this->_signed_request = $this->api->getSignedRequest();
 		}
 		return isset($this->_signed_request[$key]) ? $this->_signed_request[$key]: null;
 	}
@@ -429,7 +489,7 @@ EOS;
 	 * Initialize Facebook Fangate Scripts
 	 */
 	public function fan_gate_helper(){
-		if(is_page($this->fan_gate)){
+		if(is_page($this->fb_fan_gate)){
 			$this->js = true;
 		}
 		$this->scripts .= <<<EOS
@@ -458,7 +518,7 @@ EOS;
 			FB._https = true;
 			<?php endif;?>
 			FB.init({
-				appId: '<?php echo $this->app_id ?>',
+				appId: '<?php echo $this->fb_app_id ?>',
 				cookie: true, 
 				xfbml: true,
 				oauth: true
@@ -478,89 +538,88 @@ EOS;
 			echo $this->generate_message_script($this->message);
 		}
 	}
-	
+
+    /**
+     * Returns if user is connected to Facebook
+     *
+     * @param int $user_id
+     * @return bool
+     */
+    public function is_connected($user_id){
+        return (bool)$this->get_facebook_id($user_id);
+    }
+
 	/**
 	 * Returns User's Facebook ID
-	 * @global int $user_ID
-	 * @param int $user_id
+     *
+	 * @param int $wp_user_id
 	 * @return int
 	 */
-	public function get_user_id($user_id = null){
-		$user_id = $this->wp_user_id($user_id);
-		if($user_id){
-			$facebook_id = get_user_meta($user_id, '_wpg_facebook_id', true);
-			return $facebook_id ? $facebook_id : 0;
-		}else{
-			return 0;
-		}
+	public function get_facebook_id($wp_user_id){
+        return get_user_meta($wp_user_id, $this->umeta_id, true) ?: 0;
 	}
 	
 	/**
 	 * Returns Facebook mail
-	 * @param int $user_id
+     *
+	 * @param int $wp_user_id
 	 * @return string
 	 */
-	public function get_user_mail($user_id = null){
-		$user_id = $this->wp_user_id($user_id);
-		if($user_id){
-			$facebook_mail = get_user_meta($user_id, '_wpg_facebook_mail', true);
-			return $facebook_mail ? $facebook_mail : null;
-		}else{
-			return null;
-		}
+	public function get_user_mail($wp_user_id){
+        return (string) get_user_meta($wp_user_id, $this->umeta_mail, true);
 	}
 	
 	/**
 	 * Save Facebook Mail
+     *
 	 * @param string $mail
 	 * @param int $user_id 
 	 * @return void
 	 */
-	public function set_user_mail($mail, $user_id = null){
-		$user_id = $this->wp_user_id($user_id);
-		update_user_meta($user_id, '_wpg_facebook_mail');
+	public function set_user_mail($mail, $user_id){
+		update_user_meta($user_id, $this->umeta_mail, $mail);
 	}
 	
 	/**
 	 * Save Facebook ID
+     *
 	 * @param string $fb_user_id
-	 * @param int $user_id 
+	 * @param int $wp_user_id
 	 * @return void
 	 */
-	public function set_user_id($fb_user_id, $user_id = null){
-		$user_id = $this->wp_user_id($user_id);
-		update_user_meta($user_id, '_wpg_facebook_id', $fb_user_id);
+	public function set_user_id($fb_user_id, $wp_user_id){
+		update_user_meta($wp_user_id, $this->umeta_id, $fb_user_id);
 	}
-	
-	/**
-	 * Returns WordPress's user ID
-	 * @global int $user_ID
-	 * @param int $user_id
-	 * @return int
-	 */
-	private function wp_user_id($user_id = null){
-		if(is_null($user_id)){
-			global $user_ID;
-			$user_id = $user_ID;
-		}
-		return (int)$user_id;
-	}
-	
-	/**
-	 * Returns facebook Controller
-	 * @return Facebook
-	 */
-	private function facebook(){
-		if(is_null($this->_api)){
-			if(!class_exists('Facebook')){
-				require_once dirname(__FILE__).DIRECTORY_SEPARATOR."facebook.php";
-			}
-			$this->_api = new Facebook(array(
-				'appId'  => $this->app_id,
-				'secret' => $this->app_secret,
-				'cookie' => true
-			));
-		}
-		return $this->_api;
-	}
+
+    /**
+     * Getter
+     *
+     * @param string $name
+     * @return mixed|string
+     */
+    public function __get($name){
+        switch($name){
+            case 'cert_path':
+                return $this->dir.implode(DIRECTORY_SEPARATOR, array(
+                    'vendor',
+                    'facebook-php-sdk',
+                    'src',
+                   'fb_ca_chain_bundle.crt',
+                ));
+                break;
+            case 'api':
+                if(is_null($this->_api)){
+                    $this->_api = new \Facebook(array(
+                        'appId'  => $this->fb_app_id,
+                        'secret' => $this->fb_app_secret,
+                        'cookie' => true
+                    ));
+                }
+                return $this->_api;
+                break;
+            default:
+                return parent::__get($name);
+                break;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Gianism\Service;
 
-use Gianism\Option, Gianism\Pattern\Singleton;
+use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
 
 /**
  * Common Utility for Social Service
@@ -71,7 +71,7 @@ abstract class Common extends Singleton
             // Show profile page
             add_action('gianism_user_profile', array($this, 'profile_connect'));
             //Add Hook on Login Form page
-            add_action('gianism_login_form', array($this, 'login_form'));
+           add_action(Login::LOGIN_FORM_ACTION, array($this, 'login_form'));
             if(method_exists($this, 'print_script')){
                 //Add Hook On footer
                 add_action('admin_print_footer_scripts', array($this, 'print_script'));
@@ -131,6 +131,7 @@ abstract class Common extends Singleton
      * @return void
      */
     public function parse_request($action, \WP_Query $wp_query){
+        nocache_headers();
         $method = 'handle_'.strtolower(str_replace('-', '_', $action));
         if( method_exists($this, $method) && $this->enabled ){
             if( 'default' !== $action && !$this->verify_nonce($this->service_name.'_'.$action) ){
@@ -142,6 +143,8 @@ abstract class Common extends Singleton
             $wp_query->set_404();
         }
     }
+
+
     /**
      * Show connect button on profile page
      *
@@ -202,7 +205,15 @@ EOS;
         }
     }
 
-    abstract public function login_form();
+    /**
+     * Display login buttons
+     *
+     * @param boolean $is_register
+     * @return void
+     */
+    public function login_form($is_register = false){
+        echo $this->login_button(admin_url('profile.php'), $is_register);
+    }
 
 	/**
 	 * Returns redirect to url if set.
@@ -251,12 +262,48 @@ EOS;
 	 * @param string $markup
 	 * @param string $href
 	 * @param string $text
+     * @param bool $is_register
 	 * @return string
 	 */
-	public function filter_link($markup, $href, $text){
-		$markup = apply_filters('gianism_link_'.$this->service_name, $markup, $href, $text);
-		return $markup;
+	public function filter_link($markup, $href, $text, $is_register = false){
+        /**
+         * Button filter
+         *
+         * @param string $markup
+         * @param string $href
+         * @param string $text
+         * @param bool $is_register Is register form
+         */
+        return apply_filters('gianism_link_'.$this->service_name, $markup, $href, $text, $is_register);
 	}
+
+    /**
+     * Filter redirect URL
+     *
+     * @param string $url
+     * @param string $context login, connect, disconnect
+     * @return string
+     */
+    protected function filter_redirect($url, $context){
+        switch($context){
+            case 'connect':
+            case 'disconnect':
+                $filter_name = 'gianism_redirect_after_'.$context;
+                break;
+            default:
+                $filter_name = 'gianism_redirect_to';
+                break;
+        }
+        /**
+         * gianism_redirect_to
+         *
+         * Filter hook to override redirect url
+         *
+         * @param string $url
+         * @param string $service 'facebook', 'twitter', and so on.
+         */
+        return apply_filters($filter_name, $url, $this->service);
+    }
 
 	/**
 	 * Get URL for emdiate endpoint.
@@ -324,21 +371,45 @@ EOS;
             $atts[] = "{$key}=\"{$value}\"";
         }
         $atts = ' '.implode(' ', $atts);
-        return sprintf('<a href="%2$s" class="%4$s"%5$s>%3$s%1$s</a>',
+        return sprintf('<a href="%2$s" rel="nofollow" class="%4$s"%5$s>%3$s%1$s</a>',
             $text, $href, $icon, $class_attr, $atts);
     }
 
     /**
-     * Get connect button
+     * Show login button
      *
-     * @param string $redirect If not set, profile page's URL
+     * @param string $redirect
+     * @param bool $register
      * @return string
      */
-    public function connect_button( $redirect = '' ){
-        if( empty($redirect) ){
+    public function login_button( $redirect = '', $register = false){
+        if( !$redirect ){
             $redirect = admin_url('profile.php');
         }
-        $redirect_to = apply_filters('gianism_redirect_after_connect', $redirect, $this->service_name);
+        $url = $this->get_redirect_endpoint('login', $this->service_name.'_login', array(
+            'redirect_to' => $redirect,
+        ));
+        $text = sprintf($this->_('Log in with %s'), $this->verbose_service_name);
+        $button = $this->button($text, $url, $this->service_name, array('wpg-button', 'wpg-button-login'), array(
+            'gianism-ga-category' => "gianism/{$this->service_name}",
+            'gianism-ga-action' => 'login',
+            'gianism-ga-label' => sprintf($this->_('Login with %s'), $this->verbose_service_name),
+        ));
+        return $this->filter_link($button, $url, $text, $register);
+    }
+
+
+
+    /**
+     * Get connect button
+     *
+     * @param string $redirect_to If not set, profile page's URL
+     * @return string
+     */
+    public function connect_button( $redirect_to = '' ){
+        if( empty($redirect_to) ){
+            $redirect_to = admin_url('profile.php');
+        }
         $url = $this->get_redirect_endpoint('connect', $this->service_name.'_connect', array(
                 'redirect_to' => $redirect_to,
             ));
@@ -353,14 +424,13 @@ EOS;
     /**
      * Get disconnect button
      *
-     * @param string $redirect If not set, profile page's URL
+     * @param string $redirect_to If not set, profile page's URL
      * @return string
      */
-    public function disconnect_button( $redirect = '' ){
-        if( empty($redirect) ){
-            $redirect = admin_url('profile.php');
+    public function disconnect_button( $redirect_to = '' ){
+        if( empty($redirect_to) ){
+            $redirect_to = admin_url('profile.php');
         }
-        $redirect_to = apply_filters('gianism_redirect_after_disconnect', $redirect, $this->service_name);
         $url = $this->get_redirect_endpoint('disconnect', $this->service_name.'_disconnect', array(
                 'redirect_to' => $redirect_to,
             ));
@@ -409,6 +479,19 @@ EOS;
          * @param string $service_name
          */
         do_action('wpg_disconnect', $user_id, $this->service_name);
+    }
+
+    /**
+     * Use's password is automatically generated
+     *
+     * @param int $user_id
+     */
+    protected function user_password_unknown($user_id){
+        update_user_meta($user_id, '_wpg_unknown_password', true);
+    }
+
+    protected function api_error_string(){
+        return sprinf($this->_('%s API returns error.'), $this->verbose_service_name);
     }
 
     /**

@@ -66,6 +66,7 @@ class Bootstrap extends Pattern\Singleton
             Profile::get_instance();
 
             // Init login manager
+            Login::get_instance();
 
             // Instanciate everything
             // and build rewrite rules
@@ -91,9 +92,14 @@ class Bootstrap extends Pattern\Singleton
                 add_action('pre_get_posts', array($this, 'hijack_query'));
             }
 
+            // Enqueue scripts
+            add_action('login_enqueue_scripts', array($this, 'enqueue_global_assets'));
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_global_assets'));
+
             // Add User's message
             add_action('gianism_notices', array($this, 'flush_message'));
-            add_action('wp_footer', array($this, ''), 100);
+            add_action('login_footer', array($this, 'user_notices'));
+            add_action('wp_footer', array($this, 'user_notices'), 100);
         }
     }
 
@@ -163,10 +169,11 @@ class Bootstrap extends Pattern\Singleton
      * Output message for user.
      */
     public function user_notices(){
-        echo '<div class="wpg-notices" style="display: none;">';
+        echo '<div class="wpg-notices toggle">';
         do_action('gianism_notices');
         echo '</div><!-- wpg-notices -->';
     }
+
 
     /**
      * Register assets
@@ -176,5 +183,13 @@ class Bootstrap extends Pattern\Singleton
         wp_register_style('ligature-symbols', $this->url.'assets/compass/stylesheets/lsf.css', array(), '2.11');
         wp_register_style($this->name, $this->url."assets/compass/stylesheets/gianism-style.css", array('ligature-symbols'), $this->version);
 
+    }
+
+    /**
+     * Enqueue assets
+     */
+    public function enqueue_global_assets(){
+        wp_enqueue_style($this->name);
+        wp_enqueue_script($this->name.'-notice-helper', $this->url.'assets/compass/js/public-notice.js', array('jquery-effects-highlight'), $this->version);
     }
 }

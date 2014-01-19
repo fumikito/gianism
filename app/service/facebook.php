@@ -97,28 +97,34 @@ class Facebook extends Common
      * @param \WP_Query $wp_query
      */
     protected function handle_connect( \WP_Query $wp_query ){
-        // Set redirect URL
-        $url = $this->api->getLoginUrl(array(
-            'scope' => 'email',
-            'redirect_uri' => $this->get_redirect_endpoint(),
-        ));
-        $this->session_write('redirect_to', $this->get('redirect_to'));
-        $this->session_write('action', 'connect');
-        wp_redirect($url);
-        exit;
+        try{
+            // Set redirect URL
+            $url = $this->api->getLoginUrl(array(
+                'scope' => 'email',
+                'redirect_uri' => $this->get_redirect_endpoint(),
+            ));
+            $this->session_write('redirect_to', $this->get('redirect_to'));
+            $this->session_write('action', 'connect');
+            wp_redirect($url);
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
     }
 
     /**
      * Delete facebook account
+     *
+     * @param \WP_Query $wp_query
      */
-    protected function handle_disconnect(){
-        $redirect_url = $this->get('redirect_to') ?: admin_url("profile.php");
+    protected function handle_disconnect( \WP_Query $wp_query ){
         try{
+            $redirect_url = $this->get('redirect_to') ?: admin_url("profile.php");
             // Is user logged in?
             if( !is_user_logged_in() ){
                 throw new \Exception($this->_('You must be logged in.'));
             }
-            // Has safe book id
+            // Has facebook id
             if( !$this->is_connected(get_current_user_id()) ){
                 throw new \Exception(sprintf($this->_('Your account is not connected with %s'), $this->verbose_service_name));
             }
@@ -126,23 +132,147 @@ class Facebook extends Common
             delete_user_meta(get_current_user_id(), $this->umeta_id);
             delete_user_meta(get_current_user_id(), $this->umeta_mail);
             $this->add_message(sprintf($this->_("Your account is now unlinked from %s."), $this->verbose_service_name));
+            // Redirect
+            wp_redirect($this->filter_redirect($redirect_url, 'disconnect'));
+            exit;
         }catch (\Exception $e){
-            $this->add_message($e->getMessage(), true);
+            $this->wp_die($e->getMessage());
         }
-        wp_redirect($redirect_url);
-        exit;
     }
 
+    /**
+     * Make user login
+     *
+     * @param \WP_Query $wp_query
+     */
+    public function handle_login( \WP_Query $wp_query ){
+        try{
+            // Is user logged in?
+            if( is_user_logged_in() ){
+                throw new \Exception($this->_('You are logged in, ah?'));
+            }
+            // Create URL
+            $url = $this->api->getLoginUrl(array(
+                'scope' => 'email',
+                'redirect_uri' => $this->get_redirect_endpoint(),
+            ));
+            $this->session_write('redirect_to', $this->get('redirect_to'));
+            $this->session_write('action', 'login');
+            wp_redirect($url);
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
+    }
+
+    /**
+     * Handle publish action
+     *
+     * @param \WP_Query $wp_query
+     */
+    public function handle_publish( \WP_Query $wp_query ){
+        try{
+            $url = $this->api->getLoginUrl(array(
+                'scope' => 'publish_actions',
+                'redirect_uri' => $this->get_redirect_endpoint(),
+            ));
+            $this->session_write('redirect_to', $this->get('redirect_to'));
+            $this->session_write('action', 'publish');
+            $this->session_write('hook', $this->get('hook'));
+            $this->session_write('args', $_GET);
+            wp_redirect($url);
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
+    }
 
     /**
      * Communicate with Facebook API
+     *
+     * @global \wpdb $wpdb
+     * @param \WP_Query $wp_query
      */
-    protected function handle_default(){
+    protected function handle_default( \WP_Query $wp_query ){
+        global $wpdb;
         // Get common values
         $action = $this->session_get('action');
         $redirect_url = $this->session_get('redirect_to');
         // Process actions
         switch( $action ){
+            case 'login': // Make user loggin
+                try{
+                    // Is logged in?
+                    if( is_user_logged_in() ){
+                        throw new \Exception($this->_('You are already logged in'));
+                    }
+                    // Get ID
+                    $facebook_id = $this->api->getUser();
+                    if( !$facebook_id ){
+                        throw new \Exception($this->api_error_string());
+                    }
+                    // If user doesn't exists, try to register.
+                    if( !($user_id = $this->get_meta_owner($this->umeta_id, $facebook_id)) ){
+                        try{
+                            $profile = $this->api->api('/me');
+                        }catch(\FacebookApiException $e){
+                            $profile = $this->api->api('/'.$facebook_id);
+                        }
+                        // Check email
+                        if( !isset($profile['email']) || !is_email($profile['email'])){
+                            throw new \Exception($this->_('Cannot retrieve email address.'));
+                        }
+                        $email = (string) $profile['email'];
+                        if( email_exists($email) || $this->mail_owner($email) ){
+                            throw new \Exception(sprintf($this->_('Mm...? This %s account seems to be connected to another account.'), $this->verbose_service_name));
+                        }
+                        //Not found, Create New User
+                        require_once(ABSPATH . WPINC . '/registration.php');
+                        //Get Username
+                        if( isset($profile['username']) && !username_exists($profile['username'])){
+                            //if set, use username. but this is optional setting.
+                            $user_name = $profile['username'];
+                        }elseif( isset($profile['name']) && ($safe_name = sanitize_user($profile['name'])) && !username_exists($safe_name) ){
+                            //If name is alpabetical, use it.
+                            $user_name = $safe_name;
+                        }else{
+                            //There is no available string for login name, so use Facebook id for login.
+                            $user_name = 'fb-'.$facebook_id;
+                        }
+                        //Check if username exists
+                        $user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
+                        if( is_wp_error($user_id) ){
+                            throw new \Exception($this->_('Cannot register. Please try again later.'));
+                        }
+                        // Ok, let's update usermeta
+                        update_user_meta($user_id, $this->umeta_id, $facebook_id);
+                        update_user_meta($user_id, $this->umeta_mail, $email);
+                        $wpdb->update(
+                            $wpdb->users,
+                            array(
+                                'display_name' => $profile['name'],
+                                'user_url' => $profile['link']
+                            ),
+                            array('ID' => $user_id),
+                            array('%s', '%s'),
+                            array('%d')
+                        );
+                        update_user_meta($user_id, 'nickname', $profile['name']);
+                        $this->user_password_unknown($user_id);
+                        $this->hook_connect($user_id, $profile, true);
+                        $this->add_message(sprintf($this->_('Welcome, %s!'), $profile['name']));
+                    }
+                    // Make user logged in
+                    wp_set_auth_cookie($user_id, true);
+                    $redirect_url = $this->filter_redirect($redirect_url, 'login');
+                }catch (\Exception $e){
+                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $redirect_url = wp_login_url($redirect_url, true);
+                }
+                // Redirect user
+                wp_redirect($redirect_url);
+                exit;
+                break;
             case 'connect': // Connect user account to Facebook
                 try{
                     // Is user logged in?
@@ -185,7 +315,7 @@ class Facebook extends Common
                     // Save message
                     $this->add_message(sprintf($this->_('Welcome!, %s'), $profile['name']));
                 }catch (\FacebookApiException $e){
-                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.sprintf($this->_('%s API returns error.'), $this->verbose_service_name), true);
+                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$this->api_error_string(), true);
                 }catch(\Exception $e){
                     $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$e->getMessage(), true);
                 }
@@ -193,196 +323,63 @@ class Facebook extends Common
                 if( !$redirect_url ){
                     $redirect_url = admin_url('profile.php');
                 }
+                // Applyfilter
+                $redirect_url = $this->filter_redirect($redirect_url, 'connect');
+                wp_redirect($redirect_url);
+                exit;
+                break;
+            case 'publish':
+                try{
+                    $hook = $this->session_get('hook');
+                    $args = $this->session_get('args');
+                    $facebook_id = $this->api->getUser();
+                    if(!$facebook_id){
+                        throw new \Exception($this->api_error_string());
+                    }
+                    // Check permission exists, save it.
+                    $perms = $this->api->api('/me/permissions');
+                    // Get hook
+                    if($perms && isset($perms['data'][0]['publish_actions']) && $perms['data'][0]['publish_actions']){
+                        //Save access token.
+                        update_user_meta(get_current_user_id(), $this->umeta_token, $this->api->getAccessToken());
+                        //If action is set, do it.
+                        if( !empty($hook) ){
+                            do_action(strval($hook), $this->api, $args);
+                        }
+                    }
+                }catch(\Exception $e){
+                    $this->add_message($e->getMessage(), true);
+                }
                 wp_redirect($redirect_url);
                 exit;
                 break;
             default:
+                // No action is set, error.
+                $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
                 break;
         }
 
     }
-
-	/**
-	 * Executed on init hook.
-	 * @global wpdb $wpdb
-	 * @global int $user_ID
-	 * @global WP_Gianism $giasnism
-	 */
-	public function hoge(){
-		global $user_ID, $wpdb, $gianism;
-		switch($this->get_action()){
-			case "facebook_connect":
-
-				break;
-			case "facebook_disconnect":
-				if(is_user_logged_in() && isset($_REQUEST['_wpnonce']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'facebook_disconnect')){
-					delete_user_meta($user_ID, $this->umeta_id);
-					delete_user_meta($user_ID, $this->umeta_mail);
-					$this->message = sprintf($gianism->_("Disconected your %s account."), "Facebook");
-				}
-				break;
-			case "facebook_login":
-				if(!is_user_logged_in()){
-					$this->message = $gianism->_('Oops, Failed to Authenticate.');
-					$facebook_id = $this->facebook()->getUser();
-					if($facebook_id){
-						//Get Facebook ID, So try to find registered user.
-						global $wpdb;
-						$sql = <<<EOS
-							SELECT user_id FROM {$wpdb->usermeta}
-							WHERE meta_key = %s AND meta_value = %s
-EOS;
-						$user_id = $wpdb->get_var($wpdb->prepare($sql, $this->umeta_id, $facebook_id));
-						if(!$user_id){
-							//Cant Find user, try to find by email
-							try{
-								try{
-									$profile = $this->facebook()->api('/me');
-								}catch(FacebookApiException $e){
-									$profile = $this->facebook()->api('/'.$facebook_id);
-								}
-								if(isset($profile['email'])){
-									$email = (string)$profile['email'];
-									// Try to find registered user.
-									// Same email must not be found.
-									$sql = <<<EOS
-										SELECT user_id FROM {$wpdb->usermeta}
-										WHERE meta_key = %s AND meta_value = %s
-EOS;
-									if(!email_exists($email && !$wpdb->get_var($wpdb->prepare($sql, $this->umeta_mail, $email)))){
-										//Not found, Create New User
-										require_once(ABSPATH . WPINC . '/registration.php');
-										//Get Username
-										if(isset($profile['username'])){
-											//if set, use username. but this is optional setting.
-											$user_name = $profile['username'];
-										}elseif(isset($profile['name']) && !username_exists($profile['name']) && preg_match("/^[a-zA-Z0-9 ]+$/", $profile['name'])){
-											//If name is alpabetical, use it.
-											$user_name = $profile['name'];
-										}else{
-											//There is no available string for login name, so use Facebook id for login.
-											$user_name = 'fb-'.$facebook_id;
-										}
-										//Check if username exists
-										$user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
-										if(!is_wp_error($user_id)){
-											update_user_meta($user_id, $this->umeta_id, $facebook_id);
-											update_user_meta($user_id, $this->umeta_mail, $email);
-											$wpdb->update(
-												$wpdb->users,
-												array(
-													'display_name' => $profile['name'],
-													'user_url' => $profile['link']
-												),
-												array('ID' => $user_id),
-												array('%s', '%s'),
-												array('%d')
-											);
-											update_user_meta($user_id, 'nickname', $profile['name']);
-											do_action('wpg_connect', $user_id, $profile, 'facebook', true);
-										}else{
-											$this->message .= '\n'.$user_id->get_error_message();
-										}
-									}else{
-										$this->message .= '\n'.sprintf($gianism->_('Mm...? This %s account seems to be connected to another account.'), "Facebook");
-									}
-								}else{
-									$this->message .= '\n'.$gianism->_('Cannot get e-mail.').$gianism->_('Please try again later.');
-								}
-							}catch(FacebookApiException $e){
-								//Can't get Profile, so, error.
-								$this->message .= '\n'.$e->getMessage();
-							}
-						}
-					}else{
-						$this->message .= '\n'.$gianism->_('Cannot get Facebook ID.').$gianism->_('Please try again later.');
-					}
-					if($user_id && !is_wp_error($user_id)){
-						$this->message = '';
-						wp_set_auth_cookie($user_id, true);
-						if(isset($_GET['redirect_to'])){
-							header('Location: '.$_GET['redirect_to']);
-							die();
-						}else{
-							wp_set_current_user($user_id);
-						}
-					}
-				}
-				break;
-			case 'facebook_publish':
-				$facebook_id = $this->api->getUser();
-				if(!is_user_logged_in() || !$facebook_id){
-					wp_die(get_status_header_desc(403), get_bloginfo('name'), array('response' => 403, 'back_link' => true));
-				}
-				try{
-					$redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : admin_url('profile.php');
-					//Check permission exists, save it.
-					$perms = $this->facebook()->api('/me/permissions');
-					if($perms && isset($perms['data'][0]['publish_actions']) && $perms['data'][0]['publish_actions']){
-						//Save access token.
-						update_user_meta(get_current_user_id(), $this->umeta_token, $this->facebook()->getAccessToken());
-						//If action is set, do it.
-						if(isset($_REQUEST['action'])){
-							do_action(strval($_REQUEST['action']), $this->facebook(), $_REQUEST);
-						}
-					}
-					header('Location: '.$redirect_to);
-					exit();
-				}catch(FacebookApiException $e){
-					wp_die(get_status_header_desc(500).": ".$e->getMessage(), get_bloginfo('name'), array('response' => 500, 'back_link' => true));
-				}
-				break;
-		}
-	}
-
-	/**
-	 * Show Login Button on Facebook.
-	 * @global WP_Gianism $gianism 
-	 */
-	public function login_form(){
-		global $gianism;
-		$redirect = $this->get_redirect_to(admin_url('profile.php'));
-		$login_url = wp_login_url($redirect)."&wpg=facebook_login";	
-		$url = $this->facebook()->getLoginUrl(array(
-			'scope' => 'email',
-			'redirect_uri' => $login_url,
-		));
-		$link_text = $gianism->_('Log in with Facebook');
-		//Show Login Button
-		$this->js = true;
-		$mark_up = <<<EOS
-		<a class="fb_button fb_button_medium" id="fb-login" href="{$url}">
-			<span class="fb_button_text">{$link_text}</span>
-		</a>
-EOS;
-		echo $this->filter_link($mark_up, $url, $link_text, 'facebook');
-	}
 	
 	/**
 	 * Returns login url which get additional permission
      *
 	 * @param string $redirect_url
 	 * @param string $action This action hook will booted.
-	 * @param arrray $args Additional key-value
+	 * @param array $args Additional key-value
 	 * @return string
 	 */
 	public function get_publish_permission_link($redirect_url = null, $action = '', $args = array()){
 		if(!$redirect_url){
 			$redirect_url = admin_url('profile.php');
 		}
-		$url = home_url('/', ($this->is_ssl_required() ? 'https' : 'http'))."?wpg=facebook_publish&redirect_to=".rawurlencode($redirect_url);
-		if(!empty($action)){
-			$url .= '&action='.rawurlencode($action);
-		}
-		if(!empty($args)){
-			foreach($args as $key => $val){
-				$url .= "&".rawurlencode($key)."=".rawurlencode($val);
-			}
-		}
-		return $this->facebook()->getLoginUrl(array(
-			'scope' => 'publish_actions',
-			'redirect_uri' => $url,
-		));
+        $arguments = array(
+            'redirect_to' => $redirect_url,
+        );
+        if( !empty($action) ){
+            $arguments['hook'] = $action;
+        }
+        return $this->get_redirect_endpoint('publish', $this->service_name.'_publish', array_merge($arguments, $args));
 	}
 	
 	/**

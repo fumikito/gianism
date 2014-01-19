@@ -33,6 +33,7 @@ namespace Gianism;
  * @property-read string $mixi_access_token
  * @property-read string $mixi_refresh_token
  * @property-read bool $show_button_on_login
+ * @property-read int $button_type
  */
 class Option extends Pattern\Singleton
 {
@@ -83,7 +84,8 @@ class Option extends Pattern\Singleton
         "mixi_consumer_secret" => "",
         "mixi_access_token" => "",
         "mixi_refresh_token" => "",
-        'show_button_on_login' => true
+        'show_button_on_login' => true,
+        'button_type' => 0,
     );
 
 
@@ -129,6 +131,7 @@ class Option extends Pattern\Singleton
             "mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
             "mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret'),
             'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
+            'button_type' => (int)$this->post('button_type'),
         ), $this->values);
         if(update_option($this->key, $this->values)){
             $this->add_message($this->_('Option updated.'));
@@ -152,6 +155,18 @@ class Option extends Pattern\Singleton
          * @param string $context 'login', 'register', etc.
          */
         return apply_filters('gianism_show_button_on_login', $this->show_button_on_login, $context);
+    }
+
+    /**
+     * Return button types
+     *
+     * @return array
+     */
+    public function button_types(){
+        return array(
+            $this->_('Medium'),
+            $this->_('Large'),
+        );
     }
 
     /**

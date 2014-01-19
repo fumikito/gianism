@@ -271,22 +271,35 @@ defined('ABSPATH') or die();
 <h3><i class="lsf lsf-setting"></i> <?php $this->e('Display Setting'); ?></h3>
 <table class="form-table">
     <tbody>
-    <tr>
-        <th><?php $this->e('Login screen'); ?></th>
-        <td>
-            <label>
-                <input type="radio" name="show_button_on_login" value="1"<?php checked($option->show_button_on_login) ?> />
-                <?php $this->e('Show all button on Login screen.'); ?>
-            </label><br />
-            <label>
-                <input type="radio" name="show_button_on_login" value="0"<?php checked(!$option->show_button_on_login) ?> />
-                <?php $this->e('Do not show login button.'); ?>
-            </label>
-            <p class="description">
-                <?php printf($this->_('You can output login button manually. See detail at <a href="%2$s">%1$s</a>.'), $this->_('Customize'), $this->setting_url('customize')); ?>
-            </p>
-        </td>
-    </tr>
+        <tr>
+            <th><?php $this->e('Login screen'); ?></th>
+            <td>
+                <label>
+                    <input type="radio" name="show_button_on_login" value="1"<?php checked($option->show_button_on_login) ?> />
+                    <?php $this->e('Show all button on Login screen.'); ?>
+                </label><br />
+                <label>
+                    <input type="radio" name="show_button_on_login" value="0"<?php checked(!$option->show_button_on_login) ?> />
+                    <?php $this->e('Do not show login button.'); ?>
+                </label>
+                <p class="description">
+                    <?php printf($this->_('You can output login button manually. See detail at <a href="%2$s">%1$s</a>.'), $this->_('Customize'), $this->setting_url('customize')); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="button_type"><?php $this->e('Button size'); ?></label></th>
+            <td>
+                <select name="button_type" id="button_type">
+                    <?php foreach( $option->button_types() as $index => $value ): ?>
+                        <option value="<?php echo $index ?>"<?php selected($index == $option->button_type) ?>><?php echo esc_html($value); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <p class="description">
+                    <?php $this->e('This setting is valid only if login button\'s display setting is on.'); ?>
+                </p>
+            </td>
+        </tr>
     </tbody>
 </table>
 

@@ -250,7 +250,7 @@ abstract class Base
             SELECT user_id FROM {$wpdb->usermeta}
             WHERE meta_key = %s AND meta_value = %s
 EOS;
-        return (int)$wpdb->get_var($wpdb->query($query, $key, $value));
+        return (int)$wpdb->get_var($wpdb->prepare($query, $key, $value));
     }
 
     /**

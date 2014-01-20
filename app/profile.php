@@ -96,7 +96,7 @@ class Profile extends Pattern\Singleton
      */
     public function connect_buttons( \WP_User $user ){
         ?>
-        <h3 class="wpg-connect-header"><i class="lsf lsf-link"></i> <?php $this->e('Connect with SNS'); ?></h3>
+        <h3 class="wpg-connect-header"><i class="lsf lsf-link"></i> <?php $this->e('Connection with SNS'); ?></h3>
         <table class="form-table wpg-connect-table">
             <tbody>
             <?php do_action('gianism_user_profile', $user);?>

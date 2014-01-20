@@ -142,6 +142,30 @@ class Option extends Pattern\Singleton
     }
 
     /**
+     * Partially update
+     *
+     * @param array $options
+     * @return bool
+     */
+    public function partial_update( array $options ){
+        $changed = false;
+        foreach($options as $key => $value){
+            if( array_key_exists($key, $this->default_option) ){
+                $this->values[$key] = $value;
+                $changed = true;
+            }
+        }
+        if( $changed ){
+            $result = update_option($this->key, $this->values);
+            if($result){
+                do_action(self::UPDATED_ACTION, $this->values);
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    /**
      * Detect if show login buttons
      *
      * @param string $context

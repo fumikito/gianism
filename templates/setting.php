@@ -4,6 +4,8 @@ defined('ABSPATH') or die();
 
 /** @var \Gianism\Admin $this */
 /** @var \Gianism\Option $option */
+/** @var \Gianism\Service\Mixi $mixi */
+$mixi = \Gianism\Service\Mixi::get_instance();
 ?>
 
 <form method="post">
@@ -241,7 +243,7 @@ defined('ABSPATH') or die();
             </p>
         </td>
     </tr>
-    <?php if($this->is_enabled('mixi')): ?>
+    <?php if($mixi->enabled): ?>
         <tr>
             <th><?php $this->e('Token'); ?></th>
             <td>
@@ -252,15 +254,14 @@ defined('ABSPATH') or die();
                 <label>
                     <input class="regular-text" type="text" readonly="readonly" name="mixi_refresh_token" id="mixi_refresh_token" value="<?php echo esc_attr($option->mixi_refresh_token)  ?>" />
                     <?php $this->e('Refresh Token'); ?>
-                    <?php if(false): //$this->mixi && !$this->mixi->has_valid_refresh_token()): ?>
+                    <?php if( !$mixi->has_valid_refresh_token()): ?>
                         <small>(<?php $this->e('Your refresh token is invalid. Please reset it from link below.'); ?>)</small>
                     <?php endif; ?>
                 </label>
                 <p class="description">
                     <?php $this->e('If you want to send a message via mixi to your user who has only pseudo mail(@pseudo.mixi.jp), set up auth information by login to mixi from the link below as your account by which messages will be sent . Do not forget to check &quot;Always allow&quot;. <strong>Notice: </strong>You can send message to only your friend.');  ?>
                 </p>
-                <a href="<?php //echo $this->mixi->get_admin_auth_link(); ?>" class="button"><?php $this->e('Auth on mixi'); ?></a>
-
+                <?php echo $mixi->refresh_button($this->setting_url()) ?>
             </td>
         </tr>
     <?php endif; ?>

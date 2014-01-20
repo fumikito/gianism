@@ -151,6 +151,7 @@ class Facebook extends Common
      *
      * @global \wpdb $wpdb
      * @param \WP_Query $wp_query
+     * @return void
      */
     protected function handle_default( \WP_Query $wp_query ){
         global $wpdb;

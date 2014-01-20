@@ -146,6 +146,14 @@ abstract class Common extends Singleton
     }
 
     /**
+     * Handle callback request
+     *
+     * @param \WP_Query $wp_query
+     * @return mixed
+     */
+    abstract protected function handle_default( \WP_Query $wp_query);
+
+    /**
      * Handle connect
      *
      * @param \WP_Query $wp_query
@@ -285,7 +293,7 @@ EOS;
                 return sprintf($this->_('Your account is already connected with %s account.'), $this->verbose_service_name);
                 break;
             default: // Disconnected
-                return sprintf($this->_('Connecting to %1$s, you can login with %2$s via %1$s without password or email address.'), $this->verbose_service_name, get_bloginfo('name'));
+                return sprintf($this->_('Connecting with %1$s, you can login with %2$s via %1$s without password or email address.'), $this->verbose_service_name, get_bloginfo('name'));
                 break;
         }
     }

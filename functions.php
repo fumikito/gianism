@@ -65,6 +65,30 @@ function _gianism_autoloader($class_name){
 }
 
 /**
+ * Save message
+ *
+ * @param int $user_id
+ * @param string $body
+ * @param int $from
+ * @param string $subject
+ * @return int|WP_Error
+ */
+function gianism_message($user_id, $body, $from = 0, $subject = '' ){
+    /** @var \Gianism\Bootstrap $gianism */
+    $gianism = \Gianism\Bootstrap::get_instance();
+    $now = current_time('mysql');
+    return wp_insert_post(array(
+        'post_type' => $gianism->message_post_type,
+        'post_title' => $subject,
+        'post_content' => $body,
+        'post_author' => $user_id,
+        'post_status' => 'publish',
+        'post_date' => $now,
+        'post_date_gmt' => get_gmt_from_date($now),
+    ));
+}
+
+/**
  * Returns Facebook ID
  * @global WP_Gianism $gianism
  * @param int $user_id
@@ -212,6 +236,7 @@ EOS;
 
 /**
  * Returns facebook id on fan gate.
+ *
  * @global WP_Gianism $gianism
  * @return stiring|boolean
  */
@@ -223,26 +248,28 @@ function get_user_id_on_fangate(){
 
 
 /**
- * Get Twitter Screen Name 
- * @global WP_Gianism $gianism
+ * Get Twitter Screen Name
+ *
  * @param int $user_id
  * @return string|false 
  */
 function get_twitter_screen_name($user_id){
-	global $gianism;
-	return get_user_meta($user_id, $gianism->twitter->umeta_screen_name, true);
+    /** @var \Gianism\Service\Twitter $twitter */
+    $twitter = \Gianism\Service\Twitter::get_instance();
+    return get_user_meta($user_id, $twitter->umeta_screen_name, true);
 }
 
 
 
 /**
  * Update Twitter timeline
- * @global WP_Gianism $gianism
- * @param string $string 
+ *
+ * @param string $string
  */
 function update_twitter_status($string){
-	global $gianism;
-	$gianism->twitter->tweet($string);
+    /** @var \Gianism\Service\Twitter $twitter */
+    $twitter = \Gianism\Service\Twitter::get_instance();
+    $twitter->tweet($string);
 }
 
 
@@ -267,28 +294,37 @@ function twitter_reply_to($user_id, $string){
 
 /**
  * Get twitter timeline in JSON format object
- * 
- * @global WP_Gianism $gianism
+ *
  * @param string $screen_name If not specified, admin user's screen name will be used.
  * @param array $additional_data
- * @return Object
+ * @return object JSON format object.
  */
-function twitter_get_timeline($screen_name = null, $additional_data = array()){
-	global $gianism;
+function twitter_get_timeline($screen_name = null, array $additional_data = array()){
+    /** @var \Gianism\Service\Twitter $twitter */
+    $twitter = \Gianism\Service\Twitter::get_instance();
 	if(is_null($screen_name)){
-		$screen_name = $gianism->twitter->screen_name;
+		$screen_name = $twitter->tw_screen_name;
 	}
-	$data = array_merge(array('screen_name' => $screen_name), $additional_data);
-	return $gianism->twitter->request('statuses/user_timeline', $data);
+	return $twitter->call_api('statuses/user_timeline', array_merge(
+        array('screen_name' => $screen_name),
+        $additional_data
+    ));
 }
 
 
 
 /**
  * Show Login buttons
- * @global WP_Gianism $gianism 
+ *
+ * Show login buttons.
+ *
+ * @param string $before
+ * @param string $after
  */
-function gianism_login(){
-	global $gianism;
-	$gianism->show_login_form();
+function gianism_login($before = '', $after = ''){
+    /** @var \Gianism\Login $login */
+	$login = \Gianism\Login::get_instance();
+	$login->login_form($before, $after);
 }
+
+

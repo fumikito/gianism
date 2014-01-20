@@ -28,6 +28,8 @@ class Admin extends Pattern\Singleton
         add_action( 'load-settings_page_gianism', array($this, 'update_option'));
         // Register script
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+        // Notice
+        add_action('admin_notices', array($this, 'invalid_option_notices'));
     }
 
     /**
@@ -121,6 +123,19 @@ class Admin extends Pattern\Singleton
             $option = Option::get_instance();
             $option->update();
             wp_redirect($this->setting_url());
+        }
+    }
+
+    public function invalid_option_notices(){
+        $message = [];
+        /** @var \Gianism\Option $option */
+        $option = Option::get_instance();
+        if( current_user_can('manage_options') && $option->has_invalid_option('google_redirect')){
+            $message[] = sprintf($this->_('Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.'), $this->setting_url());
+        }
+        if( !empty($message) ){
+            array_unshift($message, '<strong>[Gianism]</strong>');
+            printf('<div class="error"><p>%s</p></div>', implode('<br />', $message));
         }
     }
 

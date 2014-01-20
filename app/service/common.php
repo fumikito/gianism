@@ -107,13 +107,6 @@ abstract class Common extends Singleton
         }
 	}
 
-    /**
-     * Parse request
-     *
-     * @param string $action
-     * @return void
-     */
-    //abstract public function parse_request($action);
 
     /**
      * Detect if user is connected to this service
@@ -122,6 +115,14 @@ abstract class Common extends Singleton
      * @return bool
      */
     abstract public function is_connected($user_id);
+
+    /**
+     * Disconnect user from this service
+     *
+     * @param int $user_id
+     * @return mixed
+     */
+    abstract public function disconnect($user_id);
 
     /**
      * Called on redirect endpoint
@@ -144,6 +145,90 @@ abstract class Common extends Singleton
         }
     }
 
+    /**
+     * Handle connect
+     *
+     * @param \WP_Query $wp_query
+     */
+    protected function handle_connect( \WP_Query $wp_query ){
+        try{
+            // Is user logged in?
+            if(  !is_user_logged_in() ){
+                throw new \Exception($this->_('You must be logged in.'));
+            }
+            // Is user connected already?
+            if( $this->is_connected(get_current_user_id()) ){
+                throw new \Exception(sprintf($this->_('You are already connected with %s'), $this->verbose_service_name));
+            }
+            // Set redirect URL
+            $url = $this->get_api_url('connect');
+            if( !$url ){
+                throw new \Exception($this->_('Sorry, but failed to connect with API.'));
+            }
+            // Write session
+            $this->session_write('redirect_to', $this->get('redirect_to'));
+            $this->session_write('action', 'connect');
+            // OK, let's redirect.
+            wp_redirect($url);
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
+    }
+
+    /**
+     * Handle disconnect
+     *
+     * @param \WP_Query $wp_query
+     */
+    protected function handle_disconnect( \WP_Query $wp_query ){
+        try{
+            $redirect_url = $this->get('redirect_to') ?: admin_url("profile.php");
+            // Is user logged in?
+            if( !is_user_logged_in() ){
+                throw new \Exception($this->_('You must be logged in.'));
+            }
+            // Has connected
+            if( !$this->is_connected(get_current_user_id()) ){
+                throw new \Exception(sprintf($this->_('Your account is not connected with %s'), $this->verbose_service_name));
+            }
+            // O.K.
+            $this->disconnect(get_current_user_id());
+            $this->add_message(sprintf($this->_("Your account is now unlinked from %s."), $this->verbose_service_name));
+            // Redirect
+            wp_redirect($this->filter_redirect($redirect_url, 'disconnect'));
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
+    }
+
+    /**
+     * Make user login
+     *
+     * @param \WP_Query $wp_query
+     */
+    public function handle_login( \WP_Query $wp_query ){
+        try{
+            // Is user logged in?
+            if( is_user_logged_in() ){
+                throw new \Exception($this->_('You are logged in, ah?'));
+            }
+            // Create URL
+            $url = $this->get_api_url('login');
+            if( !$url ){
+                throw new \Exception($this->_('Sorry, but failed to connect with API.'));
+            }
+            // Write session
+            $this->session_write('redirect_to', $this->get('redirect_to'));
+            $this->session_write('action', 'login');
+            // O.K. let's redirect
+            wp_redirect($url);
+            exit;
+        }catch (\Exception $e){
+            $this->wp_die($e->getMessage());
+        }
+    }
 
     /**
      * Show connect button on profile page
@@ -164,12 +249,12 @@ EOS;
         $is_connected = $this->is_connected($user->ID);
         if( $is_connected ){
             $class_name = 'connected';
-            $icon_class = 'checkbox';
+            $icon_class = 'check';
             $message = $this->connection_message('connected');
             $button = $this->disconnect_button();
         }else{
             $class_name = 'disconnected';
-            $icon_class = 'checkboxempty';
+            $icon_class = 'ban';
             $message = $this->connection_message('disconnected');
             $button = $this->connect_button();
         }
@@ -255,6 +340,23 @@ EOS;
 	protected function get_action(){
         return $this->request('wpg');
 	}
+
+    /**
+     * Return api URL to authenticate
+     *
+     * If you need additional information (ex. token),
+     * use $this->session_write inside.
+     *
+     * <code>
+     * $this->session_write('token', $token);
+     * return $url;
+     * </code>
+     *
+     * @param string $action 'connect', 'login'
+     * @return string|false URL to redirect
+     * @throws \Exception
+     */
+    abstract protected function get_api_url( $action );
 
 	/**
 	 * Resturns link to filter

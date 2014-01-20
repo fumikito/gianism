@@ -91,77 +91,36 @@ class Facebook extends Common
 		}
     }
 
+
     /**
-     * Redirect user to facebook
+     * Disconnect user from this service
      *
-     * @param \WP_Query $wp_query
+     * @param int $user_id
+     * @return void
      */
-    protected function handle_connect( \WP_Query $wp_query ){
-        try{
-            // Set redirect URL
-            $url = $this->api->getLoginUrl(array(
-                'scope' => 'email',
-                'redirect_uri' => $this->get_redirect_endpoint(),
-            ));
-            $this->session_write('redirect_to', $this->get('redirect_to'));
-            $this->session_write('action', 'connect');
-            wp_redirect($url);
-            exit;
-        }catch (\Exception $e){
-            $this->wp_die($e->getMessage());
-        }
+    public function disconnect($user_id){
+        delete_user_meta(get_current_user_id(), $this->umeta_id);
+        delete_user_meta(get_current_user_id(), $this->umeta_mail);
     }
 
     /**
-     * Delete facebook account
+     * Returns API endpoint
      *
-     * @param \WP_Query $wp_query
+     * @param string $action
+     * @return bool|false|string
      */
-    protected function handle_disconnect( \WP_Query $wp_query ){
-        try{
-            $redirect_url = $this->get('redirect_to') ?: admin_url("profile.php");
-            // Is user logged in?
-            if( !is_user_logged_in() ){
-                throw new \Exception($this->_('You must be logged in.'));
-            }
-            // Has facebook id
-            if( !$this->is_connected(get_current_user_id()) ){
-                throw new \Exception(sprintf($this->_('Your account is not connected with %s'), $this->verbose_service_name));
-            }
-            // O.K.
-            delete_user_meta(get_current_user_id(), $this->umeta_id);
-            delete_user_meta(get_current_user_id(), $this->umeta_mail);
-            $this->add_message(sprintf($this->_("Your account is now unlinked from %s."), $this->verbose_service_name));
-            // Redirect
-            wp_redirect($this->filter_redirect($redirect_url, 'disconnect'));
-            exit;
-        }catch (\Exception $e){
-            $this->wp_die($e->getMessage());
-        }
-    }
-
-    /**
-     * Make user login
-     *
-     * @param \WP_Query $wp_query
-     */
-    public function handle_login( \WP_Query $wp_query ){
-        try{
-            // Is user logged in?
-            if( is_user_logged_in() ){
-                throw new \Exception($this->_('You are logged in, ah?'));
-            }
-            // Create URL
-            $url = $this->api->getLoginUrl(array(
-                'scope' => 'email',
-                'redirect_uri' => $this->get_redirect_endpoint(),
-            ));
-            $this->session_write('redirect_to', $this->get('redirect_to'));
-            $this->session_write('action', 'login');
-            wp_redirect($url);
-            exit;
-        }catch (\Exception $e){
-            $this->wp_die($e->getMessage());
+    protected function get_api_url($action){
+        switch($action){
+            case 'connect':
+            case 'login':
+                return $this->api->getLoginUrl(array(
+                    'scope' => 'email',
+                    'redirect_uri' => $this->get_redirect_endpoint(),
+                ));
+                break;
+            default:
+                return false;
+                break;
         }
     }
 
@@ -200,7 +159,7 @@ class Facebook extends Common
         $redirect_url = $this->session_get('redirect_to');
         // Process actions
         switch( $action ){
-            case 'login': // Make user loggin
+            case 'login': // Make user login
                 try{
                     // Is logged in?
                     if( is_user_logged_in() ){

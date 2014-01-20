@@ -170,6 +170,24 @@ class Option extends Pattern\Singleton
     }
 
     /**
+     * Returns if option is wrong
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function has_invalid_option($name){
+        switch($name){
+            case 'google_redirect':
+                $option = get_option($this->key, array());
+                return isset($saved_option['ggl_redirect_uri']) && !empty($saved_option['ggl_redirect_uri']);
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+
+    /**
      * Getter
      *
      * @param string $name

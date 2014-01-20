@@ -34,6 +34,13 @@ class Bootstrap extends Pattern\Singleton
         if( !session_id() ){
             session_start();
         }
+        if( $_SESSION ){
+            if( ! isset($_SESSION[$this->name]) || !is_array($_SESSION[$this->name]) ){
+                $_SESSION[$this->name] = array();
+            }
+        }else{
+            add_action('admin_notices', array($this, 'notice_about_session'));
+        }
         // Set option
         // Here, option is intiialized
         /** @var Option $option */
@@ -147,6 +154,15 @@ class Bootstrap extends Pattern\Singleton
         ){
             $instance = $this->get_service_instance($service);
             $instance->parse_request($action, $wp_query);
+        }
+    }
+
+    /**
+     * Notice about session
+     */
+    public function notice_about_session(){
+        if( current_user_can('manage_options') ){
+            printf('<div class="error"><p>%s</p></div>', $this->_('Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.'));
         }
     }
 

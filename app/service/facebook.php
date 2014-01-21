@@ -235,14 +235,6 @@ class Facebook extends Common
                 break;
             case 'connect': // Connect user account to Facebook
                 try{
-                    // Is user logged in?
-                    if( !is_user_logged_in() ){
-                        throw new \Exception($this->_('To connect facebook, you must be logged in.'));
-                    }
-                    // Is user already connect?
-                    if( $this->is_connected(get_current_user_id()) ){
-                        throw new \Exception(sprintf($this->_('You account is already connected with %s'), $this->verbose_service_name));
-                    }
                     // Get facebook user
                     $fb_uid = $this->api->getUser();
                     // This FB ID eixsts?

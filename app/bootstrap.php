@@ -25,6 +25,13 @@ class Bootstrap extends Pattern\Singleton
     private $rewrites = array();
 
     /**
+     * URL prefixes
+     *
+     * @var array
+     */
+    private $prefixes = array();
+
+    /**
      * Constructor
      *
      * @param array $argument
@@ -34,7 +41,7 @@ class Bootstrap extends Pattern\Singleton
         if( !session_id() ){
             session_start();
         }
-        if( $_SESSION ){
+        if( session_id() ){
             if( ! isset($_SESSION[$this->name]) || !is_array($_SESSION[$this->name]) ){
                 $_SESSION[$this->name] = array();
             }
@@ -78,15 +85,14 @@ class Bootstrap extends Pattern\Singleton
             // Instanciate everything
             // and build rewrite rules
             // Prefixes
-            $prefixes = array();
             foreach(array('facebook', 'twitter', 'google', 'yahoo', 'mixi') as $service){
                 $instance = $this->get_service_instance($service);
                 if( $instance && $instance->enabled ){
-                    $prefixes[] = $instance->url_prefix;
+                    $this->prefixes[$service] = $instance->url_prefix;
                 }
             }
-            if(!empty($prefixes)){
-                $preg = implode('|', $prefixes);
+            if(!empty($this->prefixes)){
+                $preg = implode('|', $this->prefixes);
                 $this->rewrites = array(
                     "({$preg})/?$" => 'index.php?gianism_service=$matches[1]&gianism_action=default',
                     "({$preg})/([^/]+)/?$" => 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]'
@@ -152,6 +158,7 @@ class Bootstrap extends Pattern\Singleton
             && ($service = $wp_query->get('gianism_service'))
             && ($action = $wp_query->get('gianism_action'))
         ){
+            $service = array_search($service, $this->prefixes);
             $instance = $this->get_service_instance($service);
             $instance->parse_request($action, $wp_query);
         }

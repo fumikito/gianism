@@ -71,7 +71,7 @@ abstract class Common extends Singleton
             // Show profile page
             add_action('gianism_user_profile', array($this, 'profile_connect'));
             //Add Hook on Login Form page
-           add_action(Login::LOGIN_FORM_ACTION, array($this, 'login_form'));
+            add_action(Login::LOGIN_FORM_ACTION, array($this, 'login_form'));
             if(method_exists($this, 'print_script')){
                 //Add Hook On footer
                 add_action('admin_print_footer_scripts', array($this, 'print_script'));

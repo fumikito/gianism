@@ -1,15 +1,15 @@
 <?php
 
-namespace Gianism\Service;
+namespace Gianism\Service\Common;
 
 
 /**
  * Service which doesn't provide email address
  *
- * @package Gianism\Service
+ * @package Gianism\Service\Common
  * @author Takahashi Fumiki
  */
-abstract class Nomail extends Common
+abstract class Nomail extends Mail
 {
 
     /**
@@ -32,7 +32,7 @@ abstract class Nomail extends Common
      * @param string $mail
      * @return boolean
      */
-    protected function is_pseudo_mail($mail){
+    public function is_pseudo_mail($mail){
         return !empty($this->pseudo_domain) && (false !== strpos($mail, "@".$this->pseudo_domain));
     }
 

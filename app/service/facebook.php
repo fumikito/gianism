@@ -10,7 +10,7 @@ namespace Gianism\Service;
  * @property-read string $cert_path Path to cert file.
  * @property-read \Facebook $api Facebook object
  */
-class Facebook extends Common
+class Facebook extends Common\Mail
 {
 	/**
      * Service name to display
@@ -150,13 +150,12 @@ class Facebook extends Common
      * Communicate with Facebook API
      *
      * @global \wpdb $wpdb
-     * @param \WP_Query $wp_query
+     * @param string $action
      * @return void
      */
-    protected function handle_default( \WP_Query $wp_query ){
+    protected function handle_default( $action ){
         global $wpdb;
         // Get common values
-        $action = $this->session_get('action');
         $redirect_url = $this->session_get('redirect_to');
         // Process actions
         switch( $action ){
@@ -180,11 +179,11 @@ class Facebook extends Common
                         }
                         // Check email
                         if( !isset($profile['email']) || !is_email($profile['email'])){
-                            throw new \Exception($this->_('Cannot retrieve email address.'));
+                            throw new \Exception($this->mail_fail_string());
                         }
                         $email = (string) $profile['email'];
                         if( email_exists($email) || $this->mail_owner($email) ){
-                            throw new \Exception(sprintf($this->_('Mm...? This %s account seems to be connected to another account.'), $this->verbose_service_name));
+                            throw new \Exception($this->duplicate_account_string());
                         }
                         //Not found, Create New User
                         require_once(ABSPATH . WPINC . '/registration.php');
@@ -202,7 +201,7 @@ class Facebook extends Common
                         //Check if username exists
                         $user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
                         if( is_wp_error($user_id) ){
-                            throw new \Exception($this->_('Cannot register. Please try again later.'));
+                            throw new \Exception($this->registration_error_string());
                         }
                         // Ok, let's update usermeta
                         update_user_meta($user_id, $this->umeta_id, $facebook_id);
@@ -220,13 +219,13 @@ class Facebook extends Common
                         update_user_meta($user_id, 'nickname', $profile['name']);
                         $this->user_password_unknown($user_id);
                         $this->hook_connect($user_id, $profile, true);
-                        $this->add_message(sprintf($this->_('Welcome, %s!'), $profile['name']));
+                        $this->welcome($profile['name']);
                     }
                     // Make user logged in
                     wp_set_auth_cookie($user_id, true);
                     $redirect_url = $this->filter_redirect($redirect_url, 'login');
                 }catch (\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                     $redirect_url = wp_login_url($redirect_url, true);
                 }
                 // Redirect user
@@ -239,7 +238,7 @@ class Facebook extends Common
                     $fb_uid = $this->api->getUser();
                     // This FB ID eixsts?
                     if( $this->id_owner($fb_uid) ){
-                        throw new \Exception(sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name));
+                        throw new \Exception($this->duplicate_account_string());
                     }
                     // Set session if possible
                     if( session_id() && !isset($_SESSION['uid'])){
@@ -253,11 +252,11 @@ class Facebook extends Common
                     }
                     // Check email
                     if( !isset($profile['email']) || !is_email($profile['email']) ){
-                        throw new \Exception($this->_('Cannot retrieve email address.'));
+                        throw new \Exception($this->mail_fail_string());
                     }
                     // Check if other user has these as meta_value
                     if(  ($email_owner = $this->mail_owner($profile['email'])) && get_current_user_id() != $email_owner ){
-                        throw new \Exception($this->_('E-mail address is already used by others.'));
+                        throw new \Exception($this->duplicate_account_string());
                     }
                     // Now let's save userdata
                     update_user_meta(get_current_user_id(), $this->umeta_id, $fb_uid);
@@ -265,11 +264,11 @@ class Facebook extends Common
                     // Fires hook
                     $this->hook_connect(get_current_user_id(), $this->api);
                     // Save message
-                    $this->add_message(sprintf($this->_('Welcome!, %s'), $profile['name']));
+                    $this->welcome($profile['name']);
                 }catch (\FacebookApiException $e){
-                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$this->api_error_string(), true);
+                    $this->auth_fail($this->api_error_string());
                 }catch(\Exception $e){
-                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                 }
                 // Connection finished. Let's redirect.
                 if( !$redirect_url ){
@@ -340,7 +339,7 @@ class Facebook extends Common
 	 * @return bool
 	 */
 	public function is_user_like_me_on_fangate(){
-		if($this->fan_gate){
+		if($this->fb_fan_gate){
 			$page = $this->signed_request('page');
 			return (isset($page['liked']) && $page['liked']);
 		}else{

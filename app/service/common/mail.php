@@ -1,6 +1,6 @@
 <?php
 
-namespace Gianism\Service;
+namespace Gianism\Service\Common;
 
 use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
 
@@ -12,7 +12,7 @@ use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
  * @property-read string $service_name
  * @property-read bool $enabled
  */
-abstract class Common extends Singleton
+abstract class Mail extends Singleton
 {
 
     /**
@@ -125,19 +125,40 @@ abstract class Common extends Singleton
     abstract public function disconnect($user_id);
 
     /**
+     * This controller reutrn always false
+     *
+     * @param string $mail
+     * @return bool
+     */
+    public function is_pseudo_mail($mail){
+        return false;
+    }
+
+    /**
      * Called on redirect endpoint
      *
      * @param string $action
      * @param \WP_Query $wp_query
      * @return void
      */
-    public function parse_request($action, \WP_Query $wp_query){
+    public function parse_request($action, \WP_Query &$wp_query){
         nocache_headers();
         $method = 'handle_'.strtolower(str_replace('-', '_', $action));
         if( method_exists($this, $method) && $this->enabled ){
             if( 'default' !== $action && !$this->verify_nonce($this->service_name.'_'.$action) ){
+                // Despite default, nonce required.
                 $this->wp_die($this->_('Cheatin\'? Wrong access.'), 403);
+            }elseif( 'default' == $action ){
+                // If default, $action required.
+                $specified_action = $this->session_get('action');
+                if( !$specified_action ){
+                    $this->kill_wrong_access();
+                }
+                $this->handle_default($specified_action);
+                // This line shouldn't execute
+                $wp_query->set_404();
             }else{
+                // Else, just call
                 $this->{$method}($wp_query);
             }
         }else{
@@ -148,10 +169,12 @@ abstract class Common extends Singleton
     /**
      * Handle callback request
      *
-     * @param \WP_Query $wp_query
-     * @return mixed
+     * This function must exit at last.
+     *
+     * @param string $action
+     * @return void
      */
-    abstract protected function handle_default( \WP_Query $wp_query);
+    abstract protected function handle_default( $action );
 
     /**
      * Handle connect
@@ -259,7 +282,7 @@ EOS;
             $class_name = 'connected';
             $icon_class = 'check';
             $message = $this->connection_message('connected');
-            $button = $this->disconnect_button();
+            $button = $this->is_pseudo_mail( $user->user_email ) ? '' : $this->disconnect_button();
         }else{
             $class_name = 'disconnected';
             $icon_class = 'ban';
@@ -600,8 +623,89 @@ EOS;
         update_user_meta($user_id, '_wpg_unknown_password', true);
     }
 
+    /**
+     * Create valid username from email address
+     *
+     * @param string $email
+     * @return string
+     * @throws \Exception
+     */
+    protected function valid_username_from_mail($email){
+        $suffix = array_shift(explode('@', $email));
+        if(!username_exists($suffix)){
+            return $suffix;
+        }
+        $service_domain = $suffix.'@'.$this->service_name;
+        if(!username_exists($service_domain)){
+            return $service_domain;
+        }
+        $original_domain = $suffix.'@'.$_SERVER['SERVER_NAME'];
+        if( !username_exists($original_domain) ){
+            return $original_domain;
+        }
+        $this->_('Sorry, but cannot create valid user name.');
+        return false;
+    }
+
+    /**
+     * Returns API error string
+     *
+     * @return string
+     */
     protected function api_error_string(){
-        return sprinf($this->_('%s API returns error.'), $this->verbose_service_name);
+        return sprintf($this->_('%s API returns error.'), $this->verbose_service_name);
+    }
+
+    /**
+     * Message account duplication
+     *
+     * @return string
+     */
+    protected function duplicate_account_string(){
+        return sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name);
+    }
+
+    /**
+     * Add welcome message
+     *
+     * @param string $who
+     */
+    protected function welcome($who){
+        $this->add_message(sprintf($this->_('Welcome, %s!'), $who));
+    }
+
+    /**
+     * Add error message
+     *
+     * @param string $message
+     */
+    protected function auth_fail($message){
+        $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$message, true);
+    }
+
+    /**
+     * Add error message
+     *
+     * @return string
+     */
+    protected function mail_fail_string(){
+        return $this->_('Cannot retrieve email address.');
+    }
+
+    /**
+     * Registration error string
+     *
+     * @return string
+     */
+    protected function registration_error_string(){
+        return $this->_('Cannot register. Please try again later.');
+    }
+
+    /**
+     * Kill wrong access
+     */
+    protected function kill_wrong_access(){
+        $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
     }
 
     /**

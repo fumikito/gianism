@@ -200,6 +200,17 @@ body {
   color: #9e3c1b;
 }
 
+/* line 133, ../sass/_components.scss */
+body.admin-bar .wpg-notices {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  /* line 141, ../sass/_components.scss */
+  body.admin-bar .wpg-notices {
+    top: 46px;
+  }
+}
 /* line 13, ../sass/_gianism_variables.scss */
 i.lsf-facebook {
   color: #3c5a96;
@@ -247,6 +258,26 @@ i.lsf-mixi {
 /* line 38, ../sass/_profile.scss */
 .wpg-connect-table th {
   font-size: 1.6em;
+}
+
+/* line 43, ../sass/_profile.scss */
+.wpg-notice {
+  position: relative;
+  color: #d54e21;
+  font-size: 1.4em;
+  padding: 0.5em 0.5em 0.5em 50px;
+  min-height: 30px;
+}
+/* line 49, ../sass/_profile.scss */
+.wpg-notice:before {
+  font-family: 'LigatureSymbols';
+  content: "\E075";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -15px;
+  line-heignt: 1;
+  font-size: 30px;
 }
 
 /* line 9, ../sass/gianism-admin.scss */

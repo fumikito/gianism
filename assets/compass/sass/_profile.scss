@@ -39,3 +39,21 @@
      font-size: 1.6em;
  }
 }
+
+.wpg-notice{
+  position: relative;
+  color: #d54e21;
+  font-size: 1.4em;
+  padding: 0.5em 0.5em 0.5em 50px;
+  min-height: 30px;
+  &:before{
+    font-family: 'LigatureSymbols';
+    content: $lsf-info;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    line-heignt: 1;
+    font-size: 30px;
+  }
+}

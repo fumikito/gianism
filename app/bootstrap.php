@@ -85,7 +85,7 @@ class Bootstrap extends Pattern\Singleton
             // Instanciate everything
             // and build rewrite rules
             // Prefixes
-            foreach(array('facebook', 'twitter', 'google', 'yahoo', 'mixi') as $service){
+            foreach($this->all_services as $service){
                 $instance = $this->get_service_instance($service);
                 if( $instance && $instance->enabled ){
                     $this->prefixes[$service] = $instance->url_prefix;

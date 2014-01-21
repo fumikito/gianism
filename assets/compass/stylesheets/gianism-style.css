@@ -260,6 +260,26 @@ i.lsf-mixi {
   font-size: 1.6em;
 }
 
+/* line 43, ../sass/_profile.scss */
+.wpg-notice {
+  position: relative;
+  color: #d54e21;
+  font-size: 1.4em;
+  padding: 0.5em 0.5em 0.5em 50px;
+  min-height: 30px;
+}
+/* line 49, ../sass/_profile.scss */
+.wpg-notice:before {
+  font-family: 'LigatureSymbols';
+  content: "\E075";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -15px;
+  line-heignt: 1;
+  font-size: 30px;
+}
+
 /* Facebook Button */
 /* line 10, ../sass/gianism-style.scss */
 .fb_button, .fb_button_rtl {

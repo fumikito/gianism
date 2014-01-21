@@ -4,7 +4,13 @@ namespace Gianism\Service;
 
 use Gianism\Option;
 
-class Mixi extends Nomail
+/**
+ * mixi Controller
+ *
+ * @package Gianism\Service
+ * @author Takahashi Fumiki
+ */
+class Mixi extends Common\Nomail
 {
 	
 	/**
@@ -64,7 +70,7 @@ class Mixi extends Nomail
      *
      * @param \WP_Query $wp_query
      */
-    protected function handle_refresh( \WP_Query $wp_query){
+    protected function handle_refresh( \WP_Query $wp_query ){
         try{
             if(!current_user_can('manage_options')){
                 throw new \Exception($this->_('You have no permission.'));
@@ -84,14 +90,13 @@ class Mixi extends Nomail
     /**
      * Handle callback request
      *
-     * @param \WP_Query $wp_query
+     * @param string $action
      * @return mixed|void
      */
-    public function handle_default( \WP_Query $wp_query ){
+    public function handle_default( $action ){
         /** @var \wpdb $wpdb */
         global $wpdb;
         // Get common values
-        $action = $this->session_get('action');
         $redirect_url = $this->session_get('redirect_to');
         $code = $this->request('code');
         switch($action){
@@ -122,12 +127,12 @@ class Mixi extends Nomail
                         $email = $profile->entry->id.'@'.$this->pseudo_domain;
                         // If exists, return false
                         if( username_exists($user_login) || email_exists($email) ){
-                            throw new \Exception(sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name));
+                            throw new \Exception($this->duplicate_account_string());
                         }
                         // Create user
                         $user_id = wp_create_user(sanitize_user($user_login), wp_generate_password(), $email);
                         if(is_wp_error($user_id)){
-                            throw new \Exception($this->_('Cannot register. Please try again later.'));
+                            throw new \Exception($this->registration_error_string());
                         }
                         update_user_meta($user_id, $this->umeta_id, $profile->entry->id);
                         update_user_meta($user_id, $this->umeta_profile_url, $profile->entry->profileUrl);
@@ -144,13 +149,13 @@ class Mixi extends Nomail
                         );
                         $this->hook_connect($user_id, $profile, true);
                         // Save message
-                        $this->add_message(sprintf($this->_('Welcome!, %s'), esc_html($profile->entry->displayName)));
+                        $this->welcome(esc_html($profile->entry->displayName));
                     }
                     // Make user logged in
                     wp_set_auth_cookie($user_id, true);
                     $redirect_url = $this->filter_redirect($redirect_url, 'login');
                 }catch (\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                     $redirect_url = wp_login_url($redirect_url, true);
                 }
                 // Redirect
@@ -175,15 +180,15 @@ class Mixi extends Nomail
                     }
                     $user_id = $this->get_meta_owner($this->umeta_id, $profile->entry->id);
                     if( $user_id && $user_id != get_current_user_id() ){
-                        throw new \Exception(sprintf($this->_('Mm...? This %s account seems to be connected to another account.'), $this->verbose_service_name));
+                        throw new \Exception($this->duplicate_account_string());
                     }
                     update_user_meta(get_current_user_id(), $this->umeta_id, $profile->entry->id);
                     update_user_meta(get_current_user_id(), $this->umeta_profile_url, $profile->entry->profileUrl);
                     update_user_meta(get_current_user_id(), $this->umeta_refresh_token, $response->refresh_token);
                     $this->hook_connect(get_current_user_id(), $profile, false);
-                    $this->add_message(sprintf($this->_('Welcome, %s!'), $profile->entry->displayName));
+                    $this->welcome(esc_html($profile->entry->displayName));
                 }catch (\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                 }
                 $redirect_url = $this->filter_redirect($redirect_url, 'connect');
                 // Redirect
@@ -213,7 +218,6 @@ class Mixi extends Nomail
                 break;
             default:
                 // No action is set, error.
-                $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
                 break;
         }
     }

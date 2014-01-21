@@ -12,6 +12,7 @@ use Gianism\Option;
  * @since 2.0
  * @property-read string $dir
  * @property-read string $url
+ * @property-read array $all_services
  */
 abstract class Base
 {
@@ -47,6 +48,13 @@ abstract class Base
      * @var string
      */
     public $message_post_type = 'gianism_message';
+
+    /**
+     * All services
+     *
+     * @var array
+     */
+    private $_all_services = array();
 
     /**
      * Alias of __
@@ -228,6 +236,16 @@ abstract class Base
                 break;
             case 'dir':
                 return plugin_dir_path(dirname(dirname(__FILE__)));
+                break;
+            case 'all_services':
+                if( empty($this->_all_services) ){
+                    foreach(scandir($this->dir.'app'.DIRECTORY_SEPARATOR.'service') as $file){
+                        if( false !== strpos($file, '.php') ){
+                            $this->_all_services[] = str_replace('.php', '', $file);
+                        }
+                    }
+                }
+                return $this->_all_services;
                 break;
             default:
                 return null;

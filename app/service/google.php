@@ -10,7 +10,7 @@ namespace Gianism\Service;
  * @property-read \Google_Client $api
  * @property-read \Google_Service_Plus $plus
  */
-class Google extends Common
+class Google extends Common\Mail
 {
 
     /**
@@ -73,14 +73,13 @@ class Google extends Common
      * Handle callback request
      *
      * @global \wpdb $wpdb
-     * @param \WP_Query $wp_query
+     * @param string $action
      * @return mixed
      */
-    protected function handle_default(\WP_Query $wp_query){
+    protected function handle_default( $action ){
         /** @var \wpdb $wpdb */
         global $wpdb;
         // Get common values
-        $action = $this->session_get('action');
         $redirect_url = $this->session_get('redirect_to');
         $code = $this->request('code');
         switch($action){
@@ -91,7 +90,7 @@ class Google extends Common
                     $profile = $this->get_profile();
                     // Check email validity
                     if( !isset($profile['email']) || !is_email($profile['email'])){
-                        throw new \Exception($this->_('Cannot retrieve email address.'));
+                        throw new \Exception($this->mail_fail_string());
                     }
                     $email = $profile['email'];
                     $plus_id = isset($profile['id']) ? $profile['id'] : 0;
@@ -101,20 +100,14 @@ class Google extends Common
                         require_once(ABSPATH . WPINC . '/registration.php');
                         // Check email
                         if( email_exists($email) ){
-                            throw new \Exception(sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name));
+                            throw new \Exception($this->duplicate_account_string());
                         }
                         // Create user name
-                        $user_name = array_shift(explode('@', $email));
-                        if( username_exists($user_name) ){
-                            $user_name .= '@'.$_SERVER['SERVER_NAME'];
-                            if( username_exists($user_name) ){
-                                throw new \Exception($this->_('Sorry, but cannot create valid user name.'));
-                            }
-                        }
+                        $user_name = $this->valid_username_from_mail($email);
                         // Create user
                         $user_id = wp_create_user($user_name, wp_generate_password(), $email);
                         if(is_wp_error($user_id)){
-                            throw new \Exception($this->_('Cannot register. Please try again later.'));
+                            throw new \Exception($this->registration_error_string());
                         }
                         // Update user meta
                         update_user_meta($user_id, $this->umeta_account, $email);
@@ -132,13 +125,13 @@ class Google extends Common
                         );
                         $this->user_password_unknown($user_id);
                         $this->hook_connect($user_id, $profile, true);
-                        $this->add_message(sprintf($this->_('Welcome, %s!'), $profile['name']));
+                        $this->welcome($profile['name']);
                     }
                     // Make user logged in
                     wp_set_auth_cookie($user_id, true);
                     $redirect_url = $this->filter_redirect($redirect_url, 'login');
                 }catch (\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                     $redirect_url = wp_login_url($redirect_url, true);
                 }
                 wp_redirect($redirect_url);
@@ -151,13 +144,13 @@ class Google extends Common
                     $profile = $this->get_profile();
                     // Check email validity
                     if( !isset($profile['email']) || !is_email($profile['email'])){
-                        throw new \Exception($this->_('Cannot retrieve email address.'));
+                        throw new \Exception($this->mail_fail_string());
                     }
                     // Check if other user has these as meta_value
                     $email = $profile['email'];
                     $email_owner = $this->get_meta_owner($this->umeta_account, $email);
                     if( $email_owner && $email_owner != get_current_user_id() ){
-                        throw new \Exception(sprintf($this->_('This %s account is already connected with others.'), $this->verbose_service_name));
+                        throw new \Exception($this->duplicate_account_string());
                     }
                     // Now let's save userdata
                     update_user_meta(get_current_user_id(), $this->umeta_account, $email);
@@ -167,9 +160,9 @@ class Google extends Common
                     // Fires hook
                     $this->hook_connect(get_current_user_id(), $profile);
                     // Save message
-                    $this->add_message(sprintf($this->_('Welcome!, %s'), $profile['name']));
+                    $this->welcome($profile['name']);
                 }catch(\Exception $e){
-                    $this->add_message( $this->_("Oops, Failed to Authenticate.").' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                 }
                 // Connection finished. Let's redirect.
                 if( !$redirect_url ){
@@ -182,7 +175,6 @@ class Google extends Common
                 break;
             default:
                 // No action is set, error.
-                $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
                 break;
         }
     }

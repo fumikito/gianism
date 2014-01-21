@@ -5,9 +5,10 @@ namespace Gianism\Service;
 /**
  * Description of twitter_controller
  *
- * @package gianism
+ * @package Gianism\Service
+ * @author Takahashi Fumiki
  */
-class Twitter extends Nomail
+class Twitter extends Common\Nomail
 {
 
     /**
@@ -100,13 +101,12 @@ class Twitter extends Nomail
     /**
      * Handle callback
      *
-     * @param \WP_Query $wp_query
+     * @param string $action
      */
-    protected function handle_default( \WP_Query $wp_query ){
+    protected function handle_default( $action ){
         /** @var \wpdb $wpdb */
         global $wpdb;
         // Get common values
-        $action = $this->session_get('action');
         $redirect_url = $this->session_get('redirect_to');
         /**
          * @var array $token 'oauth_token_secret', 'oauth_token', ''
@@ -125,7 +125,7 @@ class Twitter extends Nomail
                     $oauth = $this->get_oauth($token['oauth_token'], $token['oauth_token_secret']);
                     $access_token = $oauth->getAccessToken($verifier);
                     if( !isset($access_token['user_id'], $access_token['screen_name']) ){
-                        throw new \Exception($this->_('Sorry, but cannot retrieve twitter information.'));
+                        throw new \Exception($this->api_error_string());
                     }
                     $twitter_id = $access_token['user_id'];
                     $screen_name = $access_token['screen_name'];
@@ -143,7 +143,7 @@ class Twitter extends Nomail
                         // Create user
                         $user_id = wp_create_user($user_name, wp_generate_password(), $email);
                         if( is_wp_error($user_id) ){
-                            throw new \Exception($this->_('Sorry, but cannot create user. Try again later.'));
+                            throw new \Exception($this->registration_error_string());
                         }
                         // Update extra information
                         update_user_meta($user_id, $this->umeta_id, $twitter_id);
@@ -163,13 +163,13 @@ class Twitter extends Nomail
                         $this->hook_connect($user_id, $oauth, true);
                         // Let user follow me
                         $this->follow_me($oauth);
-
+                        $this->welcome('@'.$screen_name);
                     }
                     // Let user log in.
                     wp_set_auth_cookie($user_id, true);
                     $redirect_url = $this->filter_redirect($redirect_url, 'login');
                 }catch (\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                     $redirect_url = wp_login_url($redirect_url, true);
                 }
                 wp_redirect($redirect_url);
@@ -189,29 +189,28 @@ class Twitter extends Nomail
                     $oauth = $this->get_oauth($token['oauth_token'], $token['oauth_token_secret']);
                     $access_token = $oauth->getAccessToken($verifier);
                     if( !isset($access_token['user_id'], $access_token['screen_name']) ){
-                        throw new \Exception($this->_('Sorry, but cannot retrieve twitter information.'));
+                        throw new \Exception($this->api_error_string());
                     }
                     $twitter_id = $access_token['user_id'];
                     $screen_name = $access_token['screen_name'];
                     // Check if other user has registered
                     $id_owner = $this->get_meta_owner($this->umeta_id, $twitter_id);
                     if( $id_owner && ($id_owner != get_current_user_id()) ){
-                        throw new \Exception(sprintf($this->_('Mm...? This %s account seems to be connected to another account.'), $this->verbose_service_name));
+                        throw new \Exception($this->duplicate_account_string());
                     }
                     // O.K.
                     update_user_meta(get_current_user_id(), $this->umeta_id, $twitter_id);
                     update_user_meta(get_current_user_id(), $this->umeta_screen_name, $screen_name);
                     $this->follow_me($oauth);
-                    $this->hook_connect($user_id, $oauth, false);
-                    $this->add_message(sprintf($this->_('Welcome, %s!'), '@'.$screen_name));
+                    $this->hook_connect(get_current_user_id(), $oauth, false);
+                    $this->welcome('@'.$screen_name);
                 }catch(\Exception $e){
-                    $this->add_message($this->_('Oops, Failed to Authenticate.').' '.$e->getMessage(), true);
+                    $this->auth_fail($e->getMessage());
                 }
                 wp_redirect($redirect_url = $this->filter_redirect($redirect_url, 'connect'));
                 exit;
             default:
-                // No action is set, error.
-                $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
+                // Nothing to do
                 break;
         }
     }

@@ -90,13 +90,14 @@ function gianism_message($user_id, $body, $from = 0, $subject = '' ){
 
 /**
  * Returns Facebook ID
- * @global WP_Gianism $gianism
+ *
  * @param int $user_id
  * @return string
  */
 function get_facebook_id($user_id){
-	global $gianism;
-	return get_user_meta($user_id, $gianism->fb->umeta_id, true);
+    /** @var \Gianism\Service\Facebook $facebook */
+    $facebook = \Gianism\Service\Facebook::get_instance();
+	return get_user_meta($user_id, $facebook->umeta_id, true);
 }
 
 
@@ -104,68 +105,55 @@ function get_facebook_id($user_id){
 /**
  * Returns url to get Publish stream permission
  *
- * @global WP_Gianism $gianism
  * @param string $redirect_url URL where user will be redirect afeter authentication
  * @param string $action Action name which will be fired after authenticaction
  * @param array $args Array which will be passed to action hook
  * @return string
  */
 function get_facebook_publish_permission_link($redirect_url = null, $action = '', $args = array()){
-	global $gianism;
-	return $gianism->fb->get_publish_permission_link($redirect_url, $action, $args);
+    /** @var \Gianism\Service\Facebook $facebook */
+    $facebook = \Gianism\Service\Facebook::get_instance();
+    return $facebook->get_publish_permission_link($redirect_url, $action, $args);
 }
 
 
 
 /**
  * Returns if user is connected with particular web service.
- * @global WP_Gianism $gianism
+ *
  * @param string $service One of facebook, mixi, yahoo, twitter or google.
  * @param int $user_id If not specified, current user id will be used.
  * @return boolean 
  */
 function is_user_connected_with($service, $user_id = 0){
-	global $gianism;
+    /** @var \Gianism\Bootstrap $gianism */
+	$gianism = \Gianism\Bootstrap::get_instance();
 	if(!$user_id){
 		$user_id = get_current_user_id();
 	}
-	switch($service){
-		case 'facebook':
-			return $gianism->fb && (boolean) get_facebook_id($user_id);
-			break;
-		case 'mixi':
-			return $gianism->mixi && get_user_meta($user_id, $gianism->mixi->umeta_id, true);
-			break;
-		case 'yahoo':
-			return $gianism->yahoo && get_user_meta($user_id, $gianism->yahoo->umeta_id, true);
-			break;
-		case 'twitter':
-			return $gianism->twitter && get_user_meta($user_id, $gianism->twitter->umeta_id, true);
-			break;
-		case 'google':
-			return $gianism->google && get_user_meta($user_id, $gianism->google->umeta_account, true);
-			break;
-		default:
-			return false;
-			break;
-	}
+    return ($instance = $gianism->get_service_instance($service) ) && $instance->is_connected($user_id);
 }
 
 
 
 /**
  * Get user object by credencial
- * @global wpdb $wpdb
- * @global WP_Gianism $gianism
+ *
+ * @global \wpdb $wpdb
  * @param string $service
  * @param mixed $credential
- * @return Object 
+ * @return \WP_User
  */
 function get_user_by_service($service, $credential){
-	global $wpdb, $gianism;
+    global $wpdb;
+	$gianism = \Gianism\Bootstrap::get_instance();
+    $instance = $gianism->get_instance($service);
+    if(!$instance){
+        return false;
+    }
 	switch($service){
 		case 'facebook':
-			$user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wpg_facebook_id' AND meta_value = %s", $credential));
+			$user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$instance->umeta_id}' AND meta_value = %s", $credential));
 			if($user_id){
 				return new WP_User($user_id);
 			}else{
@@ -189,8 +177,9 @@ function get_user_by_service($service, $credential){
  * @return boolean
  */
 function is_user_like_fangate(){
-	global $gianism;
-	return $gianism->fb->is_user_like_me_on_fangate();
+    /** @var \Gianism\Service\Facebook $fb */
+    $fb = \Gianism\Service\Facebook::get_instance();
+	return $fb->is_user_like_me_on_fangate();
 }
 
 
@@ -201,8 +190,9 @@ function is_user_like_fangate(){
  * @return boolean
  */
 function is_guest_on_fangate(){
-	global $gianism;
-	return $gianism->fb->is_guest_on_fangate();
+    /** @var \Gianism\Service\Facebook $fb */
+    $fb = \Gianism\Service\Facebook::get_instance();
+	return $fb->is_guest_on_fangate();
 }
 
 
@@ -212,17 +202,20 @@ function is_guest_on_fangate(){
  * 
  * You can this function only on Facebook fan page tab.
  * 
- * @global WP_Gianism $gianism
+ * @global \wpdb $wpdb
+ * @param string $service
  * @return boolean
  */
 function is_user_registered_with($service){
-	global $gianism, $wpdb;
-	switch($service){
+    global $wpdb;
+    $gianism = \Gianism\Bootstrap::get_instance();
+    $instance = $gianism->get_instance($service);
+    switch($service){
 		case 'facebook':
 			$user_id = get_user_id_on_fangate();
 			$sql = <<<EOS
 				SELECT user_id FROM {$wpdb->usermeta}
-				WHERE meta_key = 'wpg_facebook_id' AND meta_value = %s
+				WHERE meta_key = '{$instance->umeta_id}' AND meta_value = %s
 EOS;
 			return $wpdb->get_var($wpdb->prepare($sql, $signed['user_id']));
 			break;
@@ -237,12 +230,12 @@ EOS;
 /**
  * Returns facebook id on fan gate.
  *
- * @global WP_Gianism $gianism
  * @return stiring|boolean
  */
 function get_user_id_on_fangate(){
-	global $gianism;
-	return $gianism->fb->is_registered_user_on_fangate();
+    /** @var \Gianism\Service\Facebook $fb */
+    $fb = \Gianism\Service\Facebook::get_instance();
+    return $fb->is_registered_user_on_fangate();
 }
 
 
@@ -276,6 +269,7 @@ function update_twitter_status($string){
 
 /**
  * Reply to specified user by Owner Account
+ * 
  * @param int $user_id
  * @param string $string
  * @return boolean 

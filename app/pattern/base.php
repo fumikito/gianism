@@ -275,7 +275,7 @@ EOS;
      * Get service instance
      *
      * @param string $service
-     * @return null|\Gianism\Service\Common
+     * @return null|\Gianism\Service\Common\Mail
      */
     public function get_service_instance($service){
         $service = strtolower($service);

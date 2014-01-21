@@ -96,6 +96,8 @@ class Google extends Common\Mail
                     $plus_id = isset($profile['id']) ? $profile['id'] : 0;
                     $user_id = $this->get_meta_owner($this->umeta_account, $email);
                     if( !$user_id ){
+                        // Test
+                        $this->test_user_can_register();
                         //Not found, Create New User
                         require_once(ABSPATH . WPINC . '/registration.php');
                         // Check email

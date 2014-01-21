@@ -709,6 +709,19 @@ EOS;
     }
 
     /**
+     * Test if can register.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    protected function test_user_can_register(){
+        if( !$this->user_can_register() ){
+            throw new \Exception($this->_('No matched user.'));
+        }
+        return true;
+    }
+
+    /**
      * Getter
      *
      * @param string $name

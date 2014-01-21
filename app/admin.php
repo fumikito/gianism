@@ -133,6 +133,9 @@ class Admin extends Pattern\Singleton
         if( current_user_can('manage_options') && $option->has_invalid_option('google_redirect')){
             $message[] = sprintf($this->_('Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.'), $this->setting_url());
         }
+        if( !$this->is_enabled() ){
+            $message[] = sprintf($this->_('No service is enabled. Please go to <a href="%s">Gianism Setiting</a> and follow instructions there.'), $this->setting_url());
+        }
         if( !empty($message) ){
             array_unshift($message, '<strong>[Gianism]</strong>');
             printf('<div class="error"><p>%s</p></div>', implode('<br />', $message));

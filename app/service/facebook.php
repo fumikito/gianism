@@ -172,6 +172,8 @@ class Facebook extends Common\Mail
                     }
                     // If user doesn't exists, try to register.
                     if( !($user_id = $this->get_meta_owner($this->umeta_id, $facebook_id)) ){
+                        // Test
+                        $this->test_user_can_register();
                         try{
                             $profile = $this->api->api('/me');
                         }catch(\FacebookApiException $e){

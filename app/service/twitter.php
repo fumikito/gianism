@@ -131,6 +131,8 @@ class Twitter extends Common\Nomail
                     $screen_name = $access_token['screen_name'];
                     $user_id = $this->get_meta_owner($this->umeta_id, $twitter_id);
                     if( !$user_id ){
+                        // Test
+                        $this->test_user_can_register();
                         // User not found, let's create user.
                         require_once(ABSPATH . WPINC . '/registration.php');
                         // Make pseudo mail

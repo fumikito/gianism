@@ -138,6 +138,8 @@ class Yahoo extends Common\Mail
                     }
                     $user_id = $this->get_meta_owner($this->umeta_id, $id_token->user_id);
                     if( !$user_id ){
+                        // Test
+                        $this->test_user_can_register();
                         //User doesn't exit, let's create new one.
                         $this->client->requestUserInfo($this->client->getAccessToken());
                         $user_info = $this->client->getUserInfo();

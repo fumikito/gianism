@@ -342,4 +342,13 @@ EOS;
             unset($_SESSION[$this->name][$key]);
         }
     }
+
+    /**
+     * Detect if user can register
+     *
+     * @return bool
+     */
+    public function user_can_register(){
+        return (bool)get_option('users_can_register');
+    }
 }

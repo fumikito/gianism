@@ -121,6 +121,8 @@ class Mixi extends Common\Nomail
                         // User exists, so update refresh token
                         update_user_meta($user_id, $this->umeta_refresh_token, $response->refresh_token);
                     }else{
+                        // Test
+                        $this->test_user_can_register();
                         // User not found, thus try to create new User
                         require_once(ABSPATH . WPINC . '/registration.php');
                         $user_login = 'mixi-'.$profile->entry->id;

@@ -10,6 +10,25 @@ $mixi = \Gianism\Service\Mixi::get_instance();
 
 <form method="post">
 <?php $this->nonce_field('option'); ?>
+
+<h3><i class="lsf lsf-gear"></i> <?php $this->e('General') ?></h3>
+<table class="form-table">
+    <tr>
+        <th><?php $this->e('Current registration setting') ?></th>
+        <td>
+            <p>
+                <?php if( $this->user_can_register() ): ?>
+                    <i class="lsf lsf-check" style="color: green; font-size: 1.4em;"></i> <strong><?php $this->e('Enabled') ?></strong>
+                <?php else: ?>
+                    <i class="lsf lsf-ban" style="color: lightgrey; font-size: 1.4em;"></i> <strong><?php $this->e('Disabled') ?></strong>
+                <?php endif; ?>
+            </p>
+            <p class="description"><?php printf($this->_('This setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created from SNS information, or else only connected user can login via SNS account.'), admin_url('options-general.php')) ?></p>
+        </td>
+    </tr>
+</table>
+
+
 <h3><i class="lsf lsf-facebook"></i> Facebook</h3>
 <table class="form-table">
     <tbody>
@@ -101,6 +120,18 @@ $mixi = \Gianism\Service\Mixi::get_instance();
         <tr>
             <th><label for="tw_access_token_secret"><?php $this->e('Access token secret'); ?></label></th>
             <td><input class="regular-text" type="text" name="tw_access_token_secret" id="tw_access_token_secret" value="<?php echo esc_attr($option->tw_access_token_secret) ?>" /></td>
+        </tr>
+        <tr>
+            <th><label for="ggl_redirect_uri"><?php $this->e('Redirect URI'); ?></label></th>
+            <td>
+                <p class="description">
+                    <?php
+                    $end_point = home_url('/twitter/', ($this->is_ssl_required() ? 'https' : 'http'));
+                    printf($this->_('Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.'), $this->_('Callback URL'), '<code>'.$end_point.'</code>', "Twitter Developers", 'https://dev.twitter.com/apps');
+                    ?>
+                    <a class="button" href="<?php echo esc_attr($end_point) ?>" onclick="window.prompt('<?php $this->e('Please copy this URL.') ?>', this.href); return false;"><?php $this->e('Copy') ?></a>
+                </p>
+            </td>
         </tr>
     </tbody>
 </table>

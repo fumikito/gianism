@@ -186,6 +186,51 @@ $mixi = \Gianism\Service\Mixi::get_instance();
 </table>
 <?php submit_button(); ?>
 
+<h3><i class="lsf lsf-amazon"></i> Amazon</h3>
+<table class="form-table">
+    <tbody>
+    <tr>
+        <th><label><?php printf($this->_('Connect with %s'), 'Amazon');?></label></th>
+        <td>
+            <label>
+                <input type="radio" name="amazon_enabled" value="1"<?php checked($option->amazon_enabled) ?> />
+                <?php $this->e('Enable');?>
+            </label>
+            <label>
+                <input type="radio" name="amazon_enabled" value="0"<?php checked(!$option->amazon_enabled) ?> />
+                <?php $this->e('Disable');?>
+            </label>
+            <p class="description">
+                <?php printf($this->_('You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.'), "Login with Amazon", "https://sellercentral.amazon.com/gp/homepage.html"); ?>
+                <?php printf($this->_('See detail at <a href="%1$s">%2$s</a>.'), $this->setting_url('setup'), $this->_('How to set up')); ?>
+            </p>
+        </td>
+    </tr>
+
+    <tr>
+        <th><label for="amazon_client_id"><?php $this->e('Client ID'); ?></label></th>
+        <td><input class="regular-text" type="text" name="amazon_client_id" id="amazon_client_id" value="<?php echo esc_attr($option->amazon_client_id) ?>" /></td>
+    </tr>
+    <tr>
+        <th><label for="amazon_client_secret"><?php $this->e('Client Secret'); ?></label></th>
+        <td><input class="regular-text" type="text" name="amazon_client_secret" id="amazon_client_secret" value="<?php echo esc_attr($option->amazon_client_secret) ?>" /></td>
+    </tr>
+    <tr>
+        <th><label for="amazon_redirect_uri"><?php $this->e('Redirect URI'); ?></label></th>
+        <td>
+            <p class="description">
+                <?php
+                $end_point = home_url('/amazon-auth/', ($this->is_ssl_required() ? 'https' : 'http'));
+                printf($this->_('Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.'), $this->_('Redirect URI'), '<code>'.$end_point.'</code>', "Login with Amazon", 'https://sellercentral.amazon.com/gp/homepage.html');
+                ?>
+                <a class="button" href="<?php echo esc_attr($end_point) ?>" onclick="window.prompt('<?php $this->e('Please copy this URL.') ?>', this.href); return false;"><?php $this->e('Copy') ?></a>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<?php submit_button(); ?>
+
 
 <h3><i class="lsf lsf-yahoo"></i> Yahoo! JAPAN</h3>
 <table class="form-table">

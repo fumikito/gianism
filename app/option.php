@@ -32,6 +32,9 @@ namespace Gianism;
  * @property-read string $mixi_consumer_secret
  * @property-read string $mixi_access_token
  * @property-read string $mixi_refresh_token
+ * @property-read bool $amazon_enabled
+ * @property-read string $amazon_client_id
+ * @property-read string $amazon_client_secret
  * @property-read bool $show_button_on_login
  * @property-read int $button_type
  */
@@ -84,6 +87,9 @@ class Option extends Pattern\Singleton
         "mixi_consumer_secret" => "",
         "mixi_access_token" => "",
         "mixi_refresh_token" => "",
+        'amazon_enabled' => 0,
+        'amazon_client_id' => '',
+        'amazon_client_secret' => '',
         'show_button_on_login' => true,
         'button_type' => 0,
     );
@@ -130,6 +136,9 @@ class Option extends Pattern\Singleton
             "mixi_enabled" => ($this->post('mixi_enabled') == 1) ? 1 : 0,
             "mixi_consumer_key" => (string)$this->post('mixi_consumer_key'),
             "mixi_consumer_secret" => (string)$this->post('mixi_consumer_secret'),
+            "amazon_enabled" => ($this->post('amazon_enabled') == 1) ? 1 : 0,
+            "amazon_client_id" => (string)$this->post('amazon_client_id'),
+            "amazon_client_secret" => (string)$this->post('amazon_client_secret'),
             'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
             'button_type' => (int)$this->post('button_type'),
         ), $this->values);

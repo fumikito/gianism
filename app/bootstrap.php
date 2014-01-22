@@ -159,8 +159,12 @@ class Bootstrap extends Pattern\Singleton
             && ($action = $wp_query->get('gianism_action'))
         ){
             $service = array_search($service, $this->prefixes);
-            $instance = $this->get_service_instance($service);
-            $instance->parse_request($action, $wp_query);
+            if( false !== $service ){
+                $instance = $this->get_service_instance($service);
+                $instance->parse_request($action, $wp_query);
+            }else{
+                $wp_query->set_404();
+            }
         }
     }
 

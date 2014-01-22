@@ -150,6 +150,7 @@ class Twitter extends Common\Nomail
                         // Update extra information
                         update_user_meta($user_id, $this->umeta_id, $twitter_id);
                         update_user_meta($user_id, $this->umeta_screen_name, $screen_name);
+                        update_user_meta($user_id, 'nickname', '@'.$screen_name);
                         $wpdb->update(
                             $wpdb->users,
                             array(

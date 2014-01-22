@@ -571,7 +571,7 @@ EOS;
             'gianism-ga-category' => "gianism/{$this->service_name}",
             'gianism-ga-action' => 'disconnect',
             'gianism-ga-label' => sprintf($this->_('Disconnect %s'), $this->verbose_service_name),
-            'gianism-confirm' => sprintf($this->_('You really disconnect from %s? If so, please be sure about your credential(email, passowrd), or else you might not be able to login again.'))
+            'gianism-confirm' => sprintf($this->_('You really disconnect from %s? If so, please be sure about your credential(email, passowrd), or else you might not be able to login again.'), $this->verbose_service_name)
         );
         return $this->button($this->_('Disconnect'), $url, 'logout', array('wpg-button', 'disconnect'), $args);
     }
@@ -643,8 +643,7 @@ EOS;
         if( !username_exists($original_domain) ){
             return $original_domain;
         }
-        $this->_('Sorry, but cannot create valid user name.');
-        return false;
+        throw new \Exception($this->_('Sorry, but cannot create valid user name.'));
     }
 
     /**
@@ -719,6 +718,70 @@ EOS;
             throw new \Exception($this->_('No matched user.'));
         }
         return true;
+    }
+
+    /**
+     * Detect if user can register or not
+     *
+     * @return bool
+     */
+    public function user_can_register(){
+        /**
+         * wpg_user_can_register
+         *
+         * @param bool $can_register
+         * @param string $service
+         * @return bool
+         */
+        return (bool)apply_filters('wpg_user_can_register', parent::user_can_register(), $this->service_name);
+    }
+
+    /**
+     * Get Request
+     *
+     * @param string $endpoint
+     * @param array $request
+     * @param string $method
+     * @param bool $json if this request is JSON
+     * @return array
+     */
+    protected function get_response($endpoint, array $request = array(), $method = 'POST', $json = false){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        if($json){
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        }
+        switch($method){
+            case "POST":
+                curl_setopt($ch, CURLOPT_POST, true);
+                if( is_array($request) ){
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request));
+                }else{
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
+                }
+                break;
+            case "GET":
+                $args = array();
+                foreach($request as $key => $val){
+                    $args[] = $key ."=".rawurlencode($val);
+                }
+                if(!empty($args)){
+                    $endpoint .= '?'.implode('&', $args);
+                }
+                break;
+            default:
+                return array();
+                break;
+        }
+        curl_setopt($ch, CURLOPT_URL, $endpoint);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+
     }
 
     /**

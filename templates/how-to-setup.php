@@ -85,15 +85,53 @@ defined('ABSPATH') or die();
 
 <p><?php $this->e('Now you have new application. Go to your new app\'s detail page. On <code>Settings</code> tab, various information can be editted. Besides the required informations, you had better to upload Application icon which will be displayed on authentication screen.'); ?></p>
 
-<p><?php $this->e('Futhermore, take care of application access type. Default is <code>readonly</code> and it\'s sufficient. Users tend to avoid strong access like <code>Read and Write</code>.'); ?></p>
+
+<table class="gianism-example-table">
+    <tr>
+        <th>Name</th>
+        <td>
+            <?php $this->e('App name. Blog name is recommended. User will see this name on authentication screen.'); ?><br />
+            <?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), get_bloginfo('name')); ?>
+        </td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>
+            <?php $this->e('Description about your site. It is recommended explaining your user why you request authentication.'); ?><br />
+        </td>
+    </tr>
+    <tr>
+        <th>Website</th>
+        <td>
+            <?php $this->e('Website\'s URL. Use this blog\'s URL'); ?><br />
+            <?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), home_url('/', 'http')); ?>
+        </td>
+    </tr>
+    <tr>
+        <th>Callback URL</th>
+        <td>
+            <?php $this->e('The URL where user will be redirect after authentication. If you use other application which use twitter OAuth, leave this blank.'); ?><br />
+            <?php printf($this->_('<strong>e.g.</strong> <code>%s</code>'), home_url('/twitter/', $this->is_ssl_required() ? 'https' : 'http')); ?>
+        </td>
+    </tr>
+</table>
+
+<p><?php $this->e('Take care of application access type. Default is <code>readonly</code> and it\'s sufficient. Users tend to avoid strong access like <code>Read and Write</code>.'); ?></p>
 
 <p><?php $this->e('Now you have finished setting application up.'); ?></p>
 
 <h4>Step2. <?php $this->e('Enter app information'); ?></h4>
 
-<p><?php $this->e('Gianism requires 5 informations. '); ?></p>
+<p><?php $this->e('Gianism requires 5 informations. Go to <a href="https://dev.twitter.com/apps">your application\'s detail page</a> and click <code>OAuth tools</code> tab. There, you can get 4 informations below: '); ?></p>
 
-<p><?php $this->e('You can get them at <a href="https://dev.twitter.com/apps">your application\'s detail page</a>.'); ?></p>
+<ol>
+    <li>Consumer key</li>
+    <li>Consumer secret</li>
+    <li>Access token</li>
+    <li>Access token secret</li>
+</ol>
+
+<p><?php printf($this->_('Besides above, your twitter screen name will be required. Now please enter these credentials on <a href="%s">Setting page</a>.'), $this->setting_url()); ?></p>
 
 
 
@@ -106,15 +144,80 @@ defined('ABSPATH') or die();
 
 <h4>Step1. <?php $this->e('Create new Project'); ?></h4>
 
-<p><?php $this->e('Go to <a href="https://code.google.com/apis/console">Google API Console</a> and select <code>Create...</code> from pulldown.'); ?></p>
+<p><?php $this->e('Go to <a href="https://cloud.google.com/console/project">Google API Console &gt; Projects</a> and click <code>Create Project</code>. SMS verification will be required. After finishing, click your new project\'s name and go setting page.'); ?></p>
 
-<p><?php $this->e('On project page, go to <code>API Access</code> menu in sidebar. You can get <code>Client ID</code> and <code>Client secret</code>.'); ?></p>
+<p><?php $this->e('Now, On project page, clicking <code>API &amp; OAuth</code> menu in sidebar, then you are on <code>APIs</code> page which will enable various APIs one by one. Turn Google+ API <code>ON</code>.'); ?></p>
 
-<p><?php printf($this->_('Besiteds credential informations, you have to save <coce>Redirect URIs</code>. Click <code>Edit settings...</code> and enter redirect URI <code>%s</code>. If you force SSL on login, make it to start with <code>https</code>.'), home_url('/google-auth/', $this->is_ssl_required() ? 'https' : 'http')); ?></p>
+<p class="notice">
+    <?php $this->e('Google API Console is too simple but values to be set are not simple, so you will be easily loose yourself. Be care of where you are.') ?>
+</p>
+
+<p><?php $this->_('Then, go to <code>Credentials</code> below <code>API &amp; auth</code> and click <code>CREATE NEW  CLIENT ID</code>.  Enter below:') ?></p>
+
+<table class="gianism-example-table">
+    <tr>
+        <th>Appicaltion type</th>
+        <td>
+            <?php printf($this->_('Select <code>%s</code>.'), 'Web application'); ?><br />
+        </td>
+    </tr>
+    <tr>
+        <th>Authorized Javascript origin</th>
+        <td>
+            <code><?php echo home_url('/', 'http') ?></code><br />
+            <code><?php echo home_url('/', 'https') ?></code>
+        </td>
+    </tr>
+    <tr>
+        <th>Authorized redirect URI</th>
+        <td>
+            <code><?php echo home_url('/google-auth/', $this->is_ssl_required() ? 'https' : 'http') ?></code>
+        </td>
+    </tr>
+</table>
+
+<p><?php $this->e('There you get <code>Client ID for web application</code> section, which provides <code>Client ID</code> and <code>Client secret</code>.') ?></p>
+
+<p><?php printf($this->_('Finally, you must set up your application. Go to <code>Consent screen</code> below <code>APIs &amp; oauth</code>, and change Product name to your own. <code>%s</code> is recommended.'), get_bloginfo('name')) ?></p>
 
 <h4>Step2. <?php $this->e('Enter API Information'); ?></h4>
 
 <p><?php printf($this->_('Input and save 2 informations(Client ID and Client Secret) on <a href="%s">WordPress admin screen</a>.'), $this->setting_url()); ?></p>
+
+
+
+
+<h3><i class="lsf lsf-amazon"></i> Amazon</h3>
+
+<p class="description"><?php $this->e('Amazon account is required. If you don\'t have one, create it at <a href="https://sellercentral.amazon.com/gp/homepage.html">Log in with Amazon</a>.'); ?></p>
+
+<h4>Step1. <?php $this->e('Create applicaiton'); ?></h4>
+
+<p><?php $this->e('On Log in with Amazon, click <code>register new application</code> button right side. Then, insert information below:'); ?></p>
+
+<table class="gianism-example-table">
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td><?php printf($this->_('<code>%s</code> is recommended.'), get_bloginfo('name')); ?></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td><?php $this->e('About your site.'); ?></td>
+    </tr>
+    <tr>
+        <th>Privacy Notice URL</th>
+        <td><?php $this->e('Your privacy poilicy URL.'); ?></td>
+    </tr>
+    </tbody>
+</table>
+
+<p><?php $this->e('After creation, you can see your application detail\'s setting tab. There, you can get <code>Client ID</code> and <code>Client Secret</code>.') ?></p>
+
+<h4>Step2. <?php $this->e('Input credentials'); ?></h4>
+
+<p><?php printf($this->_('Now come back to <a href="%s">WP admin panel</a>, enter <code>Client ID</code> and <code>Client Secret</code>. That\'s all done.'), $this->setting_url()); ?></p>
+
 
 
 
@@ -158,7 +261,7 @@ defined('ABSPATH') or die();
 
 <p><?php printf($this->_('Besides them, you must enter callback URL. This must be <code>%s</code>'), home_url('/yconnect/', ($this->is_ssl_required() ? 'https' : 'http'))); ?></p>
 
-<p><?php $this->e('Now come back to WP admin panel, enter application ID and secret key. That\'s all done.'); ?></p>
+<p><?php printf($this->_('Now come back to <a href="%s">WP admin panel</a>, enter application ID and secret key. That\'s all done.'), $this->setting_url()); ?></p>
 
 
 
@@ -181,4 +284,4 @@ defined('ABSPATH') or die();
 
 <h4>Step2. <?php $this->e('Input credentials'); ?></h4>
 
-<p><?php $this->e('Get <code>Consumer Key</code> and <code>Consumer Secret</code> at service detail page, and save it.'); ?></p>
+<p><?php printf($this->_('Get <code>Consumer Key</code> and <code>Consumer Secret</code> at service detail page, and save it on <a href="%s">WP admin screen</a>.'), $this->setting_url()); ?></p>

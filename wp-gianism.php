@@ -34,18 +34,20 @@ defined( 'ABSPATH' ) OR exit;
 /**
  * Plugin version
  *
- * @const string GIANISM_DOMAIN
+ * @const string
  */
 define('GIANISM_VERSION', '2.0.0');
 
 /**
  * Domain for i18n
  *
- * @const string GIANISM_DOMAIN
+ * @const string
  */
 define('GIANISM_DOMAIN', 'wp-gianism');
 
 /**
+ * Documented date
+ *
  * @const string
  */
 define('GIANISM_DOC_UPDATED', '2014-02-01');
@@ -56,15 +58,13 @@ add_action( 'plugins_loaded', '_gianism_setup_after_plugins_loaded');
 
 
 /**
- * Instanciate plugin
+ * Start plugin
  * 
- * @global \WP_Gianism $gianism
+ * @ignore
  */
 function _gianism_setup_after_plugins_loaded(){
-
     //Add i18n
     load_plugin_textdomain(GIANISM_DOMAIN, false, 'gianism/language');
-
     // Check PHP version is 5.3.0 or later
     if ( version_compare(phpversion(), "5.3.0", ">=") ) {
         // Load global functions
@@ -82,6 +82,8 @@ function _gianism_setup_after_plugins_loaded(){
 
 /**
  * Show error message on admin screen
+ *
+ * @ignore
  */
 function _gianism_php_error(){
     printf(
@@ -93,6 +95,7 @@ function _gianism_php_error(){
 /**
  * For PoEdit
  *
+ * @ignore
  * @return string
  */
 function gianism_description(){

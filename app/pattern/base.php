@@ -171,7 +171,7 @@ abstract class Base
     }
 
     /**
-     * Determin if sevice is enabled.
+     * Determine if service is enabled.
      *
      * @param string $service If not specified, one of the services are enabled, return true.
      * @return bool
@@ -179,28 +179,29 @@ abstract class Base
     public function is_enabled($service = ''){
         /** @var \Gianism\Option $option */
         $option = Option::get_instance();
-        switch( strtolower($service) ){
-            case 'facebook':
-                return $option->fb_enabled;
-                break;
-            case 'twitter':
-                return $option->tw_enabled;
-                break;
-            case 'google':
-                return $option->ggl_enabled;
-                break;
-            case 'yahoo':
-                return $option->yahoo_enabled;
-                break;
-            case 'mixi':
-                return $option->mixi_enabled;
-                break;
-            case '':
-                return ( $option->fb_enabled || $option->tw_enabled || $option->ggl_enabled || $option->yahoo_enabled || $option->mixi_enabled );
-                break;
-            default:
-                return false;
-                break;
+        if( !empty($service) ){
+            // Service is specified, use it
+            switch($service){ // Backward compatibility
+                case 'facebook':
+                    $service = 'fb';
+                    break;
+                case 'twitter':
+                    $service = 'tw';
+                    break;
+                case 'google':
+                    $service = 'ggl';
+                    break;
+            }
+            $key = $service.'_enabled';
+            return isset($option->values[$key]) && (bool)$option->values[$key];
+        }else{
+            foreach($option->values as $key => $value){
+                if( false !== strpos($key, '_enabled') && $value ){
+                    return true;
+                    break;
+                }
+            }
+            return false;
         }
     }
 

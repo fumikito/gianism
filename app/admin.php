@@ -126,6 +126,9 @@ class Admin extends Pattern\Singleton
         }
     }
 
+    /**
+     * Show message is options are invalid.
+     */
     public function invalid_option_notices(){
         $message = [];
         /** @var \Gianism\Option $option */
@@ -157,10 +160,18 @@ class Admin extends Pattern\Singleton
     }
 
 
-
+    /**
+     * Plugin row meta
+     *
+     * @param array $plugin_meta
+     * @param string $plugin_file
+     * @param array $plugin_data
+     * @param string $status
+     * @return mixed
+     */
     public function plugin_row_meta($plugin_meta, $plugin_file, $plugin_data, $status){
         if(false !== strpos($plugin_file, 'wp-gianism')){
-
+            $plugin_meta[] = sprintf('<a href="http://github.takahashifumiki.com/Gianism/">Github</a>');
         }
         return $plugin_meta;
     }

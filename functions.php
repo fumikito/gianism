@@ -5,6 +5,7 @@
  *
  * Load base class and vendor libraries.
  *
+ * @ignore
  * @param string $class_name
  */
 function _gianism_autoloader($class_name){
@@ -105,6 +106,35 @@ function get_facebook_id($user_id){
 /**
  * Returns url to get Publish stream permission
  *
+ * This function itself has no effect without action hook.
+ * See example below:
+ *
+ * <code>
+ * // In some template, display button.
+ * get_facebook_publish_permission_link(get_permalink(), 'my_favorite_action', array('post_id' => get_the_ID()));
+ *
+ * // Then, hook action in functions.php in your theme.
+ * add_action('my_favorite_action', 'my_publish_action');
+ *
+ * function my_publish_action($facebook, $args){
+ *      $post = get_post($args['post_id']);
+ *      try{
+ *          $facebook->api("/me/feed", "POST", array(
+ *          "message" => "I read this article!",
+ *          "link" => get_permalink($post->ID),
+ *          "name" => get_the_title($post->ID),
+ *          "description" => strip_tags($post->post_content),
+ *          "action" => json_encode(array(
+ *              "name" => get_bloginfo('name'),
+ *              "link" => home_url('/')))
+ *          ));
+ *      }catch(FacebookApiException $e){
+ *          // Error
+ *          wp_die($e->getMessage());
+ *       }
+ * }
+ * </code>
+ *
  * @param string $redirect_url URL where user will be redirect afeter authentication
  * @param string $action Action name which will be fired after authenticaction
  * @param array $args Array which will be passed to action hook
@@ -139,6 +169,9 @@ function is_user_connected_with($service, $user_id = 0){
 /**
  * Get user object by credencial
  *
+ * Only facebook is supported.
+ *
+ * @todo Make other services to work.
  * @global \wpdb $wpdb
  * @param string $service
  * @param mixed $credential
@@ -171,7 +204,7 @@ function get_user_by_service($service, $credential){
 /**
  * Returns if current user liked or not.
  * 
- * You can this function only on Facebook fan page tab.
+ * You can use this function only on Facebook fan page tab.
  * 
  * @global WP_Gianism $gianism
  * @return boolean
@@ -186,7 +219,9 @@ function is_user_like_fangate(){
 
 /**
  * Returns if current user is guest.
- * @global WP_Gianism $gianism
+ *
+ * Valid only on facebook fan gate.
+ *
  * @return boolean
  */
 function is_guest_on_fangate(){
@@ -230,7 +265,7 @@ EOS;
 /**
  * Returns facebook id on fan gate.
  *
- * @return stiring|boolean
+ * @return string|boolean
  */
 function get_user_id_on_fangate(){
     /** @var \Gianism\Service\Facebook $fb */
@@ -289,6 +324,19 @@ function twitter_reply_to($user_id, $string){
 /**
  * Get twitter timeline in JSON format object
  *
+ * Caching is recommended.
+ *
+ * <pre>
+ * $timeline = get_transient('twitter_timeline');
+ * if( false === $cache){
+ *     $timeline = twitter_get_timeline('my_screen_name');
+ *     set_transient('twitter_timeline', $timeline, 3600);
+ * }
+ * foreach($timeline as $status){
+ *     // Echo status
+ * }
+ * </pre>
+ *
  * @param string $screen_name If not specified, admin user's screen name will be used.
  * @param array $additional_data
  * @return object JSON format object.
@@ -310,7 +358,7 @@ function twitter_get_timeline($screen_name = null, array $additional_data = arra
 /**
  * Show Login buttons
  *
- * Show login buttons.
+ * Show login buttons where you want.
  *
  * @param string $before
  * @param string $after

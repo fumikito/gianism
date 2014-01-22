@@ -292,50 +292,7 @@ class Mixi extends Common\Nomail
 		);
 		return $this->get_response($endpoint, $request, 'GET');
 	}
-	
-	/**
-	 * Get Request
-     *
-	 * @param string $endpoint
-	 * @param array $request
-	 * @param string $method
-     * @param bool $json if this request is JSON
-	 * @return array 
-	 */
-	private function get_response($endpoint, array $request = array(), $method = 'POST', $json = false){
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		if($json){
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		}
-		switch($method){
-			case "POST":
-				curl_setopt($ch, CURLOPT_POST, true);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
-				break;
-			case "GET":
-				$args = array();
-				foreach($request as $key => $val){
-					$args[] = $key ."=".rawurlencode($val);
-				}
-				if(!empty($args)){
-					$endpoint .= '?'.implode('&', $args);
-				}
-				break;
-			default:
-				return array();
-				break;
-		}
-		curl_setopt($ch, CURLOPT_URL, $endpoint);
-		$response = curl_exec($ch);
-		curl_close($ch);
-		return json_decode($response);
-		
-	}
-	
+
 	/**
 	 * Get Endpoint URL
 	 * @return string

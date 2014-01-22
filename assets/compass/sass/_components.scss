@@ -2,6 +2,29 @@
 @import 'gianism_variables';
 @import "lsf_variables";
 
+// Icons
+
+// Icons
+i{
+  &.lsf-facebook{
+    color: $facebook-blue;
+  }
+  &.lsf-google{
+    color: $google-red;
+  }
+  &.lsf-yahoo{
+    color: $yahoo-red;
+  }
+  &.lsf-twitter{
+    color: $twitter-blue;
+  }
+  &.lsf-mixi{
+    color: $mixi-orange;
+  }
+  &.lsf-amazon{
+    color: $amazon-black;
+  }
+}
 
 // Components
 

@@ -1,0 +1,10 @@
+/* line 5, ../sass/chat.scss */
+#wpadminbar #wp-admin-bar-gianism-chat > .ab-item .ab-icon:before {
+  content: "\f125";
+  top: 2px;
+}
+
+/* line 12, ../sass/chat.scss */
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
+  content: "\f125";
+}

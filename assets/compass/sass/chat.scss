@@ -1,0 +1,16 @@
+
+// Admin bar
+#wpadminbar{
+  #wp-admin-bar-gianism-chat{
+    & > .ab-item .ab-icon:before{
+      content: "\f125";
+      top: 2px;
+    }
+  }
+}
+
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before{
+  content: "\f125";
+}
+
+

@@ -1,0 +1,50 @@
+/* line 6, ../sass/chat_admin.scss */
+.dashicon, #wpg-chat-wrap h2 i, #wpg-chat-wrap #contact-opener i {
+  font-style: normal;
+  font-family: 'dashicons';
+}
+
+/* line 12, ../sass/chat_admin.scss */
+#wpg-chat-wrap {
+  position: relative;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 17, ../sass/chat_admin.scss */
+#wpg-chat-wrap h2 i:before {
+  content: '\f125';
+}
+/* line 22, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main {
+  padding-right: 320px;
+  float: left;
+}
+/* line 27, ../sass/chat_admin.scss */
+#wpg-chat-wrap #contact-list {
+  width: 300px;
+  float: left;
+  margin-left: -300px;
+  border: 1px solid #ddd;
+  color: #f9f9f9;
+}
+/* line 35, ../sass/chat_admin.scss */
+#wpg-chat-wrap #contact-opener {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #ddd;
+  font-size: 36px;
+  text-decoration: none;
+}
+/* line 42, ../sass/chat_admin.scss */
+#wpg-chat-wrap #contact-opener:hover {
+  color: #000;
+}
+/* line 47, ../sass/chat_admin.scss */
+#wpg-chat-wrap #contact-opener i:before {
+  content: "\f337";
+}
+/* line 52, ../sass/chat_admin.scss */
+#wpg-chat-wrap #contact-opener.toggle i:before {
+  content: "\f153";
+}

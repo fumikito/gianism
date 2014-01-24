@@ -54,7 +54,11 @@ class Bootstrap extends Pattern\Singleton
         $option = Option::get_instance();
 
         // Enable chat
-        Chat\Main::get_instance();
+        add_action('init', function(){
+            if( is_user_logged_in() ){
+                Chat\Main::get_instance();
+            }
+        });
 
         // Admin Message action
         add_action('admin_notices', array($this, 'flush_message'));

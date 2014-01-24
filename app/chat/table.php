@@ -10,7 +10,7 @@ namespace Gianism\Chat;
  * @author Takahashi Fumiki
  * @since 2.0.0
  */
-class Table extends Base
+class Table extends Util
 {
 
     /**
@@ -78,6 +78,7 @@ EOS;
                 user_id BIGINT NOT NULL,
                 message LONGTEXT NOT NULL,
                 created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                read DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
                 PRIMARY KEY  (chat_id),
                 INDEX chat (thread_id, created),
                 FOREIGN KEY  (thread_id) REFERENCES {$this->thread_table} (thread_id) ON DELETE CASCADE
@@ -86,13 +87,12 @@ EOS;
         // Contact list
         $queries[] = <<<EOS
             CREATE TABLE {$this->contact_table}(
-                contact_id BIGINT NOT NULL AUTO_INCREMENT,
                 thread_id BIGINT NOT NULL,
                 user_id BIGINT NOT NULL,
                 created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 approved DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
                 ejected DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-                PRIMARY KEY  (contact_id),
+                PRIMARY KEY  (thread_id, user_id),
                 INDEX contact (thread_id, created),
                 INDEX user_id (user_id, approved, ejected),
                 FOREIGN KEY  (thread_id) REFERENCES {$this->thread_table} (thread_id) ON DELETE CASCADE

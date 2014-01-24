@@ -1,33 +1,194 @@
-/* line 6, ../sass/chat_admin.scss */
+/* line 11, ../sass/chat_admin.scss */
 .dashicon, #wpg-chat-wrap h2 i, #wpg-chat-wrap #contact-opener i {
   font-style: normal;
   font-family: 'dashicons';
 }
 
-/* line 12, ../sass/chat_admin.scss */
+/* line 17, ../sass/chat_admin.scss */
 #wpg-chat-wrap {
   position: relative;
-  overflow: hidden;
-  *zoom: 1;
 }
-/* line 17, ../sass/chat_admin.scss */
+/* line 21, ../sass/chat_admin.scss */
 #wpg-chat-wrap h2 i:before {
   content: '\f125';
 }
-/* line 22, ../sass/chat_admin.scss */
+/* line 26, ../sass/chat_admin.scss */
 #wpg-chat-wrap #main {
-  padding-right: 320px;
-  float: left;
+  padding-right: 350px;
 }
-/* line 27, ../sass/chat_admin.scss */
+/* line 28, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message {
+  padding: 10px 10px 10px 116px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  position: relative;
+}
+/* line 33, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message:hover {
+  background: #f2fcd8;
+}
+/* line 36, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message a {
+  display: block;
+  color: #444;
+  text-decoration: none;
+}
+/* line 41, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message .time {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #86a2af;
+}
+/* line 47, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message .avatars {
+  width: 96px;
+  height: 96px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+/* line 54, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message .message {
+  min-height: 96px;
+  padding: 0;
+  margin: 0;
+}
+/* line 58, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message .message strong {
+  display: block;
+  margin-right: 8em;
+  font-size: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+/* line 64, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main .wpg-message .message span {
+  display: block;
+  margin-top: 1em;
+  color: #888;
+}
+/* line 71, ../sass/chat_admin.scss */
+#wpg-chat-wrap #main i.return:before {
+  font-family: 'dashicons';
+  content: "\f340";
+  font-style: normal;
+}
+/* line 78, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form {
+  position: relative;
+  width: auto;
+  padding: 10px 60px 10px 116px;
+  margin-botto: 30px;
+}
+/* line 83, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form .avatar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+/* line 88, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form textarea {
+  height: 96px;
+  width: 100%;
+  resize: none;
+}
+/* line 93, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form .button-primary {
+  position: absolute;
+  bottom: 12px;
+  right: 0px;
+}
+/* line 100, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container {
+  margin: 2em 0 0;
+  padding: 0;
+}
+/* line 103, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block {
+  list-style: none;
+  position: relative;
+  margin: 2em 0;
+  padding: 10px 116px 10px 96px;
+}
+/* line 108, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .profile {
+  width: 96px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+/* line 117, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .time {
+  position: absolute;
+  bottom: -10px;
+  right: 126px;
+  color: #86a2af;
+}
+/* line 123, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .body {
+  position: realtive;
+  min-height: 76px;
+  padding: 10px;
+  margin: 0 10px 0 0;
+  background: #fff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 130, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .body:before {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  right: 98px;
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-left-color: #fff;
+}
+/* line 143, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block.me {
+  padding: 10px 96px 10px 116px;
+}
+/* line 145, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block.me .profile {
+  right: none;
+  left: 10px;
+}
+/* line 149, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block.me .time {
+  right: none;
+  left: 126px;
+}
+/* line 153, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block.me .body {
+  margin: 0 0 0 10px;
+}
+/* line 155, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block.me .body:before {
+  border-left-color: transparent;
+  border-right-color: #fff;
+  right: 0;
+  left: 98px;
+}
+/* line 166, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-list {
   width: 300px;
-  float: left;
-  margin-left: -300px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
   border: 1px solid #ddd;
   color: #f9f9f9;
 }
-/* line 35, ../sass/chat_admin.scss */
+/* line 175, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener {
   position: absolute;
   right: 10px;
@@ -36,15 +197,15 @@
   font-size: 36px;
   text-decoration: none;
 }
-/* line 42, ../sass/chat_admin.scss */
+/* line 182, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener:hover {
   color: #000;
 }
-/* line 47, ../sass/chat_admin.scss */
+/* line 187, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener i:before {
   content: "\f337";
 }
-/* line 52, ../sass/chat_admin.scss */
+/* line 192, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener.toggle i:before {
   content: "\f153";
 }

@@ -2,7 +2,7 @@
 
 namespace Gianism\Chat;
 
-class Main extends Base
+class Main extends Util
 {
     /**
      * Constructor
@@ -19,15 +19,16 @@ class Main extends Base
         });
         $self = $this;
         add_action('admin_menu', function() use ($self) {
-            add_menu_page($this->_('Message'), $this->_('Message'), 'read', 'wpg-message', array($self, 'admin_page'));
+            add_menu_page($this->_('Message'), $this->_('Message'), 'read', 'wpg-message', array($self, 'admin_page'), '', 3);
         });
+        add_action('wp_ajax_gianism_chat', array($this, 'post_chat'));
     }
 
     /**
      * Render chat page
      */
     public function admin_page(){
-        require $this->dir.'templates/chat.php';
+        require $this->dir.'templates/chat/body.php';
     }
 
     /**
@@ -39,6 +40,7 @@ class Main extends Base
     public function enqueue_css($hook = ''){
         if( 'toplevel_page_wpg-message' == $hook ){
             wp_enqueue_style('gianism-chat-admin', $this->url.'assets/compass/stylesheets/chat_admin.css', null, $this->version);
+            wp_enqueue_script('gianism-chat-helper', $this->url.'assets/compass/js/chat-helper.js', array('jquery-form', 'jquery-effects-highlight'), $this->version);
         }
         wp_enqueue_style('gianism-chat', $this->url.'assets/compass/stylesheets/chat.css', null, $this->version);
     }
@@ -55,5 +57,29 @@ class Main extends Base
             'href' => admin_url('admin.php'),
             'parent' => 'top-secondary',
         ));
+    }
+
+    public function post_chat(){
+        $json = array('success' => false);
+        try{
+            if( !$this->verify_nonce('chat') || !$this->thread->is_allowed($this->id, $this->post('thread_id')) ){
+                throw new \Exception($this->_('You have no permission to send message.'));
+            }
+            $message = $this->post('message');
+            if( empty($message) ){
+                throw new \Exception($this->_('No message was sent.'));
+            }
+            $chat = $this->thread->add_chat($message, $this->post('thread_id'));
+            if( !$chat ){
+                throw new \Exception($this->_('Sorry, but failed to add message. Please try again later.'));
+            }
+            $json['success'] = true;
+            $json['message'] = $this->thread->render_chat($chat, $this->id);
+        }catch (\Exception $e){
+            $json['message'] = $e->getMessage();
+        }
+        header('Content-Type: application/json');
+        echo json_encode($json);
+        exit;
     }
 }

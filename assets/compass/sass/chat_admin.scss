@@ -78,8 +78,9 @@ $time-color: #86a2af;
   #chat-form{
     position: relative;
     width: auto;
-    padding: 10px 60px 10px $avatar-pad;
-    margin-botto: 30px;
+    padding: 10px 60px 20px $avatar-pad;
+    margin-bottom: 0px;
+    border-bottom: 3px double #ddd;
     .avatar{
       position: absolute;
       top: 10px;
@@ -95,15 +96,25 @@ $time-color: #86a2af;
       bottom: 12px;
       right: 0px;
     }
+    .gianism-loader{
+      font-size: 32px;
+      position: absolute;
+      right: 10px;
+      bottom: 50px;
+      display: none;
+    }
+    &.loading .gianism-loader{
+      @include inline-block();
+    }
   }
 
   .chat-container{
-    margin: 2em 0 0;
+    margin: 0 0 2em;
     padding: 0;
     .chat-block{
       list-style: none;
       position: relative;
-      margin: 2em 0;
+      margin: 1.5em 0;
       padding: $pad $avatar-pad $pad ($avatar-pad - ($pad * 2));
       .profile{
         width: $avatar-size;
@@ -194,4 +205,63 @@ $time-color: #86a2af;
       }
     }
   }
+}
+
+.prev-loader{
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  height: 20px;
+  display: block;
+  .gianism-loader{
+    display: none;
+  }
+  &.active .gianism-loader{
+    @include inline-block();
+  }
+  i:before{
+    font-size: 20px;
+  }
+}
+
+#chat-more.button{
+  margin: 3em 0 2em;
+  display: block;
+  font-size: 20px;
+  height: 40px;
+  line-height: 20px;
+  padding: 10px 1em ;
+  text-align: center;
+}
+
+i.gianism-loader{
+    @include inline-block();
+    line-height: 1;
+    -webkit-animation: gianism-spin 2s infinite linear;
+    -moz-animation: gianism-spin 2s infinite linear;
+    -o-animation: gianism-spin 2s infinite linear;
+    animation: gianism-spin 2s infinite linear;
+    &:before{
+      font-family: dashicons;
+      font-style: normal;
+      content: "\f463";
+      color: #aaa;
+    }
+}
+
+.loader{
+  text-align: center;
+  font-size: 40px;
+  display: none;
+  i{
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.message-box{
+  padding: 1em;
+  text-align: center;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 2px #fff;
 }

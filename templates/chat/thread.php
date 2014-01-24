@@ -17,9 +17,13 @@ defined('ABSPATH') or die();
         <input type="hidden" name="action" value="gianism_chat" />
         <?php $this->nonce_field('chat') ?>
         <input type="hidden" name="thread_id" value="<?php echo esc_attr($this->get('thread_id')) ?>" />
-        <textarea name="message" placeholder="<?php $this->e('Enter message here...') ?>"></textarea>
+        <input type="hidden" name="newest" value="0" />
+        <textarea name="message" placeholder="<?php $this->e('Enter message here. Pressing Ctrl + Enter(Command + Return form Mac) will send message.') ?>"></textarea>
         <?php submit_button($this->_('Send'), 'primary', '', false); ?>
+        <i class="gianism-loader"></i>
     </form>
+
+    <p class="prev-loader"><i class="gianism-loader"></i></p>
 
     <?php
         $chats = $this->thread->get_chats($this->get('thread_id'));
@@ -31,7 +35,8 @@ defined('ABSPATH') or die();
             <?php echo $this->thread->render_chat($chat); ?>
         <?php endforeach; ?>
     </ol>
-    <p class="center"><a class="button-primary button-large" id="chat-more" href="<?php echo admin_url('admin-ajax.php?action=gianism-more') ?>">でかいボタン</a></p>
+    <p class="loader"><i class="gianism-loader"></i></p>
+    <a class="button button-large" id="chat-more" data-action="gianism_chat_older" data-nonce="<?php echo $this->nonce_create('chat') ?>" data-thread-id="<?php echo esc_attr($this->get('thread_id')) ?>" href="<?php echo admin_url('admin-ajax.php') ?>"><?php $this->e('Load older') ?></a>
     <?php else: ?>
 
     <?php endif; ?>

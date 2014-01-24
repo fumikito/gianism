@@ -1,3 +1,63 @@
+@-moz-keyframes gianism-spin {
+  /* line 24, ../sass/_gianism_variables.scss */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  /* line 25, ../sass/_gianism_variables.scss */
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes gianism-spin {
+  /* line 28, ../sass/_gianism_variables.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 29, ../sass/_gianism_variables.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes gianism-spin {
+  /* line 32, ../sass/_gianism_variables.scss */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+
+  /* line 33, ../sass/_gianism_variables.scss */
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes gianism-spin {
+  /* line 36, ../sass/_gianism_variables.scss */
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  /* line 37, ../sass/_gianism_variables.scss */
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
+@keyframes gianism-spin {
+  /* line 40, ../sass/_gianism_variables.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 41, ../sass/_gianism_variables.scss */
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 /* line 11, ../sass/chat_admin.scss */
 .dashicon, #wpg-chat-wrap h2 i, #wpg-chat-wrap #contact-opener i {
   font-style: normal;
@@ -81,54 +141,72 @@
 #wpg-chat-wrap #chat-form {
   position: relative;
   width: auto;
-  padding: 10px 60px 10px 116px;
-  margin-botto: 30px;
+  padding: 10px 60px 20px 116px;
+  margin-bottom: 0px;
+  border-bottom: 3px double #ddd;
 }
-/* line 83, ../sass/chat_admin.scss */
+/* line 84, ../sass/chat_admin.scss */
 #wpg-chat-wrap #chat-form .avatar {
   position: absolute;
   top: 10px;
   left: 10px;
 }
-/* line 88, ../sass/chat_admin.scss */
+/* line 89, ../sass/chat_admin.scss */
 #wpg-chat-wrap #chat-form textarea {
   height: 96px;
   width: 100%;
   resize: none;
 }
-/* line 93, ../sass/chat_admin.scss */
+/* line 94, ../sass/chat_admin.scss */
 #wpg-chat-wrap #chat-form .button-primary {
   position: absolute;
   bottom: 12px;
   right: 0px;
 }
-/* line 100, ../sass/chat_admin.scss */
+/* line 99, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form .gianism-loader {
+  font-size: 32px;
+  position: absolute;
+  right: 10px;
+  bottom: 50px;
+  display: none;
+}
+/* line 106, ../sass/chat_admin.scss */
+#wpg-chat-wrap #chat-form.loading .gianism-loader {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 111, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container {
-  margin: 2em 0 0;
+  margin: 0 0 2em;
   padding: 0;
 }
-/* line 103, ../sass/chat_admin.scss */
+/* line 114, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block {
   list-style: none;
   position: relative;
-  margin: 2em 0;
+  margin: 1.5em 0;
   padding: 10px 116px 10px 96px;
 }
-/* line 108, ../sass/chat_admin.scss */
+/* line 119, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block .profile {
   width: 96px;
   position: absolute;
   top: 10px;
   right: 10px;
 }
-/* line 117, ../sass/chat_admin.scss */
+/* line 128, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block .time {
   position: absolute;
   bottom: -10px;
   right: 126px;
   color: #86a2af;
 }
-/* line 123, ../sass/chat_admin.scss */
+/* line 134, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block .body {
   position: realtive;
   min-height: 76px;
@@ -141,7 +219,7 @@
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 130, ../sass/chat_admin.scss */
+/* line 141, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block .body:before {
   position: absolute;
   top: 50%;
@@ -154,32 +232,32 @@
   border: 15px solid transparent;
   border-left-color: #fff;
 }
-/* line 143, ../sass/chat_admin.scss */
+/* line 154, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me {
   padding: 10px 96px 10px 116px;
 }
-/* line 145, ../sass/chat_admin.scss */
+/* line 156, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .profile {
   right: none;
   left: 10px;
 }
-/* line 149, ../sass/chat_admin.scss */
+/* line 160, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .time {
   right: none;
   left: 126px;
 }
-/* line 153, ../sass/chat_admin.scss */
+/* line 164, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .body {
   margin: 0 0 0 10px;
 }
-/* line 155, ../sass/chat_admin.scss */
+/* line 166, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .body:before {
   border-left-color: transparent;
   border-right-color: #fff;
   right: 0;
   left: 98px;
 }
-/* line 166, ../sass/chat_admin.scss */
+/* line 177, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-list {
   width: 300px;
   position: absolute;
@@ -188,7 +266,7 @@
   border: 1px solid #ddd;
   color: #f9f9f9;
 }
-/* line 175, ../sass/chat_admin.scss */
+/* line 186, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener {
   position: absolute;
   right: 10px;
@@ -197,15 +275,94 @@
   font-size: 36px;
   text-decoration: none;
 }
-/* line 182, ../sass/chat_admin.scss */
+/* line 193, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener:hover {
   color: #000;
 }
-/* line 187, ../sass/chat_admin.scss */
+/* line 198, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener i:before {
   content: "\f337";
 }
-/* line 192, ../sass/chat_admin.scss */
+/* line 203, ../sass/chat_admin.scss */
 #wpg-chat-wrap #contact-opener.toggle i:before {
   content: "\f153";
+}
+
+/* line 210, ../sass/chat_admin.scss */
+.prev-loader {
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  height: 20px;
+  display: block;
+}
+/* line 216, ../sass/chat_admin.scss */
+.prev-loader .gianism-loader {
+  display: none;
+}
+/* line 219, ../sass/chat_admin.scss */
+.prev-loader.active .gianism-loader {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 222, ../sass/chat_admin.scss */
+.prev-loader i:before {
+  font-size: 20px;
+}
+
+/* line 227, ../sass/chat_admin.scss */
+#chat-more.button {
+  margin: 3em 0 2em;
+  display: block;
+  font-size: 20px;
+  height: 40px;
+  line-height: 20px;
+  padding: 10px 1em;
+  text-align: center;
+}
+
+/* line 237, ../sass/chat_admin.scss */
+i.gianism-loader {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  line-height: 1;
+  -webkit-animation: gianism-spin 2s infinite linear;
+  -moz-animation: gianism-spin 2s infinite linear;
+  -o-animation: gianism-spin 2s infinite linear;
+  animation: gianism-spin 2s infinite linear;
+}
+/* line 244, ../sass/chat_admin.scss */
+i.gianism-loader:before {
+  font-family: dashicons;
+  font-style: normal;
+  content: "\f463";
+  color: #aaa;
+}
+
+/* line 252, ../sass/chat_admin.scss */
+.loader {
+  text-align: center;
+  font-size: 40px;
+  display: none;
+}
+/* line 256, ../sass/chat_admin.scss */
+.loader i {
+  width: 40px;
+  height: 40px;
+}
+
+/* line 262, ../sass/chat_admin.scss */
+.message-box {
+  padding: 1em;
+  text-align: center;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 2px #fff;
 }

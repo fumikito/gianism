@@ -118,16 +118,14 @@ EOS;
      * @return string
      */
     private function passed_time($date_time){
-        list($cur_year, $cur_month, $cur_day, $cur_date, $cur_hour, $cur_minute) = date_i18n('Y-n-j-D-H-i');
-        list($year, $month, $day, $date, $hour, $minute) = mysql2date('Y-n-j-D-H-i', $date_time);
+        list($cur_year, $cur_month, $cur_day, $cur_date, $cur_hour, $cur_minute) = explode('-', date_i18n('Y-n-j-D-H-i'));
+        list($year, $month, $day, $date, $hour, $minute) = explode('-', mysql2date('Y-n-j-D-H-i', $date_time));
         $passed = '';
         if($cur_year != $year || $cur_month != $month || $cur_day != $day){
             return mysql2date(get_option('date_format'), $date_time);
         }else{
             return mysql2date(get_option('time_format'), $date_time);
         }
-
-
     }
 
     /**
@@ -176,6 +174,30 @@ EOS;
     }
 
     /**
+     * Returns thread's chat messages
+     *
+     * @param int $thread_id
+     * @param int $base_id The chat id from which data will retrieve
+     * @param bool $older Older or newer. If true, grep older. Default false.
+     * @param int $per_page Default 5
+     * @return array
+     */
+    public function get_more($thread_id, $base_id, $older = false, $per_page = 5){
+        $operand = $older ? '<' : '>';
+        $query = <<<EOS
+            SELECT c.*, u.display_name FROM {$this->chat_table} AS c
+            LEFT JOIN {$this->db->users} AS u
+            ON c.user_id = u.ID
+            WHERE c.thread_id = %d AND c.chat_id {$operand} %d
+            ORDER BY c.created DESC
+EOS;
+        if($per_page){
+            $query .= ' LIMIT '.intval(max(1, $per_page));
+        }
+        return $this->get_results($query, $thread_id, $base_id);
+    }
+
+    /**
      * Add chat message
      *
      * @param string $message
@@ -192,6 +214,11 @@ EOS;
             'user_id' => $user_id,
             'message' => $message,
         ), array('%d', '%d', '%s'))){
+            $this->db->update($this->thread_table, array(
+                'updated' => current_time('mysql'),
+            ), array(
+                'thread_id' => $thread_id,
+            ), array('%s'), array('%d'));
             return $this->get_row("SELECT * FROM {$this->chat_table} WHERE chat_id = %d", $this->db->insert_id);
         }else{
             return null;

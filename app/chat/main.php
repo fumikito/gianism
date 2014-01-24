@@ -22,6 +22,8 @@ class Main extends Util
             add_menu_page($this->_('Message'), $this->_('Message'), 'read', 'wpg-message', array($self, 'admin_page'), '', 3);
         });
         add_action('wp_ajax_gianism_chat', array($this, 'post_chat'));
+        add_action('wp_ajax_gianism_chat_older', array($this, 'old_chats'));
+        add_action('wp_ajax_gianism_chat_newer', array($this, 'new_chats'));
     }
 
     /**
@@ -59,12 +61,14 @@ class Main extends Util
         ));
     }
 
+    /**
+     * Post chat message via Ajax
+     *
+     */
     public function post_chat(){
-        $json = array('success' => false);
+        $json = array('success' => false, 'message' => '');
         try{
-            if( !$this->verify_nonce('chat') || !$this->thread->is_allowed($this->id, $this->post('thread_id')) ){
-                throw new \Exception($this->_('You have no permission to send message.'));
-            }
+            $this->is_unauthorized_action();
             $message = $this->post('message');
             if( empty($message) ){
                 throw new \Exception($this->_('No message was sent.'));
@@ -73,13 +77,94 @@ class Main extends Util
             if( !$chat ){
                 throw new \Exception($this->_('Sorry, but failed to add message. Please try again later.'));
             }
+            $newest = $this->post('newest');
+            if($newest && ($chats = $this->thread->get_more($chat->thread_id, $newest, false, 0)) ){
+                // Get newer chat
+                foreach($chats as $c){
+                    $json['message'] .= $this->thread->render_chat($c, $this->id);
+                }
+            }else{
+                // No chat
+                $json['message'] = $this->thread->render_chat($chat, $this->id);
+            }
             $json['success'] = true;
-            $json['message'] = $this->thread->render_chat($chat, $this->id);
         }catch (\Exception $e){
             $json['message'] = $e->getMessage();
         }
         header('Content-Type: application/json');
         echo json_encode($json);
         exit;
+    }
+
+
+    /**
+     * Get older chat
+     */
+    public function old_chats(){
+        $json = array('success' => false);
+        try{
+            // Check authentication
+            $this->is_unauthorized_action();
+            $thread_id = $this->post('thread_id');
+            $oldest = $this->post('oldest');
+            $messages  = $this->thread->get_more($thread_id, $oldest, true);
+            if( !empty($messages) ){
+                $json['html'] = array();
+                foreach($messages as $chat){
+                    $json['html'][] = $this->thread->render_chat($chat, $this->id);
+                }
+            }else{
+                $json['message'] = $this->_('No message.');
+            }
+            $json['success'] = true;
+        }catch (\Exception $e){
+            $json['message'] = $e->getMessage();
+        }
+        header('Content-Type: application/json');
+        echo json_encode($json);
+        exit;
+    }
+
+    /**
+     * Retrieve new chat
+     */
+    public function new_chats(){
+        $json = array('success' => false);
+        try{
+            // Check authentication
+            $this->is_unauthorized_action();
+            // Get values
+            $thread_id = $this->post('thread_id');
+            $newest = $this->post('newest');
+            if( !is_numeric($newest) ){
+                throw new \Exception($this->_('Mmm... Chat ID is wrong.'));
+            }
+            $chats = $this->thread->get_more($thread_id, $newest, false, 0);
+            $json['success'] = true;
+            $json['message'] = false;
+            if( !empty($chats) ){
+                $json['message'] = '';
+                foreach($chats as $chat){
+                    $json['message'] .= $this->thread->render_chat($chat, $this->id);
+                }
+            }
+        }catch (\Exception $e){
+            $json['message'] = $e->getMessage();
+        }
+        header('Content-Type: application/json');
+        echo json_encode($json);
+        exit;
+    }
+
+    /**
+     * Check accessibility and throws error
+     *
+     * @throws \Exception
+     * @return void
+     */
+    private function is_unauthorized_action(){
+        if( !$this->verify_nonce('chat') || !$this->thread->is_allowed($this->id, $this->post('thread_id')) ){
+            throw new \Exception($this->_('You have no permission to send message.'));
+        }
     }
 }

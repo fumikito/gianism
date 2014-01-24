@@ -1,3 +1,123 @@
+@-moz-keyframes gianism-spin {
+  /* line 24, ../sass/_gianism_variables.scss */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  /* line 25, ../sass/_gianism_variables.scss */
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes gianism-spin {
+  /* line 28, ../sass/_gianism_variables.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 29, ../sass/_gianism_variables.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes gianism-spin {
+  /* line 32, ../sass/_gianism_variables.scss */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+
+  /* line 33, ../sass/_gianism_variables.scss */
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes gianism-spin {
+  /* line 36, ../sass/_gianism_variables.scss */
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  /* line 37, ../sass/_gianism_variables.scss */
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
+@keyframes gianism-spin {
+  /* line 40, ../sass/_gianism_variables.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 41, ../sass/_gianism_variables.scss */
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@-moz-keyframes gianism-spin {
+  /* line 24, ../sass/_gianism_variables.scss */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  /* line 25, ../sass/_gianism_variables.scss */
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes gianism-spin {
+  /* line 28, ../sass/_gianism_variables.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 29, ../sass/_gianism_variables.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes gianism-spin {
+  /* line 32, ../sass/_gianism_variables.scss */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+
+  /* line 33, ../sass/_gianism_variables.scss */
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes gianism-spin {
+  /* line 36, ../sass/_gianism_variables.scss */
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  /* line 37, ../sass/_gianism_variables.scss */
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
+@keyframes gianism-spin {
+  /* line 40, ../sass/_gianism_variables.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 41, ../sass/_gianism_variables.scss */
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 /* line 9, ../sass/_components.scss */
 i.lsf-facebook {
   color: #3c5a96;
@@ -194,6 +314,66 @@ body.admin-bar .wpg-notices {
     top: 46px;
   }
 }
+@-moz-keyframes gianism-spin {
+  /* line 24, ../sass/_gianism_variables.scss */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  /* line 25, ../sass/_gianism_variables.scss */
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes gianism-spin {
+  /* line 28, ../sass/_gianism_variables.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 29, ../sass/_gianism_variables.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes gianism-spin {
+  /* line 32, ../sass/_gianism_variables.scss */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+
+  /* line 33, ../sass/_gianism_variables.scss */
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes gianism-spin {
+  /* line 36, ../sass/_gianism_variables.scss */
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  /* line 37, ../sass/_gianism_variables.scss */
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
+@keyframes gianism-spin {
+  /* line 40, ../sass/_gianism_variables.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 41, ../sass/_gianism_variables.scss */
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 /* line 6, ../sass/_profile.scss */
 .wpg-message-header i {
   font-size: 1.2em;

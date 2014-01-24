@@ -13,6 +13,8 @@ use Gianism\Option;
  * @property-read string $dir
  * @property-read string $url
  * @property-read array $all_services
+ * @property-read string $nonce_key_name
+ *
  */
 abstract class Base
 {
@@ -129,13 +131,23 @@ abstract class Base
     }
 
     /**
+     *
+     *
+     * @param string $action
+     * @return string
+     */
+    public function nonce_create($action){
+        return wp_create_nonce($this->nonce_action($action));
+    }
+
+    /**
      * Alias of wp_nonce_field
      *
      * @param string $action
      * @param bool $referrer Default false.
      */
     public function nonce_field($action, $referrer = false){
-        wp_nonce_field($this->nonce_action($action), "_{$this->name}_nonce", $referrer);
+        wp_nonce_field($this->nonce_action($action), $this->nonce_key_name, $referrer);
     }
 
     /**
@@ -147,9 +159,9 @@ abstract class Base
      */
     public function verify_nonce($action, $referrer = ''){
         if($referrer){
-            return ( (wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action)) && $referrer == $this->request("_wp_http_referer")) );
+            return ( (wp_verify_nonce($this->request($this->nonce_key_name), $this->nonce_action($action)) && $referrer == $this->request("_wp_http_referer")) );
         }else{
-            return wp_verify_nonce($this->request("_{$this->name}_nonce"), $this->nonce_action($action));
+            return wp_verify_nonce($this->request($this->nonce_key_name), $this->nonce_action($action));
         }
     }
 
@@ -247,6 +259,9 @@ abstract class Base
                     }
                 }
                 return $this->_all_services;
+                break;
+            case 'nonce_key_name':
+                return "_{$this->name}_nonce";
                 break;
             default:
                 return null;

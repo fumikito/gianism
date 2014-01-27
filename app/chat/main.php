@@ -56,7 +56,7 @@ class Main extends Util
         $adminbar->add_node(array(
             'id' => 'gianism-chat',
             'title' => '<span class="ab-icon"></span>',
-            'href' => admin_url('admin.php'),
+            'href' => admin_url('admin.php?page=wpg-message'),
             'parent' => 'top-secondary',
         ));
     }

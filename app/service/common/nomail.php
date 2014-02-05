@@ -43,10 +43,12 @@ abstract class Nomail extends Mail
      * @param string $subject
      * @param string $message
      * @param array|string $headers
-     * @param string $attacehment
+     * @param string $attachment
      * @return void
      */
-    abstract protected function wp_mail($user_id, $subject, $message, $headers, $attacehment);
+    protected function wp_mail($user_id, $subject, $message, $headers = '', $attachment = ''){
+        gianism_message($user_id, $message, 0, $subject);
+    }
 
     /**
      * Override default wp_mai
@@ -58,13 +60,12 @@ abstract class Nomail extends Mail
         /** @var string $subject */
         /** @var string $message */
         /** @var string $headers */
-        /** @var string $attchment */
+        /** @var string $attachments */
         /** @var string $to */
         extract($args);
         if( $this->is_pseudo_mail($to) && ($user_id = email_exists($to))){
-            $this->wp_mail($user_id, $subject, $message, $headers, $attchment);
+            $this->wp_mail($user_id, $subject, $message, $headers, $attachments);
         }
         return $args;
     }
-
-} 
+}

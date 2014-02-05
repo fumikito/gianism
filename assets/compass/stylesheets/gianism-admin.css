@@ -308,8 +308,19 @@ body.admin-bar .wpg-notices {
   top: 32px;
 }
 
+/* line 164, ../sass/_components.scss */
+#wpadminbar #wp-admin-bar-gianism-chat > .ab-item .ab-icon:before {
+  content: "\f125";
+  top: 2px;
+}
+
+/* line 171, ../sass/_components.scss */
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
+  content: "\f125";
+}
+
 @media screen and (max-width: 782px) {
-  /* line 164, ../sass/_components.scss */
+  /* line 178, ../sass/_components.scss */
   body.admin-bar .wpg-notices {
     top: 46px;
   }

@@ -49,7 +49,7 @@ abstract class Base
      *
      * @var string
      */
-    public $message_post_type = 'gianism_message';
+    public $message_key_name = '_gianism_message';
 
     /**
      * All services

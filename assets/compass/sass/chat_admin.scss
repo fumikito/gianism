@@ -2,6 +2,7 @@
 
 @import 'compass';
 @import 'gianism_variables';
+@import 'components';
 
 $avatar-size: 96px;
 $pad: 10px;
@@ -24,7 +25,6 @@ $time-color: #86a2af;
   }
 
   #main{
-    padding-right: 350px;
     .wpg-message{
       padding: 10px 10px 10px $avatar-pad;
       border: 1px solid #ddd;
@@ -132,6 +132,16 @@ $time-color: #86a2af;
         color: $time-color;
       }
       .body{
+        .title{
+          display: block;
+          font-size: 1.2em;
+          margin-bottom: 0.5em;
+        }
+        .delete{
+          text-align: right;
+          display: block;
+          margin-top: 0.5em;
+        }
         position: realtive;
         min-height: $avatar-size - ($pad * 2);
         padding: $pad;
@@ -170,38 +180,6 @@ $time-color: #86a2af;
             left: $avatar-pad - 18;
           }
         }
-      }
-    }
-  }
-
-  #contact-list{
-    width: 300px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    border: 1px solid #ddd;
-    color: #f9f9f9;
-  }
-
-  #contact-opener{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #ddd;
-    font-size: 36px;
-    text-decoration: none;
-    &:hover{
-      color: #000;
-    }
-    i{
-      @extend .dashicon;
-      &:before{
-        content: "\f337";
-      }
-    }
-    &.toggle{
-      i:before{
-        content: "\f153";
       }
     }
   }
@@ -264,4 +242,17 @@ i.gianism-loader{
   text-align: center;
   font-size: 1.4em;
   text-shadow: 1px 1px 2px #fff;
+}
+
+p.no-message{
+  display: none;
+  padding: 2em;
+  border: 1px solid #ddd;
+  background: #fff;
+  margin: 2em 0;
+  @include border-radius(3px);
+}
+
+div#main > p.no-message:first-child{
+  display: block;
 }

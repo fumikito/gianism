@@ -1,68 +1,5 @@
 jQuery(document).ready(function($){
 
-    // Submit chat
-    $('#chat-form').submit(function(e){
-        e.preventDefault();
-        if($(this).hasClass('loading')){
-            return false;
-        }
-        var textArea = $(this).find('textarea'),
-            str = textArea.val(),
-            newest = $('.chat-container li:first');
-        if(str.length){
-            $(this).addClass('loading');
-            if(newest.length){
-                $(this).find('input[name=newest]').val(newest.attr('data-chat-id'));
-            }
-            $(this).ajaxSubmit({
-                success: function(response){
-                   $('#chat-form').removeClass('loading');
-                   if(response.success){
-                       // Remove
-                       textArea.val('');
-                       $('.chat-container').prepend(response.message).effect('highlight');
-                   }else{
-                       alert(response.message);
-                   }
-                }
-            });
-        }
-    });
-
-    // Short cut
-    $('#chat-form textarea').keydown(function(e){
-        var code = e.keyCode || e.which;
-        if(code == 13 && (e.ctrlKey || e.metaKey)){
-            e.preventDefault();
-            $('#chat-form').submit();
-        }
-    });
-
-    // Refresh
-    setInterval(function(){
-        if(!$('#chat-form').hasClass('loading') && !($('.prev-loader').hasClass('active')) ){
-            $('.prev-loader').addClass('active');
-            var newest = $('.chat-container li:first').attr('data-chat-id'),
-                nonce = $('#_wp_gianism_nonce').val(),
-                thread_id = $('#chat-form input[name=thread_id]').val();
-            $.post($('#chat-form').attr('action'), {
-                action: 'gianism_chat_newer',
-                _wp_gianism_nonce: nonce,
-                thread_id: thread_id,
-                newest: newest
-            }, function(response){
-                $('.prev-loader').removeClass('active');
-                if(response.success){
-                    if( response.message ){
-                        $('.chat-container').prepend(response.message);
-                    }
-                }else{
-                    alert(response.message);
-                }
-            }, 'json');
-        }
-    }, 8000);
-
     /**
      * Show message on button
      *
@@ -85,9 +22,8 @@ jQuery(document).ready(function($){
         }
         // Grab oldest
         var button = $(this),
-            threadId = $(this).attr('data-thread-id'),
+            oldest = $(this).attr('data-chat-oldest'),
             action = $(this).attr('data-action'),
-            oldest = $('.chat-container li:last').attr('data-chat-id'),
             nonce = $(this).attr('data-nonce'),
             loader = $(this).prev('.loader');
         // Now let's display indicator
@@ -96,7 +32,6 @@ jQuery(document).ready(function($){
         $.post($(this).attr('href'),{
                 action: action,
                 _wp_gianism_nonce: nonce,
-                thread_id: threadId,
                 oldest: oldest
             },function(response){
                 loader.fadeOut(1000, function(){
@@ -112,10 +47,38 @@ jQuery(document).ready(function($){
                             $(response.html[i]).appendTo('.chat-container')
                                 .effect('highlight', {duration: 1000});
                         }
+                        button.attr('data-chat-oldest', response.oldest);
                     }
                 }else{
                     showMessage(response.message);
                 }
         }, 'json');
+    });
+
+    // Delete chat
+    $('.chat-container').on('click', 'a.button', function(e){
+        e.preventDefault();
+        var list = $(this).parents('li'),
+            umetaId = list.attr('data-message-id'),
+            container = $(this).parents('ol'),
+            nonce = container.attr('data-nonce'),
+            url = container.attr('data-url'),
+            action = container.attr('data-action');
+        $.post(url, {
+            _wp_gianism_nonce: nonce,
+            action: action,
+            umeta_id: umetaId
+        }, function(response){
+            if(response.success){
+                list.effect('highlight', {duration: 1500}, function(){
+                    $(this).remove();
+                    if( !container.find('li').length ){
+                        container.remove();
+                    }
+                });
+            }else{
+                showMessage(response.message);
+            }
+        });
     });
 });

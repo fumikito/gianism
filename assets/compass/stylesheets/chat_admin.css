@@ -58,23 +58,286 @@
   }
 }
 
-/* line 11, ../sass/chat_admin.scss */
-.dashicon, #wpg-chat-wrap h2 i, #wpg-chat-wrap #contact-opener i {
+@-moz-keyframes gianism-spin {
+  /* line 24, ../sass/_gianism_variables.scss */
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  /* line 25, ../sass/_gianism_variables.scss */
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes gianism-spin {
+  /* line 28, ../sass/_gianism_variables.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 29, ../sass/_gianism_variables.scss */
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes gianism-spin {
+  /* line 32, ../sass/_gianism_variables.scss */
+  0% {
+    -o-transform: rotate(0deg);
+  }
+
+  /* line 33, ../sass/_gianism_variables.scss */
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes gianism-spin {
+  /* line 36, ../sass/_gianism_variables.scss */
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  /* line 37, ../sass/_gianism_variables.scss */
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
+@keyframes gianism-spin {
+  /* line 40, ../sass/_gianism_variables.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 41, ../sass/_gianism_variables.scss */
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+/* line 9, ../sass/_components.scss */
+i.lsf-facebook {
+  color: #3c5a96;
+}
+/* line 12, ../sass/_components.scss */
+i.lsf-google {
+  color: #dd4b39;
+}
+/* line 15, ../sass/_components.scss */
+i.lsf-yahoo {
+  color: #fd0f3a;
+}
+/* line 18, ../sass/_components.scss */
+i.lsf-twitter {
+  color: #1daeec;
+}
+/* line 21, ../sass/_components.scss */
+i.lsf-mixi {
+  color: #d1ad60;
+}
+/* line 24, ../sass/_components.scss */
+i.lsf-amazon {
+  color: #030606;
+}
+
+/* line 31, ../sass/_components.scss */
+.wpg-button {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  padding: 0 0.75em;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  background: #f7f7f7;
+  font-size: 14px;
+  line-height: 28px;
+  height: 28px;
+  -webkit-box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+}
+/* line 46, ../sass/_components.scss */
+.wpg-button:link, .wpg-button:visited {
+  color: #555555;
+  text-decoration: none;
+}
+/* line 50, ../sass/_components.scss */
+.wpg-button:hover {
+  background: #fafafa;
+  border-color: #999999;
+  color: #222222;
+}
+/* line 55, ../sass/_components.scss */
+.wpg-button:focus {
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+/* line 58, ../sass/_components.scss */
+.wpg-button .lsf {
+  font-size: 1.4em;
+}
+
+/* line 64, ../sass/_components.scss */
+body {
+  position: relative;
+}
+
+/* line 68, ../sass/_components.scss */
+.wpg-notices {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10002;
+  -webkit-box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
+  background: #fff;
+}
+/* line 75, ../sass/_components.scss */
+.wpg-notices.toggle {
+  display: none;
+}
+/* line 79, ../sass/_components.scss */
+.wpg-notices div.error,
+.wpg-notices div.updated {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 1em 2em;
+  position: relative;
+  -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+/* line 86, ../sass/_components.scss */
+.wpg-notices div.error p,
+.wpg-notices div.updated p {
+  background: transparent;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 0 50px;
+  max-width: 800px;
+  line-height: 2;
+}
+/* line 93, ../sass/_components.scss */
+.wpg-notices div.error p:before,
+.wpg-notices div.updated p:before {
+  font-family: 'LigatureSymbols';
+  font-size: 30px;
+  display: block;
+  position: absolute;
+  left: 10px;
+  to: 50%;
+  margin-top: -15px;
+}
+/* line 104, ../sass/_components.scss */
+.wpg-notices div.error {
+  background: #d54e21;
+  color: #ffffff;
+}
+/* line 107, ../sass/_components.scss */
+.wpg-notices div.error p:before {
+  content: "\E012";
+}
+/* line 111, ../sass/_components.scss */
+.wpg-notices div.updated {
+  color: white;
+  background: #5dc06e;
+}
+/* line 114, ../sass/_components.scss */
+.wpg-notices div.updated p:before {
+  content: "\E029";
+}
+/* line 118, ../sass/_components.scss */
+.wpg-notices a.close-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -15px;
+  font-size: 30px;
+  line-height: 30px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+/* line 131, ../sass/_components.scss */
+.wpg-notices a.close-btn:hover {
+  text-decoration: none;
+}
+/* line 137, ../sass/_components.scss */
+.wpg-notices div.updated a.close-btn:link, .wpg-notices div.updated a.close-btn:visited {
+  color: #38703A;
+}
+/* line 140, ../sass/_components.scss */
+.wpg-notices div.updated a.close-btn:hover, .wpg-notices div.updated a.close-btn:active {
+  color: #448f4d;
+}
+/* line 145, ../sass/_components.scss */
+.wpg-notices div.error a.close-btn:link, .wpg-notices div.error a.close-btn:visited {
+  color: #5f2410;
+}
+/* line 148, ../sass/_components.scss */
+.wpg-notices div.error a.close-btn:hover, .wpg-notices div.error a.close-btn:active {
+  color: #9e3c1b;
+}
+
+/* line 156, ../sass/_components.scss */
+body.admin-bar .wpg-notices {
+  top: 32px;
+}
+
+/* line 164, ../sass/_components.scss */
+#wpadminbar #wp-admin-bar-gianism-chat > .ab-item .ab-icon:before {
+  content: "\f125";
+  top: 2px;
+}
+
+/* line 171, ../sass/_components.scss */
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
+  content: "\f125";
+}
+
+@media screen and (max-width: 782px) {
+  /* line 178, ../sass/_components.scss */
+  body.admin-bar .wpg-notices {
+    top: 46px;
+  }
+}
+/* line 12, ../sass/chat_admin.scss */
+.dashicon, #wpg-chat-wrap h2 i {
   font-style: normal;
   font-family: 'dashicons';
 }
 
-/* line 17, ../sass/chat_admin.scss */
+/* line 18, ../sass/chat_admin.scss */
 #wpg-chat-wrap {
   position: relative;
 }
-/* line 21, ../sass/chat_admin.scss */
+/* line 22, ../sass/chat_admin.scss */
 #wpg-chat-wrap h2 i:before {
   content: '\f125';
-}
-/* line 26, ../sass/chat_admin.scss */
-#wpg-chat-wrap #main {
-  padding-right: 350px;
 }
 /* line 28, ../sass/chat_admin.scss */
 #wpg-chat-wrap #main .wpg-message {
@@ -219,7 +482,19 @@
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 141, ../sass/chat_admin.scss */
+/* line 135, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .body .title {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+/* line 140, ../sass/chat_admin.scss */
+#wpg-chat-wrap .chat-container .chat-block .body .delete {
+  text-align: right;
+  display: block;
+  margin-top: 0.5em;
+}
+/* line 151, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block .body:before {
   position: absolute;
   top: 50%;
@@ -232,63 +507,33 @@
   border: 15px solid transparent;
   border-left-color: #fff;
 }
-/* line 154, ../sass/chat_admin.scss */
+/* line 164, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me {
   padding: 10px 96px 10px 116px;
 }
-/* line 156, ../sass/chat_admin.scss */
+/* line 166, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .profile {
   right: none;
   left: 10px;
 }
-/* line 160, ../sass/chat_admin.scss */
+/* line 170, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .time {
   right: none;
   left: 126px;
 }
-/* line 164, ../sass/chat_admin.scss */
+/* line 174, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .body {
   margin: 0 0 0 10px;
 }
-/* line 166, ../sass/chat_admin.scss */
+/* line 176, ../sass/chat_admin.scss */
 #wpg-chat-wrap .chat-container .chat-block.me .body:before {
   border-left-color: transparent;
   border-right-color: #fff;
   right: 0;
   left: 98px;
 }
-/* line 177, ../sass/chat_admin.scss */
-#wpg-chat-wrap #contact-list {
-  width: 300px;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  border: 1px solid #ddd;
-  color: #f9f9f9;
-}
-/* line 186, ../sass/chat_admin.scss */
-#wpg-chat-wrap #contact-opener {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  color: #ddd;
-  font-size: 36px;
-  text-decoration: none;
-}
-/* line 193, ../sass/chat_admin.scss */
-#wpg-chat-wrap #contact-opener:hover {
-  color: #000;
-}
-/* line 198, ../sass/chat_admin.scss */
-#wpg-chat-wrap #contact-opener i:before {
-  content: "\f337";
-}
-/* line 203, ../sass/chat_admin.scss */
-#wpg-chat-wrap #contact-opener.toggle i:before {
-  content: "\f153";
-}
 
-/* line 210, ../sass/chat_admin.scss */
+/* line 188, ../sass/chat_admin.scss */
 .prev-loader {
   text-align: center;
   padding: 5px 0;
@@ -296,11 +541,11 @@
   height: 20px;
   display: block;
 }
-/* line 216, ../sass/chat_admin.scss */
+/* line 194, ../sass/chat_admin.scss */
 .prev-loader .gianism-loader {
   display: none;
 }
-/* line 219, ../sass/chat_admin.scss */
+/* line 197, ../sass/chat_admin.scss */
 .prev-loader.active .gianism-loader {
   display: -moz-inline-stack;
   display: inline-block;
@@ -309,12 +554,12 @@
   zoom: 1;
   *display: inline;
 }
-/* line 222, ../sass/chat_admin.scss */
+/* line 200, ../sass/chat_admin.scss */
 .prev-loader i:before {
   font-size: 20px;
 }
 
-/* line 227, ../sass/chat_admin.scss */
+/* line 205, ../sass/chat_admin.scss */
 #chat-more.button {
   margin: 3em 0 2em;
   display: block;
@@ -325,7 +570,7 @@
   text-align: center;
 }
 
-/* line 237, ../sass/chat_admin.scss */
+/* line 215, ../sass/chat_admin.scss */
 i.gianism-loader {
   display: -moz-inline-stack;
   display: inline-block;
@@ -339,7 +584,7 @@ i.gianism-loader {
   -o-animation: gianism-spin 2s infinite linear;
   animation: gianism-spin 2s infinite linear;
 }
-/* line 244, ../sass/chat_admin.scss */
+/* line 222, ../sass/chat_admin.scss */
 i.gianism-loader:before {
   font-family: dashicons;
   font-style: normal;
@@ -347,22 +592,41 @@ i.gianism-loader:before {
   color: #aaa;
 }
 
-/* line 252, ../sass/chat_admin.scss */
+/* line 230, ../sass/chat_admin.scss */
 .loader {
   text-align: center;
   font-size: 40px;
   display: none;
 }
-/* line 256, ../sass/chat_admin.scss */
+/* line 234, ../sass/chat_admin.scss */
 .loader i {
   width: 40px;
   height: 40px;
 }
 
-/* line 262, ../sass/chat_admin.scss */
+/* line 240, ../sass/chat_admin.scss */
 .message-box {
   padding: 1em;
   text-align: center;
   font-size: 1.4em;
   text-shadow: 1px 1px 2px #fff;
+}
+
+/* line 247, ../sass/chat_admin.scss */
+p.no-message {
+  display: none;
+  padding: 2em;
+  border: 1px solid #ddd;
+  background: #fff;
+  margin: 2em 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 256, ../sass/chat_admin.scss */
+div#main > p.no-message:first-child {
+  display: block;
 }

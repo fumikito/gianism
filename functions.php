@@ -72,21 +72,12 @@ function _gianism_autoloader($class_name){
  * @param string $body
  * @param int $from
  * @param string $subject
- * @return int|WP_Error
+ * @return bool
  */
 function gianism_message($user_id, $body, $from = 0, $subject = '' ){
-    /** @var \Gianism\Bootstrap $gianism */
-    $gianism = \Gianism\Bootstrap::get_instance();
-    $now = current_time('mysql');
-    return wp_insert_post(array(
-        'post_type' => $gianism->message_post_type,
-        'post_title' => $subject,
-        'post_content' => $body,
-        'post_author' => $user_id,
-        'post_status' => 'publish',
-        'post_date' => $now,
-        'post_date_gmt' => get_gmt_from_date($now),
-    ));
+    /** @var \Gianism\Message $gianism */
+    $gianism = \Gianism\Message::get_instance();
+    return $gianism->send_message($user_id, $body, $from, $subject);
 }
 
 /**

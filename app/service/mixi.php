@@ -312,10 +312,10 @@ class Mixi extends Common\Nomail
 	 * @param string $subject
 	 * @param string $message
 	 * @param array $headers
-	 * @param array $attchment 
+	 * @param array $attachment
 	 */
-	public function wp_mail($user_id, $subject, $message, $headers, $attchment){
-        gianism_message($user_id, $message, 0, $subject);
+	public function wp_mail($user_id, $subject, $message, $headers = '', $attachment = ''){
+        parent::wp_mail($user_id, $subject, $message, $headers, $attachment);
 		$this->send_message($user_id, $subject, $message);
 	}
 	

@@ -306,13 +306,12 @@ class Twitter extends Common\Nomail
 	 * @param int $user_id
 	 * @param string $subject
 	 * @param string $message
-	 * @param array $headers
-	 * @param array $attchment 
+	 * @param string $headers
+	 * @param string $attachment
 	 */
-	protected function wp_mail($user_id, $subject, $message, $headers, $attchment){
-		//Save Message
-        gianism_message($user_id, $message, 0, $subject);
-		//Send DM
+	protected function wp_mail($user_id, $subject, $message, $headers = '', $attachment = ''){
+        parent::wp_mail($user_id, $subject, $message, $headers, $attachment);
+        //Send DM
         $body = sprintf($this->_('You have message "%1$s" on %2$s. %3$s'), $subject, get_bloginfo('name'), admin_url('profile.php'));
         $this->send_dm($user_id, $body);
 	}

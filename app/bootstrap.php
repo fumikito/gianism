@@ -64,6 +64,9 @@ class Bootstrap extends Pattern\Singleton
             Admin::get_instance();
         });
 
+        // Add message notice
+        Message::get_instance();
+
         // Dequeue WPMP's CSS
         add_action('admin_enqueue_scripts', function(){
             wp_dequeue_style('wpmp-admin-custom');

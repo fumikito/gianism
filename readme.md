@@ -1,32 +1,31 @@
 #  Gianism 
 
-Contributors: Takahashi_Fumiki
-Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community
-Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 1.3.0
+Contributors: Takahashi_Fumiki  
+Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
+Requires at least: 3.8  
+Tested up to: 3.9-alpha  
+Stable tag: 2.0.0
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
 ##  Description 
 
-This plugin enables allow users to login/register with mager SNS accounts. Below is supported SNSs.
+This plugin enables allow users to login/register with major Web service's accounts. Below is supported services.
 
 If your site needs user's login action, **signing-up is the most difficult step**. With this plugin, users can sign up without inputting email nor password.
 
-------------
+**NOTICE: PHP5.3 is required!**
 
-このプラグインを使うと、有名なSNSアカウントで新規登録／ログインできるようになります。現在対応しているのは次の通り。
+###  Supported Web services
 
-登録制のWordPressサイトを作っている場合、**ユーザーにアカウントを作ってもらうのが一苦労**。このプラグインを使えば、Webサービスの情報を使ってログインできるようになります。ユーザーは新しいユーザー名とパスワードを覚える必要がありません。
-
-###  Supported SNS 
-
-* Facebook
-* Twitter
-* Google *(requires Gmail account)*
-* mixi
-* Yahoo! JAPAN
+* [Facebook](https://www.facebook.com)
+* [Twitter](https://twitter.com)
+* [Google](http://google.com) *(requires Gmail account)*
+* [Amazon](http://www.amazon.com)
+* [Github](http://github.com)
+* [mixi](http://mixi.jp)
+* [Yahoo! JAPAN](http://yahoo.co.jp)
+* [hatena](http://hatena.ne.jp)
 
 ###  Acknowledgements  
 
@@ -34,6 +33,7 @@ If your site needs user's login action, **signing-up is the most difficult step*
 * Use [Facebook's official PHP SDK](https://github.com/facebook/facebook-php-sdk). 
 * Use [Google API PHP Client](http://code.google.com/p/google-api-php-client/).
 * Use [Neuman Vong's JWT](https://github.com/luciferous/jwt).
+* Use [Ligature Symbols](http://kudakurage.com/ligature_symbols/) (Web font).
 * Iconsets for banner image is by [Arabiki's スタンプみたいなソーシャルアイコン](http://arabikinet.com/sns/sns10.html). Thanks lots.
  
 ##  Installation 
@@ -43,13 +43,6 @@ Install itself is easy. Auto install from admin panel is recommended. Search wit
 1. Donwload and unpack plugin file, upload `gianims` folder to `/wp-content/plugins` directory.
 2. Activate it from admin panel.
 
--------------
-
-インストール自体は簡単です。管理画面から`gianism`で検索し、自動インストールをお勧めします。
-
-1. プラグインをダウンロード／解凍したら、`gianism`フォルダーを`/wp-content/plugins/`ディレクトリーにアップロード。
-2. 管理画面からプラグインを有効化。
-
 ###  How to set up 
 
 After plugin's activation, you have to set it up. Every setup has 2 step. One is on SNS, the other is on your site.
@@ -58,38 +51,34 @@ For example, if you use Facebook, register new app on Facebook, then input app I
 
 It seems too difficult? Don't panic. Howtos and manuals are on setting page *(Users > External)*.
 
--------------
-
-プラグインを有効化した後、設定を行う必要があります。それぞれの設定には2つのステップがあります。1つは利用するSNSでの設定、もう一つはあなたのサイト上での設定です。
-
-たとえばFacebookを利用する場合、まずFacebookでアプリを登録し、そのアプリに対して発行されたIDとトークンをWordPressの管理画面から入力する必要があります。すべてのSNSは**アプリの登録**と**それに紐づいた認証情報**を求めています。
-
-なんだか複雑なようですが、登録方法については設定画面*（ユーザー > 外部サービス連携）*にマニュアルおよびリンクをつけているので心配いりません。
-
 ##  Frequently Asked Questions 
 
 > Can I use this in English?
 
-Maybe yes.
-
------------------
+Maybe yes. Translations are welcomed.
 
 > Found bug. It sucks.
-> 
-> バグがありました。ふざけんな。
 
 Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
 
-[WordPress.orgのサポートフォーラム](http://wordpress.org/support/plugin/gianism)を使うか、 [Githubのリポジトリ](https://github.com/fumikito/Gianism/)にプルリクエストを送ってください。
-
-
 ##  Screenshots 
 
-1. Buttons on Login/registeration screen. （ログイン／新規登録画面にボタンが追加されます）
-2. Show connection status on profile screen. Registered users can connect account here.（プロフィール編集画面に接続ステータスが表示されます。既存のユーザーはここでアカウントを接続できます）
-3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
+1. Buttons on Login/registeration screen.
+2. Show connection status on profile screen. Registered users can connect account here.
+3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 ##  Changelog 
+
+### 2.0.0
+
+* Add Amazon, Github
+* Requires PHP 5.3 or later. Using name space and autoloader.
+* Design is suit for WordPress 3.8's new admin.
+* Login buttons are redesigned. Now you can choose large flat buttons or normal buttons.
+
+###  1.3.1  
+
+* Follow [twitter's API 1.1 Retirement](https://dev.twitter.com/blog/api-v1-is-retired).
 
 ###  1.3.0 
 

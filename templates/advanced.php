@@ -1,4 +1,11 @@
-<?php /* @var $this WP_Gianism */ ?>
+<?php
+
+defined('ABSPATH') or die();
+
+/** @var \Gianism\Admin $this */
+/** @var \Gianism\Option $option */
+?>
+
 <h3><?php $this->e('Create Facebook page tab'); ?></h3>
 
 <p><?php $this->e('<a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/">Page tab</a> is page which you can add to your facebook page. If you create Facebook Web application and connect it with Gianism, you can assign WordPress page to page tab.'); ?></p>
@@ -140,30 +147,29 @@ echo esc_html(sprintf($code, $this->_('Hello, my followers. I updated new post.'
 $code = <<<EOS
 /**
  * Tweet when post is published.
- * @param int \$post_id
+ * 
+ * @param string \$new_status
+ * @param string \$old_status
+ * @param int \$post
  */
-function _my_gianism_publish_tweet(\$post_id){
-	//Get post object
-	\$post = wp_get_single_post(\$post_id);
-	if(\$post // Post object exists
-		&& (!defined('DOING_AUTOSAVE') || !DOING_AUTOSAVE) // this is not autosave
-		&& isset(\$_POST['post_status'], \$_POST['original_post_status']) // Post status is set
-		&& \$_POST['post_status'] == 'publish' // Post status is "publish"
-		&& \$_POST['original_post_status'] != 'publish') // Previous post status is not "publish"
-	){ 
-		switch(\$post->post_type){
-			case 'post':
-				// Tweet when post is published
-				\$url = wp_get_shortlink(\$posr->ID);
+function _my_gianism_publish_tweet(\$new_status, \$old_status, \$post){
+	// If post status is changed to publish, tweet.
+	if('publish' == \$new_status && 'post' == \$post->post->type){ 
+		switch(\$old_status){
+			case 'draft':
+			case 'pending':
+			case 'auto-draft':
+			case 'future':
+				\$url = wp_get_shortlink(\$post->ID);
 				\$author = get_the_author_meta('display_name', \$post->post_author);
-				\$string = sprintf('%s', \$author,
-					\$post->post_title, \$url);
+				\$string = sprintf('%s',
+				    \$author, \$post->post_title, \$url);
 				break;
 		}
 	}
 }
-// Hook on publish post
-add_action('publish_post', '_my_gianism_publish_tweet');
+// Hook on post status transition
+add_action('transition_post_status', '_my_gianism_publish_tweet', 10, 3);
 EOS;
 echo esc_html(sprintf($code, $this->_('%1$s pulbished %2$s. Please visit %3$s')));
 ?>
@@ -190,7 +196,7 @@ $code = <<<EOS
  * @param boolean \$on_creation If user is newly created, true.
  */
 function _my_additional_info(\$user_id, \$data, \$service, \$on_creation){
-	switch(\$data){
+	switch(\$service){
 		case 'facebook':
 			//Save Facebook bio as user description
 			if(isset(\$data['bio'])){

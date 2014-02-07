@@ -1,0 +1,258 @@
+@charset 'utf-8';
+
+@import 'compass';
+@import 'gianism_variables';
+@import 'components';
+
+$avatar-size: 96px;
+$pad: 10px;
+$avatar-pad: $avatar-size + ($pad * 2);
+$time-color: #86a2af;
+
+.dashicon{
+  font-style: normal;
+  font-family: 'dashicons';
+}
+
+// Chat
+#wpg-chat-wrap{
+  position: relative;
+  h2 i{
+    @extend .dashicon;
+    &:before{
+      content: '\f125';
+    }
+  }
+
+  #main{
+    .wpg-message{
+      padding: 10px 10px 10px $avatar-pad;
+      border: 1px solid #ddd;
+      background: #f9f9f9;
+      position: relative;
+      &:hover{
+        background: #f2fcd8;
+      }
+      a{
+        display: block;
+        color: #444;
+        text-decoration: none;
+      }
+      .time{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: $time-color;
+      }
+      .avatars{
+        width: $avatar-size;
+        height: $avatar-size;
+        position: absolute;
+        top: $pad;
+        left: $pad;
+      }
+      .message{
+        min-height: 96px;
+        padding: 0;
+        margin: 0;
+        strong{
+          display: block;
+          margin-right: 8em;
+          font-size: 1.2em;
+          @include ellipsis();
+        }
+        span{
+          display: block;
+          margin-top: 1em;
+          color: #888;
+        }
+      }
+    }
+    i.return:before{
+      font-family: 'dashicons';
+      content: "\f340";
+      font-style: normal;
+    }
+  }
+
+  #chat-form{
+    position: relative;
+    width: auto;
+    padding: 10px 60px 20px $avatar-pad;
+    margin-bottom: 0px;
+    border-bottom: 3px double #ddd;
+    .avatar{
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    textarea{
+      height: $avatar-size;
+      width: 100%;
+      resize: none;
+    }
+    .button-primary{
+      position: absolute;
+      bottom: 12px;
+      right: 0px;
+    }
+    .gianism-loader{
+      font-size: 32px;
+      position: absolute;
+      right: 10px;
+      bottom: 50px;
+      display: none;
+    }
+    &.loading .gianism-loader{
+      @include inline-block();
+    }
+  }
+
+  .chat-container{
+    margin: 0 0 2em;
+    padding: 0;
+    .chat-block{
+      list-style: none;
+      position: relative;
+      margin: 1.5em 0;
+      padding: $pad $avatar-pad $pad ($avatar-pad - ($pad * 2));
+      .profile{
+        width: $avatar-size;
+        position: absolute;
+        top: $pad;
+        right: $pad;
+        cite{
+
+        }
+      }
+      .time{
+        position: absolute;
+        bottom: -1 * $pad;
+        right: $avatar-pad + $pad;
+        color: $time-color;
+      }
+      .body{
+        .title{
+          display: block;
+          font-size: 1.2em;
+          margin-bottom: 0.5em;
+        }
+        .delete{
+          text-align: right;
+          display: block;
+          margin-top: 0.5em;
+        }
+        position: realtive;
+        min-height: $avatar-size - ($pad * 2);
+        padding: $pad;
+        margin: 0 $pad 0 0;
+        background: #fff;
+        @include border-radius(3px);
+        &:before{
+          position: absolute;
+          top: 50%;
+          margin-top: -15px;
+          right: $avatar-pad - 18px;
+          content: '';
+          display: block;
+          width: 0;
+          height: 0;
+          border: 15px solid transparent;
+          border-left-color: #fff;
+        }
+      }
+      &.me{
+        padding: $pad ($avatar-pad - ($pad * 2)) $pad  $avatar-pad;
+        .profile{
+          right: none;
+          left: $pad;
+        }
+        .time{
+          right: none;
+          left: $avatar-pad + $pad;
+        }
+        .body{
+          margin: 0 0 0 $pad;
+          &:before{
+            border-left-color: transparent;
+            border-right-color: #fff;
+            right: 0;
+            left: $avatar-pad - 18;
+          }
+        }
+      }
+    }
+  }
+}
+
+.prev-loader{
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  height: 20px;
+  display: block;
+  .gianism-loader{
+    display: none;
+  }
+  &.active .gianism-loader{
+    @include inline-block();
+  }
+  i:before{
+    font-size: 20px;
+  }
+}
+
+#chat-more.button{
+  margin: 3em 0 2em;
+  display: block;
+  font-size: 20px;
+  height: 40px;
+  line-height: 20px;
+  padding: 10px 1em ;
+  text-align: center;
+}
+
+i.gianism-loader{
+    @include inline-block();
+    line-height: 1;
+    -webkit-animation: gianism-spin 2s infinite linear;
+    -moz-animation: gianism-spin 2s infinite linear;
+    -o-animation: gianism-spin 2s infinite linear;
+    animation: gianism-spin 2s infinite linear;
+    &:before{
+      font-family: dashicons;
+      font-style: normal;
+      content: "\f463";
+      color: #aaa;
+    }
+}
+
+.loader{
+  text-align: center;
+  font-size: 40px;
+  display: none;
+  i{
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.message-box{
+  padding: 1em;
+  text-align: center;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+p.no-message{
+  display: none;
+  padding: 2em;
+  border: 1px solid #ddd;
+  background: #fff;
+  margin: 2em 0;
+  @include border-radius(3px);
+}
+
+div#main > p.no-message:first-child{
+  display: block;
+}

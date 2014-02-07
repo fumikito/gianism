@@ -1,10 +1,10 @@
 === Gianism ===
 
-Contributors: Takahashi_Fumiki
-Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community
-Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 1.3.0
+Contributors: Takahashi_Fumiki  
+Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
+Requires at least: 3.1  
+Tested up to: 3.5.1  
+Stable tag: 1.3.1
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -90,6 +90,10 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
 
 == Changelog ==
+
+= 1.3.1 = 
+
+* Follow [twitter's API 1.1 Retirement](https://dev.twitter.com/blog/api-v1-is-retired).
 
 = 1.3.0 =
 

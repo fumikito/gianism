@@ -131,7 +131,7 @@ class Admin extends Pattern\Singleton
      * Show message is options are invalid.
      */
     public function invalid_option_notices(){
-        $message = [];
+        $message = array();
         /** @var \Gianism\Option $option */
         $option = Option::get_instance();
         if( current_user_can('manage_options') && $option->has_invalid_option('google_redirect')){

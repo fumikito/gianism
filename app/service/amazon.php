@@ -150,6 +150,7 @@ class Amazon extends Common\Mail
                     $this->auth_fail($e->getMessage());
                 }
                 wp_redirect($this->filter_redirect($redirect_url, 'connect'));
+                exit;
                 break;
         }
     }
@@ -222,7 +223,7 @@ class Amazon extends Common\Mail
             case 'login':
                 $state = sha1(uniqid('amazon_'.$action, true));
                 $this->session_write('state', $state);
-                return 'https://www.amazon.com/ap/oa?'._http_build_query(array(
+                return 'https://www.amazon.com/ap/oa?'.http_build_query(array(
                     'client_id' => $this->amazon_client_id,
                     'scope' => 'profile',
                     'response_type' => 'code',

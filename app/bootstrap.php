@@ -42,12 +42,13 @@ class Bootstrap extends Pattern\Singleton
             session_start();
         }
         if( session_id() ){
-            if( ! isset($_SESSION[$this->name]) || !is_array($_SESSION[$this->name]) ){
+            if( ! isset($_SESSION[$this->name]) ){
                 $_SESSION[$this->name] = array();
             }
         }else{
             add_action('admin_notices', array($this, 'notice_about_session'));
         }
+
         // Set option
         // Here, option is intiialized
         /** @var Option $option */
@@ -188,8 +189,9 @@ class Bootstrap extends Pattern\Singleton
         if( isset($_SESSION[$this->name]) ){
             foreach( array('error', 'updated') as $key ){
                 if( isset($_SESSION[$this->name][$key]) && !empty($_SESSION[$this->name][$key]) ){
-                    printf('<div class="%s"><p>%s</p></div>', $key, implode('<br />', $_SESSION[$this->name][$key]));
-                    unset($_SESSION[$this->name][$key]);
+                    $messages = (array)$_SESSION[$this->name][$key];
+                    printf('<div class="%s"><p>%s</p></div>', $key, implode('<br />', $messages));
+                    $_SESSION[$this->name][$key] = array();
                 }
             }
         }

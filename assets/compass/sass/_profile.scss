@@ -42,18 +42,26 @@
 
 .wpg-notice{
   position: relative;
-  color: #d54e21;
-  font-size: 1.4em;
-  padding: 0.5em 0.5em 0.5em 50px;
+  font-size: 1.1em;
+  padding: 0 0.75em 0 50px;
   min-height: 30px;
+  border-left: 4px solid $notice-color;
+  background: #fff;
+  @include box-shadow(0 1px 1px 0 rgba(0,0,0,.1));
+  li{
+    list-style: disc inside;
+    padding: 0.75em 0;
+    margin: 0;
+  }
   &:before{
     font-family: 'LigatureSymbols';
+    color: $notice-color;
     content: $lsf-info;
     position: absolute;
     left: 10px;
     top: 50%;
     margin-top: -15px;
-    line-heignt: 1;
+    line-height: 1;
     font-size: 30px;
   }
 }

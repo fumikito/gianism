@@ -97,7 +97,7 @@ abstract class Mail extends Singleton
      *
      * @return void
 	 */
-	final protected function set_option(){
+	final public function set_option(){
         /** @var \Gianism\Option $option */
         $option = Option::get_instance();
 		foreach($this->option_keys as $key){
@@ -285,7 +285,7 @@ EOS;
             $button = $this->is_pseudo_mail( $user->user_email ) ? '' : $this->disconnect_button();
         }else{
             $class_name = 'disconnected';
-            $icon_class = 'ban';
+            $icon_class = 'login';
             $message = $this->connection_message('disconnected');
             $button = $this->connect_button();
         }
@@ -740,37 +740,39 @@ EOS;
      * Get Request
      *
      * @param string $endpoint
-     * @param array $request
-     * @param string $method
+     * @param string|array $request
+     * @param string $method If x-www-form-urlencoded required, pass array or else, pass query string.
      * @param bool $json if this request is JSON
-     * @return array
+     * @param array $additional_headers Additional headers.
+     * @return array|\stdClass|bool|null
      */
-    protected function get_response($endpoint, array $request = array(), $method = 'POST', $json = false){
+    protected function get_response($endpoint, $request = '', $method = 'POST', $json = false, array $additional_headers = array()){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if($json){
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            $additional_headers[] = 'Content-Type: application/json';
         }
         switch($method){
             case "POST":
                 curl_setopt($ch, CURLOPT_POST, true);
                 if( is_array($request) ){
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+                    $additional_headers = array_merge($additional_headers, array('Content-Type: application/x-www-form-urlencoded'));
                     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request));
                 }else{
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
                 }
                 break;
             case "GET":
+                curl_setopt($ch, CURLOPT_POST, false);
                 $args = array();
-                foreach($request as $key => $val){
-                    $args[] = $key ."=".rawurlencode($val);
+                if( is_array($request) ){
+                    $request = http_build_query($request);
                 }
-                if(!empty($args)){
-                    $endpoint .= '?'.implode('&', $args);
+                if( !empty($request) ){
+                    $endpoint .= '?'.$request;
                 }
                 break;
             default:
@@ -778,7 +780,15 @@ EOS;
                 break;
         }
         curl_setopt($ch, CURLOPT_URL, $endpoint);
+        if( !empty($additional_headers) ){
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $additional_headers);
+        }
         $response = curl_exec($ch);
+        var_dump($response);
+        if( !$response ){
+            var_dump(curl_errno($ch));
+            exit;
+        }
         curl_close($ch);
         return json_decode($response);
 

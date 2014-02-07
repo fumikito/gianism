@@ -35,6 +35,9 @@ namespace Gianism;
  * @property-read bool $amazon_enabled
  * @property-read string $amazon_client_id
  * @property-read string $amazon_client_secret
+ * @property-read bool $github_enabled
+ * @property-read string $github_client_id
+ * @property-read string $github_client_secret
  * @property-read bool $show_button_on_login
  * @property-read int $button_type
  */
@@ -90,6 +93,9 @@ class Option extends Pattern\Singleton
         'amazon_enabled' => 0,
         'amazon_client_id' => '',
         'amazon_client_secret' => '',
+        'github_enabled' => 0,
+        'github_client_id' => '',
+        'github_client_secret' => '',
         'show_button_on_login' => true,
         'button_type' => 0,
     );
@@ -139,6 +145,9 @@ class Option extends Pattern\Singleton
             "amazon_enabled" => ($this->post('amazon_enabled') == 1) ? 1 : 0,
             "amazon_client_id" => (string)$this->post('amazon_client_id'),
             "amazon_client_secret" => (string)$this->post('amazon_client_secret'),
+            "github_enabled" => ($this->post('github_enabled') == 1) ? 1 : 0,
+            'github_client_id' => (string)$this->post('github_client_id'),
+            'github_client_secret' => (string)$this->post('github_client_secret'),
             'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
             'button_type' => (int)$this->post('button_type'),
         ), $this->values);

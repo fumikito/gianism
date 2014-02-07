@@ -5,7 +5,7 @@ namespace Gianism\Pattern;
 /**
  * Singleton Pattern
  *
- * @package Gianism
+ * @package Gianism\Pattern
  * @author Takahashi Fumiki
  * @since 2.0
  */

@@ -53,6 +53,12 @@ define('GIANISM_DOMAIN', 'wp-gianism');
 define('GIANISM_DOC_UPDATED', '2014-02-01');
 
 
+// For PoEdit scraping
+if(false){
+    __('Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.3 required.', GIANISM_DOMAIN);
+}
+
+
 // Add action after plugins are loaded.
 add_action( 'plugins_loaded', '_gianism_setup_after_plugins_loaded');
 
@@ -101,3 +107,4 @@ function _gianism_php_error(){
 function gianism_description(){
     return __('Gianism let your site\'s users login or register in few steps, with their SNS account. Currently Facebook, twitter, Google, Yahoo! Japan and mixi is supported. They have no need to remember their password(vulnerable or complecated!) nor to ask you to reset password. Stand on the shoulders of giants!', GIANISM_DOMAIN);
 }
+

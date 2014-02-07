@@ -7,6 +7,7 @@ namespace Gianism\Service\Common;
  * Service which doesn't provide email address
  *
  * @package Gianism\Service\Common
+ * @since 2.0.0
  * @author Takahashi Fumiki
  */
 abstract class Nomail extends Mail

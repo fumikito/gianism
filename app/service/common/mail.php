@@ -7,7 +7,8 @@ use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
 /**
  * Common Utility for Social Service
  *
- * @package Gianism\Service
+ * @package Gianism\Service\Common
+ * @since 2.0.0
  * @author Takahashi Fumiki
  * @property-read string $service_name
  * @property-read bool $enabled
@@ -784,11 +785,6 @@ EOS;
             curl_setopt($ch, CURLOPT_HTTPHEADER, $additional_headers);
         }
         $response = curl_exec($ch);
-        var_dump($response);
-        if( !$response ){
-            var_dump(curl_errno($ch));
-            exit;
-        }
         curl_close($ch);
         return json_decode($response);
 

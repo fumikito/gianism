@@ -2,7 +2,13 @@
 
 namespace Gianism;
 
-
+/**
+ * Profile page controller
+ *
+ * @package Gianism
+ * @since 2.0.0
+ * @author Takahashi Fumiki
+ */
 class Profile extends Pattern\Singleton
 {
 

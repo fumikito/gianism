@@ -8,6 +8,7 @@ use Gianism\Option;
  * mixi Controller
  *
  * @package Gianism\Service
+ * @since 2.0.0
  * @author Takahashi Fumiki
  */
 class Mixi extends Common\Nomail
@@ -34,21 +35,29 @@ class Mixi extends Common\Nomail
     public $mixi_refresh_token = '';
 	
 	/**
+     * User's mixi ID
+     *
 	 * @var string
 	 */
 	public $umeta_id = '_mixi_id';
 	
 	/**
+     * User's mixi profile page URL
+     *
 	 * @var string
 	 */
 	public $umeta_profile_url = '_mixi_url';
 	
 	/**
+     * Refresh token
+     *
 	 * @var string
 	 */
 	public $umeta_refresh_token = '_mixi_refresh_token';
 	
 	/**
+     * Pseudo domain
+     *
 	 * @var string
 	 */
 	protected $pseudo_domain = 'pseudo.mixi.jp';
@@ -306,13 +315,14 @@ class Mixi extends Common\Nomail
 	}
 
 
-	/* Mail Handler for pseudo mail
+	/**
+     * Mail Handler for pseudo mail
 	 *
 	 * @param int $user_id
 	 * @param string $subject
 	 * @param string $message
-	 * @param array $headers
-	 * @param array $attachment
+	 * @param array|string $headers
+	 * @param array|string $attachment
 	 */
 	public function wp_mail($user_id, $subject, $message, $headers = '', $attachment = ''){
         parent::wp_mail($user_id, $subject, $message, $headers, $attachment);

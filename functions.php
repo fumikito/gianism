@@ -1,4 +1,11 @@
 <?php
+/**
+ * Global functions for Gianism.
+ *
+ * @package Gianism
+ * @since 1.0
+ * @author Takahashi Fumiki
+ */
 
 /**
  * Class auto loader
@@ -66,7 +73,13 @@ function _gianism_autoloader($class_name){
 }
 
 /**
- * Save message
+ * Save message to specified user
+ *
+ * If user's email is pseudo one(e.g. example@pseudo.twitter.com),
+ * WordPress's mail function <code>wp_mail</code> fails.
+ * This function is originally used for <code>wp_mail</code> fallback.
+ * But you can use this function to send message which will be
+ * displayed on admin screen.
  *
  * @param int $user_id
  * @param string $body
@@ -83,6 +96,7 @@ function gianism_message($user_id, $body, $from = 0, $subject = '' ){
 /**
  * Returns Facebook ID
  *
+ * @since 1.0
  * @param int $user_id
  * @return string
  */
@@ -100,7 +114,7 @@ function get_facebook_id($user_id){
  * This function itself has no effect without action hook.
  * See example below:
  *
- * <code>
+ * <pre>
  * // In some template, display button.
  * get_facebook_publish_permission_link(get_permalink(), 'my_favorite_action', array('post_id' => get_the_ID()));
  *
@@ -124,8 +138,9 @@ function get_facebook_id($user_id){
  *          wp_die($e->getMessage());
  *       }
  * }
- * </code>
+ * </pre>
  *
+ * @since 1.3
  * @param string $redirect_url URL where user will be redirect afeter authentication
  * @param string $action Action name which will be fired after authenticaction
  * @param array $args Array which will be passed to action hook
@@ -142,6 +157,7 @@ function get_facebook_publish_permission_link($redirect_url = null, $action = ''
 /**
  * Returns if user is connected with particular web service.
  *
+ * @since 1.0
  * @param string $service One of facebook, mixi, yahoo, twitter or google.
  * @param int $user_id If not specified, current user id will be used.
  * @return boolean 
@@ -164,6 +180,7 @@ function is_user_connected_with($service, $user_id = 0){
  *
  * @todo Make other services to work.
  * @global \wpdb $wpdb
+ * @since 1.0
  * @param string $service
  * @param mixed $credential
  * @return \WP_User
@@ -196,8 +213,8 @@ function get_user_by_service($service, $credential){
  * Returns if current user liked or not.
  * 
  * You can use this function only on Facebook fan page tab.
- * 
- * @global WP_Gianism $gianism
+ *
+ * @since 1.0
  * @return boolean
  */
 function is_user_like_fangate(){
@@ -213,6 +230,7 @@ function is_user_like_fangate(){
  *
  * Valid only on facebook fan gate.
  *
+ * @since 1.0
  * @return boolean
  */
 function is_guest_on_fangate(){
@@ -256,6 +274,7 @@ EOS;
 /**
  * Returns facebook id on fan gate.
  *
+ * @since 1.0
  * @return string|boolean
  */
 function get_user_id_on_fangate(){
@@ -269,6 +288,7 @@ function get_user_id_on_fangate(){
 /**
  * Get Twitter Screen Name
  *
+ * @since 1.2
  * @param int $user_id
  * @return string|false 
  */
@@ -283,6 +303,7 @@ function get_twitter_screen_name($user_id){
 /**
  * Update Twitter timeline
  *
+ * @since 1.3
  * @param string $string
  */
 function update_twitter_status($string){
@@ -291,11 +312,10 @@ function update_twitter_status($string){
     $twitter->tweet($string);
 }
 
-
-
 /**
  * Reply to specified user by Owner Account
  *
+ * @since 1.0
  * @param int $user_id
  * @param string $string
  * @return boolean 
@@ -310,16 +330,14 @@ function twitter_reply_to($user_id, $string){
 	}
 }
 
-
-
 /**
- * Get twitter timeline in JSON format object
+ * Get twitter time line in JSON format object
  *
  * Caching is recommended.
  *
  * <pre>
  * $timeline = get_transient('twitter_timeline');
- * if( false === $cache){
+ * if( false === $timeline){
  *     $timeline = twitter_get_timeline('my_screen_name');
  *     set_transient('twitter_timeline', $timeline, 3600);
  * }
@@ -328,6 +346,7 @@ function twitter_reply_to($user_id, $string){
  * }
  * </pre>
  *
+ * @since 1.3
  * @param string $screen_name If not specified, admin user's screen name will be used.
  * @param array $additional_data
  * @return object JSON format object.
@@ -344,13 +363,12 @@ function twitter_get_timeline($screen_name = null, array $additional_data = arra
     ));
 }
 
-
-
 /**
  * Show Login buttons
  *
  * Show login buttons where you want.
  *
+ * @since 1.0
  * @param string $before
  * @param string $after
  */
@@ -360,4 +378,28 @@ function gianism_login($before = '', $after = ''){
 	$login->login_form($before, $after);
 }
 
+/**
+ * Detect if user is geek
+ *
+ * Geek means user is connected with Github.
+ *
+ * @since 2.0.0
+ * @param int $user_id
+ * @return bool
+ */
+function is_geek($user_id){
+    /** @var \Gianism\Service\Github $github */
+    $github = \Gianism\Service\Github::get_instance();
+    return (bool)get_user_meta($user_id, $github->umeta_id);
+}
 
+/**
+ * Detect if current user is geek
+ *
+ * @since 2.0.0
+ * @see is_geek
+ * @return bool
+ */
+function is_current_user_geek(){
+    return is_geek(get_current_user_id());
+}

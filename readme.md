@@ -2,8 +2,8 @@
 
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
-Requires at least: 3.8
-Tested up to: 3.9-alpha
+Requires at least: 3.8  
+Tested up to: 3.9-alpha  
 Stable tag: 2.0.0
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
@@ -65,9 +65,16 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 1. Buttons on Login/registeration screen.
 2. Show connection status on profile screen. Registered users can connect account here.
-3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/). （[Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)のようにログイン画面をカスタマイズするプラグインとも同時に動きます）
+3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 ##  Changelog 
+
+### 2.0.0
+
+* Add Amazon, Github
+* Requires PHP 5.3 or later. Using name space and autoloader.
+* Design is suit for WordPress 3.8's new admin.
+* Login buttons are redesigned. Now you can choose large flat buttons or normal buttons.
 
 ###  1.3.1  
 

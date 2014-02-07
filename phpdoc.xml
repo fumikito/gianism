@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>Gianism API</title>
+    <title>Gianism API | takahashifumiki.com</title>
     <parser>
         <target>../../../api/gianism</target>
         <markers>

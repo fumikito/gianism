@@ -11,7 +11,7 @@ $mixi = \Gianism\Service\Mixi::get_instance();
 <form method="post">
 <?php $this->nonce_field('option'); ?>
 
-<h3><i class="lsf lsf-gear"></i> <?php $this->e('General') ?></h3>
+<h3><i class="lsf lsf-gear"></i> <?php $this->e('General Setting') ?></h3>
 <table class="form-table">
     <tr>
         <th><?php $this->e('Current registration setting') ?></th>
@@ -23,10 +23,50 @@ $mixi = \Gianism\Service\Mixi::get_instance();
                     <i class="lsf lsf-ban" style="color: lightgrey; font-size: 1.4em;"></i> <strong><?php $this->e('Disabled') ?></strong>
                 <?php endif; ?>
             </p>
-            <p class="description"><?php printf($this->_('This setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created from SNS information, or else only connected user can login via SNS account.'), admin_url('options-general.php')) ?></p>
+            <p>
+                <label>
+                    <input type="radio" name="force_register" value="1"<?php checked($option->force_register) ?> />
+                    <?php $this->e('Force register'); ?>
+                </label><br />
+                <label>
+                    <input type="radio" name="force_register" value="0"<?php checked(!$option->force_register) ?> />
+                    <?php $this->e('Depends on WP setting'); ?>
+                </label>
+            </p>
+            <p class="description"><?php printf($this->_('Whether registeration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.'), admin_url('options-general.php')) ?></p>
+        </td>
+    </tr>
+    <tr>
+        <th><?php $this->e('Login screen'); ?></th>
+        <td>
+            <label>
+                <input type="radio" name="show_button_on_login" value="1"<?php checked($option->show_button_on_login) ?> />
+                <?php $this->e('Show all button on Login screen.'); ?>
+            </label><br />
+            <label>
+                <input type="radio" name="show_button_on_login" value="0"<?php checked(!$option->show_button_on_login) ?> />
+                <?php $this->e('Do not show login button.'); ?>
+            </label>
+            <p class="description">
+                <?php printf($this->_('You can output login button manually. See detail at <a href="%2$s">%1$s</a>.'), $this->_('Customize'), $this->setting_url('customize')); ?>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <th><label for="button_type"><?php $this->e('Button size'); ?></label></th>
+        <td>
+            <select name="button_type" id="button_type">
+                <?php foreach( $option->button_types() as $index => $value ): ?>
+                    <option value="<?php echo $index ?>"<?php selected($index == $option->button_type) ?>><?php echo esc_html($value); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <p class="description">
+                <?php $this->e('This setting is valid only if login button\'s display setting is on.'); ?>
+            </p>
         </td>
     </tr>
 </table>
+<?php submit_button(); ?>
 
 
 <h3><i class="lsf lsf-facebook"></i> Facebook</h3>
@@ -392,41 +432,5 @@ $mixi = \Gianism\Service\Mixi::get_instance();
 </table>
 <?php submit_button(); ?>
 
-<h3><i class="lsf lsf-setting"></i> <?php $this->e('Display Setting'); ?></h3>
-<table class="form-table">
-    <tbody>
-        <tr>
-            <th><?php $this->e('Login screen'); ?></th>
-            <td>
-                <label>
-                    <input type="radio" name="show_button_on_login" value="1"<?php checked($option->show_button_on_login) ?> />
-                    <?php $this->e('Show all button on Login screen.'); ?>
-                </label><br />
-                <label>
-                    <input type="radio" name="show_button_on_login" value="0"<?php checked(!$option->show_button_on_login) ?> />
-                    <?php $this->e('Do not show login button.'); ?>
-                </label>
-                <p class="description">
-                    <?php printf($this->_('You can output login button manually. See detail at <a href="%2$s">%1$s</a>.'), $this->_('Customize'), $this->setting_url('customize')); ?>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="button_type"><?php $this->e('Button size'); ?></label></th>
-            <td>
-                <select name="button_type" id="button_type">
-                    <?php foreach( $option->button_types() as $index => $value ): ?>
-                        <option value="<?php echo $index ?>"<?php selected($index == $option->button_type) ?>><?php echo esc_html($value); ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <p class="description">
-                    <?php $this->e('This setting is valid only if login button\'s display setting is on.'); ?>
-                </p>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
-
-<?php submit_button(); ?>
 </form>

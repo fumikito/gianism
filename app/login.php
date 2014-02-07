@@ -3,7 +3,13 @@
 namespace Gianism;
 
 
-
+/**
+ * Login screen controller
+ *
+ * @package Gianism
+ * @since 2.0.0
+ * @author Takahashi Fumiki
+ */
 class Login extends Pattern\Singleton
 {
 

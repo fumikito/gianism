@@ -6,8 +6,6 @@ defined('ABSPATH') or die();
 /** @var \Gianism\Option $option */
 ?>
 
-
-
 <h3><?php $this->e('Create Facebook page tab'); ?></h3>
 
 <p><?php $this->e('<a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/">Page tab</a> is page which you can add to your facebook page. If you create Facebook Web application and connect it with Gianism, you can assign WordPress page to page tab.'); ?></p>

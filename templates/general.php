@@ -73,6 +73,9 @@ defined('ABSPATH') or die();
         <?php printf($this->_('Last Updated: %s'), mysql2date(get_option('date_format'), GIANISM_DOC_UPDATED)); ?>
     </p>
 
+    <?php if( !$this->is_view('setting') ): ?>
+        <p><?php printf($this->_('API document is also available at <a href="%s">Developer\'s site</a>. You can use various functions.'), $this->ga_link('http://takahashifumiki.com/api/gianism/')) ?></p>
+    <?php endif; ?>
 
 
     <?php

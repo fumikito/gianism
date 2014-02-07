@@ -3,12 +3,11 @@
 namespace Gianism\Service;
 
 /**
- * Google client
+ * Github client
  *
+ * @package Gianism\Service
  * @author Takahashi Fumiki
- *
- * @property-read \Google_Client $api
- * @property-read \Google_Service_Plus $plus
+ * @since 2.0.0
  */
 class Github extends Common\Mail
 {

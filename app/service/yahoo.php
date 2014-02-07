@@ -7,6 +7,7 @@ namespace Gianism\Service;
  *
  * @package Gianism\Service
  * @author Takahashi Fumiki
+ * @since 2.0.0
  * @property-read \YConnect\YConnectClient $client
  */
 class Yahoo extends Common\Mail

@@ -9,7 +9,6 @@ defined('ABSPATH') or die();
 
 <h3><i class="lsf lsf-facebook"></i> Facebook</h3>
 
-
 <p class="desrtiption"><?php $this->e('First of all, Facebook account is required. If you don\'t have one, create it at <a href="https://www.facebook.com">facebook.com</a>'); ?></p>
 
 <h4>Step1. <?php $this->e('Create App on Facebook developers'); ?></h4>
@@ -191,7 +190,7 @@ defined('ABSPATH') or die();
 
 <p class="description"><?php $this->e('Amazon account is required. If you don\'t have one, create it at <a href="https://sellercentral.amazon.com/gp/homepage.html">Log in with Amazon</a>.'); ?></p>
 
-<h4>Step1. <?php $this->e('Create applicaiton'); ?></h4>
+<h4>Step1. <?php $this->e('Create application'); ?></h4>
 
 <p><?php $this->e('On Log in with Amazon, click <code>register new application</code> button right side. Then, insert information below:'); ?></p>
 
@@ -207,7 +206,7 @@ defined('ABSPATH') or die();
     </tr>
     <tr>
         <th>Privacy Notice URL</th>
-        <td><?php $this->e('Your privacy poilicy URL.'); ?></td>
+        <td><?php $this->e('Your privacy policy URL.'); ?></td>
     </tr>
     </tbody>
 </table>
@@ -219,7 +218,36 @@ defined('ABSPATH') or die();
 <p><?php printf($this->_('Now come back to <a href="%s">WP admin panel</a>, enter <code>Client ID</code> and <code>Client Secret</code>. That\'s all done.'), $this->setting_url()); ?></p>
 
 
+<h3><i class="lsf lsf-github"></i> Github</h3>
 
+<p class="description"><?php $this->e('Github account is required. If you don\'t have one, create it at <a href="https://github.com">Github</a>.'); ?></p>
+
+<h4>Step1. <?php $this->e('Create application'); ?></h4>
+
+<p><?php printf($this->_('Go to %s and click %s. Now you will be on application form, enter information below:'), '<a href="https://github.com/settings/applications">Github Applications</a>', '<code>Register new application</code>') ?></p>
+
+<table class="gianism-example-table">
+    <tbody>
+        <tr>
+            <th>Application name</th>
+            <td><?php printf($this->_('<code>%s</code> is recommended.'), get_bloginfo('name')); ?></td>
+        </tr>
+        <tr>
+            <th>Homepage URL</th>
+            <td><code><?php echo home_url('/', 'http') ?></code></td>
+        </tr>
+        <tr>
+            <th>Authorization callback URL</th>
+            <td><code><?php echo home_url('/github-auth/', $this->is_ssl_required() ? 'https' : 'http'); ?></code></td>
+        </tr>
+    </tbody>
+</table>
+
+<p><?php $this->e('After creation, you can see your application detail\'s setting tab. There, you can get <code>Client ID</code> and <code>Client Secret</code>.') ?></p>
+
+<h4>Step2. <?php $this->e('Input credentials'); ?></h4>
+
+<p><?php printf($this->_('Now come back to <a href="%s">WP admin panel</a>, enter <code>Client ID</code> and <code>Client Secret</code>. That\'s all done.'), $this->setting_url()); ?></p>
 
 
 <h3><i class="lsf lsf-yahoo"></i> Yahoo! JAPAN</h3>
@@ -230,7 +258,7 @@ defined('ABSPATH') or die();
 	<?php $this->e('<strong>Note:</strong> Yahoo! JAPAN is different from Yahoo! and is Japanese domestic service.'); ?>
 </p>
 
-<h4>Step1. <?php $this->e('Create applicaiton'); ?></h4>
+<h4>Step1. <?php $this->e('Create application'); ?></h4>
 
 <p><?php $this->e('Log in to Yahoo! JAPAN developer network and clik <a href="https://e.developer.yahoo.co.jp/register" target="_blank">Register</a> to fill required information below.'); ?></p>
 
@@ -272,7 +300,7 @@ defined('ABSPATH') or die();
 
 <p class="description"><?php $this->e('mixi account is required. If you don\'t have one, create it at <a href="http://developer.mixi.co.jp/">mixi Developer Center</a>.'); ?></p>
 
-<h4>Step1. <?php $this->e('Create mixi applicaiton'); ?></h4>
+<h4>Step1. <?php $this->e('Create mixi application'); ?></h4>
 
 <p><?php $this->e('Log in to <a href="http://developer.mixi.co.jp/">Partner Dashboard</a> and click <code>mixi Graph API</code>.'); ?></p>
 

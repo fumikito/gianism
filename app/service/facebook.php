@@ -6,6 +6,7 @@ namespace Gianism\Service;
  * Description of facebook_controller
  *
  * @package Gianism\Service
+ * @since 2.0.0
  * @author Takahashi Fumiki
  * @property-read string $cert_path Path to cert file.
  * @property-read \Facebook $api Facebook object

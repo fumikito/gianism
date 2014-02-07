@@ -1,118 +1,118 @@
 @-moz-keyframes gianism-spin {
-  /* line 26, ../sass/_gianism_variables.scss */
+  /* line 27, ../sass/_gianism_variables.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 27, ../sass/_gianism_variables.scss */
+  /* line 28, ../sass/_gianism_variables.scss */
   100% {
     -moz-transform: rotate(359deg);
   }
 }
 
 @-webkit-keyframes gianism-spin {
-  /* line 30, ../sass/_gianism_variables.scss */
+  /* line 31, ../sass/_gianism_variables.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 31, ../sass/_gianism_variables.scss */
+  /* line 32, ../sass/_gianism_variables.scss */
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
 
 @-o-keyframes gianism-spin {
-  /* line 34, ../sass/_gianism_variables.scss */
+  /* line 35, ../sass/_gianism_variables.scss */
   0% {
     -o-transform: rotate(0deg);
   }
 
-  /* line 35, ../sass/_gianism_variables.scss */
+  /* line 36, ../sass/_gianism_variables.scss */
   100% {
     -o-transform: rotate(359deg);
   }
 }
 
 @-ms-keyframes gianism-spin {
-  /* line 38, ../sass/_gianism_variables.scss */
+  /* line 39, ../sass/_gianism_variables.scss */
   0% {
     -ms-transform: rotate(0deg);
   }
 
-  /* line 39, ../sass/_gianism_variables.scss */
+  /* line 40, ../sass/_gianism_variables.scss */
   100% {
     -ms-transform: rotate(359deg);
   }
 }
 
 @keyframes gianism-spin {
-  /* line 42, ../sass/_gianism_variables.scss */
+  /* line 43, ../sass/_gianism_variables.scss */
   0% {
     transform: rotate(0deg);
   }
 
-  /* line 43, ../sass/_gianism_variables.scss */
+  /* line 44, ../sass/_gianism_variables.scss */
   100% {
     transform: rotate(359deg);
   }
 }
 
 @-moz-keyframes gianism-spin {
-  /* line 26, ../sass/_gianism_variables.scss */
+  /* line 27, ../sass/_gianism_variables.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 27, ../sass/_gianism_variables.scss */
+  /* line 28, ../sass/_gianism_variables.scss */
   100% {
     -moz-transform: rotate(359deg);
   }
 }
 
 @-webkit-keyframes gianism-spin {
-  /* line 30, ../sass/_gianism_variables.scss */
+  /* line 31, ../sass/_gianism_variables.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 31, ../sass/_gianism_variables.scss */
+  /* line 32, ../sass/_gianism_variables.scss */
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
 
 @-o-keyframes gianism-spin {
-  /* line 34, ../sass/_gianism_variables.scss */
+  /* line 35, ../sass/_gianism_variables.scss */
   0% {
     -o-transform: rotate(0deg);
   }
 
-  /* line 35, ../sass/_gianism_variables.scss */
+  /* line 36, ../sass/_gianism_variables.scss */
   100% {
     -o-transform: rotate(359deg);
   }
 }
 
 @-ms-keyframes gianism-spin {
-  /* line 38, ../sass/_gianism_variables.scss */
+  /* line 39, ../sass/_gianism_variables.scss */
   0% {
     -ms-transform: rotate(0deg);
   }
 
-  /* line 39, ../sass/_gianism_variables.scss */
+  /* line 40, ../sass/_gianism_variables.scss */
   100% {
     -ms-transform: rotate(359deg);
   }
 }
 
 @keyframes gianism-spin {
-  /* line 42, ../sass/_gianism_variables.scss */
+  /* line 43, ../sass/_gianism_variables.scss */
   0% {
     transform: rotate(0deg);
   }
 
-  /* line 43, ../sass/_gianism_variables.scss */
+  /* line 44, ../sass/_gianism_variables.scss */
   100% {
     transform: rotate(359deg);
   }
@@ -143,11 +143,15 @@ i.lsf-amazon {
   color: #030606;
 }
 /* line 27, ../sass/_components.scss */
-i.lsf-githb {
+i.lsf-github {
   color: #333333;
 }
+/* line 30, ../sass/_components.scss */
+i.lsf-hatena {
+  color: #547ce4;
+}
 
-/* line 34, ../sass/_components.scss */
+/* line 37, ../sass/_components.scss */
 .wpg-button {
   display: -moz-inline-stack;
   display: inline-block;
@@ -174,34 +178,34 @@ i.lsf-githb {
   box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
   vertical-align: top;
 }
-/* line 49, ../sass/_components.scss */
+/* line 52, ../sass/_components.scss */
 .wpg-button:link, .wpg-button:visited {
   color: #555555;
   text-decoration: none;
 }
-/* line 53, ../sass/_components.scss */
+/* line 56, ../sass/_components.scss */
 .wpg-button:hover {
   background: #fafafa;
   border-color: #999999;
   color: #222222;
 }
-/* line 58, ../sass/_components.scss */
+/* line 61, ../sass/_components.scss */
 .wpg-button:focus {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-/* line 61, ../sass/_components.scss */
+/* line 64, ../sass/_components.scss */
 .wpg-button .lsf {
   font-size: 1.4em;
 }
 
-/* line 67, ../sass/_components.scss */
+/* line 70, ../sass/_components.scss */
 body {
   position: relative;
 }
 
-/* line 71, ../sass/_components.scss */
+/* line 74, ../sass/_components.scss */
 .wpg-notices {
   position: fixed;
   top: 0;
@@ -212,11 +216,11 @@ body {
   box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
   background: #fff;
 }
-/* line 78, ../sass/_components.scss */
+/* line 81, ../sass/_components.scss */
 .wpg-notices.toggle {
   display: none;
 }
-/* line 82, ../sass/_components.scss */
+/* line 85, ../sass/_components.scss */
 .wpg-notices div.error,
 .wpg-notices div.updated {
   background: transparent;
@@ -228,7 +232,7 @@ body {
   -moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
-/* line 89, ../sass/_components.scss */
+/* line 92, ../sass/_components.scss */
 .wpg-notices div.error p,
 .wpg-notices div.updated p {
   background: transparent;
@@ -238,7 +242,7 @@ body {
   max-width: 800px;
   line-height: 2;
 }
-/* line 96, ../sass/_components.scss */
+/* line 99, ../sass/_components.scss */
 .wpg-notices div.error p:before,
 .wpg-notices div.updated p:before {
   font-family: 'LigatureSymbols';
@@ -249,25 +253,25 @@ body {
   to: 50%;
   margin-top: -15px;
 }
-/* line 107, ../sass/_components.scss */
+/* line 110, ../sass/_components.scss */
 .wpg-notices div.error {
   background: #d54e21;
   color: #ffffff;
 }
-/* line 110, ../sass/_components.scss */
+/* line 113, ../sass/_components.scss */
 .wpg-notices div.error p:before {
   content: "\E012";
 }
-/* line 114, ../sass/_components.scss */
+/* line 117, ../sass/_components.scss */
 .wpg-notices div.updated {
   color: white;
   background: #5dc06e;
 }
-/* line 117, ../sass/_components.scss */
+/* line 120, ../sass/_components.scss */
 .wpg-notices div.updated p:before {
   content: "\E029";
 }
-/* line 121, ../sass/_components.scss */
+/* line 124, ../sass/_components.scss */
 .wpg-notices a.close-btn {
   position: absolute;
   right: 20px;
@@ -286,45 +290,45 @@ body {
   text-decoration: none;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), inset 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
-/* line 134, ../sass/_components.scss */
+/* line 137, ../sass/_components.scss */
 .wpg-notices a.close-btn:hover {
   text-decoration: none;
 }
-/* line 140, ../sass/_components.scss */
+/* line 143, ../sass/_components.scss */
 .wpg-notices div.updated a.close-btn:link, .wpg-notices div.updated a.close-btn:visited {
   color: #38703A;
 }
-/* line 143, ../sass/_components.scss */
+/* line 146, ../sass/_components.scss */
 .wpg-notices div.updated a.close-btn:hover, .wpg-notices div.updated a.close-btn:active {
   color: #448f4d;
 }
-/* line 148, ../sass/_components.scss */
+/* line 151, ../sass/_components.scss */
 .wpg-notices div.error a.close-btn:link, .wpg-notices div.error a.close-btn:visited {
   color: #5f2410;
 }
-/* line 151, ../sass/_components.scss */
+/* line 154, ../sass/_components.scss */
 .wpg-notices div.error a.close-btn:hover, .wpg-notices div.error a.close-btn:active {
   color: #9e3c1b;
 }
 
-/* line 159, ../sass/_components.scss */
+/* line 162, ../sass/_components.scss */
 body.admin-bar .wpg-notices {
   top: 32px;
 }
 
-/* line 167, ../sass/_components.scss */
+/* line 170, ../sass/_components.scss */
 #wpadminbar #wp-admin-bar-gianism-chat > .ab-item .ab-icon:before {
   content: "\f125";
   top: 2px;
 }
 
-/* line 174, ../sass/_components.scss */
+/* line 177, ../sass/_components.scss */
 #adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
   content: "\f125";
 }
 
 @media screen and (max-width: 782px) {
-  /* line 181, ../sass/_components.scss */
+  /* line 184, ../sass/_components.scss */
   body.admin-bar .wpg-notices {
     top: 46px;
   }

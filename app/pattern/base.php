@@ -7,7 +7,7 @@ use Gianism\Option;
 /**
  * Base class
  *
- * @package Gianism
+ * @package Gianism\Pattern
  * @author Takahashi Fumiki
  * @since 2.0
  * @property-read string $dir
@@ -365,6 +365,8 @@ EOS;
      * @return bool
      */
     public function user_can_register(){
-        return (bool)get_option('users_can_register');
+        /** @var \Gianism\Option $option */
+        $option = Option::get_instance();
+        return $option->force_register ?: (bool)get_option('users_can_register');
     }
 }

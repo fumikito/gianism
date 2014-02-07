@@ -6,6 +6,7 @@ namespace Gianism\Service;
  * Description of twitter_controller
  *
  * @package Gianism\Service
+ * @since 2.0.0
  * @author Takahashi Fumiki
  */
 class Twitter extends Common\Nomail

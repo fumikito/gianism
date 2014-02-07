@@ -3,11 +3,13 @@
 namespace Gianism;
 
 /**
- * Class Option
+ * Option interface
  *
  * @package Gianism
+ * @since 2.0.0
  * @author Takahashi Fumiki
  *
+ * @property-read bool $force_register
  * @property-read bool $fb_enabled
  * @property-read bool $facebook_enabled
  * @property-read string $fb_app_id
@@ -69,6 +71,9 @@ class Option extends Pattern\Singleton
      * @var array
      */
     protected $default_option = array(
+        'show_button_on_login' => true,
+        'button_type' => 0,
+        'force_register' => true,
         'fb_enabled' => 0,
         'fb_app_id' => '',
         'fb_app_secret' => '',
@@ -96,8 +101,6 @@ class Option extends Pattern\Singleton
         'github_enabled' => 0,
         'github_client_id' => '',
         'github_client_secret' => '',
-        'show_button_on_login' => true,
-        'button_type' => 0,
     );
 
 
@@ -150,6 +153,7 @@ class Option extends Pattern\Singleton
             'github_client_secret' => (string)$this->post('github_client_secret'),
             'show_button_on_login' => (boolean)$this->post('show_button_on_login'),
             'button_type' => (int)$this->post('button_type'),
+            'force_register' => ($this->post('force_register') == 1) ? true : false,
         ), $this->values);
         if(update_option($this->key, $this->values)){
             $this->add_message($this->_('Option updated.'));

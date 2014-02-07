@@ -123,6 +123,7 @@ class Admin extends Pattern\Singleton
             $option = Option::get_instance();
             $option->update();
             wp_redirect($this->setting_url());
+            exit;
         }
     }
 
@@ -171,9 +172,23 @@ class Admin extends Pattern\Singleton
      */
     public function plugin_row_meta($plugin_meta, $plugin_file, $plugin_data, $status){
         if(false !== strpos($plugin_file, 'wp-gianism')){
+            for($i = 0, $l = count($plugin_meta); $i < $l; $i++ ){
+                if( false !== strpos($plugin_meta[$i], 'http://takahashifumiki.com') ){
+                    $plugin_meta[$i] = str_replace('http://takahashifumiki.com', $this->ga_link('http://takahashifumiki.com', 'link'), $plugin_meta[$i]);
+                }
+            }
             $plugin_meta[] = sprintf('<a href="http://github.takahashifumiki.com/Gianism/">Github</a>');
         }
         return $plugin_meta;
     }
 
+    /**
+     * Generate Google Analytics ready URL
+     *
+     * @ignore
+     */
+    public function ga_link($link, $media = 'link'){
+        $source = rawurlencode(str_replace('http://', '', home_url('', 'http')));
+        return $link."?utm_source={$source}&utm_medium={$media}&utm_campaign=Gianism";
+    }
 }

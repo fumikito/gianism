@@ -5,6 +5,8 @@ namespace Gianism\Service;
 /**
  * Google client
  *
+ * @package Gianism\Service
+ * @since 2.0.0
  * @author Takahashi Fumiki
  *
  * @property-read \Google_Client $api

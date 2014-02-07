@@ -2,7 +2,13 @@
 
 namespace Gianism\Service;
 
-
+/**
+ * Amazon Controller
+ *
+ * @package Gianism\Service
+ * @since 2.0.0
+ * @author Takahashi Fumiki
+ */
 class Amazon extends Common\Mail
 {
 

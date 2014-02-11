@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
 Requires at least: 3.8  
 Tested up to: 3.9-alpha  
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -68,6 +68,10 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 == Changelog  ==
+
+= 2.0.1 =
+
+* Fix auto-loader. This error has occurred on the server which contains capital letter in document root path. Sorry for that.
 
 = 2.0.0 =
 

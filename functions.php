@@ -21,7 +21,7 @@ function _gianism_autoloader($class_name){
     $path = false;
     switch( $class_name ){
         case 'Facebook':
-            $path = implode(DIRECTORY_SEPARATOR, array( $vendor_dir, 'facebook-php-sdk', 'src', 'facebook.php' ));
+            $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'facebook-php-sdk', 'src', 'facebook.php' ));
             break;
         case 'TwitterOAuth':
             $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'twitteroauth', 'twitteroauth', 'twitteroauth.php'));
@@ -37,8 +37,7 @@ function _gianism_autoloader($class_name){
         case 'OAuthServer':
         case 'OAuthDataStore':
         case 'OAuthUtil':
-            require_once implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'twitteroauth', 'twitteroauth', 'OAuth.php'));
-            return;
+            $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'twitteroauth', 'twitteroauth', 'OAuth.php'));
             break;
         case 'JWT':
             $path = implode(DIRECTORY_SEPARATOR, array($vendor_dir, 'jwt', 'JWT.php'));
@@ -48,8 +47,8 @@ function _gianism_autoloader($class_name){
                 // Original Class
                 $base_dir = __DIR__.DIRECTORY_SEPARATOR.'app';
                 $path_segments = explode('\\', $class_name);
-                $path_segments[0] = $base_dir;
-                $path = implode(DIRECTORY_SEPARATOR, array_map(function($path){
+                array_shift($path_segments);
+                $path = $base_dir.DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, array_map(function($path){
                     return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($matches){
                         return strtolower('-'.$matches[1]);
                     }, $path));
@@ -68,7 +67,7 @@ function _gianism_autoloader($class_name){
             break;
     }
     if( $path && file_exists($path)){
-        require $path;
+        require_once $path;
     }
 }
 

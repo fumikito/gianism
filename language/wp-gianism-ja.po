@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-07 18:11+0900\n"
-"PO-Revision-Date: 2014-02-07 18:12+0900\n"
-"Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
+"PO-Revision-Date: 2014-03-16 02:08+0900\n"
+"Last-Translator: Luminous Spice <luminous.spice@gmail.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -23,7 +23,7 @@ msgid ""
 "Stand on the shoulders of giants! Notice: PHP5.3 required."
 msgstr ""
 "ユーザーアカウントをFacebookやtwitterのような有名Webサービスと接続します。巨"
-"人の方に立ちましょう！ ※PHP 5.3 必須"
+"人の肩に立ちましょう！ ※PHP 5.3 必須"
 
 #: ../wp-gianism.php:97
 #, php-format
@@ -60,8 +60,8 @@ msgid ""
 "a> and follow the instruction there."
 msgstr ""
 "Google redirect URLは2.0から廃止されました。 <strong>Google API Consoleで設定"
-"を変更する必要があります</strong>。<a href=”%s”>設定を更新し</a>、指示に従っ"
-"てください。"
+"を変更する必要があります</strong>。<a href=\"%s\">設定を更新し</a>、指示に"
+"従ってください。"
 
 #: ../app/admin.php:141
 #, php-format
@@ -69,8 +69,8 @@ msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setiting</a> and "
 "follow instructions there."
 msgstr ""
-"サービスが有効になっていません。<a href=”%s”>Gianism 設定</a>へ行き、画面の指"
-"示に従ってください。"
+"サービスが有効になっていません。<a href=\"%s\">Gianism 設定</a>へ行き、画面の"
+"指示に従ってください。"
 
 #: ../app/admin.php:158
 msgid "Settings"
@@ -139,7 +139,7 @@ msgid ""
 "your account."
 msgstr ""
 "あなたのパスワードは自動生成されたものです。アカウントの接続を解除する前に"
-"<strong><a href=”#pass1”>パスワードを更新</a>してください。"
+"<strong><a href=\"#pass1\">パスワードを更新</a>してください。"
 
 #: ../app/profile.php:72
 msgid ""
@@ -148,8 +148,8 @@ msgid ""
 "<strong>you might be unable to log in</strong>."
 msgstr ""
 "あなたのメールアドレスは自動生成された仮のものです。有効なメールアドレスに<a "
-"href=”#email”>変更すること</a>を強くお勧めします。さもないと、<strong>ログイ"
-"ンできなくなる</strong>かもしれません。"
+"href=\"#email\">変更すること</a>を強くお勧めします。さもないと、<strong>ログ"
+"インできなくなる</strong>かもしれません。"
 
 #: ../app/profile.php:78
 msgid "Connection with Web services"
@@ -166,7 +166,7 @@ msgstr "すでにログインしています。"
 #: ../app/service/facebook.php:312 ../app/service/common/mail.php:708
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
-msgstr "不正なアクセスです。<a href=”%s”>%s</a>に戻ってください。"
+msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
 #: ../app/service/mixi.php:221
 msgid "Refresh token was updated."
@@ -254,8 +254,8 @@ msgstr "%sを接続解除"
 #: ../app/service/common/mail.php:575
 #, php-format
 msgid ""
-"You really disconnect from %s? If so, please be sure about your "
-"credential(email, passowrd), or else you might not be able to login again."
+"You really disconnect from %s? If so, please be sure about your credential"
+"(email, passowrd), or else you might not be able to login again."
 msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
@@ -605,8 +605,8 @@ msgid ""
 "This plugin's repository is on <a href=\"%s\">Github</a>. Pull requests are "
 "welcomed."
 msgstr ""
-"このプラグインのリポジトリは<a href=”%s”>Github</a>にあります。Pull request歓"
-"迎。"
+"このプラグインのリポジトリは<a href=\"%s\">Github</a>にあります。Pull request"
+"歓迎。"
 
 #: ../templates/general.php:67
 msgid "What you have is mine, what I have is also mine!"
@@ -627,8 +627,8 @@ msgid ""
 "API document is also available at <a href=\"%s\">Developer's site</a>. You "
 "can use various functions."
 msgstr ""
-"APIドキュメントが<a href=”%s”>開発者のサイト</a>で利用できます。様々な関数が"
-"用意されています。"
+"APIドキュメントが<a href=\"%s\">開発者のサイト</a>で利用できます。様々な関数"
+"が用意されています。"
 
 #: ../templates/how-to-setup.php:12
 msgid ""
@@ -823,9 +823,9 @@ msgid ""
 "\">your application's detail page</a> and click <code>OAuth tools</code> "
 "tab. There, you can get 4 informations below: "
 msgstr ""
-"Gianismは5つの情報を必要とします。<a href=”https://dev.twitter.com/apps”>あな"
-"たのアプリケーションの詳細ページ</a>へ行き、<code>OAuth tools</code>タブをク"
-"リックしてください。以下の4つの情報が取得できます。"
+"Gianismは5つの情報を必要とします。<a href=\"https://dev.twitter.com/apps\">あ"
+"なたのアプリケーションの詳細ページ</a>へ行き、<code>OAuth tools</code>タブを"
+"クリックしてください。以下の4つの情報が取得できます。"
 
 #: ../templates/how-to-setup.php:133
 #, php-format
@@ -833,8 +833,8 @@ msgid ""
 "Besides above, your twitter screen name will be required. Now please enter "
 "these credentials on <a href=\"%s\">Setting page</a>."
 msgstr ""
-"上記に加え、あなたのtwitterスクリーン名が必要です。<a href=”%s”>設定ページ</"
-"a>にそれらの情報を入力してください。"
+"上記に加え、あなたのtwitterスクリーン名が必要です。<a href=\"%s\">設定ページ"
+"</a>にそれらの情報を入力してください。"
 
 #: ../templates/how-to-setup.php:142
 msgid ""
@@ -857,7 +857,7 @@ msgid ""
 "verification will be required. After finishing, click your new project's "
 "name and go setting page."
 msgstr ""
-"<a href=”https://cloud.google.com/console/project”>Google API Console &gt; "
+"<a href=\"https://cloud.google.com/console/project\">Google API Console &gt; "
 "Projects</a>へ行き、<code>Create Project</code>をクリックしてください。SMS認"
 "証が必要です。完了したら、プロジェクト名をクリックして設定ページへ移動してく"
 "ださい。"
@@ -932,8 +932,9 @@ msgid ""
 "Amazon account is required. If you don't have one, create it at <a href="
 "\"https://sellercentral.amazon.com/gp/homepage.html\">Log in with Amazon</a>."
 msgstr ""
-"Amazonアカウントが必須です。持っていない場合は<a href=”https://sellercentral."
-"amazon.com/gp/homepage.html”>Log in with Amazon</a>で作成してください。"
+"Amazonアカウントが必須です。持っていない場合は<a href=\"https://"
+"sellercentral.amazon.com/gp/homepage.html\">Log in with Amazon</a>で作成して"
+"ください。"
 
 #: ../templates/how-to-setup.php:193 ../templates/how-to-setup.php:225
 #: ../templates/how-to-setup.php:261
@@ -988,8 +989,8 @@ msgid ""
 "Github account is required. If you don't have one, create it at <a href="
 "\"https://github.com\">Github</a>."
 msgstr ""
-"Githubアカウントが必要です。持っていない場合は<a href=”https://github."
-"com”>Github</a>で作成してください。"
+"Githubアカウントが必要です。持っていない場合は<a href=\"https://github.com"
+"\">Github</a>で作成してください。"
 
 #: ../templates/how-to-setup.php:227
 #, php-format
@@ -1118,7 +1119,7 @@ msgid ""
 "detail page, and save it on <a href=\"%s\">WP admin screen</a>."
 msgstr ""
 "<code>Consumer Key</code>と<code>Consumer Secret</code>をサービス詳細ページで"
-"取得したら、<a href=”%s”>WP管理画面</a>でそれを保存します。"
+"取得したら、<a href=\"%s\">WP管理画面</a>でそれを保存します。"
 
 #: ../templates/message.php:12
 #, php-format
@@ -1169,9 +1170,9 @@ msgid ""
 "provided from Web service, or else only connected users can login via SNS "
 "account."
 msgstr ""
-"<a href=”%s”>一般設定</a>に従うか否か。登録可能な場合、Webサービスから提供さ"
-"れる情報を元にアカウントが作成されます。そうでない場合、接続済みのユーザーだ"
-"けがSNSアカウントでログインできます。"
+"<a href=\"%s\">一般設定</a>に従うか否か。登録可能な場合、Webサービスから提供"
+"される情報を元にアカウントが作成されます。そうでない場合、接続済みのユーザー"
+"だけがSNSアカウントでログインできます。"
 
 #: ../templates/setting.php:40
 msgid "Login screen"
@@ -1377,9 +1378,9 @@ msgstr "リフレッシュトークンが無効です。下のリンクから再
 
 #: ../templates/setting.php:425
 msgid ""
-"If you want to send a message via mixi to your user who has only pseudo "
-"mail(@pseudo.mixi.jp), set up auth information by login to mixi from the "
-"link below as your account by which messages will be sent . Do not forget to "
+"If you want to send a message via mixi to your user who has only pseudo mail"
+"(@pseudo.mixi.jp), set up auth information by login to mixi from the link "
+"below as your account by which messages will be sent . Do not forget to "
 "check &quot;Always allow&quot;. <strong>Notice: </strong>You can send "
 "message to only your friend."
 msgstr ""

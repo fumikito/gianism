@@ -224,16 +224,14 @@ abstract class Base
      * @param bool $error
      */
     protected function add_message($string, $error = false){
-        $key = $error ? 'error' : 'updated';
-        if( session_id() ){
-            if( !isset($_SESSION[$this->name]) ){
-                $_SESSION[$this->name] = array();
-            }
-            if( !isset($_SESSION[$this->name][$key]) ){
-                $_SESSION[$this->name][$key] = array();
-            }
-            $_SESSION[$this->name][$key][] = $string;
+        $key = 'gianism_'.($error ? 'error' : 'updated');
+        if( isset($_COOKIE[$key]) && !empty($_COOKIE[$key]) ){
+            $messages = json_decode(stripcslashes($_COOKIE[$key]), true);
+            $messages[] = $string;
+        }else{
+            $messages = array($string);
         }
+        setcookie($key, json_encode($messages), current_time('timestamp') + 180, '/');
     }
 
     /**

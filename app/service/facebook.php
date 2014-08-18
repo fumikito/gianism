@@ -277,7 +277,7 @@ class Facebook extends Common\Mail
                 if( !$redirect_url ){
                     $redirect_url = admin_url('profile.php');
                 }
-                // Applyfilter
+                // Apply filter
                 $redirect_url = $this->filter_redirect($redirect_url, 'connect');
                 wp_redirect($redirect_url);
                 exit;

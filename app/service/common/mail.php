@@ -440,7 +440,7 @@ EOS;
     }
 
 	/**
-	 * Get URL for emdiate endpoint.
+	 * Get URL for immediate endpoint.
      *
 	 * @param string $action 'connect', 'disconnect', 'login' or else.
      * @param string $nonce_key If empty, nonce won't be set.

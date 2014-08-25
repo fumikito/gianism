@@ -155,7 +155,7 @@ class Option extends Pattern\Singleton
             'button_type' => (int)$this->post('button_type'),
             'force_register' => ($this->post('force_register') == 1) ? true : false,
         ), $this->values);
-        if(update_option($this->key, $this->values)){
+        if( update_option($this->key, $this->values) ){
             $this->add_message($this->_('Option updated.'));
             do_action(self::UPDATED_ACTION, $this->values);
         }else{

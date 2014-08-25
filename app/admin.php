@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism;
+use Gianism\Service\Google;
 
 
 /**
@@ -21,6 +22,8 @@ class Admin extends Pattern\Singleton
     protected function __construct( array $argument = array() ){
         // Add admin page
         add_options_page($this->_('Gianism Setting'), $this->_("Gianism Setting"), 'manage_options', 'gianism', array($this, 'render'));
+
+
         //Create plugin link
         add_filter('plugin_action_links', array($this, 'plugin_page_link'), 10, 2);
         add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 4);
@@ -30,6 +33,11 @@ class Admin extends Pattern\Singleton
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         // Notice
         add_action('admin_notices', array($this, 'invalid_option_notices'));
+
+        // Add tool
+        if($this->is_enabled('google')){
+            add_submenu_page('tools.php', $this->_('Google Analytics'), $this->_('Google Analytics'), 'manage_options', 'gianism_ga', array($this, 'ga_render'));
+        }
     }
 
     /**
@@ -37,6 +45,13 @@ class Admin extends Pattern\Singleton
      */
     public function render(){
         $this->get_template('general');
+    }
+
+    /**
+     * Render tools page
+     */
+    public function ga_render(){
+        $this->get_template('analytics');
     }
 
     /**
@@ -88,6 +103,7 @@ class Admin extends Pattern\Singleton
         $path = $this->dir.'templates'.DIRECTORY_SEPARATOR."{$name}.php";
         if( file_exists($path) ){
             $option = Option::get_instance();
+
             include $path;
         }
     }
@@ -99,17 +115,22 @@ class Admin extends Pattern\Singleton
      */
     public function admin_enqueue_scripts($hook_suffix){
         // Only on setting page
-        if( 'settings_page_gianism' == $hook_suffix ){
+        if( false !== array_search($hook_suffix, array('settings_page_gianism', 'tools_page_gianism_ga')) ){
             if( !is_null($this->request('view')) ){
                 wp_enqueue_style('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.css', null, '3.0.83');
                 wp_enqueue_style('gianism-syntax-highlighter-default', $this->url.'assets/syntax-highlighter/shThemeDefault.css', null, '3.0.83');
                 wp_enqueue_script('gianism-syntax-highlighter-core', $this->url.'assets/syntax-highlighter/shCore.js', null, '3.0.83');
                 wp_enqueue_script('gianism-syntax-highlighter-php', $this->url.'assets/syntax-highlighter/shBrushPhp.js', null, '3.0.83');
             }
-            wp_enqueue_script($this->name.'-admin-helper', $this->url.'assets/compass/js/admin-helper.js', array('jquery'), $this->version, true);
         }
         // Setting page and profile page
-        if( false !== array_search($hook_suffix, array('settings_page_gianism', 'profile.php'))){
+        if( false !== array_search($hook_suffix, array('settings_page_gianism', 'profile.php', 'tools_page_gianism_ga'))){
+            wp_enqueue_script($this->name.'-admin-helper', $this->url.'assets/compass/js/admin-helper.js', array('jquery', 'jquery-form'), $this->version, true);
+            wp_localize_script($this->name.'-admin-helper', 'Gianism', array(
+                'endpoint' => admin_url('admin-ajax.php'),
+                'action' => Google::AJAX_ACTION,
+                'nonce' => wp_create_nonce(Google::AJAX_ACTION),
+            ));
             wp_enqueue_style($this->name.'-admin-panel', $this->url.'assets/compass/stylesheets/gianism-admin.css', array('ligature-symbols'), $this->version);
         }
     }

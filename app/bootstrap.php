@@ -46,9 +46,6 @@ class Bootstrap extends Pattern\Singleton
         // Check if session can use
         add_action('admin_init', array($this, 'notice_about_session'));
 
-        // Admin Message action
-        add_action('admin_notices', array($this, 'flush_message'));
-
         // Register assets
         add_action('init', array($this, 'register_assets'));
 

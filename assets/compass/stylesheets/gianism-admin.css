@@ -630,11 +630,11 @@ body.admin-bar .wpg-notices {
 .gianism-wrap .main-content .mysql-table tbody tr:nth-child(even) th, .gianism-wrap .main-content .mysql-table tbody tr:nth-child(even) td {
   background: #f9f9f9;
 }
-/* line 169, ../sass/gianism-admin.scss */
-.gianism-wrap .main-content p.success {
+/* line 170, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content p.success, .gianism-wrap .main-content span.success {
   color: #5dc06e;
 }
-/* line 174, ../sass/gianism-admin.scss */
+/* line 176, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #cron-checker pre {
   max-height: 300px;
   overflow: auto;
@@ -642,13 +642,17 @@ body.admin-bar .wpg-notices {
   color: #ddd;
 }
 /* line 184, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content code {
+  word-break: break-all;
+}
+/* line 189, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar {
   width: 300px;
   right: 0;
   position: absolute;
   margin-left: -300px;
 }
-/* line 189, ../sass/gianism-admin.scss */
+/* line 194, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index {
   width: 278px;
   padding: 10px;
@@ -658,18 +662,18 @@ body.admin-bar .wpg-notices {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 195, ../sass/gianism-admin.scss */
+/* line 200, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index.floating {
   position: fixed;
   top: 38px;
 }
-/* line 199, ../sass/gianism-admin.scss */
+/* line 204, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index.pinned-bottom {
   position: absolute;
   bottom: 0;
   _position: static;
 }
-/* line 204, ../sass/gianism-admin.scss */
+/* line 209, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link,
 .gianism-wrap .sidebar #index .amazon-link,
 .gianism-wrap .sidebar #index .github-link {
@@ -677,7 +681,7 @@ body.admin-bar .wpg-notices {
   padding: 0.5em 0.5em 0.5em 40px;
   min-height: 40px;
 }
-/* line 210, ../sass/gianism-admin.scss */
+/* line 215, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link:before,
 .gianism-wrap .sidebar #index .amazon-link:before,
 .gianism-wrap .sidebar #index .github-link:before {
@@ -694,29 +698,29 @@ body.admin-bar .wpg-notices {
   font-weight: normal;
   font-style: normal;
 }
-/* line 225, ../sass/gianism-admin.scss */
+/* line 230, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .amazon-link:before {
   content: "\E007";
 }
-/* line 228, ../sass/gianism-admin.scss */
+/* line 233, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link:before {
   content: "\E171";
 }
-/* line 231, ../sass/gianism-admin.scss */
+/* line 236, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .github-link:before {
   content: "\E057";
 }
 
 @media screen and (max-width: 799px) {
-  /* line 241, ../sass/gianism-admin.scss */
+  /* line 246, ../sass/gianism-admin.scss */
   .gianism-wrap .main-content {
     margin-right: 0;
   }
-  /* line 243, ../sass/gianism-admin.scss */
+  /* line 248, ../sass/gianism-admin.scss */
   .gianism-wrap .main-content img.gian {
     display: none;
   }
-  /* line 247, ../sass/gianism-admin.scss */
+  /* line 252, ../sass/gianism-admin.scss */
   .gianism-wrap .sidebar {
     display: none;
   }

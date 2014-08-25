@@ -33,6 +33,13 @@ abstract class Daily extends Singleton
     const CATEGORY = 'general';
 
     /**
+     * If true, cron doesn't work
+     *
+     * @const bool
+     */
+    const SKIP_CRON = false;
+
+    /**
      * Cron start time
      *
      * Default is midnite. If you want to change to typical time, override this.
@@ -41,6 +48,7 @@ abstract class Daily extends Singleton
      * @var string
      */
     protected $time = '00:00:00';
+
 
     /**
      * Constructor
@@ -127,8 +135,10 @@ abstract class Daily extends Singleton
      * Do cron and save data.
      */
     public function do_cron(){
-        foreach( $this->get_results() as $result ){
-            $this->parse_row($result);
+        if( !self::SKIP_CRON ){
+            foreach( $this->get_results() as $result ){
+                $this->parse_row($result);
+            }
         }
     }
 

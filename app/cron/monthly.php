@@ -7,5 +7,5 @@ abstract class Monthly extends Daily
 {
     const INTERVAL = 'monthly';
 
-    
+
 } 

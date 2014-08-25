@@ -198,6 +198,7 @@ $google = \Gianism\Service\Google::get_instance();
                             <th><?php $this->e('Class Name') ?></th>
                             <th><?php $this->e('Category') ?></th>
                             <th><?php $this->e('Interval') ?></th>
+                            <th><?php $this->e('Available') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -211,6 +212,13 @@ $google = \Gianism\Service\Google::get_instance();
                                 </th>
                                 <td><?php echo $class_name::CATEGORY ?></td>
                                 <td><?php echo $class_name::INTERVAL ?></td>
+                                <td>
+                                    <?php if($class_name::SKIP_CRON): ?>
+                                    <span class="description"><i class="lsf lsf-ban"></i> No</span>
+                                    <?php else: ?>
+                                    <span class="success"><i class="lsf lsf-check"></i> Yes</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php $counter++; endforeach; ?>
                         </tbody>

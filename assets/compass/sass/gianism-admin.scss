@@ -166,8 +166,10 @@
         }
       }
     }
-    p.success{
-      color: $success;
+    p, span{
+      &.success{
+        color: $success;
+      }
     }
     // CHeck form
     #cron-checker{
@@ -178,6 +180,9 @@
         color: #ddd;
 
       }
+    }
+    code{
+      word-break: break-all;
     }
   }
   // Sidebar

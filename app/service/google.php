@@ -668,7 +668,7 @@ SQL;
                 'message' => $e->getMessage(),
             );
         }
-        echo json_encode($json, JSON_PRETTY_PRINT);
+        echo json_encode($json);
         exit;
     }
 

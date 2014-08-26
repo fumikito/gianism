@@ -229,7 +229,7 @@ $google = \Gianism\Service\Google::get_instance();
             <?php endif; ?>
 
             <p class="description">
-                <?php $this->e('Do you want to know how to install files? Here is <a href="%s">blog post</a> about it.', 'http://takahashifumiki.com') ?>
+                <?php printf($this->_('Do you want to know how to install files? Here is <a href="%s">blog post</a> about it.'), 'http://takahashifumiki.com/web/programing/3184/') ?>
             </p>
 
 

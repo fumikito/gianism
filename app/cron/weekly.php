@@ -8,4 +8,6 @@ abstract class Weekly extends Daily
 
     const INTERVAL = 'weekly';
 
+
+
 } 

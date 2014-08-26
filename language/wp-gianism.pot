@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 18:11+0900\n"
-"PO-Revision-Date: 2014-02-07 18:11+0900\n"
+"POT-Creation-Date: 2014-08-26 00:53+0900\n"
+"PO-Revision-Date: 2014-08-26 00:53+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -13,37 +13,19 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e;__\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../wp-gianism.php:58
-msgid ""
-"Connect user accounts with major web services like Facebook, twitter, etc. "
-"Stand on the shoulders of giants! Notice: PHP5.3 required."
-msgstr ""
-
-#: ../wp-gianism.php:97
-#, php-format
-msgid ""
-"PHP <code>5.3.0</code> is required, but your version is <code>%s</code>. So "
-"this plugin is still in silence. Please conatct server administrator."
-msgstr ""
-
-#: ../wp-gianism.php:108
-msgid ""
-"Gianism let your site's users login or register in few steps, with their SNS "
-"account. Currently Facebook, twitter, Google, Yahoo! Japan and mixi is "
-"supported. They have no need to remember their password(vulnerable or "
-"complecated!) nor to ask you to reset password. Stand on the shoulders of "
-"giants!"
-msgstr ""
-
-#: ../app/admin.php:23 ../templates/general.php:24
+#: ../app/admin.php:24 ../templates/general.php:22
 msgid "Gianism Setting"
 msgstr ""
 
-#: ../app/admin.php:138
+#: ../app/admin.php:39
+msgid "Google Analytics"
+msgstr ""
+
+#: ../app/admin.php:159
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -51,14 +33,14 @@ msgid ""
 "a> and follow the instruction there."
 msgstr ""
 
-#: ../app/admin.php:141
+#: ../app/admin.php:162
 #, php-format
 msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setiting</a> and "
 "follow instructions there."
 msgstr ""
 
-#: ../app/admin.php:158
+#: ../app/admin.php:179
 msgid "Settings"
 msgstr ""
 
@@ -72,7 +54,9 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../app/message.php:95 ../app/message.php:128 ../app/service/mixi.php:85
+#: ../app/message.php:95 ../app/message.php:128 ../app/service/google.php:296
+#: ../app/service/google.php:324 ../app/service/google.php:502
+#: ../app/service/mixi.php:85
 msgid "You have no permission."
 msgstr ""
 
@@ -84,7 +68,7 @@ msgstr ""
 msgid "Failed to delete message. Cheatin'?"
 msgstr ""
 
-#: ../app/message.php:191
+#: ../app/message.php:191 ../templates/analytics.php:62
 msgid "Delete"
 msgstr ""
 
@@ -131,47 +115,21 @@ msgid ""
 msgstr ""
 
 #: ../app/profile.php:78
+#, fuzzy
 msgid "Connection with Web services"
-msgstr ""
+msgstr "SB Web CVS"
 
 #: ../app/service/amazon.php:143
 msgid "You must be logged in"
 msgstr ""
 
-#: ../app/service/facebook.php:167
-msgid "You are already logged in"
-msgstr ""
-
-#: ../app/service/facebook.php:312 ../app/service/common/mail.php:708
-#, php-format
-msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
-msgstr ""
-
-#: ../app/service/mixi.php:221
-msgid "Refresh token was updated."
-msgstr ""
-
-#: ../app/service/mixi.php:415
-msgid "Refresh token"
-msgstr ""
-
-#: ../app/service/mixi.php:419 ../app/service/common/mail.php:530
-#, php-format
-msgid "Login with %s"
-msgstr ""
-
-#: ../app/service/twitter.php:190 ../app/service/common/mail.php:189
-#: ../app/service/common/mail.php:221
-msgid "You must be logged in."
-msgstr ""
-
-#: ../app/service/twitter.php:316
-#, php-format
-msgid "You have message \"%1$s\" on %2$s. %3$s"
-msgstr ""
-
 #: ../app/service/common/mail.php:151
 msgid "Cheatin'? Wrong access."
+msgstr ""
+
+#: ../app/service/common/mail.php:189 ../app/service/common/mail.php:221
+#: ../app/service/twitter.php:190
+msgid "You must be logged in."
 msgstr ""
 
 #: ../app/service/common/mail.php:193
@@ -212,6 +170,11 @@ msgstr ""
 #: ../app/service/common/mail.php:526
 #, php-format
 msgid "Log in with %s"
+msgstr ""
+
+#: ../app/service/common/mail.php:530 ../app/service/mixi.php:419
+#, php-format
+msgid "Login with %s"
 msgstr ""
 
 #: ../app/service/common/mail.php:553
@@ -270,8 +233,74 @@ msgstr ""
 msgid "Cannot register. Please try again later."
 msgstr ""
 
+#: ../app/service/common/mail.php:708 ../app/service/facebook.php:314
+#, php-format
+msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
+msgstr ""
+
 #: ../app/service/common/mail.php:719
 msgid "No matched user."
+msgstr ""
+
+#: ../app/service/facebook.php:167
+msgid "You are already logged in"
+msgstr ""
+
+#: ../app/service/google.php:244
+msgid "Now you got token!"
+msgstr ""
+
+#: ../app/service/google.php:249
+msgid "Failed to authenticate with Google API."
+msgstr ""
+
+#: ../app/service/google.php:270
+msgid "Token deleted."
+msgstr ""
+
+#: ../app/service/google.php:303
+msgid "Options updated."
+msgstr ""
+
+#: ../app/service/google.php:307
+msgid "Nothing changed."
+msgstr ""
+
+#: ../app/service/google.php:327
+msgid "Table is already exists."
+msgstr ""
+
+#: ../app/service/google.php:349
+msgid "Sorry, but failed to create table."
+msgstr ""
+
+#: ../app/service/google.php:351
+msgid "Table created."
+msgstr ""
+
+#: ../app/service/google.php:526
+msgid "Invalid action."
+msgstr ""
+
+#: ../app/service/google.php:652
+msgid "You have no permisson."
+msgstr ""
+
+#: ../app/service/google.php:655
+msgid "Such action does not exist."
+msgstr ""
+
+#: ../app/service/mixi.php:221
+msgid "Refresh token was updated."
+msgstr ""
+
+#: ../app/service/mixi.php:415
+msgid "Refresh token"
+msgstr ""
+
+#: ../app/service/twitter.php:316
+#, php-format
+msgid "You have message \"%1$s\" on %2$s. %3$s"
 msgstr ""
 
 #: ../templates/advanced.php:9
@@ -440,6 +469,153 @@ msgid ""
 "background or sex, but twitter doesn't."
 msgstr ""
 
+#: ../templates/analytics.php:24
+msgid "Gianism Google Analytics"
+msgstr ""
+
+#: ../templates/analytics.php:24
+msgid "Experimental"
+msgstr ""
+
+#: ../templates/analytics.php:27
+msgid ""
+"This feature is very experimental. Knowledge for Google Analytics and OAuth "
+"will be required."
+msgstr ""
+
+#: ../templates/analytics.php:28
+msgid ""
+"If you are well experimented developer, it might be useful for making "
+"various ranking for custom post type, category ranking and so on."
+msgstr ""
+
+#: ../templates/analytics.php:38
+#, php-format
+msgid ""
+"Google connect is not available. Go to <a href=\"%s\">setting page</a> and "
+"turn it on."
+msgstr ""
+
+#: ../templates/analytics.php:41
+msgid "Analytics Token"
+msgstr ""
+
+#: ../templates/analytics.php:45
+msgid "O.K. You have token."
+msgstr ""
+
+#: ../templates/analytics.php:49
+msgid "Restore"
+msgstr ""
+
+#: ../templates/analytics.php:53
+msgid ""
+"You don't have token. Token is required to contact with Google Analytics API."
+msgstr ""
+
+#: ../templates/analytics.php:56
+msgid "Get"
+msgstr ""
+
+#: ../templates/analytics.php:67
+msgid "Account, Profile, View"
+msgstr ""
+
+#: ../templates/analytics.php:73
+msgid "Account"
+msgstr ""
+
+#: ../templates/analytics.php:76 ../templates/analytics.php:94
+#: ../templates/analytics.php:104
+msgid "Please select"
+msgstr ""
+
+#: ../templates/analytics.php:85
+msgid "Mmh, can't get Analytics accounts. Your token might be wrong."
+msgstr ""
+
+#: ../templates/analytics.php:91
+msgid "Profile"
+msgstr ""
+
+#: ../templates/analytics.php:101
+msgid "View"
+msgstr ""
+
+#: ../templates/analytics.php:117
+msgid "Create Database"
+msgstr ""
+
+#: ../templates/analytics.php:120
+msgid ""
+"Gianism can create a typical table for Google Analytics Ranking. If you need "
+"customized one, forget about it and create your own."
+msgstr ""
+
+#: ../templates/analytics.php:124
+msgid "Ranking table structure"
+msgstr ""
+
+#: ../templates/analytics.php:127
+msgid "Column"
+msgstr ""
+
+#: ../templates/analytics.php:128
+#, fuzzy
+msgid "Type"
+msgstr "Post Type"
+
+#: ../templates/analytics.php:129
+msgid "Length"
+msgstr ""
+
+#: ../templates/analytics.php:130
+msgid "Misc"
+msgstr ""
+
+#: ../templates/analytics.php:175
+msgid "Table exits."
+msgstr ""
+
+#: ../templates/analytics.php:181
+msgid "Create Table"
+msgstr ""
+
+#: ../templates/analytics.php:186
+msgid "Installed cron files"
+msgstr ""
+
+#: ../templates/analytics.php:190
+msgid "Nothing is installed."
+msgstr ""
+
+#: ../templates/analytics.php:198
+msgid "Class Name"
+msgstr ""
+
+#: ../templates/analytics.php:199
+msgid "Category"
+msgstr ""
+
+#: ../templates/analytics.php:200
+msgid "Interval"
+msgstr ""
+
+#: ../templates/analytics.php:201
+msgid "Available"
+msgstr ""
+
+#: ../templates/analytics.php:226
+msgid "Check Data"
+msgstr ""
+
+#: ../templates/analytics.php:232
+#, php-format
+msgid ""
+"Do you want to know how to install files? Here is <a href=\"%s\">blog post</"
+"a> about it."
+msgstr ""
+
 #: ../templates/customize.php:11
 msgid "Change Login Button"
 msgstr ""
@@ -494,59 +670,36 @@ msgstr ""
 msgid "You can display social login buttons anywhere."
 msgstr ""
 
-#: ../templates/general.php:28 ../templates/setting.php:88
+#: ../templates/general.php:26 ../templates/setting.php:88
 #: ../templates/setting.php:140 ../templates/setting.php:198
 #: ../templates/setting.php:247 ../templates/setting.php:292
 #: ../templates/setting.php:338 ../templates/setting.php:384
+#, fuzzy
 msgid "How to set up"
-msgstr ""
+msgstr "Item set"
 
-#: ../templates/general.php:29 ../templates/setting.php:51
+#: ../templates/general.php:27 ../templates/setting.php:51
 msgid "Customize"
 msgstr ""
 
-#: ../templates/general.php:30 ../templates/setting.php:114
+#: ../templates/general.php:28 ../templates/setting.php:114
 msgid "Advanced Usage"
 msgstr ""
 
-#: ../templates/general.php:43
-msgid "Index"
-msgstr ""
-
-#: ../templates/general.php:47
-msgid ""
-"Have some questions? Go to <a href=\"http://wordpress.org/support/plugin/"
-"gianism\">support forum</a> and create thread."
-msgstr ""
-
-#: ../templates/general.php:50
-#, php-format
-msgid ""
-"If you find this plugin usefull, don't hesitate to buy me some present from "
-"<a href=\"%s\">my wishlist</a>."
-msgstr ""
-
-#: ../templates/general.php:53
-#, php-format
-msgid ""
-"This plugin's repository is on <a href=\"%s\">Github</a>. Pull requests are "
-"welcomed."
-msgstr ""
-
-#: ../templates/general.php:67
+#: ../templates/general.php:45
 msgid "What you have is mine, what I have is also mine!"
 msgstr ""
 
-#: ../templates/general.php:67
+#: ../templates/general.php:45
 msgid "Takeshi Gōda"
 msgstr ""
 
-#: ../templates/general.php:73
+#: ../templates/general.php:51
 #, php-format
 msgid "Last Updated: %s"
 msgstr ""
 
-#: ../templates/general.php:77
+#: ../templates/general.php:55
 #, php-format
 msgid ""
 "API document is also available at <a href=\"%s\">Developer's site</a>. You "
@@ -869,8 +1022,9 @@ msgid ""
 msgstr ""
 
 #: ../templates/how-to-setup.php:268
+#, fuzzy
 msgid "Application Type"
-msgstr ""
+msgstr "Post Type"
 
 #: ../templates/how-to-setup.php:269
 msgid "Server side application"
@@ -1194,4 +1348,50 @@ msgid ""
 "link below as your account by which messages will be sent . Do not forget to "
 "check &quot;Always allow&quot;. <strong>Notice: </strong>You can send "
 "message to only your friend."
+msgstr ""
+
+#: ../templates/sidebar.php:3
+msgid "Index"
+msgstr ""
+
+#: ../templates/sidebar.php:7
+msgid ""
+"Have some questions? Go to <a href=\"http://wordpress.org/support/plugin/"
+"gianism\">support forum</a> and create thread."
+msgstr ""
+
+#: ../templates/sidebar.php:10
+#, php-format
+msgid ""
+"If you find this plugin usefull, don't hesitate to buy me some present from "
+"<a href=\"%s\">my wishlist</a>."
+msgstr ""
+
+#: ../templates/sidebar.php:13
+#, php-format
+msgid ""
+"This plugin's repository is on <a href=\"%s\">Github</a>. Pull requests are "
+"welcomed."
+msgstr ""
+
+#: ../wp-gianism.php:58
+msgid ""
+"Connect user accounts with major web services like Facebook, twitter, etc. "
+"Stand on the shoulders of giants! Notice: PHP5.3 required."
+msgstr ""
+
+#: ../wp-gianism.php:97
+#, php-format
+msgid ""
+"PHP <code>5.3.0</code> is required, but your version is <code>%s</code>. So "
+"this plugin is still in silence. Please conatct server administrator."
+msgstr ""
+
+#: ../wp-gianism.php:108
+msgid ""
+"Gianism let your site's users login or register in few steps, with their SNS "
+"account. Currently Facebook, twitter, Google, Yahoo! Japan and mixi is "
+"supported. They have no need to remember their password(vulnerable or "
+"complecated!) nor to ask you to reset password. Stand on the shoulders of "
+"giants!"
 msgstr ""

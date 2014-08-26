@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
 Requires at least: 3.8  
-Tested up to: 4.0-beta
-Stable tag: 2.0.2
+Tested up to: 4.0-beta  
+Stable tag: 2.1.0
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -68,6 +68,11 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 == Changelog  ==
+
+= 2.1.0 =
+
+* Stop starting session on every access. Now, session is used only on gianism's original URL, so your cache plugins may work well.
+* Add hidden feature for Google Analytics Data API. This is very experimental and hard to explain, so if you are interesteed in, please check **Tools page** on Admin panel.
 
 = 2.0.2 =
 

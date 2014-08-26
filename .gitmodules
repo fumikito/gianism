@@ -13,3 +13,6 @@
 [submodule "vendor/jwt"]
 	path = vendor/jwt
 	url = https://github.com/luciferous/jwt.git
+[submodule "assets/jquery-cookie"]
+	path = assets/jquery-cookie
+	url = https://github.com/carhartl/jquery-cookie.git

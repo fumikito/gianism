@@ -191,7 +191,7 @@ $code = <<<EOS
 /**
  * %s
  * @param int \$user_id
- * @param mixed \$data Inforamtioon provided from Service
+ * @param mixed \$data Information provided from Service
  * @param string \$service Service name(facebook, twitter, google, yahoo, mixi)
  * @param boolean \$on_creation If user is newly created, true.
  */

@@ -185,24 +185,26 @@ class Facebook extends Common\Mail
                             throw new \Exception($this->mail_fail_string());
                         }
                         $email = (string) $profile['email'];
-                        if( email_exists($email) || $this->mail_owner($email) ){
+                        if( $this->mail_owner($email) ){
                             throw new \Exception($this->duplicate_account_string());
                         }
                         //Not found, Create New User
                         require_once(ABSPATH . WPINC . '/registration.php');
-                        //Get Username
-                        if( isset($profile['username']) && !username_exists($profile['username'])){
-                            //if set, use username. but this is optional setting.
-                            $user_name = $profile['username'];
-                        }elseif( isset($profile['name']) && ($safe_name = sanitize_user($profile['name'])) && !username_exists($safe_name) ){
-                            //If name is alpabetical, use it.
-                            $user_name = $safe_name;
-                        }else{
-                            //There is no available string for login name, so use Facebook id for login.
-                            $user_name = 'fb-'.$facebook_id;
+                        //There might be no available string for login name, so use Facebook id for login.
+                        $user_name = 'fb-'.$facebook_id;
+                        // Try Username
+                        foreach( array('username', 'name') as $key ){
+                            if( isset($profile[$user_name])){
+                                $safe_name = sanitize_user($profile[$key]);
+                                if( !empty($safe_name) && !username_exists($safe_name) ){
+                                    // This can be used as user name.
+                                    $user_name = $safe_name;
+                                    break;
+                                }
+                            }
                         }
                         //Check if username exists
-                        $user_id = wp_create_user(sanitize_user($user_name), wp_generate_password(), $email);
+                        $user_id = wp_create_user($user_name, wp_generate_password(), $email);
                         if( is_wp_error($user_id) ){
                             throw new \Exception($this->registration_error_string());
                         }
@@ -277,7 +279,7 @@ class Facebook extends Common\Mail
                 if( !$redirect_url ){
                     $redirect_url = admin_url('profile.php');
                 }
-                // Applyfilter
+                // Apply filter
                 $redirect_url = $this->filter_redirect($redirect_url, 'connect');
                 wp_redirect($redirect_url);
                 exit;

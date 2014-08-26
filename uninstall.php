@@ -13,6 +13,9 @@ if(!defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN')){
 
 // Delete Option
 delete_option('wp_gianism_option');
+delete_option('wpg_analytics_token');
+delete_option('wpg_analytics_profile');
+
 
 //Delete All message if exists.
 // Backword compats.
@@ -35,3 +38,6 @@ $wpdb->query($query);
 
 // Delete messages
 $wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key = '_gianism_message'");
+
+// Drop table
+$wpdb->query("DROP TABLE {$wpdb->prefix}wpg_ga_ranking");

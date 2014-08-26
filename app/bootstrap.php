@@ -37,25 +37,14 @@ class Bootstrap extends Pattern\Singleton
      * @param array $argument
      */
     protected function __construct(array $argument = array()){
-        // Start session
-        if( !session_id() ){
-            session_start();
-        }
-        if( session_id() ){
-            if( ! isset($_SESSION[$this->name]) ){
-                $_SESSION[$this->name] = array();
-            }
-        }else{
-            add_action('admin_notices', array($this, 'notice_about_session'));
-        }
 
         // Set option
-        // Here, option is intiialized
+        // Here, option is intialized
         /** @var Option $option */
         $option = Option::get_instance();
 
-        // Admin Message action
-        add_action('admin_notices', array($this, 'flush_message'));
+        // Check if session can use
+        add_action('admin_init', array($this, 'notice_about_session'));
 
         // Register assets
         add_action('init', array($this, 'register_assets'));
@@ -112,11 +101,7 @@ class Bootstrap extends Pattern\Singleton
             // Enqueue scripts
             add_action('login_enqueue_scripts', array($this, 'enqueue_global_assets'));
             add_action('wp_enqueue_scripts', array($this, 'enqueue_global_assets'));
-
-            // Add User's message
-            add_action('gianism_notices', array($this, 'flush_message'));
-            add_action('login_footer', array($this, 'user_notices'));
-            add_action('wp_footer', array($this, 'user_notices'), 100);
+            add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
         }
     }
 
@@ -165,7 +150,17 @@ class Bootstrap extends Pattern\Singleton
             $service = array_search($service, $this->prefixes);
             if( false !== $service ){
                 $instance = $this->get_service_instance($service);
-                $instance->parse_request($action, $wp_query);
+                if( $instance ){
+                    // Start session
+                    if( !session_id() ){
+                        session_start();
+                    }
+                    if( !isset($_SESSION[$this->name]) || !is_array($_SESSION[$this->name]) ){
+                        $_SESSION[$this->name] = array();
+                    }
+                    // Parse Request
+                    $instance->parse_request($action, $wp_query);
+                }
             }else{
                 $wp_query->set_404();
             }
@@ -176,36 +171,19 @@ class Bootstrap extends Pattern\Singleton
      * Notice about session
      */
     public function notice_about_session(){
-        if( current_user_can('manage_options') ){
-            printf('<div class="error"><p>%s</p></div>', $this->_('Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.'));
+        if( !session_id() ){
+            session_start();
         }
-    }
-
-    /**
-     * Show message on admin screen
-     *
-     */
-    public function flush_message(){
-        if( isset($_SESSION[$this->name]) ){
-            foreach( array('error', 'updated') as $key ){
-                if( isset($_SESSION[$this->name][$key]) && !empty($_SESSION[$this->name][$key]) ){
-                    $messages = (array)$_SESSION[$this->name][$key];
-                    printf('<div class="%s"><p>%s</p></div>', $key, implode('<br />', $messages));
-                    $_SESSION[$this->name][$key] = array();
-                }
+        if( !session_id() ){
+            // Oops, session seemed to be not available.
+            if( current_user_can('manage_options') ){
+                $message = sprintf('<div class="error"><p>%s</p></div>', $this->_('Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.'));
+                add_action('admin_notices', function() use ($message){
+                    echo $message;
+                });
             }
         }
     }
-
-    /**
-     * Output message for user.
-     */
-    public function user_notices(){
-        echo '<div class="wpg-notices toggle">';
-        do_action('gianism_notices');
-        echo '</div><!-- wpg-notices -->';
-    }
-
 
     /**
      * Register assets
@@ -214,14 +192,29 @@ class Bootstrap extends Pattern\Singleton
     public function register_assets(){
         wp_register_style('ligature-symbols', $this->url.'assets/compass/stylesheets/lsf.css', array(), '2.11');
         wp_register_style($this->name, $this->url."assets/compass/stylesheets/gianism-style.css", array('ligature-symbols'), $this->version);
-
+        wp_register_script('jquery-cookie', $this->url.'assets/jquery-cookie/src/jquery.cookie.js', array('jquery'), '1.4.1', true);
+        wp_register_script($this->name.'-notice-helper', $this->url.'assets/compass/js/public-notice'.( WP_DEBUG ? '' : '.min' ).'.js', array('jquery-effects-highlight', 'jquery-cookie'), $this->version, true);
     }
 
     /**
-     * Enqueue assets
+     * Enqueue assets for public screen
      */
     public function enqueue_global_assets(){
         wp_enqueue_style($this->name);
-        wp_enqueue_script($this->name.'-notice-helper', $this->url.'assets/compass/js/public-notice.js', array('jquery-effects-highlight'), $this->version);
+        wp_enqueue_script($this->name.'-notice-helper');
+        wp_localize_script($this->name.'-notice-helper', 'Gianism', array(
+            'admin' => false,
+        ));
     }
+
+    /**
+     * Enqueue admin scripts
+     */
+    public function enqueue_admin_assets(){
+        wp_enqueue_script($this->name.'-notice-helper');
+        wp_localize_script($this->name.'-notice-helper', 'Gianism', array(
+            'admin' => true,
+        ));
+    }
+
 }

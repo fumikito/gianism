@@ -6,153 +6,251 @@
 @import 'lsf_variables';
 @import 'profile';
 
-.gianism-wrap{
-	position: relative;
-
-    .nav-tab{
-      .lsf{
-        font-size: 24px;
-      }
-    }
-
-	.main-content{
-      margin-right: 320px;
-	  h3{
-		clear: both;
-		margin-top: 2em;
-		padding-top: 1em;
-        border-top: 5px double #ddd;
-        font-size: 1.8em;
-        .lsf{
-          font-size: 1.8em;
-        }
-      }
-		h4{
-            font-size: 1.4em;
-			margin-top: 2em;
-            margin-bottom: 1em;
-            padding-bottom: 1em;
-            border-bottom: 1px dotted #ddd;
-		}
-      img.gian{
-        float: right;
-        margin-left: 2em;
-        margin-bottom: 1em;
-      }
-      q.copy{
-        font-family: 'Gerogia', serif;
-        font-style: italic;
-        font-size: 1.8em;
-        cite{
-          font-size: 0.75em;
-          text-align: left;
-        }
-      }
-		.last-updated{
-          font-size: 0.9em;
-          color: #999;
-          text-align: right;
-          text-shadow: 1px 1px 2px #fff;
-		}
-		.gianism-example-table{
-			border-collapse: collapse;
-            width: 100%;
-			th,td{
-				padding: 5px 10px;
-				border-top: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
-                background: #fbfbfb;
-			}
-            tr:nth-child(even){
-              th, td{
-                background: #f8f8f8;
-              }
-            }
-			th{
-              border-right: 1px solid #ddd;
-				font-weight: bold;
-				text-align: left;
-				white-space: nowrap;
-			}
-			span.description{
-				background: #06c;
-				color: #fff;
-				padding: 3px 5px;
-				margin-top: 5px;
-				@include border-radius(3px);
-			}
-		}
-		p.notice{
-			background: #f2f7fc;
-			padding: 0.5em 1em;
-			@include border-radius(3px);
-			border: 1px solid #d2dee5;
-		}
-	}
-	.sidebar{
-		width: 300px;
-		right: 0;
-		position: absolute;
-		margin-left: -300px;
-		#index{
-			width: 278px;
-			padding: 10px;
-			border: 1px solid #ccc;
-			background-color: #f9f9f9;
-			@include border-radius(3px);
-			&.floating {
-				position: fixed;
-				top: 38px;
-			}
-			&.pinned-bottom {
-				position: absolute;
-				bottom: 0;
-				_position: static;
-			}
-			.forum-link,
-            .amazon-link,
-            .github-link{
-                position: relative;
-                padding: 0.5em 0.5em 0.5em 40px;
-                min-height: 40px;
-                &:before{
-                  position: absolute;
-                  display: block;
-                  top: 50%;
-                  left: 0;
-                  margin-top: -20px;
-                  width: 40px;
-                  height: 40px;
-                  font-size: 40px;
-                  line-height: 1;
-                  font-family: 'LigatureSymbols';
-                  font-weight: normal;
-                  font-style: normal;
-                }
-			}
-			.amazon-link:before{
-              content: $lsf-amazon;
-			}
-            .forum-link:before{
-              content: $lsf-wordpress;
-            }
-          .github-link:before{
-            content: $lsf-github;
-          }
-		}
-	}
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @-o-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
 }
 
-@media screen and (max-width: 799px){
-	.gianism-wrap{
-		.main-content{
-			margin-right: 0;
-          img.gian{
-            display: none;
+
+@mixin transform($value){
+  -webkit-transform: $value;
+  transform: $value;
+}
+
+
+// Rotation animation
+@include keyframes( rotation ){
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(360deg));
+  }
+}
+
+
+// Admin screen
+.gianism-wrap {
+  position: relative;
+
+  .nav-tab {
+    .lsf {
+      font-size: 24px;
+    }
+  }
+
+  // Main
+  .main-content {
+    margin-right: 320px;
+    h3 {
+      clear: both;
+      margin-top: 2em;
+      padding-top: 1em;
+      border-top: 5px double #ddd;
+      font-size: 1.8em;
+      .lsf {
+        font-size: 1.8em;
+      }
+    }
+    h4 {
+      font-size: 1.4em;
+      margin-top: 2em;
+      margin-bottom: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px dotted #ddd;
+    }
+    img.gian {
+      float: right;
+      margin-left: 2em;
+      margin-bottom: 1em;
+    }
+    q.copy {
+      font-family: 'Gerogia', serif;
+      font-style: italic;
+      font-size: 1.8em;
+      cite {
+        font-size: 0.75em;
+        text-align: left;
+      }
+    }
+    .last-updated {
+      font-size: 0.9em;
+      color: #999;
+      text-align: right;
+      text-shadow: 1px 1px 2px #fff;
+    }
+    .gianism-example-table {
+      border-collapse: collapse;
+      width: 100%;
+      th, td {
+        padding: 5px 10px;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        background: #fbfbfb;
+      }
+      tr:nth-child(even) {
+        th, td {
+          background: #f8f8f8;
+        }
+      }
+      th {
+        border-right: 1px solid #ddd;
+        font-weight: bold;
+        text-align: left;
+        white-space: nowrap;
+      }
+      span.description {
+        background: #06c;
+        color: #fff;
+        padding: 3px 5px;
+        margin-top: 5px;
+        @include border-radius(3px);
+      }
+    }
+    p.notice {
+      background: #f2f7fc;
+      padding: 0.5em 1em;
+      @include border-radius(3px);
+      border: 1px solid #d2dee5;
+    }
+    // Form parts
+    #ga-connection{
+      select + .dashicons-yes{
+        display: none;
+        margin-left: 1em;
+        color: $success;
+      }
+      select.success + .dashicons-yes{
+        @include inline-block();
+      }
+      .dashicons-update{
+        display: none;
+        color: #999;
+      }
+      .loading{
+        .dashicons-update{
+          @include inline-block();
+          @include animation(rotation 2s linear);
+        }
+      }
+    }
+    // MySQL structure
+    .mysql-table{
+      width: 100%;
+      table-layout: auto;
+      border-collapse: collapse;
+      caption{
+        font-weight: bold;
+        font-size: 1.2em;
+        margin: 0.5em;
+      }
+      th, td{
+        padding: 1em;
+      }
+      thead{
+        th{
+          background: #fff;
+          border-bottom: 3px double #ddd;
+        }
+      }
+      tbody{
+        th, td{
+          border-bottom: 1px solid #ddd;
+          text-align: center;
+        }
+        tr:nth-child(even){
+          th, td{
+            background: #f9f9f9;
           }
-		}
-		.sidebar{
-			display: none;
-		}
-	}
+        }
+      }
+    }
+    p, span{
+      &.success{
+        color: $success;
+      }
+    }
+    // CHeck form
+    #cron-checker{
+      pre{
+        max-height: 300px;
+        overflow: auto;
+        background: #666;
+        color: #ddd;
+
+      }
+    }
+    code{
+      word-break: break-all;
+    }
+  }
+  // Sidebar
+  .sidebar {
+    width: 300px;
+    right: 0;
+    position: absolute;
+    margin-left: -300px;
+    #index {
+      width: 278px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      @include border-radius(3px);
+      &.floating {
+        position: fixed;
+        top: 38px;
+      }
+      &.pinned-bottom {
+        position: absolute;
+        bottom: 0;
+        _position: static;
+      }
+      .forum-link,
+      .amazon-link,
+      .github-link {
+        position: relative;
+        padding: 0.5em 0.5em 0.5em 40px;
+        min-height: 40px;
+        &:before {
+          position: absolute;
+          display: block;
+          top: 50%;
+          left: 0;
+          margin-top: -20px;
+          width: 40px;
+          height: 40px;
+          font-size: 40px;
+          line-height: 1;
+          font-family: 'LigatureSymbols';
+          font-weight: normal;
+          font-style: normal;
+        }
+      }
+      .amazon-link:before {
+        content: $lsf-amazon;
+      }
+      .forum-link:before {
+        content: $lsf-wordpress;
+      }
+      .github-link:before {
+        content: $lsf-github;
+      }
+    }
+  }
+}
+
+// For RSD
+@media screen and (max-width: 799px) {
+  .gianism-wrap {
+    .main-content {
+      margin-right: 0;
+      img.gian {
+        display: none;
+      }
+    }
+    .sidebar {
+      display: none;
+    }
+  }
 }

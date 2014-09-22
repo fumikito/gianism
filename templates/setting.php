@@ -173,6 +173,24 @@ $mixi = \Gianism\Service\Mixi::get_instance();
                 </p>
             </td>
         </tr>
+        <tr>
+	        <th><label><?php $this->e('Twitter bot by Gianism'); ?></label></th>
+	        <td>
+		        <div class="onoffswitch">
+			        <input type="checkbox" name="tw_use_cron" class="onoffswitch-checkbox" id="tw_use_cron" value="1"<?php checked($option->tw_use_cron) ?>>
+			        <label class="onoffswitch-label" for="tw_use_cron">
+				        <span class="onoffswitch-inner"></span>
+				        <span class="onoffswitch-switch"></span>
+			        </label>
+		        </div>
+		        <p class="description">
+			        <?php $this->new_from('2.2') ?>
+			        <?php printf($this->_('If enabled, you can make twitter bot which tweet at the time you specified. %1$s, %2$s, %3$s, %4$s, and %5$s are required.'),
+				        $this->_('Screen Name'), $this->_('Consumer Key'), $this->_('Consumer Secret'),
+				        $this->_('Access Token'), $this->_('Access token secret')) ?>
+		        </p>
+	        </td>
+        </tr>
     </tbody>
 </table>
 <?php submit_button(); ?>

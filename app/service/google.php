@@ -621,6 +621,9 @@ SQL;
         }
         if( !empty($classes) ){
             foreach($classes as $class_name => $file){
+	            if( !file_exists($file) ){
+		            continue;
+	            }
                 require $file;
                 if( class_exists($class_name) && $this->is_cron_ready($class_name) ){
                     /** @var Daily $class_name */

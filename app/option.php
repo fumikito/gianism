@@ -22,6 +22,7 @@ namespace Gianism;
  * @property-read string $tw_consumer_secret
  * @property-read string $tw_access_token
  * @property-read string $tw_access_token_secret
+ * @property-read bool $tw_use_cron
  * @property-read bool $ggl_enabled
  * @property-read bool $google_enabled
  * @property-read string $ggl_consumer_key
@@ -84,6 +85,7 @@ class Option extends Pattern\Singleton
         "tw_consumer_secret" => "",
         "tw_access_token" => "",
         "tw_access_token_secret" => "",
+	    'tw_use_cron' => false,
         "ggl_enabled" => 0,
         "ggl_consumer_key" => "",
         "ggl_consumer_secret" => "",
@@ -136,6 +138,7 @@ class Option extends Pattern\Singleton
             "tw_consumer_secret" => (string)$this->post('tw_consumer_secret'),
             "tw_access_token" => (string)$this->post('tw_access_token'),
             "tw_access_token_secret" => (string)$this->post('tw_access_token_secret'),
+	        'tw_use_cron' => (bool)$this->post('tw_use_cron'),
             'ggl_enabled' => ($this->post('ggl_enabled') == 1) ? 1 : 0,
             "ggl_consumer_key" => (string)$this->post('ggl_consumer_key'),
             "ggl_consumer_secret" => (string)$this->post('ggl_consumer_secret'),

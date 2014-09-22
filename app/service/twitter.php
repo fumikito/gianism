@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism\Service;
+use Gianism\Helper\Bot;
 
 /**
  * Description of twitter_controller
@@ -53,6 +54,13 @@ class Twitter extends Common\Nomail
 	 * @var string
 	 */
     protected $tw_access_token_secret = '';
+
+	/**
+	 * If use cron bot
+	 *
+	 * @var bool
+	 */
+	protected $tw_use_cron = false;
 	
 	/**
      * User's twitter id
@@ -96,8 +104,21 @@ class Twitter extends Common\Nomail
         "tw_consumer_key",
         "tw_consumer_secret",
         "tw_access_token",
-        "tw_access_token_secret"
+        "tw_access_token_secret",
+	    'tw_use_cron',
     );
+
+	/**
+	 * Constructor
+	 *
+	 * @param array $argument
+	 */
+	protected function __construct( array $argument = array() ) {
+		parent::__construct($argument);
+		if( $this->tw_use_cron ){
+			Bot::get_instance();
+		}
+	}
 
     /**
      * Handle callback
@@ -347,7 +368,7 @@ class Twitter extends Common\Nomail
 	}
 	
 	/**
-	 * Force authencated user to follow me
+	 * Force authenticated user to follow me
 	 * 
 	 * @param \TwitterOAuth $oauth
 	 * @return object Json format object.

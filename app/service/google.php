@@ -617,7 +617,7 @@ SQL;
         };
         $classes = $scan($template_dir);
         if( $template_dir != $stylesheet_dir ){
-            $classes = array_merge($template_dir, $scan($stylesheet_dir));
+            $classes = array_merge($classes, $scan($stylesheet_dir));
         }
         if( !empty($classes) ){
             foreach($classes as $class_name => $file){

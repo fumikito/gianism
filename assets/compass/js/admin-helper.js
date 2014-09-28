@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
 		bottom = $parent.offset().top + $parent.height() - $container.outerHeight(true),
 		floatingClass = 'floating',
 		pinnedBottomClass = 'pinned-bottom';
-	if ($parent.height() > $container.outerHeight(true)) {
+	if ( $container.length && $parent.height() > $container.outerHeight(true)) {
 		$window.scroll(function () {
 			var y = $window.scrollTop();
 			if (y > top) {
@@ -73,6 +73,7 @@ jQuery(document).ready(function($){
             }
         });
     };
+
     // Bind profile change.
     $('.ga-profile-select', '#ga-connection').change(function(){
         var threshold = parseInt($(this).attr('data-clear-target'), 10);

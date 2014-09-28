@@ -247,7 +247,6 @@
     }
 
 
-
     // Code example
     code{
       word-break: break-all;
@@ -307,9 +306,72 @@
     }
   }
 
+}
 
+// Edit form advanced
+.gianism-post-container{
+  // Edit form
+  .form-row{
+    margin: 2em 0;
+    label{
+      display: block;
+    }
+    label, caption{
+      font-size: 1.8em;
+      padding-bottom: 0.75em;
+      text-align: left;
+    }
+
+    textarea{
+      box-sizing: border-box;
+      width: 100% !important;
+      resize: vertical;
+      height: 5em !important;
+    }
+  }
+
+  // Time table
+  .date-table{
+    width: 100%;
+    max-width: 400px;
+    table-layout: auto;
+    border-collapse: collapse;
+    td, th{
+      padding: 0.5em;
+      text-align: center;
+    }
+    tfoot{
+      td, th{
+        text-align: right;
+        border-top: 3px double #ddd;
+      }
+    }
+    thead{
+      th{
+        border-bottom: 3px double #ddd;
+      }
+    }
+    tbody{
+      th, td{
+        border-bottom: 1px solid #ddd;
+      }
+      tr:last-child{
+        th, td{
+          border-bottom: none;
+        }
+      }
+    }
+  }
 
 }
+
+
+// Post list
+.column-end_date{
+  width: 10%;
+}
+
+
 
 // For RSD
 @media screen and (max-width: 799px) {
@@ -322,6 +384,13 @@
     }
     .sidebar {
       display: none;
+    }
+  }
+  .gianism-post-container {
+    .date-table{
+      th, td{
+        padding: 0;
+      }
     }
   }
 }

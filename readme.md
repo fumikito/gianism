@@ -69,6 +69,10 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 ##  Changelog 
 
+### 2.1.1
+
+* Bug fix. Google Analytics' cron fails to merge child theme's folder. Thanks for [Daisuke Takahashi](http://www.extendwings.com).
+
 ### 2.1.0
 
 * Stop starting session on every access. Now, session is used only on gianism's original URL, so your cache plugins may work well.

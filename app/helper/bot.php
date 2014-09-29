@@ -336,7 +336,9 @@ SQL;
 
 			// Do Tweet!
 			try{
-				update_twitter_status($filtered);
+				if( !empty($filtered) ){
+					update_twitter_status($filtered);
+				}
 			}catch(\Exception $e){
 				error_log($e->getMessage());
 			}

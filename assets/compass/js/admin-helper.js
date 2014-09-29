@@ -6,6 +6,7 @@
 /*global Gianism:true*/
 
 jQuery(document).ready(function($){
+
 	// Create appendix
 	$('.gianism-wrap h3').each(function(index, elt){
 		$(elt).attr('id', 'index_' + index);
@@ -15,12 +16,12 @@ jQuery(document).ready(function($){
 	// Sidebar's Window scroll
 	var $container = $('.gianism-wrap #index'),
 		$parent = $('.gianism-wrap'),
-		$window = $(window),
-		top = $container.offset().top - parseFloat($container.css('marginTop').replace(/auto/, 0)),
-		bottom = $parent.offset().top + $parent.height() - $container.outerHeight(true),
-		floatingClass = 'floating',
-		pinnedBottomClass = 'pinned-bottom';
-	if ($parent.height() > $container.outerHeight(true)) {
+		$window = $(window);
+	if ( $container.length && $parent.height() > $container.outerHeight(true)) {
+		var top = $container.offset().top - parseFloat($container.css('marginTop').replace(/auto/, 0)),
+            bottom = $parent.offset().top + $parent.height() - $container.outerHeight(true),
+            floatingClass = 'floating',
+            pinnedBottomClass = 'pinned-bottom';
 		$window.scroll(function () {
 			var y = $window.scrollTop();
 			if (y > top) {
@@ -35,6 +36,7 @@ jQuery(document).ready(function($){
 			}
 		});
 	}
+
 	// Syntax highlight
 	if($('.gianism-wrap > pre').length > 0){
 		SyntaxHighlighter.all();
@@ -73,6 +75,7 @@ jQuery(document).ready(function($){
             }
         });
     };
+
     // Bind profile change.
     $('.ga-profile-select', '#ga-connection').change(function(){
         var threshold = parseInt($(this).attr('data-clear-target'), 10);

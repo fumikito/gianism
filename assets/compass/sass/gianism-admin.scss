@@ -34,10 +34,24 @@
 .gianism-wrap {
   position: relative;
 
+  // Tab navigation
   .nav-tab {
     .lsf {
       font-size: 24px;
     }
+  }
+
+  // Components
+
+
+  // New
+  .gianism-new{
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    background-color: $notice-color;
+    color: #fff;
+    @include border-radius(3px);
+    margin-right: 0.5em;
   }
 
   // Main
@@ -181,6 +195,59 @@
 
       }
     }
+    // Radio button
+    .onoffswitch {
+      position: relative; width: 90px;
+      -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-label {
+      display: block; overflow: hidden; cursor: pointer;
+      border: 2px solid #CCCCCC; border-radius: 20px;
+    }
+    .onoffswitch-inner {
+      display: block; width: 200%; margin-left: -100%;
+      -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+      -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+      &:before,
+      &:after{
+        display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+        @include box-sizing(border-box);
+      }
+      &:before{
+        content: "ON";
+        padding-left: 10px;
+        background-color: #2EA2CC; color: #FFFFFF;
+      }
+      &:after{
+        content: "OFF";
+        padding-right: 10px;
+        background-color: #F7F7F7; color: #555555;
+        text-align: right;
+      }
+    }
+    .onoffswitch-switch {
+      display: block; width: 18px; margin: 6px;
+      background: #FFFFFF;
+      border: 2px solid #CCCCCC; border-radius: 20px;
+      position: absolute; top: 0; bottom: 0; right: 56px;
+      -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+      -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+    }
+    .onoffswitch-checkbox {
+      display: none;
+      &:checked + .onoffswitch-label{
+        .onoffswitch-inner {
+          margin-left: 0;
+        }
+        .onoffswitch-switch {
+          right: 0px;
+        }
+      }
+    }
+
+
+    // Code example
     code{
       word-break: break-all;
     }
@@ -238,7 +305,73 @@
       }
     }
   }
+
 }
+
+// Edit form advanced
+.gianism-post-container{
+  // Edit form
+  .form-row{
+    margin: 2em 0;
+    label{
+      display: block;
+    }
+    label, caption{
+      font-size: 1.8em;
+      padding-bottom: 0.75em;
+      text-align: left;
+    }
+
+    textarea{
+      box-sizing: border-box;
+      width: 100% !important;
+      resize: vertical;
+      height: 5em !important;
+    }
+  }
+
+  // Time table
+  .date-table{
+    width: 100%;
+    max-width: 400px;
+    table-layout: auto;
+    border-collapse: collapse;
+    td, th{
+      padding: 0.5em;
+      text-align: center;
+    }
+    tfoot{
+      td, th{
+        text-align: right;
+        border-top: 3px double #ddd;
+      }
+    }
+    thead{
+      th{
+        border-bottom: 3px double #ddd;
+      }
+    }
+    tbody{
+      th, td{
+        border-bottom: 1px solid #ddd;
+      }
+      tr:last-child{
+        th, td{
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+}
+
+
+// Post list
+.column-end_date{
+  width: 10%;
+}
+
+
 
 // For RSD
 @media screen and (max-width: 799px) {
@@ -251,6 +384,13 @@
     }
     .sidebar {
       display: none;
+    }
+  }
+  .gianism-post-container {
+    .date-table{
+      th, td{
+        padding: 0;
+      }
     }
   }
 }

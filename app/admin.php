@@ -124,15 +124,19 @@ class Admin extends Pattern\Singleton
             }
         }
         // Setting page and profile page
-        if( false !== array_search($hook_suffix, array('settings_page_gianism', 'profile.php', 'tools_page_gianism_ga'))){
-            wp_enqueue_script($this->name.'-admin-helper', $this->url.'assets/compass/js/admin-helper.js', array('jquery', 'jquery-form'), $this->version, true);
+        if( false !== array_search($hook_suffix, array('settings_page_gianism', 'profile.php', 'tools_page_gianism_ga', 'post-new.php', 'post.php'))){
+            wp_enqueue_script($this->name.'-admin-helper', $this->url.'assets/compass/js/admin-helper'.( WP_DEBUG ? '' : '.min' ).'.js', array('jquery', 'jquery-form'), $this->version, true);
             wp_localize_script($this->name.'-admin-helper', 'Gianism', array(
                 'endpoint' => admin_url('admin-ajax.php'),
                 'action' => Google::AJAX_ACTION,
                 'nonce' => wp_create_nonce(Google::AJAX_ACTION),
             ));
-            wp_enqueue_style($this->name.'-admin-panel', $this->url.'assets/compass/stylesheets/gianism-admin.css', array('ligature-symbols'), $this->version);
         }
+
+	    // Other
+	    if( false !== array_search($hook_suffix, array('settings_page_gianism', 'profile.php', 'tools_page_gianism_ga', 'post-new.php', 'post.php', 'edit.php'))) {
+		    wp_enqueue_style( $this->name . '-admin-panel', $this->url . 'assets/compass/stylesheets/gianism-admin.css', array( 'ligature-symbols' ), $this->version );
+	    }
     }
 
     /**
@@ -212,4 +216,28 @@ class Admin extends Pattern\Singleton
         $source = rawurlencode(str_replace('http://', '', home_url('', 'http')));
         return $link."?utm_source={$source}&utm_medium={$media}&utm_campaign=Gianism";
     }
+
+	/**
+	 * Show version info
+	 *
+	 * @param string $version
+	 */
+	public function new_from($version){
+		$version = $this->major_version($version);
+		$current_version = $this->major_version($this->version);
+		if( version_compare($version, $current_version, '>=') ){
+			echo '<span class="gianism-new">New since '.$version.'</span>';
+		}
+	}
+
+	/**
+	 * Get major version
+	 *
+	 * @param string $version
+	 * @return string
+	 */
+	private function major_version($version){
+		$segments = explode('.', $version);
+		return $segments[0].'.'.$segments[1];
+	}
 }

@@ -411,21 +411,22 @@ SQL;
 	 * Register short codes
 	 */
 	public function register_short_code(){
+		$gianism = $this;
 		// Time limit
-		add_shortcode('gianism_limit', function($args, $content = ''){
+		add_shortcode('gianism_limit', function($args, $content = '') use ($gianism) {
 			$args = shortcode_atts( array(
 				'limit' => '',
-				'placeholder' => $this->_('%s left'),
+				'placeholder' => $gianism->_('%s left'),
 			), $args );
 			$left = strtotime($args['limit']) - current_time('timestamp');
 			if( $left / (60 * 60 * 24 * 30 ) > 1 ){
-				return sprintf($args['placeholder'], sprintf($this->_('%s months'), floor($left / (60 * 60 * 24 * 30 ))));
+				return sprintf($args['placeholder'], sprintf($gianism->_('%s months'), floor($left / (60 * 60 * 24 * 30 ))));
 			}elseif( $left / (60 * 60 * 24 ) > 1 ){
-				return sprintf($args['placeholder'], sprintf($this->_('%s days'), floor($left / (60 * 60 * 24))));
+				return sprintf($args['placeholder'], sprintf($gianism->_('%s days'), floor($left / (60 * 60 * 24))));
 			}elseif( $left / (60 * 60 ) > 1 ){
-				return sprintf($args['placeholder'], sprintf($this->_('%s hours'), floor($left / (60 * 60))));
+				return sprintf($args['placeholder'], sprintf($gianism->_('%s hours'), floor($left / (60 * 60))));
 			}else{
-				return sprintf($args['placeholder'], sprintf($this->_('%s minutes'), floor($left / 60)));
+				return sprintf($args['placeholder'], sprintf($gianism->_('%s minutes'), floor($left / 60)));
 			}
 		});
 	}

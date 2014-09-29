@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
 Requires at least: 3.8  
 Tested up to: 4.1-alpha
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -69,7 +69,7 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 == Changelog  ==
 
-= 2.1.2 =
+= 2.2.0 =
 
 * Add twitter bot feature. Enable it on setting screen and try it.
 

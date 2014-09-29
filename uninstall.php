@@ -41,3 +41,9 @@ $wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key = '_gianism_message'"
 
 // Drop table
 $wpdb->query("DROP TABLE {$wpdb->prefix}wpg_ga_ranking");
+
+
+// Delete bot cron
+if( wp_next_scheduled('gianism_bot') ){
+	wp_clear_scheduled_hook('gianism_bot');
+}

@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
 Requires at least: 3.8  
-Tested up to: 4.0-beta  
-Stable tag: 2.1.0
+Tested up to: 4.1-alpha
+Stable tag: 2.1.2
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -68,6 +68,14 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 == Changelog  ==
+
+= 2.1.2 =
+
+* Add twitter bot feature. Enable it on setting screen and try it.
+
+= 2.1.1 =
+
+* Bug fix. Google Analytics' cron fails to merge child theme's folder. Thanks for [Daisuke Takahashi](http://www.extendwings.com).
 
 = 2.1.0 =
 

@@ -21,13 +21,6 @@ class Bot extends Singleton
 	protected $post_type = 'tweet-bots';
 
 	/**
-	 * @var array
-	 */
-	protected $codes = array(
-		'limit'
-	);
-
-	/**
 	 * Post meta key for Cron limit
 	 *
 	 * @var string
@@ -41,20 +34,29 @@ class Bot extends Singleton
 	 */
 	private $time_key = '_tweet_cron_time';
 
+
 	/**
 	 * Constructor
 	 *
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		// Post type
 		add_action('init', array($this, 'register_post_type'));
+		add_action("manage_{$this->post_type}_posts_custom_column", array($this, 'custom_columns'), 10, 2);
+		add_filter( "manage_edit-tweet-bots_columns", array( $this, 'get_columns' ));
+		// Cron
+		add_action('init', array($this, 'register_cron'));
+		add_filter('cron_schedules', array($this, 'cron_schedules'));
+		add_action('gianism_bot', array($this, 'execute_cron'));
+		// Edit screen
 		add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 		add_filter('enter_title_here', array($this, 'enter_title_here'), 10, 2);
 		add_action('edit_form_after_title', array($this, 'edit_form_after_title'), 10, 1);
 		add_action('save_post', array($this, 'save_post'), 10, 2);
-		add_action("manage_{$this->post_type}_posts_custom_column", array($this, 'custom_columns'), 10, 2);
-		add_filter( "manage_edit-tweet-bots_columns", array( $this, 'get_columns' ));
 		add_filter('post_updated_messages', array($this, 'post_updated_messages'));
+		// Add short code
+		add_action('init', array($this, 'register_short_code'));
 	}
 
 	/**
@@ -155,8 +157,10 @@ class Bot extends Singleton
 	 * @param \WP_Post $post
 	 */
 	public function edit_form_after_title($post) {
-		wp_nonce_field( 'gianism_twitter_bot', '_gianismnonce', false );
-		include $this->dir . '/templates/edit/bot.php';
+		if( $this->post_type == $post->post_type ){
+			wp_nonce_field( 'gianism_twitter_bot', '_gianismnonce', false );
+			include $this->dir . '/templates/edit/bot.php';
+		}
 	}
 
 	/**
@@ -243,6 +247,110 @@ SQL;
 		return $limit ?: false;
 	}
 
+	/**
+	 * Register every ten minutes
+	 *
+	 * @param array $schedules
+	 *
+	 * @return array
+	 */
+	public function cron_schedules( array $schedules ){
+		$schedules['every_10_minutes'] = array(
+			'interval' => 60 * 10,
+			'display' => $this->_('Every 10 minutes check for Gianism twitter bot.'),
+		);
+		return $schedules;
+	}
+
+	/**
+	 * Register cron
+	 */
+	public function register_cron(){
+		if( !wp_next_scheduled('gianism_bot') ){
+			$next_10_min = get_gmt_from_date(preg_replace_callback('/([0-9])[0-9]:00$/u', function($matches){
+				return $matches[1].'0:00';
+			}, date_i18n('Y-m-d H:i:00', current_time('timestamp') + 60 * 10)), 'U');
+			wp_schedule_event($next_10_min, 'every_10_minutes', 'gianism_bot');
+		}
+	}
+
+	/**
+	 * Execute Cron
+	 */
+	public function execute_cron(){
+		/** @var \wpdb $wpdb */
+		global $wpdb;
+		// Clea outdated.
+		$query = <<<SQL
+			SELECT p.ID FROM {$wpdb->posts} AS p
+			INNER JOIN {$wpdb->postmeta} AS pm
+			ON p.ID = pm.post_id
+			WHERE p.post_type = %s
+			  AND p.post_status = 'publish'
+			  AND pm.meta_key = %s
+			  AND pm.meta_value < %s
+SQL;
+		$post_to_private = $wpdb->get_results($wpdb->prepare($query, $this->post_type, $this->limit_key, date_i18n('Y-m-d')));
+		foreach( $post_to_private as $pp ){
+			wp_update_post(array(
+				'ID' => $pp->ID,
+				'post_status' => 'private',
+			));
+		}
+		// Get date
+		$date = date_i18n('w');
+		if( !$date ){
+			$date = 7;
+		}
+		$meta_key = $this->time_key.'_'.$date;
+		// Get posts
+		$now = current_time('timestamp');
+		$before = $now - 60 * 9;
+		$now = date_i18n('H:i:00', $now);
+		$before = date_i18n('H:i:00', $before);
+		$query = <<<SQL
+			SELECT
+				p.*
+			FROM {$wpdb->posts} AS p
+			LEFT JOIN {$wpdb->postmeta} AS pm
+			ON p.ID = pm.post_id
+			WHERE p.post_status = 'publish'
+			  AND p.post_type = %s
+			  AND pm.meta_key = %s
+			  AND pm.meta_value <= %s
+			  AND pm.meta_value >= %s
+SQL;
+		$posts = $wpdb->get_results($wpdb->prepare($query, $this->post_type, $meta_key, $now, $before));
+		foreach( $posts as $post ){
+			setup_postdata($post);
+			// Make tweet.
+			$excerpt = do_shortcode($post->post_content);
+
+			/**
+			 * gianism_tweet_content
+			 *
+			 * @param string $excerpt
+			 * @param \stdClass $post
+			 */
+			$filtered = apply_filters('gianism_tweet_content', $excerpt, $post);
+
+			// Do Tweet!
+			try{
+				update_twitter_status($filtered);
+			}catch(\Exception $e){
+				error_log($e->getMessage());
+			}
+		}
+		wp_reset_postdata();
+	}
+
+	/**
+	 * Post column header
+	 *
+	 * @param $columns
+	 *
+	 * @return array
+	 */
 	public function get_columns($columns){
 		$new_columns = array();
 		foreach($columns as $key => $column){
@@ -254,6 +362,12 @@ SQL;
 		return $new_columns;
 	}
 
+	/**
+	 * Post column
+	 *
+	 * @param $column_name
+	 * @param $post_id
+	 */
 	public function custom_columns($column_name, $post_id){
 		switch( $column_name ){
 			case 'end_date':
@@ -289,6 +403,29 @@ SQL;
 			10 => $this->_('Tweet draft updated.'),
 		);
 		return $message;
+	}
+
+	/**
+	 * Register short codes
+	 */
+	public function register_short_code(){
+		// Time limit
+		add_shortcode('gianism_limit', function($args, $content = ''){
+			$args = shortcode_atts( array(
+				'limit' => '',
+				'placeholder' => $this->_('%s left'),
+			), $args );
+			$left = strtotime($args['limit']) - current_time('timestamp');
+			if( $left / (60 * 60 * 24 * 30 ) > 1 ){
+				return sprintf($args['placeholder'], sprintf($this->_('%s months'), floor($left / (60 * 60 * 24 * 30 ))));
+			}elseif( $left / (60 * 60 * 24 ) > 1 ){
+				return sprintf($args['placeholder'], sprintf($this->_('%s days'), floor($left / (60 * 60 * 24))));
+			}elseif( $left / (60 * 60 ) > 1 ){
+				return sprintf($args['placeholder'], sprintf($this->_('%s hours'), floor($left / (60 * 60))));
+			}else{
+				return sprintf($args['placeholder'], sprintf($this->_('%s minutes'), floor($left / 60)));
+			}
+		});
 	}
 
 	/**

@@ -4,19 +4,26 @@
 <div class="gianism-post-container">
 
 	<div class="form-row">
-		<label for="excerpt"><i class="lsf lsf-balloon"></i> <?php printf($this->_('What do you tweet as <a href="https://twitter.com/%1$s" target="_blank">@%1$s</a>?'), $this->twitter->tw_screen_name) ?></label>
-		<textarea id="excerpt" name="excerpt" placeholder="<?php echo esc_attr($this->_('Enter your tweet.')) ?>"><?php echo esc_textarea($post->post_excerpt) ?></textarea>
+		<label for="content"><i class="lsf lsf-balloon"></i> <?php printf($this->_('What do you tweet as <a href="https://twitter.com/%1$s" target="_blank">@%1$s</a>?'), $this->twitter->tw_screen_name) ?></label>
+		<textarea id="content" name="content" placeholder="<?php echo esc_attr($this->_('Enter your tweet.')) ?>"><?php echo esc_textarea($post->post_content) ?></textarea>
 		<p class="description">
-			<?php
-				printf($this->_('HTML tags are not allowed. But you can use short codes. Gianism original short codes are below: <br />%s'), implode(', ', array_map(function($code){
-					return sprintf('<strong>%s</strong>', esc_html($code));
-				}, $this->short_codes)));
-
-			?>
-
+			<?php $this->e('HTML tags are not allowed. But you can use short codes. Gianism original short codes are below.') ?>
+			<?php printf($this->_('And ofcourse You can register your own shortcode with <a href="%s">Shortcode API</a>.'), 'http://codex.wordpress.org/Shortcode_API') ?>
 		</p>
+		<hr />
+		<h4>gianism_limit</h4>
+		<p>
+			<em><?php $this->e('Attributes') ?></em>:
+			<code>limit</code> <small><?php $this->e('Date time. This will convert to rest time which is relative to current time.') ?>
+			 |
+			<code>placeholder</code> <small><?php printf($this->_('Place holder. Default is %s.'), $this->_('%s left')) ?></small>
+		</p>
+<pre>
+[gianism_limit limit='2016-08-16'] => <?php echo do_shortcode('[gianism_limit limit=\'2016-08-16\']') ?>
+</pre>
 	</div>
 
+	<hr />
 
 	<div class="form-row">
 		<table class="date-table" id="gianism-bot-schedule">
@@ -75,6 +82,8 @@
 		<p><?php $this->e('End datetime is mal-formed: YYYY-MM-DD') ?></p>
 	</div>
 	<?php endif; ?>
+
+	<hr />
 
 	<div class="form-row">
 		<label for="tweet_ends"><i class="lsf lsf-dailycalendar"></i> <?php $this->e('End Datetime') ?></label>

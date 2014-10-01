@@ -151,7 +151,52 @@ function get_facebook_publish_permission_link($redirect_url = null, $action = ''
     return $facebook->get_publish_permission_link($redirect_url, $action, $args);
 }
 
+/**
+ * Get facebook API client for admin
+ *
+ * <pre>
+ * $fb = gianism_fb_admin();
+ * if( !is_wp_error($fb) ){
+ *     // Get feed.
+ *     $feeds = $fb->api('/me/feed');
+ *     // Post feed.
+ *     $fb->api('/me/feed', 'POST', array(
+ *         'message' => 'Hola!',
+ *     ));
+ * }
+ * </pre>
+ *
+ * @return Facebook|WP_Error
+ */
+function gianism_fb_admin(){
+	/** @var \Gianism\Service\Facebook $facebook */
+	$facebook = \Gianism\Service\Facebook::get_instance();
+	return $facebook->admin;
+}
 
+/**
+ * Get admin facebook id
+ *
+ * This will be user id or facebook page id.
+ *
+ * <pre>
+ * // Example
+ * $fb = gianism_fb_admin();
+ * if( !is_wp_error($fb) ){
+ *     $feed = $fb->api(gianism_fb_admin_id().'/feed');
+ *     foreach( $feed['data'] as $status ){
+ *         // Do stuff.
+ *     }
+ * }
+ * </pre>
+ *
+ * @return int|string
+ */
+function gianism_fb_admin_id() {
+	/** @var \Gianism\Service\Facebook $facebook */
+	$facebook = \Gianism\Service\Facebook::get_instance();
+	return $facebook->admin_id;
+}
 
 /**
  * Returns if user is connected with particular web service.

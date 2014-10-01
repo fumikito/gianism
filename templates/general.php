@@ -18,15 +18,19 @@ defined('ABSPATH') or die();
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <h2 class="nav-tab-wrapper">
-	<a class="nav-tab<?php if(!isset($_REQUEST['view'])) echo ' nav-tab-active'; ?>" href="<?php echo $this->setting_url();?>">
+	<a class="nav-tab<?php if( !isset($_REQUEST['view']) ) echo ' nav-tab-active'; ?>" href="<?php echo $this->setting_url();?>">
 		<i class="lsf lsf-paramater"></i> <?php $this->e('Gianism Setting'); ?>
 	</a>
 	<?php
-		foreach(array(
+		$pages = array(
 			'setup' => array($this->_('How to set up'), 'help'),
 			'customize' => array($this->_('Customize'), 'wrench'),
 			'advanced' => array($this->_('Advanced Usage'), 'magic'),
-		) as $key => $val):
+		);
+		if( $option->fb_use_api ){
+			$pages['fb-api'] = array($this->_('Facebook API'), 'facebook');
+		}
+		foreach( $pages as $key => $val ):
 	?>
 	<a class="nav-tab<?php if( $this->is_view($key) ) echo ' nav-tab-active'; ?>" href="<?php echo $this->setting_url($key);?>">
         <i class="lsf lsf-<?php echo $val[1] ?>"></i> <?php echo $val[0] ?>
@@ -66,6 +70,13 @@ defined('ABSPATH') or die();
 			break;
 		case 'advanced':
             $this->get_template('advanced');
+			break;
+		case 'fb-api':
+			if( $option->fb_use_api ){
+				$this->get_template('fbapi');
+			}else{
+				printf('<div class="error"><p>%s</p></div>', $this->_('To see this page, you should turn <strong>Facebook API</strong> on.'));
+			}
 			break;
 		default:
             $this->get_template('setting');

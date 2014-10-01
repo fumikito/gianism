@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-29 17:12+0900\n"
-"PO-Revision-Date: 2014-09-29 17:20+0900\n"
+"POT-Creation-Date: 2014-10-01 19:29+0900\n"
+"PO-Revision-Date: 2014-10-01 19:36+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -25,7 +25,7 @@ msgstr "Gianism設定"
 msgid "Google Analytics"
 msgstr "Google アナリティクス"
 
-#: ../app/admin.php:163
+#: ../app/admin.php:164
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -36,7 +36,7 @@ msgstr ""
 "を変更する必要があります</strong>。<a href=\"%s\">設定を更新し</a>、指示に"
 "従ってください。"
 
-#: ../app/admin.php:166
+#: ../app/admin.php:167
 #, php-format
 msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setiting</a> and "
@@ -45,7 +45,7 @@ msgstr ""
 "サービスが有効になっていません。<a href=\"%s\">Gianism 設定</a>へ行き、画面の"
 "指示に従ってください。"
 
-#: ../app/admin.php:183
+#: ../app/admin.php:184
 msgid "Settings"
 msgstr "設定"
 
@@ -85,60 +85,60 @@ msgstr "時間帯が重複しています。"
 msgid "Every 10 minutes check for Gianism twitter bot."
 msgstr "Gianism twitterボット用の10分間隔のボットです。"
 
-#: ../app/helper/bot.php:359
+#: ../app/helper/bot.php:361
 msgid "End Date"
 msgstr "終了日"
 
-#: ../app/helper/bot.php:397 ../app/helper/bot.php:398
+#: ../app/helper/bot.php:399 ../app/helper/bot.php:400
 msgid "Tweet updated."
 msgstr "つぶやきが更新されました。"
 
-#: ../app/helper/bot.php:399
+#: ../app/helper/bot.php:401
 msgid "Tweet published, thus bot is enabled."
 msgstr "tweetが公開され、ボットが有効になりました。"
 
-#: ../app/helper/bot.php:400
+#: ../app/helper/bot.php:402
 msgid "Tweet saved."
 msgstr "ツイートが保存されました。"
 
-#: ../app/helper/bot.php:401
+#: ../app/helper/bot.php:403
 msgid "Tweet submitted."
 msgstr "つぶやきが送信されました。"
 
-#: ../app/helper/bot.php:402
+#: ../app/helper/bot.php:404
 #, php-format
 msgid "Tweet scheduled for: <strong>%1$s</strong>. "
 msgstr "<strong>%1$s</strong>につぶやきが予約されました。"
 
-#: ../app/helper/bot.php:402
+#: ../app/helper/bot.php:404
 msgid "M j, Y @ G:i"
 msgstr "Y年n月j日 g:i:s a"
 
-#: ../app/helper/bot.php:403
+#: ../app/helper/bot.php:405
 msgid "Tweet draft updated."
 msgstr "つぶやきの下書きが更新されました。"
 
-#: ../app/helper/bot.php:416 ../templates/edit/bot.php:19
+#: ../app/helper/bot.php:419 ../templates/edit/bot.php:19
 #, php-format
 msgid "%s left"
 msgstr "あと%s"
 
-#: ../app/helper/bot.php:420
+#: ../app/helper/bot.php:423
 #, php-format
 msgid "%s months"
 msgstr "%sヶ月"
 
-#: ../app/helper/bot.php:422
+#: ../app/helper/bot.php:425
 #, php-format
 msgid "%s days"
 msgstr "%s日"
 
-#: ../app/helper/bot.php:424
+#: ../app/helper/bot.php:427
 #, php-format
 msgid "%s hours"
 msgstr "%s時間"
 
-#: ../app/helper/bot.php:426
+#: ../app/helper/bot.php:429
 #, php-format
 msgid "%s minutes"
 msgstr "%s分"
@@ -165,19 +165,19 @@ msgstr "メッセージの削除に失敗しました。なにかしましたか
 msgid "Delete"
 msgstr "削除"
 
-#: ../app/option.php:162
+#: ../app/option.php:165
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: ../app/option.php:165
+#: ../app/option.php:168
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: ../app/option.php:216
+#: ../app/option.php:219
 msgid "Medium"
 msgstr "中"
 
-#: ../app/option.php:217
+#: ../app/option.php:220
 msgid "Large"
 msgstr "大"
 
@@ -334,7 +334,7 @@ msgstr "メールアドレスを取得できませんでした。"
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: ../app/service/common/mail.php:708 ../app/service/facebook.php:314
+#: ../app/service/common/mail.php:708 ../app/service/facebook.php:377
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
@@ -343,9 +343,25 @@ msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってくださ
 msgid "No matched user."
 msgstr "一致するユーザーがいません。"
 
-#: ../app/service/facebook.php:167
+#: ../app/service/facebook.php:212
 msgid "You are already logged in"
 msgstr "すでにログインしています。"
+
+#: ../app/service/facebook.php:368
+msgid "Access token is saved."
+msgstr "アクセストークンが保存されました。"
+
+#: ../app/service/facebook.php:426
+msgid "Saved facebook account to use."
+msgstr "利用するFacebookアカウントが保存されました。"
+
+#: ../app/service/facebook.php:667
+msgid "Token is not set. Please get it."
+msgstr "トークンが設定されていません。取得してください。"
+
+#: ../app/service/facebook.php:672
+msgid "Token is outdated. Please update it."
+msgstr "トークンが期限切れです。更新してください。"
 
 #: ../app/service/google.php:244
 msgid "Now you got token!"
@@ -893,10 +909,96 @@ msgstr "終了日"
 msgid "Passing this limit, This bot will be private. Format is YYYY-MM-DD"
 msgstr "この期限を過ぎると、ボットは非公開になります。書式はYYYY-MM-DDです。"
 
+#: ../templates/fbapi.php:11
+msgid "Token setting"
+msgstr "トークン設定"
+
+#: ../templates/fbapi.php:15
+msgid "Token is outdated. Click link and get new one."
+msgstr ""
+"トークンが期限切れです。リンクをクリックして新しいものを取得してください。"
+
+#: ../templates/fbapi.php:17
+msgid "Token is not set. Please click link below and get one."
+msgstr "トークンが設定されていません。リンクをクリックして、取得してください。"
+
+#: ../templates/fbapi.php:22
+#, php-format
+msgid ""
+"O.K. You have permission. If you want to renew token, please click link "
+"below. Token will be valid for %d days."
+msgstr ""
+"パーミッションが取得できました。トークンを更新したい場合は下のリンクをクリッ"
+"クしてください。トークンは%d日間有効です。"
+
+#: ../templates/fbapi.php:26 ../templates/fbapi.php:27
+msgid "Get Token"
+msgstr "トークンを取得"
+
+#: ../templates/fbapi.php:26
+msgid "Read Only"
+msgstr "読み取り専用"
+
+#: ../templates/fbapi.php:27
+msgid "Publish"
+msgstr "投稿可能"
+
+#: ../templates/fbapi.php:29
+msgid "Account to use"
+msgstr "利用するアカウント"
+
+#: ../templates/fbapi.php:31
+msgid ""
+"You need access token to manage accounts. Click links above and you can get "
+"Facebook API token."
+msgstr ""
+"アカウントを管理するためにアクセストークンが必要です。上のリンクをクリックし"
+"て、Facebook APIのトークンを取得してください。"
+
+#: ../templates/fbapi.php:33
+msgid "Failed to get your account. Please renew token."
+msgstr "アカウントを取得できませんでした。トークンを更新してください。"
+
+#: ../templates/fbapi.php:35
+msgid "Please select account to use."
+msgstr "利用するアカウントを選択してください。"
+
+#: ../templates/fbapi.php:40
+msgid "You"
+msgstr "あなた"
+
+#: ../templates/fbapi.php:46
+msgid "Your Page"
+msgstr "あなたのページ"
+
+#: ../templates/fbapi.php:58
+msgid "You have no Facebook page."
+msgstr "Facebookページがありません。"
+
+#: ../templates/fbapi.php:67
+msgid "How to use"
+msgstr "使用法"
+
+#: ../templates/fbapi.php:68
+#, php-format
+msgid ""
+"You can get token-ready <a href=\"%s\">Facebook PHP SDK's API client</a>. "
+"For example, get latest news feed and show it on footer."
+msgstr ""
+"トークンを設定済みの<a href=\"%s\">Facebook PHP SDKのAPIクライアント</a>を取"
+"得できます。例として最新のニュースフィードを取得してフッターに表示してみま"
+"しょう。"
+
+#: ../templates/fbapi.php:110
+msgid "You should know about Facebook Graph API. Useful resources are below."
+msgstr ""
+"FacebookのグラフAPIについての知識が求められます。役に立つリンクを以下に挙げま"
+"す。"
+
 #: ../templates/general.php:26 ../templates/setting.php:88
-#: ../templates/setting.php:140 ../templates/setting.php:216
-#: ../templates/setting.php:265 ../templates/setting.php:310
-#: ../templates/setting.php:356 ../templates/setting.php:402
+#: ../templates/setting.php:161 ../templates/setting.php:237
+#: ../templates/setting.php:286 ../templates/setting.php:331
+#: ../templates/setting.php:377 ../templates/setting.php:423
 msgid "How to set up"
 msgstr "設定方法"
 
@@ -908,20 +1010,24 @@ msgstr "カスタマイズ"
 msgid "Advanced Usage"
 msgstr "上級者向け使用法"
 
-#: ../templates/general.php:45
+#: ../templates/general.php:31
+msgid "Facebook API"
+msgstr "Facebook API"
+
+#: ../templates/general.php:49
 msgid "What you have is mine, what I have is also mine!"
 msgstr "おまえのものはおれのもの、おれのものもおれのもの！"
 
-#: ../templates/general.php:45
+#: ../templates/general.php:49
 msgid "Takeshi Gōda"
 msgstr "剛田武"
 
-#: ../templates/general.php:51
+#: ../templates/general.php:55
 #, php-format
 msgid "Last Updated: %s"
 msgstr "最終更新日: %s"
 
-#: ../templates/general.php:55
+#: ../templates/general.php:59
 #, php-format
 msgid ""
 "API document is also available at <a href=\"%s\">Developer's site</a>. You "
@@ -929,6 +1035,11 @@ msgid ""
 msgstr ""
 "APIドキュメントが<a href=\"%s\">開発者のサイト</a>で利用できます。様々な関数"
 "が用意されています。"
+
+#: ../templates/general.php:78
+msgid "To see this page, you should turn <strong>Facebook API</strong> on."
+msgstr ""
+"このページを見るためには、<strong>Facebook API</strong>をオンにしてください。"
 
 #: ../templates/how-to-setup.php:12
 msgid ""
@@ -1507,23 +1618,23 @@ msgstr "この設定はログインボタンの表示設定がONの場合だけ�
 msgid "Connect with Facebook"
 msgstr "Facebookと接続"
 
-#: ../templates/setting.php:80 ../templates/setting.php:132
-#: ../templates/setting.php:208 ../templates/setting.php:257
-#: ../templates/setting.php:302 ../templates/setting.php:348
-#: ../templates/setting.php:394
+#: ../templates/setting.php:80 ../templates/setting.php:153
+#: ../templates/setting.php:229 ../templates/setting.php:278
+#: ../templates/setting.php:323 ../templates/setting.php:369
+#: ../templates/setting.php:415
 msgid "Enable"
 msgstr "有効"
 
-#: ../templates/setting.php:84 ../templates/setting.php:136
-#: ../templates/setting.php:212 ../templates/setting.php:261
-#: ../templates/setting.php:306 ../templates/setting.php:352
-#: ../templates/setting.php:398
+#: ../templates/setting.php:84 ../templates/setting.php:157
+#: ../templates/setting.php:233 ../templates/setting.php:282
+#: ../templates/setting.php:327 ../templates/setting.php:373
+#: ../templates/setting.php:419
 msgid "Disable"
 msgstr "無効"
 
-#: ../templates/setting.php:87 ../templates/setting.php:139
-#: ../templates/setting.php:215 ../templates/setting.php:309
-#: ../templates/setting.php:355 ../templates/setting.php:401
+#: ../templates/setting.php:87 ../templates/setting.php:160
+#: ../templates/setting.php:236 ../templates/setting.php:330
+#: ../templates/setting.php:376 ../templates/setting.php:422
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
@@ -1532,10 +1643,10 @@ msgstr ""
 "必要な情報を取得するには<a target=\"_blank\" href=\"%2$s\">ここ</a>で%1$sアプ"
 "リケーションを作成する必要があります。"
 
-#: ../templates/setting.php:88 ../templates/setting.php:140
-#: ../templates/setting.php:216 ../templates/setting.php:265
-#: ../templates/setting.php:310 ../templates/setting.php:356
-#: ../templates/setting.php:402
+#: ../templates/setting.php:88 ../templates/setting.php:161
+#: ../templates/setting.php:237 ../templates/setting.php:286
+#: ../templates/setting.php:331 ../templates/setting.php:377
+#: ../templates/setting.php:423
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
 msgstr "詳細はこちら：<a href=\"%1$s\">%2$s</a>"
@@ -1565,70 +1676,84 @@ msgstr ""
 "ファンページを持っていて、WordPressページを割り当てている場合、ここで指定して"
 "ください。幾つかの関数を利用できます。詳細はこちら: <strong>%s</strong>"
 
-#: ../templates/setting.php:128 ../templates/setting.php:204
-#: ../templates/setting.php:253 ../templates/setting.php:298
-#: ../templates/setting.php:344 ../templates/setting.php:390
+#: ../templates/setting.php:119
+msgid "Use Facebook API"
+msgstr "Facebook APIを使う"
+
+#: ../templates/setting.php:130
+msgid "If enabled, you can get Facebook API Token for this site."
+msgstr "有効にすると、サイト感利用のFacebook API トークンを取得できます。"
+
+#: ../templates/setting.php:134
+#, php-format
+msgid "You must set up token on <a href=\"%s\">Facebook API page</a>."
+msgstr ""
+"<a href=\"%s\">Facebook API ページ</a>でトークンを設定する必要があります。"
+
+#: ../templates/setting.php:149 ../templates/setting.php:225
+#: ../templates/setting.php:274 ../templates/setting.php:319
+#: ../templates/setting.php:365 ../templates/setting.php:411
 #, php-format
 msgid "Connect with %s"
 msgstr "%sと接続"
 
-#: ../templates/setting.php:145 ../templates/setting.php:189
+#: ../templates/setting.php:166 ../templates/setting.php:210
 msgid "Screen Name"
 msgstr "スクリーン名"
 
-#: ../templates/setting.php:149 ../templates/setting.php:189
+#: ../templates/setting.php:170 ../templates/setting.php:210
 msgid "Consumer Key"
 msgstr "Consumer Key"
 
-#: ../templates/setting.php:153 ../templates/setting.php:189
+#: ../templates/setting.php:174 ../templates/setting.php:210
 msgid "Consumer Secret"
 msgstr "Consumer Secret"
 
-#: ../templates/setting.php:157 ../templates/setting.php:190
-#: ../templates/setting.php:433
+#: ../templates/setting.php:178 ../templates/setting.php:211
+#: ../templates/setting.php:454
 msgid "Access Token"
 msgstr "Access Token"
 
-#: ../templates/setting.php:161 ../templates/setting.php:190
+#: ../templates/setting.php:182 ../templates/setting.php:211
 msgid "Access token secret"
 msgstr "Access token secret"
 
-#: ../templates/setting.php:165 ../templates/setting.php:230
-#: ../templates/setting.php:235 ../templates/setting.php:279
-#: ../templates/setting.php:324 ../templates/setting.php:329
-#: ../templates/setting.php:416 ../templates/setting.php:421
+#: ../templates/setting.php:186 ../templates/setting.php:251
+#: ../templates/setting.php:256 ../templates/setting.php:300
+#: ../templates/setting.php:345 ../templates/setting.php:350
+#: ../templates/setting.php:437 ../templates/setting.php:442
 msgid "Redirect URI"
 msgstr "リダイレクトURI"
 
-#: ../templates/setting.php:170 ../templates/setting.php:235
-#: ../templates/setting.php:284 ../templates/setting.php:329
-#: ../templates/setting.php:374 ../templates/setting.php:421
+#: ../templates/setting.php:191 ../templates/setting.php:256
+#: ../templates/setting.php:305 ../templates/setting.php:350
+#: ../templates/setting.php:395 ../templates/setting.php:442
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 "<a target=\"_blank\" href=\"%4$s\">%3$s</a>で%1$sを%2$sに設定してください。"
 
-#: ../templates/setting.php:170
+#: ../templates/setting.php:191
 msgid "Callback URL"
 msgstr "コールバックURL"
 
-#: ../templates/setting.php:172 ../templates/setting.php:237
-#: ../templates/setting.php:286 ../templates/setting.php:331
-#: ../templates/setting.php:376 ../templates/setting.php:423
+#: ../templates/setting.php:193 ../templates/setting.php:258
+#: ../templates/setting.php:307 ../templates/setting.php:352
+#: ../templates/setting.php:397 ../templates/setting.php:444
 msgid "Please copy this URL."
 msgstr "URLをコピーしてください。"
 
-#: ../templates/setting.php:172 ../templates/setting.php:237
-#: ../templates/setting.php:286 ../templates/setting.php:331
-#: ../templates/setting.php:376 ../templates/setting.php:423
+#: ../templates/setting.php:193 ../templates/setting.php:258
+#: ../templates/setting.php:307 ../templates/setting.php:352
+#: ../templates/setting.php:397 ../templates/setting.php:444
 msgid "Copy"
 msgstr "コピー"
 
-#: ../templates/setting.php:177
+#: ../templates/setting.php:198
 msgid "Twitter bot by Gianism"
 msgstr "Gianism twitterボット"
 
-#: ../templates/setting.php:188
+#: ../templates/setting.php:209
 #, php-format
 msgid ""
 "If enabled, you can make twitter bot which tweet at the time you specified. "
@@ -1637,18 +1762,18 @@ msgstr ""
 "有効にすると、指定した時間に呟くボットを作成できま"
 "す。%1$s、%2$s、%3$s、%4$s、%5$sが必要です。"
 
-#: ../templates/setting.php:222 ../templates/setting.php:271
-#: ../templates/setting.php:316 ../templates/setting.php:408
+#: ../templates/setting.php:243 ../templates/setting.php:292
+#: ../templates/setting.php:337 ../templates/setting.php:429
 msgid "Client ID"
 msgstr "Client ID"
 
-#: ../templates/setting.php:226 ../templates/setting.php:275
-#: ../templates/setting.php:320 ../templates/setting.php:365
-#: ../templates/setting.php:412
+#: ../templates/setting.php:247 ../templates/setting.php:296
+#: ../templates/setting.php:341 ../templates/setting.php:386
+#: ../templates/setting.php:433
 msgid "Client Secret"
 msgstr "Client Secret"
 
-#: ../templates/setting.php:239
+#: ../templates/setting.php:260
 #, php-format
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "
@@ -1657,7 +1782,7 @@ msgstr ""
 "<strong>注意： </strong><code>Gianims v2.0</code>から設定が変更されました。"
 "Google API Consoleで再設定する必要があります。"
 
-#: ../templates/setting.php:264
+#: ../templates/setting.php:285
 #, php-format
 msgid ""
 "You have to register your application <a target=\"_blank\" href=\"%1$s"
@@ -1666,31 +1791,31 @@ msgstr ""
 "必要な情報を取得するには<a target=\"_blank\" href=\"%1$s\">ここ</a>でアプリ"
 "ケーションを作成する必要があります。"
 
-#: ../templates/setting.php:361
+#: ../templates/setting.php:382
 msgid "Application ID"
 msgstr "アプリケーションID"
 
-#: ../templates/setting.php:369 ../templates/setting.php:374
+#: ../templates/setting.php:390 ../templates/setting.php:395
 msgid "Callback URI"
 msgstr "コールバックURL"
 
-#: ../templates/setting.php:374
+#: ../templates/setting.php:395
 msgid "Yahoo! JAPAN Developer Network"
 msgstr "Yahoo! JAPAN ディベロッパーネットワーク"
 
-#: ../templates/setting.php:429
+#: ../templates/setting.php:450
 msgid "Token"
 msgstr "トークン"
 
-#: ../templates/setting.php:437
+#: ../templates/setting.php:458
 msgid "Refresh Token"
 msgstr "リフレッシュトークン"
 
-#: ../templates/setting.php:439
+#: ../templates/setting.php:460
 msgid "Your refresh token is invalid. Please reset it from link below."
 msgstr "リフレッシュトークンが無効です。下のリンクから再設定してください。"
 
-#: ../templates/setting.php:443
+#: ../templates/setting.php:464
 msgid ""
 "If you want to send a message via mixi to your user who has only pseudo "
 "mail(@pseudo.mixi.jp), set up auth information by login to mixi from the "
@@ -1799,9 +1924,6 @@ msgstr ""
 
 #~ msgid "You really disconnect this account?"
 #~ msgstr "アカウントを切断しますか？"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
 
 #~ msgid "Log in with Facebook"
 #~ msgstr "Facebookでログイン"

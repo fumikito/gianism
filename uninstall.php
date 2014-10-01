@@ -15,6 +15,9 @@ if(!defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN')){
 delete_option('wp_gianism_option');
 delete_option('wpg_analytics_token');
 delete_option('wpg_analytics_profile');
+delete_option('gianism_facebook_admin_token');
+delete_option('gianism_facebook_admin_refreshed');
+delete_option('gianism_facebook_admin_id');
 
 
 //Delete All message if exists.

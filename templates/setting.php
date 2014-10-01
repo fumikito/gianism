@@ -115,6 +115,27 @@ $mixi = \Gianism\Service\Mixi::get_instance();
                 </p>
             </td>
         </tr>
+        <tr>
+	        <th><label><?php $this->e('Use Facebook API'); ?></label></th>
+	        <td>
+		        <div class="onoffswitch">
+			        <input type="checkbox" name="fb_use_api" class="onoffswitch-checkbox" id="fb_use_api" value="1"<?php checked($option->fb_use_api) ?>>
+			        <label class="onoffswitch-label" for="fb_use_api">
+				        <span class="onoffswitch-inner"></span>
+				        <span class="onoffswitch-switch"></span>
+			        </label>
+		        </div>
+		        <p class="description">
+			        <?php $this->new_from('2.2') ?>
+			        <?php echo $this->_('If enabled, you can get Facebook API Token for this site.') ?>
+		        </p>
+		        <?php if( $option->fb_use_api ): ?>
+			        <p class="notice">
+		             <?php printf($this->_('You must set up token on <a href="%s">Facebook API page</a>.'), $this->setting_url('fb-api')) ?>
+		            </p>
+		        <?php endif; ?>
+	        </td>
+        </tr>
     </tbody>
 </table>
 <?php submit_button(); ?>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-29 17:12+0900\n"
-"PO-Revision-Date: 2014-09-29 17:12+0900\n"
+"POT-Creation-Date: 2014-10-01 19:29+0900\n"
+"PO-Revision-Date: 2014-10-01 19:29+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e;__\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.8\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Google Analytics"
 msgstr ""
 
-#: ../app/admin.php:163
+#: ../app/admin.php:164
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -33,14 +33,14 @@ msgid ""
 "a> and follow the instruction there."
 msgstr ""
 
-#: ../app/admin.php:166
+#: ../app/admin.php:167
 #, php-format
 msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setiting</a> and "
 "follow instructions there."
 msgstr ""
 
-#: ../app/admin.php:183
+#: ../app/admin.php:184
 msgid "Settings"
 msgstr ""
 
@@ -78,60 +78,60 @@ msgstr ""
 msgid "Every 10 minutes check for Gianism twitter bot."
 msgstr ""
 
-#: ../app/helper/bot.php:359
+#: ../app/helper/bot.php:361
 msgid "End Date"
 msgstr ""
 
-#: ../app/helper/bot.php:397 ../app/helper/bot.php:398
+#: ../app/helper/bot.php:399 ../app/helper/bot.php:400
 msgid "Tweet updated."
 msgstr ""
 
-#: ../app/helper/bot.php:399
+#: ../app/helper/bot.php:401
 msgid "Tweet published, thus bot is enabled."
 msgstr ""
 
-#: ../app/helper/bot.php:400
+#: ../app/helper/bot.php:402
 msgid "Tweet saved."
 msgstr ""
 
-#: ../app/helper/bot.php:401
+#: ../app/helper/bot.php:403
 msgid "Tweet submitted."
 msgstr ""
 
-#: ../app/helper/bot.php:402
+#: ../app/helper/bot.php:404
 #, php-format
 msgid "Tweet scheduled for: <strong>%1$s</strong>. "
 msgstr ""
 
-#: ../app/helper/bot.php:402
+#: ../app/helper/bot.php:404
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: ../app/helper/bot.php:403
+#: ../app/helper/bot.php:405
 msgid "Tweet draft updated."
 msgstr ""
 
-#: ../app/helper/bot.php:416 ../templates/edit/bot.php:19
+#: ../app/helper/bot.php:419 ../templates/edit/bot.php:19
 #, php-format
 msgid "%s left"
 msgstr ""
 
-#: ../app/helper/bot.php:420
+#: ../app/helper/bot.php:423
 #, php-format
 msgid "%s months"
 msgstr ""
 
-#: ../app/helper/bot.php:422
+#: ../app/helper/bot.php:425
 #, php-format
 msgid "%s days"
 msgstr ""
 
-#: ../app/helper/bot.php:424
+#: ../app/helper/bot.php:427
 #, php-format
 msgid "%s hours"
 msgstr ""
 
-#: ../app/helper/bot.php:426
+#: ../app/helper/bot.php:429
 #, php-format
 msgid "%s minutes"
 msgstr ""
@@ -158,19 +158,19 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../app/option.php:162
+#: ../app/option.php:165
 msgid "Option updated."
 msgstr ""
 
-#: ../app/option.php:165
+#: ../app/option.php:168
 msgid "Option failed to update."
 msgstr ""
 
-#: ../app/option.php:216
+#: ../app/option.php:219
 msgid "Medium"
 msgstr ""
 
-#: ../app/option.php:217
+#: ../app/option.php:220
 msgid "Large"
 msgstr ""
 
@@ -319,7 +319,7 @@ msgstr ""
 msgid "Cannot register. Please try again later."
 msgstr ""
 
-#: ../app/service/common/mail.php:708 ../app/service/facebook.php:314
+#: ../app/service/common/mail.php:708 ../app/service/facebook.php:377
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
@@ -328,8 +328,24 @@ msgstr ""
 msgid "No matched user."
 msgstr ""
 
-#: ../app/service/facebook.php:167
+#: ../app/service/facebook.php:212
 msgid "You are already logged in"
+msgstr ""
+
+#: ../app/service/facebook.php:368
+msgid "Access token is saved."
+msgstr ""
+
+#: ../app/service/facebook.php:426
+msgid "Saved facebook account to use."
+msgstr ""
+
+#: ../app/service/facebook.php:667
+msgid "Token is not set. Please get it."
+msgstr ""
+
+#: ../app/service/facebook.php:672
+msgid "Token is outdated. Please update it."
 msgstr ""
 
 #: ../app/service/google.php:244
@@ -814,10 +830,87 @@ msgstr ""
 msgid "Passing this limit, This bot will be private. Format is YYYY-MM-DD"
 msgstr ""
 
+#: ../templates/fbapi.php:11
+msgid "Token setting"
+msgstr ""
+
+#: ../templates/fbapi.php:15
+msgid "Token is outdated. Click link and get new one."
+msgstr ""
+
+#: ../templates/fbapi.php:17
+msgid "Token is not set. Please click link below and get one."
+msgstr ""
+
+#: ../templates/fbapi.php:22
+#, php-format
+msgid ""
+"O.K. You have permission. If you want to renew token, please click link "
+"below. Token will be valid for %d days."
+msgstr ""
+
+#: ../templates/fbapi.php:26 ../templates/fbapi.php:27
+msgid "Get Token"
+msgstr ""
+
+#: ../templates/fbapi.php:26
+msgid "Read Only"
+msgstr ""
+
+#: ../templates/fbapi.php:27
+msgid "Publish"
+msgstr ""
+
+#: ../templates/fbapi.php:29
+msgid "Account to use"
+msgstr ""
+
+#: ../templates/fbapi.php:31
+msgid ""
+"You need access token to manage accounts. Click links above and you can get "
+"Facebook API token."
+msgstr ""
+
+#: ../templates/fbapi.php:33
+msgid "Failed to get your account. Please renew token."
+msgstr ""
+
+#: ../templates/fbapi.php:35
+msgid "Please select account to use."
+msgstr ""
+
+#: ../templates/fbapi.php:40
+msgid "You"
+msgstr ""
+
+#: ../templates/fbapi.php:46
+msgid "Your Page"
+msgstr ""
+
+#: ../templates/fbapi.php:58
+msgid "You have no Facebook page."
+msgstr ""
+
+#: ../templates/fbapi.php:67
+#, fuzzy
+msgid "How to use"
+msgstr "Item set"
+
+#: ../templates/fbapi.php:68
+#, php-format
+msgid ""
+"You can get token-ready <a href=\"%s\">Facebook PHP SDK's API client</a>. "
+"For example, get latest news feed and show it on footer."
+msgstr ""
+
+#: ../templates/fbapi.php:110
+msgid "You should know about Facebook Graph API. Useful resources are below."
+msgstr ""
+
 #: ../templates/general.php:26 ../templates/setting.php:88
-#: ../templates/setting.php:140 ../templates/setting.php:216
-#: ../templates/setting.php:265 ../templates/setting.php:310
-#: ../templates/setting.php:356 ../templates/setting.php:402
+#: ../templates/setting.php:161 ../templates/setting.php:237
+#: ../templates/setting.php:286 ../templates/setting.php:331
+#: ../templates/setting.php:377 ../templates/setting.php:423
 #, fuzzy
 msgid "How to set up"
 msgstr "Item set"
@@ -830,24 +923,32 @@ msgstr ""
 msgid "Advanced Usage"
 msgstr ""
 
-#: ../templates/general.php:45
+#: ../templates/general.php:31
+msgid "Facebook API"
+msgstr ""
+
+#: ../templates/general.php:49
 msgid "What you have is mine, what I have is also mine!"
 msgstr ""
 
-#: ../templates/general.php:45
+#: ../templates/general.php:49
 msgid "Takeshi Gōda"
-msgstr ""
-
-#: ../templates/general.php:51
-#, php-format
-msgid "Last Updated: %s"
 msgstr ""
 
 #: ../templates/general.php:55
 #, php-format
+msgid "Last Updated: %s"
+msgstr ""
+
+#: ../templates/general.php:59
+#, php-format
 msgid ""
 "API document is also available at <a href=\"%s\">Developer's site</a>. You "
 "can use various functions."
+msgstr ""
+
+#: ../templates/general.php:78
+msgid "To see this page, you should turn <strong>Facebook API</strong> on."
 msgstr ""
 
 #: ../templates/how-to-setup.php:12
@@ -1325,33 +1426,33 @@ msgstr ""
 msgid "Connect with Facebook"
 msgstr ""
 
-#: ../templates/setting.php:80 ../templates/setting.php:132
-#: ../templates/setting.php:208 ../templates/setting.php:257
-#: ../templates/setting.php:302 ../templates/setting.php:348
-#: ../templates/setting.php:394
+#: ../templates/setting.php:80 ../templates/setting.php:153
+#: ../templates/setting.php:229 ../templates/setting.php:278
+#: ../templates/setting.php:323 ../templates/setting.php:369
+#: ../templates/setting.php:415
 msgid "Enable"
 msgstr ""
 
-#: ../templates/setting.php:84 ../templates/setting.php:136
-#: ../templates/setting.php:212 ../templates/setting.php:261
-#: ../templates/setting.php:306 ../templates/setting.php:352
-#: ../templates/setting.php:398
+#: ../templates/setting.php:84 ../templates/setting.php:157
+#: ../templates/setting.php:233 ../templates/setting.php:282
+#: ../templates/setting.php:327 ../templates/setting.php:373
+#: ../templates/setting.php:419
 msgid "Disable"
 msgstr ""
 
-#: ../templates/setting.php:87 ../templates/setting.php:139
-#: ../templates/setting.php:215 ../templates/setting.php:309
-#: ../templates/setting.php:355 ../templates/setting.php:401
+#: ../templates/setting.php:87 ../templates/setting.php:160
+#: ../templates/setting.php:236 ../templates/setting.php:330
+#: ../templates/setting.php:376 ../templates/setting.php:422
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
 "get required infomation."
 msgstr ""
 
-#: ../templates/setting.php:88 ../templates/setting.php:140
-#: ../templates/setting.php:216 ../templates/setting.php:265
-#: ../templates/setting.php:310 ../templates/setting.php:356
-#: ../templates/setting.php:402
+#: ../templates/setting.php:88 ../templates/setting.php:161
+#: ../templates/setting.php:237 ../templates/setting.php:286
+#: ../templates/setting.php:331 ../templates/setting.php:377
+#: ../templates/setting.php:423
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
 msgstr ""
@@ -1379,125 +1480,138 @@ msgid ""
 "functions are available. For details, see <strong>%s</strong>"
 msgstr ""
 
-#: ../templates/setting.php:128 ../templates/setting.php:204
-#: ../templates/setting.php:253 ../templates/setting.php:298
-#: ../templates/setting.php:344 ../templates/setting.php:390
+#: ../templates/setting.php:119
+msgid "Use Facebook API"
+msgstr ""
+
+#: ../templates/setting.php:130
+msgid "If enabled, you can get Facebook API Token for this site."
+msgstr ""
+
+#: ../templates/setting.php:134
+#, php-format
+msgid "You must set up token on <a href=\"%s\">Facebook API page</a>."
+msgstr ""
+
+#: ../templates/setting.php:149 ../templates/setting.php:225
+#: ../templates/setting.php:274 ../templates/setting.php:319
+#: ../templates/setting.php:365 ../templates/setting.php:411
 #, php-format
 msgid "Connect with %s"
 msgstr ""
 
-#: ../templates/setting.php:145 ../templates/setting.php:189
+#: ../templates/setting.php:166 ../templates/setting.php:210
 msgid "Screen Name"
 msgstr ""
 
-#: ../templates/setting.php:149 ../templates/setting.php:189
+#: ../templates/setting.php:170 ../templates/setting.php:210
 msgid "Consumer Key"
 msgstr ""
 
-#: ../templates/setting.php:153 ../templates/setting.php:189
+#: ../templates/setting.php:174 ../templates/setting.php:210
 msgid "Consumer Secret"
 msgstr ""
 
-#: ../templates/setting.php:157 ../templates/setting.php:190
-#: ../templates/setting.php:433
+#: ../templates/setting.php:178 ../templates/setting.php:211
+#: ../templates/setting.php:454
 msgid "Access Token"
 msgstr ""
 
-#: ../templates/setting.php:161 ../templates/setting.php:190
+#: ../templates/setting.php:182 ../templates/setting.php:211
 msgid "Access token secret"
 msgstr ""
 
-#: ../templates/setting.php:165 ../templates/setting.php:230
-#: ../templates/setting.php:235 ../templates/setting.php:279
-#: ../templates/setting.php:324 ../templates/setting.php:329
-#: ../templates/setting.php:416 ../templates/setting.php:421
+#: ../templates/setting.php:186 ../templates/setting.php:251
+#: ../templates/setting.php:256 ../templates/setting.php:300
+#: ../templates/setting.php:345 ../templates/setting.php:350
+#: ../templates/setting.php:437 ../templates/setting.php:442
 msgid "Redirect URI"
 msgstr ""
 
-#: ../templates/setting.php:170 ../templates/setting.php:235
-#: ../templates/setting.php:284 ../templates/setting.php:329
-#: ../templates/setting.php:374 ../templates/setting.php:421
+#: ../templates/setting.php:191 ../templates/setting.php:256
+#: ../templates/setting.php:305 ../templates/setting.php:350
+#: ../templates/setting.php:395 ../templates/setting.php:442
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 
-#: ../templates/setting.php:170
+#: ../templates/setting.php:191
 msgid "Callback URL"
 msgstr ""
 
-#: ../templates/setting.php:172 ../templates/setting.php:237
-#: ../templates/setting.php:286 ../templates/setting.php:331
-#: ../templates/setting.php:376 ../templates/setting.php:423
+#: ../templates/setting.php:193 ../templates/setting.php:258
+#: ../templates/setting.php:307 ../templates/setting.php:352
+#: ../templates/setting.php:397 ../templates/setting.php:444
 msgid "Please copy this URL."
 msgstr ""
 
-#: ../templates/setting.php:172 ../templates/setting.php:237
-#: ../templates/setting.php:286 ../templates/setting.php:331
-#: ../templates/setting.php:376 ../templates/setting.php:423
+#: ../templates/setting.php:193 ../templates/setting.php:258
+#: ../templates/setting.php:307 ../templates/setting.php:352
+#: ../templates/setting.php:397 ../templates/setting.php:444
 msgid "Copy"
 msgstr ""
 
-#: ../templates/setting.php:177
+#: ../templates/setting.php:198
 msgid "Twitter bot by Gianism"
 msgstr ""
 
-#: ../templates/setting.php:188
+#: ../templates/setting.php:209
 #, php-format
 msgid ""
 "If enabled, you can make twitter bot which tweet at the time you specified. "
 "%1$s, %2$s, %3$s, %4$s, and %5$s are required."
 msgstr ""
 
-#: ../templates/setting.php:222 ../templates/setting.php:271
-#: ../templates/setting.php:316 ../templates/setting.php:408
+#: ../templates/setting.php:243 ../templates/setting.php:292
+#: ../templates/setting.php:337 ../templates/setting.php:429
 msgid "Client ID"
 msgstr ""
 
-#: ../templates/setting.php:226 ../templates/setting.php:275
-#: ../templates/setting.php:320 ../templates/setting.php:365
-#: ../templates/setting.php:412
+#: ../templates/setting.php:247 ../templates/setting.php:296
+#: ../templates/setting.php:341 ../templates/setting.php:386
+#: ../templates/setting.php:433
 msgid "Client Secret"
 msgstr ""
 
-#: ../templates/setting.php:239
+#: ../templates/setting.php:260
 #, php-format
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "
 "You must set up again on Google API Console."
 msgstr ""
 
-#: ../templates/setting.php:264
+#: ../templates/setting.php:285
 #, php-format
 msgid ""
 "You have to register your application <a target=\"_blank\" href=\"%1$s"
 "\">here</a> to get required infomation."
 msgstr ""
 
-#: ../templates/setting.php:361
+#: ../templates/setting.php:382
 msgid "Application ID"
 msgstr ""
 
-#: ../templates/setting.php:369 ../templates/setting.php:374
+#: ../templates/setting.php:390 ../templates/setting.php:395
 msgid "Callback URI"
 msgstr ""
 
-#: ../templates/setting.php:374
+#: ../templates/setting.php:395
 msgid "Yahoo! JAPAN Developer Network"
 msgstr ""
 
-#: ../templates/setting.php:429
+#: ../templates/setting.php:450
 msgid "Token"
 msgstr ""
 
-#: ../templates/setting.php:437
+#: ../templates/setting.php:458
 msgid "Refresh Token"
 msgstr ""
 
-#: ../templates/setting.php:439
+#: ../templates/setting.php:460
 msgid "Your refresh token is invalid. Please reset it from link below."
 msgstr ""
 
-#: ../templates/setting.php:443
+#: ../templates/setting.php:464
 msgid ""
 "If you want to send a message via mixi to your user who has only pseudo "
 "mail(@pseudo.mixi.jp), set up auth information by login to mixi from the "

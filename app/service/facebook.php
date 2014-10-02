@@ -179,7 +179,7 @@ class Facebook extends Common\Mail
 				'redirect_uri' => $this->get_redirect_endpoint(),
 				'scope' => 'manage_pages',
 			);
-			if( $this->post('publish') ){
+			if( $this->request('publish') ){
 				$args['scope'] .= ',publish_actions';
 			}
 			$url = $this->api->getLoginUrl($args);

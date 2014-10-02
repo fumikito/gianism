@@ -15,6 +15,7 @@ namespace Gianism;
  * @property-read string $fb_app_id
  * @property-read string $fb_app_secret
  * @property-read int $fb_fan_gate
+ * @property-read bool $fb_use_api
  * @property-read bool $tw_enabled
  * @property-read bool $twitter_enabled
  * @property-read string $tw_screen_name
@@ -79,6 +80,7 @@ class Option extends Pattern\Singleton
         'fb_app_id' => '',
         'fb_app_secret' => '',
         'fb_fan_gate' => 0,
+	    'fb_use_api' => false,
         'tw_enabled' => 0,
         "tw_screen_name" => "",
         "tw_consumer_key" => "",
@@ -132,6 +134,7 @@ class Option extends Pattern\Singleton
             'fb_app_id' => (string)$this->post('fb_app_id'),
             'fb_app_secret' => (string)$this->post('fb_app_secret'),
             'fb_fan_gate' => (int)$this->post('fb_fan_gate'),
+	        'fb_use_api' => (bool)$this->post('fb_use_api'),
             'tw_screen_name' => (string)$this->post('tw_screen_name'),
             'tw_enabled' => (string)($this->post('tw_enabled') == 1) ? 1 : 0,
             "tw_consumer_key" => (string)$this->post('tw_consumer_key'),

@@ -528,13 +528,23 @@ body.admin-bar .wpg-notices {
   border-radius: 3px;
   border: 1px solid #d2dee5;
 }
-/* line 133, ../sass/gianism-admin.scss */
+/* line 131, ../sass/gianism-admin.scss */
+.gianism-wrap .main-content p.danger {
+  color: #d54e21;
+  background: rgba(213, 78, 33, 0.2);
+  padding: 0.5em 1em;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #d54e21;
+}
+/* line 140, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #ga-connection select + .dashicons-yes {
   display: none;
   margin-left: 1em;
   color: #5dc06e;
 }
-/* line 138, ../sass/gianism-admin.scss */
+/* line 145, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #ga-connection select.success + .dashicons-yes {
   display: inline-block;
   vertical-align: middle;
@@ -542,12 +552,12 @@ body.admin-bar .wpg-notices {
   *zoom: 1;
   *display: inline;
 }
-/* line 141, ../sass/gianism-admin.scss */
+/* line 148, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #ga-connection .dashicons-update {
   display: none;
   color: #999;
 }
-/* line 146, ../sass/gianism-admin.scss */
+/* line 153, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #ga-connection .loading .dashicons-update {
   display: inline-block;
   vertical-align: middle;
@@ -558,48 +568,48 @@ body.admin-bar .wpg-notices {
   -webkit-animation: rotation 2s linear;
   animation: rotation 2s linear;
 }
-/* line 153, ../sass/gianism-admin.scss */
+/* line 160, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table {
   width: 100%;
   table-layout: auto;
   border-collapse: collapse;
 }
-/* line 157, ../sass/gianism-admin.scss */
+/* line 164, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table caption {
   font-weight: bold;
   font-size: 1.2em;
   margin: 0.5em;
 }
-/* line 162, ../sass/gianism-admin.scss */
+/* line 169, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table th, .gianism-wrap .main-content .mysql-table td {
   padding: 1em;
 }
-/* line 166, ../sass/gianism-admin.scss */
+/* line 173, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table thead th {
   background: #fff;
   border-bottom: 3px double #ddd;
 }
-/* line 172, ../sass/gianism-admin.scss */
+/* line 179, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table tbody th, .gianism-wrap .main-content .mysql-table tbody td {
   border-bottom: 1px solid #ddd;
   text-align: center;
 }
-/* line 177, ../sass/gianism-admin.scss */
+/* line 184, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .mysql-table tbody tr:nth-child(even) th, .gianism-wrap .main-content .mysql-table tbody tr:nth-child(even) td {
   background: #f9f9f9;
 }
-/* line 184, ../sass/gianism-admin.scss */
+/* line 191, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content p.success, .gianism-wrap .main-content span.success {
   color: #5dc06e;
 }
-/* line 190, ../sass/gianism-admin.scss */
+/* line 197, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content #cron-checker pre {
   max-height: 300px;
   overflow: auto;
   background: #666;
   color: #ddd;
 }
-/* line 199, ../sass/gianism-admin.scss */
+/* line 206, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch {
   position: relative;
   width: 90px;
@@ -607,7 +617,7 @@ body.admin-bar .wpg-notices {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-/* line 203, ../sass/gianism-admin.scss */
+/* line 210, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-label {
   display: block;
   overflow: hidden;
@@ -615,7 +625,7 @@ body.admin-bar .wpg-notices {
   border: 2px solid #CCCCCC;
   border-radius: 20px;
 }
-/* line 207, ../sass/gianism-admin.scss */
+/* line 214, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-inner {
   display: block;
   width: 200%;
@@ -625,7 +635,7 @@ body.admin-bar .wpg-notices {
   -o-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s;
 }
-/* line 211, ../sass/gianism-admin.scss */
+/* line 218, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-inner:before, .gianism-wrap .main-content .onoffswitch-inner:after {
   display: block;
   float: left;
@@ -641,14 +651,14 @@ body.admin-bar .wpg-notices {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 217, ../sass/gianism-admin.scss */
+/* line 224, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-inner:before {
   content: "ON";
   padding-left: 10px;
   background-color: #2EA2CC;
   color: #FFFFFF;
 }
-/* line 222, ../sass/gianism-admin.scss */
+/* line 229, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-inner:after {
   content: "OFF";
   padding-right: 10px;
@@ -656,7 +666,7 @@ body.admin-bar .wpg-notices {
   color: #555555;
   text-align: right;
 }
-/* line 229, ../sass/gianism-admin.scss */
+/* line 236, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-switch {
   display: block;
   width: 18px;
@@ -673,30 +683,30 @@ body.admin-bar .wpg-notices {
   -o-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s;
 }
-/* line 237, ../sass/gianism-admin.scss */
+/* line 244, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-checkbox {
   display: none;
 }
-/* line 240, ../sass/gianism-admin.scss */
+/* line 247, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
   margin-left: 0;
 }
-/* line 243, ../sass/gianism-admin.scss */
+/* line 250, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
   right: 0px;
 }
-/* line 251, ../sass/gianism-admin.scss */
+/* line 258, ../sass/gianism-admin.scss */
 .gianism-wrap .main-content code {
   word-break: break-all;
 }
-/* line 256, ../sass/gianism-admin.scss */
+/* line 263, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar {
   width: 300px;
   right: 0;
   position: absolute;
   margin-left: -300px;
 }
-/* line 261, ../sass/gianism-admin.scss */
+/* line 268, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index {
   width: 278px;
   padding: 10px;
@@ -706,18 +716,18 @@ body.admin-bar .wpg-notices {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 267, ../sass/gianism-admin.scss */
+/* line 274, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index.floating {
   position: fixed;
   top: 38px;
 }
-/* line 271, ../sass/gianism-admin.scss */
+/* line 278, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index.pinned-bottom {
   position: absolute;
   bottom: 0;
   _position: static;
 }
-/* line 276, ../sass/gianism-admin.scss */
+/* line 283, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link,
 .gianism-wrap .sidebar #index .amazon-link,
 .gianism-wrap .sidebar #index .github-link {
@@ -725,7 +735,7 @@ body.admin-bar .wpg-notices {
   padding: 0.5em 0.5em 0.5em 40px;
   min-height: 40px;
 }
-/* line 282, ../sass/gianism-admin.scss */
+/* line 289, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link:before,
 .gianism-wrap .sidebar #index .amazon-link:before,
 .gianism-wrap .sidebar #index .github-link:before {
@@ -742,90 +752,90 @@ body.admin-bar .wpg-notices {
   font-weight: normal;
   font-style: normal;
 }
-/* line 297, ../sass/gianism-admin.scss */
+/* line 304, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .amazon-link:before {
   content: "";
 }
-/* line 300, ../sass/gianism-admin.scss */
+/* line 307, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .forum-link:before {
   content: "";
 }
-/* line 303, ../sass/gianism-admin.scss */
+/* line 310, ../sass/gianism-admin.scss */
 .gianism-wrap .sidebar #index .github-link:before {
   content: "";
 }
 
-/* line 314, ../sass/gianism-admin.scss */
+/* line 321, ../sass/gianism-admin.scss */
 .gianism-post-container .form-row {
   margin: 2em 0;
 }
-/* line 316, ../sass/gianism-admin.scss */
+/* line 323, ../sass/gianism-admin.scss */
 .gianism-post-container .form-row label {
   display: block;
 }
-/* line 319, ../sass/gianism-admin.scss */
+/* line 326, ../sass/gianism-admin.scss */
 .gianism-post-container .form-row label, .gianism-post-container .form-row caption {
   font-size: 1.8em;
   padding-bottom: 0.75em;
   text-align: left;
 }
-/* line 325, ../sass/gianism-admin.scss */
+/* line 332, ../sass/gianism-admin.scss */
 .gianism-post-container .form-row textarea {
   box-sizing: border-box;
   width: 100% !important;
   resize: vertical;
   height: 5em !important;
 }
-/* line 334, ../sass/gianism-admin.scss */
+/* line 341, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table {
   width: 100%;
   max-width: 400px;
   table-layout: auto;
   border-collapse: collapse;
 }
-/* line 339, ../sass/gianism-admin.scss */
+/* line 346, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table td, .gianism-post-container .date-table th {
   padding: 0.5em;
   text-align: center;
 }
-/* line 344, ../sass/gianism-admin.scss */
+/* line 351, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table tfoot td, .gianism-post-container .date-table tfoot th {
   text-align: right;
   border-top: 3px double #ddd;
 }
-/* line 350, ../sass/gianism-admin.scss */
+/* line 357, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table thead th {
   border-bottom: 3px double #ddd;
 }
-/* line 355, ../sass/gianism-admin.scss */
+/* line 362, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table tbody th, .gianism-post-container .date-table tbody td {
   border-bottom: 1px solid #ddd;
 }
-/* line 359, ../sass/gianism-admin.scss */
+/* line 366, ../sass/gianism-admin.scss */
 .gianism-post-container .date-table tbody tr:last-child th, .gianism-post-container .date-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* line 370, ../sass/gianism-admin.scss */
+/* line 377, ../sass/gianism-admin.scss */
 .column-end_date {
   width: 10%;
 }
 
 @media screen and (max-width: 799px) {
-  /* line 379, ../sass/gianism-admin.scss */
+  /* line 386, ../sass/gianism-admin.scss */
   .gianism-wrap .main-content {
     margin-right: 0;
   }
-  /* line 381, ../sass/gianism-admin.scss */
+  /* line 388, ../sass/gianism-admin.scss */
   .gianism-wrap .main-content img.gian {
     display: none;
   }
-  /* line 385, ../sass/gianism-admin.scss */
+  /* line 392, ../sass/gianism-admin.scss */
   .gianism-wrap .sidebar {
     display: none;
   }
 
-  /* line 391, ../sass/gianism-admin.scss */
+  /* line 398, ../sass/gianism-admin.scss */
   .gianism-post-container .date-table th, .gianism-post-container .date-table td {
     padding: 0;
   }

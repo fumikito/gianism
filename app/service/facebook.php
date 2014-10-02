@@ -10,6 +10,10 @@ namespace Gianism\Service;
  * @author Takahashi Fumiki
  * @property-read string $cert_path Path to cert file.
  * @property-read \Facebook $api Facebook object
+ * @property-read \Facebook|\WP_Error $admin Facebook object for Admin Use
+ * @property-read int $admin_id
+ * @property-read array|false $admin_account
+ * @property-read array $admin_pages
  */
 class Facebook extends Common\Mail
 {
@@ -42,12 +46,27 @@ class Facebook extends Common\Mail
 	protected  $fb_fan_gate = 0;
 
 	/**
+	 * Whether if use global setting
+	 *
+	 * @var bool
+	 */
+	protected  $fb_use_api = false;
+
+	/**
 	 * Facebook API Controller
      *
      * @ignore
 	 * @var \Facebook
 	 */
 	private $_api = null;
+
+	/**
+	 * Facebook API for user
+	 *
+	 * @ignore
+	 * @var \Facebook
+	 */
+	private $_admin_api = null;
 
 	/**
 	 * Meta key of usermeta for facebook id
@@ -80,16 +99,20 @@ class Facebook extends Common\Mail
      *
      * @var array
      */
-    protected $option_keys = array('fb_app_id', 'fb_app_secret', 'fb_fan_gate');
+    protected $option_keys = array('fb_app_id', 'fb_app_secret', 'fb_fan_gate', 'fb_use_api');
 
     /**
      * Init action
      */
     protected function init_action(){
 		//Add Hook on Fan Gate
-		if($this->fb_fan_gate){
+		if( $this->fb_fan_gate ){
 			add_action('template_redirect', array($this, 'fan_gate_helper'));
 		}
+	    // Update option
+	    if( $this->fb_use_api ){
+		    add_action('admin_init', array($this, 'update_facebook_admin'));
+	    }
     }
 
 
@@ -146,6 +169,28 @@ class Facebook extends Common\Mail
             $this->wp_die($e->getMessage());
         }
     }
+
+	/**
+	 * @param \WP_Query $wp_query
+	 */
+	public function handle_admin( \WP_Query $wp_query ){
+		try{
+			$args = array(
+				'redirect_uri' => $this->get_redirect_endpoint(),
+				'scope' => 'manage_pages',
+			);
+			if( $this->request('publish') ){
+				$args['scope'] .= ',publish_actions';
+			}
+			$url = $this->api->getLoginUrl($args);
+			$this->session_write('redirect_to', $this->get('redirect_to'));
+			$this->session_write('action', 'admin');
+			wp_redirect($url);
+			exit;
+		}catch (\Exception $e){
+			$this->wp_die($e->getMessage());
+		}
+	}
 
     /**
      * Communicate with Facebook API
@@ -309,6 +354,24 @@ class Facebook extends Common\Mail
                 wp_redirect($redirect_url);
                 exit;
                 break;
+	        case 'admin':
+				try{
+					if( !($token = $this->api->getAccessToken()) // Get normal token
+					    || false ===  $this->api->setExtendedAccessToken() // Extend token
+					    || !($token = $this->api->getAccessToken()) // Renew token
+					){
+						throw new \Exception($this->api_error_string());
+					}
+					// O.K. Token ready and save it.
+					update_option('gianism_facebook_admin_token', $token);
+					update_option('gianism_facebook_admin_refreshed', current_time('timestamp'));
+					$this->add_message($this->_('Access token is saved.'));
+				}catch ( \Exception $e ){
+					$this->add_message($e->getMessage(), true);
+				}
+		        wp_redirect($redirect_url);
+		        exit;
+		        break;
             default:
                 // No action is set, error.
                 $this->wp_die(sprintf($this->_('Sorry, but wrong access. Please go back to <a href="%s">%s</a>.'), home_url('/', 'http'), get_bloginfo('name')), 500, false);
@@ -336,6 +399,34 @@ class Facebook extends Common\Mail
             $arguments['hook'] = $action;
         }
         return $this->get_redirect_endpoint('publish', $this->service_name.'_publish', array_merge($arguments, $args));
+	}
+
+	/**
+	 * Get admin connect link
+	 *
+	 * @param bool $require_publish
+	 * @return string
+	 */
+	public function get_admin_connect_link($require_publish = false){
+		$arguments = array(
+			'redirect_to' => admin_url('options-general.php?page=gianism&view=fb-api'),
+		);
+		if( $require_publish ){
+			$arguments['publish'] = 'true';
+		}
+		return $this->get_redirect_endpoint('admin', $this->service_name.'_admin', $arguments);
+	}
+
+	/**
+	 * Update admin account id.
+	 */
+	public function update_facebook_admin(){
+		if( 'gianism' == $this->get('page') && wp_verify_nonce($this->post('_wpnonce'), 'gianism_fb_account') ){
+			update_option('gianism_facebook_admin_id', $this->post('fb_account_id'));
+			$this->add_message($this->_('Saved facebook account to use.'));
+			wp_redirect(admin_url('options-general.php?page=gianism&view=fb-api'));
+			exit;
+		}
 	}
 	
 	/**
@@ -445,9 +536,9 @@ EOS;
 		if(is_page($this->fb_fan_gate)){
 			$this->js = true;
 		}
-		$this->scripts .= <<<EOS
+		$this->scripts .= <<<JS
 			FB.Canvas.setAutoGrow();
-EOS;
+JS;
 	}
 	
 	/**
@@ -467,7 +558,7 @@ EOS;
 		<?php endif;?>
 		<script type="text/javascript">
 		window.fbAsyncInit = function() {
-			<?php if(is_ssl()):?>
+			<?php if( is_ssl() ):?>
 			FB._https = true;
 			<?php endif;?>
 			FB.init({
@@ -561,7 +652,7 @@ EOS;
                 ));
                 break;
             case 'api':
-                if(is_null($this->_api)){
+                if( is_null($this->_api) ){
                     $this->_api = new \Facebook(array(
                         'appId'  => $this->fb_app_id,
                         'secret' => $this->fb_app_secret,
@@ -570,7 +661,59 @@ EOS;
                 }
                 return $this->_api;
                 break;
-            default:
+	        case 'admin':
+				if( is_null($this->_admin_api) ){
+					if( !$this->fb_use_api || !( $token = get_option('gianism_facebook_admin_token', false)) ){
+						return new \WP_Error(404, $this->_('Token is not set. Please get it.'));
+					}
+					// Check last updated
+					$updated = get_option('gianism_facebook_admin_refreshed', 0);
+					if( !$updated || current_time('timestamp') > $updated + (60 * 60 * 24 * 60) ){
+						return new \WP_Error(410, $this->_('Token is outdated. Please update it.'));
+					}
+					try{
+						$this->_admin_api = new \Facebook(array(
+							'appId'  => $this->fb_app_id,
+							'secret' => $this->fb_app_secret,
+							'cookie' => true
+						));
+						$this->_admin_api->setAccessToken($token);
+					}catch ( \Exception $e ){
+						return new \WP_Error(500, $e->getMessage());
+					}
+				}
+				return $this->_admin_api;
+		        break;
+	        case 'admin_account':
+				if( is_wp_error($this->admin) ){
+					return false;
+				}
+				try{
+					return $this->admin->api('/me');
+				}catch ( \Exception $e ){
+					return false;
+				}
+		        break;
+	        case 'admin_pages':
+				if( is_wp_error($this->admin) ){
+					return array();
+				}else{
+					try{
+						$accounts =  $this->admin->api('/me/accounts');
+						if( !isset($accounts['data']) || empty($accounts['data']) ){
+							return array();
+						}else{
+							return $accounts['data'];
+						}
+					}catch ( \Exception $e ){
+						return array();
+					}
+				}
+		        break;
+	        case 'admin_id':
+				return get_option('gianism_facebook_admin_id', 'me');
+		        break;
+	        default:
                 return parent::__get($name);
                 break;
         }

@@ -128,6 +128,13 @@
       @include border-radius(3px);
       border: 1px solid #d2dee5;
     }
+    p.danger {
+      color: $notice-color;
+      background: transparentize($notice-color, 0.8);
+      padding: 0.5em 1em;
+      @include border-radius(3px);
+      border: 1px solid $notice-color;
+    }
     // Form parts
     #ga-connection{
       select + .dashicons-yes{

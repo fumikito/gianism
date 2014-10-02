@@ -84,7 +84,8 @@ class Admin extends Pattern\Singleton
         switch($view){
             case 'setup':
             case 'customize':
-            case 'advanced':
+	        case 'advanced':
+			case 'fb-api':
                 return $view == $requested_view;
                 break;
             case 'setting':

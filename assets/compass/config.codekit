@@ -77,6 +77,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/admin-twitter-bot-helper.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/admin-twitter-bot-helper.js",
+		"outputAbbreviatedPath": "\/js\/admin-twitter-bot-helper.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/admin-twitter-bot-helper.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/admin-twitter-bot-helper.min.js",
+		"outputAbbreviatedPath": "\/js\/admin-twitter-bot-helper.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/chat-helper.js": {
 		"fileType": 64,
 		"ignore": 0,

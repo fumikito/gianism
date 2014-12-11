@@ -196,16 +196,18 @@ $code = <<<EOS
  * @param boolean \$on_creation If user is newly created, true.
  */
 function _my_additional_info(\$user_id, \$data, \$service, \$on_creation){
-	switch(\$service){
+	switch( \$service ){
 		case 'facebook':
-			//Save Facebook bio as user description
-			if(isset(\$data['bio'])){
-				update_user_meta(\$user_id, 'description', \$data['bio']);
+			// Save Facebook bio as user description
+			// On facebook, \$data is Facebook API instance.
+			\$profile = \$data->api('/me');
+			if( isset(\$profile['bio']) ){
+				update_user_meta(\$user_id, 'description', \$profile['bio']);
 			}
 			break;
 	}
 }
-//Add hook. Don't forget to pass 4th argument(arguments length).
+// Add hook. Don't forget to pass 4th argument(arguments length).
 add_action('wpg_connect', '_my_additional_info', 10, 4);
 EOS;
 echo esc_html(sprintf($code, $this->_('Save additional information on SNS connection.')));

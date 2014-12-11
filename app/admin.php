@@ -35,7 +35,7 @@ class Admin extends Pattern\Singleton
         add_action('admin_notices', array($this, 'invalid_option_notices'));
 
         // Add tool
-        if($this->is_enabled('google')){
+        if( $this->is_enabled('google') ){
             add_submenu_page('tools.php', $this->_('Google Analytics'), $this->_('Google Analytics'), 'manage_options', 'gianism_ga', array($this, 'ga_render'));
         }
     }

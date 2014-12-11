@@ -76,6 +76,7 @@ class Option extends Pattern\Singleton
         'show_button_on_login' => true,
         'button_type' => 0,
         'force_register' => true,
+	    'do_cron' => false,
         'fb_enabled' => 0,
         'fb_app_id' => '',
         'fb_app_secret' => '',

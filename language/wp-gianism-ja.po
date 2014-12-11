@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-01 19:29+0900\n"
-"PO-Revision-Date: 2014-10-01 19:36+0900\n"
+"PO-Revision-Date: 2014-12-08 17:50+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -1682,7 +1682,7 @@ msgstr "Facebook APIを使う"
 
 #: ../templates/setting.php:130
 msgid "If enabled, you can get Facebook API Token for this site."
-msgstr "有効にすると、サイト感利用のFacebook API トークンを取得できます。"
+msgstr "有効にすると、サイト管理用のFacebook API トークンを取得できます。"
 
 #: ../templates/setting.php:134
 #, php-format

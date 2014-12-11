@@ -7,6 +7,8 @@
 
 jQuery(document).ready(function($){
 
+    "use strict";
+
 	// Create appendix
 	$('.gianism-wrap h3').each(function(index, elt){
 		$(elt).attr('id', 'index_' + index);

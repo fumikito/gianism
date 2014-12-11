@@ -398,7 +398,7 @@ function twitter_reply_to($user_id, $string){
 function twitter_get_timeline($screen_name = null, array $additional_data = array()){
     /** @var \Gianism\Service\Twitter $twitter */
     $twitter = \Gianism\Service\Twitter::get_instance();
-	if(is_null($screen_name)){
+	if( is_null($screen_name) ){
 		$screen_name = $twitter->tw_screen_name;
 	}
 	return $twitter->call_api('statuses/user_timeline', array_merge(
@@ -406,6 +406,7 @@ function twitter_get_timeline($screen_name = null, array $additional_data = arra
         $additional_data
     ));
 }
+
 
 /**
  * Show Login buttons

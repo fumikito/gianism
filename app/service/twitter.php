@@ -374,13 +374,39 @@ class Twitter extends Common\Nomail
 	 * @return object Json format object.
 	 */
 	private function follow_me( \TwitterOAuth $oauth){
-		if(!empty($this->tw_screen_name)){
+		if( !empty($this->tw_screen_name) ){
 			return $this->call_api('friendships/create', array(
 				'screen_name' => $this->tw_screen_name,
 				'follow' => true
 			), 'POST', $oauth);
+		}else{
+			return null;
 		}
 	}
+
+	/**
+	 * Get mentions
+	 *
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_mentions($args = array()){
+		$args = wp_parse_args($args, array(
+			'count' => 20,
+			'since_id' => false,
+			'max_id' => false,
+		));
+		$args['count'] = max(20, min(200, $args['count']));
+		foreach( array('since_id', 'max_id') as $key ){
+			if( !$args[$key] ){
+				unset($args[$key]);
+			}
+		}
+		return $this->call_api('statuses/mentions_timeline', $args);
+
+	}
+
 	
 	/**
 	 * Returns GET api request.
@@ -395,7 +421,7 @@ class Twitter extends Common\Nomail
 	 * @return object Maybe JSON object.
 	 */
 	public function call_api($endpoint, array $data, $method = 'GET', \TwitterOAuth $oauth = null){
-		if(is_null($oauth)){
+		if( is_null($oauth) ){
 			$oauth = $this->get_oauth($this->tw_access_token, $this->tw_access_token_secret);
 		}
 		return json_decode($oauth->oAuthRequest($this->api_root.$endpoint.'.json', $method, (array)$data));

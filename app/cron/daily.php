@@ -57,7 +57,7 @@ abstract class Daily extends Singleton
      */
     protected function __construct( array $argument = array() ){
         if( !wp_next_scheduled($this->action) ){
-            wp_schedule_event($this->build_timestamp(), self::INTERVAL, $this->action);
+            wp_schedule_event($this->build_timestamp(), static::INTERVAL, $this->action);
         }
         add_action($this->action, array($this, 'do_cron'));
     }
@@ -135,7 +135,7 @@ abstract class Daily extends Singleton
      * Do cron and save data.
      */
     public function do_cron(){
-        if( !self::SKIP_CRON ){
+        if( !static::SKIP_CRON ){
             foreach( $this->get_results() as $result ){
                 $this->parse_row($result);
             }
@@ -152,7 +152,7 @@ abstract class Daily extends Singleton
     protected function save($date, $id, $value){
         global $wpdb;
         $wpdb->insert($this->table, array(
-            'category' => self::CATEGORY,
+            'category' => static::CATEGORY,
             'object_id' => $id,
             'object_value' => $value,
             'calc_date' => $date,
@@ -187,7 +187,7 @@ abstract class Daily extends Singleton
                 return Google::get_instance();
                 break;
             case 'action':
-                return get_called_class().'_'.self::CATEGORY.'_'.self::INTERVAL;
+                return get_called_class().'_'.static::CATEGORY.'_'.static::INTERVAL;
                 break;
             default:
                 return null;

@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         jshint: {
 
             options: {
-                jshintrc: '.jshintrc',
+                jshintrc: 'assets/compass/.jshintrc',
                 force: true
             },
 

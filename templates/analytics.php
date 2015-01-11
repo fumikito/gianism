@@ -186,10 +186,16 @@ $google = \Gianism\Service\Google::get_instance();
                 <i class="lsf lsf-time"></i> <?php $this->e('Installed cron files') ?>
             </h3>
 
+            <p class="description">
+                <?php printf($this->_('Put subclass files which extend %s at <code>%s/app/gianism</code> directory. Class Name should be Upper Camel(e.g. %s) and file name muste be same as class Name(e.g. %s).'),
+                    '<code>Gianism\\Cron\\Daily</code>', get_stylesheet_directory(),
+                    '<code>MyCronClass</code>', '<code>MyCronClass.php</code>') ?>
+            </p>
+
             <?php if( empty($google->crons) ): ?>
                 <p><?php $this->e('Nothing is installed.') ?></p>
             <?php else: ?>
-                <form id="cron-checker" method="post" action="<?php echo admin_url('admin-ajax.php') ?>">
+                <form class="gianism-admin-form" id="cron-checker" method="post" action="<?php echo admin_url('admin-ajax.php') ?>">
                     <input type="hidden" name="action" value="<?php echo $google::AJAX_CRON ?>" />
                     <?php wp_nonce_field($google::AJAX_CRON) ?>
                     <table class="mysql-table">
@@ -232,6 +238,58 @@ $google = \Gianism\Service\Google::get_instance();
                 <?php printf($this->_('Do you want to know how to install files? Here is <a href="%s">blog post</a> about it.'), 'http://takahashifumiki.com/web/programing/3184/') ?>
             </p>
 
+            <h3>
+                <i class="lsf lsf-upload"></i> <?php $this->e('Installed Ajax files') ?>
+            </h3>
+
+            <p class="description">
+                <?php printf($this->_('Put subclass files which extend %s at <code>%s/app/gianism</code> directory. Class Name should be Upper Camel(e.g. %s) and file name muste be same as class Name(e.g. %s).'),
+                    '<code>Gianism\\Api\\Ga</code>', get_stylesheet_directory(),
+                    '<code>MyGaClass</code>', '<code>MyGaClass.php</code>') ?>
+            </p>
+
+
+            <?php if( empty($google->ajaxes) ): ?>
+                <p><?php $this->e('Nothing is installed.') ?></p>
+            <?php else: ?>
+                <form class="gianism-admin-form" id="ajax-checker" method="get" action="<?php echo admin_url("admin-ajax.php") ?>">
+                    <input type="hidden" name="_wpnonce" value="" />
+                    <table class="mysql-table">
+                        <thead>
+                            <tr>
+                                <th><?php $this->e('Class Name') ?></th>
+                                <th><?php $this->e('Endpoint') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach( $google->ajaxes as $ajax ): ?>
+                            <tr>
+                                <td>
+                                    <label>
+                                        <input type="radio" name="action" value="<?php echo esc_attr($ajax::ACTION) ?>" data-nonce="<?php echo esc_attr($ajax::get_nonce()) ?>" data-action="" />
+                                        <?php echo esc_html($ajax) ?>
+                                    </label>
+                                </td>
+                                <td><?php printf('<a href="%1$s">%1$s</a>', esc_url($ajax::endpoint())) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <table class="form-table">
+                        <tr>
+                            <th><label for="from"><?php $this->e('From') ?></label></th>
+                            <td><input type="text" class="datepicker" id="from" name="from" value="<?php echo date_i18n('Y-m-d', strtotime('1 month ago', current_time('timestamp'))) ?>" placeholder="YYYY-MM-DD" /></td>
+                        </tr>
+                        <tr>
+                            <th><label for="to"><?php $this->e('To') ?></label></th>
+                            <td><input type="text" class="datepicker" id="to" name="to" value="<?php echo date_i18n('Y-m-d') ?>" placeholder="YYYY-MM-DD" /></td>
+                        </tr>
+                    </table>
+                    <p class="descritpion"></p>
+                    <?php submit_button($this->_('Check Data')) ?>
+                    <pre></pre>
+                </form>
+            <?php endif; ?>
 
         <?php endif; ?>
 

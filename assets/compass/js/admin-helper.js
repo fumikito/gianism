@@ -144,8 +144,33 @@ jQuery(document).ready(function($){
                 $(form).find('pre').text(JSON.stringify(result.items, function(key, value){
                     return value;
                 }, 4));
+            },
+            error: function(xhr, status, msg){
+                window.alert(msg);
             }
         });
+    });
+
+    // Ajax Checker
+    $('#ajax-checker').submit(function(e){
+        e.preventDefault();
+        var $form = $(this),
+            $checked = $form.find("input[type=radio]:checked");
+        if( $checked.length ){
+            $form.find('input[name=_wpnonce]').val($checked.attr('data-nonce'));
+            $form.ajaxSubmit({
+                dataType: 'json',
+                success: function(result){
+                    $form.find('pre').text(JSON.stringify(result, function(key, value){
+                        return value;
+                    }, 4));
+
+                },
+                error: function(xhr, status, msg){
+                    window.alert(msg);
+                }
+            });
+        }
     });
 
 });

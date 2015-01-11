@@ -1,5 +1,7 @@
 jQuery(document).ready(function($){
 
+    'use strict';
+
     /**
      * Show message on button
      *

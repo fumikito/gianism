@@ -5,6 +5,8 @@
 
 jQuery(document).ready(function($){
 
+    'use strict';
+
     // Activate JSON parse
     $.cookie.json = true;
 

@@ -34,7 +34,7 @@ window.GianismBot = {};
         });
         // If same time, return false.
         if( !shouldAppend ){
-            if(alert(GianismBotLabel.duplicate)){
+            if( window.confirm(GianismBotLabel.duplicate) ){
 
             }
             return false;

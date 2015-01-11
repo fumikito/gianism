@@ -71,7 +71,9 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 ### 2.2.4
 
-* Add feature. Now you can add Ajax classes to your theme. 
+* Add feature. Now you can add Ajax classes to your theme. This is very experimental and requires development experience. 
+  You can find it on **Tools** admin screen.
+  I will add some nice documentation in the future, so please be patient. If you are interested in it, [ask me](https://twitter.com/takahashifumiki) detail. 
 
 ### 2.2.3
 
@@ -111,7 +113,7 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 ### 2.0.0
 
 * Add Amazon, Github
-* Requires PHP 5.3 or later. Using name space and autoloader.
+* Requires PHP 5.3 or later. Using name space and auto loader.
 * Design is suit for WordPress 3.8's new admin.
 * Login buttons are redesigned. Now you can choose large flat buttons or normal buttons.
 

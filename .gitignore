@@ -3,3 +3,4 @@
 *.sass-cache*
 fire_app_log.txt
 config.codekit
+node_modules

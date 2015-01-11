@@ -1,4 +1,10 @@
-@charset 'utf-8';
+@charset "UTF-8";
+/*!
+ * Admin screen style sheets
+ *
+ * @package Gianism
+ */
+
 
 @import "compass";
 @import 'gianism_variables';
@@ -194,13 +200,12 @@
       }
     }
     // CHeck form
-    #cron-checker{
+    .gianism-admin-form{
       pre{
         max-height: 300px;
         overflow: auto;
         background: #666;
         color: #ddd;
-
       }
     }
     // Radio button

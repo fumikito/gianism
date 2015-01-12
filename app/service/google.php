@@ -115,6 +115,13 @@ class Google extends Common\Mail
     public $crons = array();
 
     /**
+     * Ajax class names
+     *
+     * @var array
+     */
+    public $ajaxes = array();
+
+    /**
      * Constructor
      *
      * @param array $argument
@@ -620,29 +627,37 @@ SQL;
             $classes = array_merge($classes, $scan($stylesheet_dir));
         }
         if( !empty($classes) ){
+            $ajax_classes = array();
             foreach($classes as $class_name => $file){
 	            if( !file_exists($file) ){
 		            continue;
 	            }
                 require $file;
-                if( class_exists($class_name) && $this->is_cron_ready($class_name) ){
-                    /** @var Daily $class_name */
-                    $class_name::get_instance();
-                    $this->crons[] = $class_name;
+                if( class_exists($class_name) ){
+                    $refl = new \ReflectionClass($class_name);
+                    if( $refl->isAbstract() ){
+                        continue;
+                    }
+                    if( $refl->isSubclassOf('Gianism\\Cron\\Daily') ){
+                        /** @var Daily $class_name */
+                        $class_name::get_instance();
+                        $this->crons[] = $class_name;
+                    }elseif( $refl->isSubclassOf('Gianism\\Api\\Ga') ){
+                        $ajax_classes[] = $class_name;
+                    }
                 }
             }
+            if( !empty($ajax_classes) ){
+                $this->ajaxes = $ajax_classes;
+                add_action('admin_init', function() use($ajax_classes){
+                    if( defined('DOING_AJAX') && DOING_AJAX ){
+                        foreach( $ajax_classes as $ajax_class){
+                            $ajax_class::get_instance();
+                        }
+                    }
+                });
+            }
         }
-    }
-
-    /**
-     * Detect if subclass is ready
-     *
-     * @param string $class_name
-     * @return bool
-     */
-    protected function is_cron_ready($class_name){
-        $refl = new \ReflectionClass($class_name);
-        return !$refl->isAbstract() && $refl->isSubclassOf('\Gianism\Cron\Daily');
     }
 
     /**

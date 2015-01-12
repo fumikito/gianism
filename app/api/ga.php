@@ -47,7 +47,7 @@ abstract class Ga extends Ajax
 	 * @return string
 	 */
 	protected function start_date(){
-		if( preg_match('/^[0-9]{4}-[0-9]{4}-[0-9]{2}$/', $this->get('from') ) ){
+		if( preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->get('from') ) ){
 			return $this->get('from');
 		}else{
 			return date_i18n('Y-m-d', strtotime('1 month ago', current_time('timestamp')));
@@ -62,7 +62,7 @@ abstract class Ga extends Ajax
 	 * @return string
 	 */
 	protected function end_date(){
-		if( preg_match('/^[0-9]{4}-[0-9]{4}-[0-9]{2}$/', $this->get('to') ) ){
+		if( preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->get('to') ) ){
 			return $this->get('to');
 		}else{
 			return date_i18n('Y-m-d');

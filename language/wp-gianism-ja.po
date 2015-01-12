@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 15:33+0900\n"
-"PO-Revision-Date: 2015-01-11 15:45+0900\n"
+"PO-Revision-Date: 2015-01-12 21:55+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: app/admin.php:24 templates/general.php:22
 msgid "Gianism Setting"
-msgstr "﻿設定"
+msgstr "設定admin.php?page=hametu-stats"
 
 #: app/admin.php:39
 msgid "Google Analytics"
@@ -810,11 +810,11 @@ msgstr "エンドポイント"
 
 #: templates/analytics.php:280
 msgid "From"
-msgstr "終了"
+msgstr "開始"
 
 #: templates/analytics.php:284
 msgid "To"
-msgstr "開始"
+msgstr "終了"
 
 #: templates/customize.php:11
 msgid "Change Login Button"

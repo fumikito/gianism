@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-11 15:33+0900\n"
-"PO-Revision-Date: 2015-01-11 15:33+0900\n"
+"POT-Creation-Date: 2015-04-12 23:18+0900\n"
+"PO-Revision-Date: 2015-04-12 23:18+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -258,78 +258,78 @@ msgid ""
 "email address."
 msgstr ""
 
-#: app/service/common/mail.php:526
+#: app/service/common/mail.php:527
 #, php-format
 msgid "Log in with %s"
 msgstr ""
 
-#: app/service/common/mail.php:530 app/service/mixi.php:419
+#: app/service/common/mail.php:531 app/service/mixi.php:419
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
-#: app/service/common/mail.php:553
+#: app/service/common/mail.php:554
 #, php-format
 msgid "Connect %s"
 msgstr ""
 
-#: app/service/common/mail.php:555
+#: app/service/common/mail.php:556
 msgid "Connect"
 msgstr ""
 
-#: app/service/common/mail.php:574
+#: app/service/common/mail.php:575
 #, php-format
 msgid "Disconnect %s"
 msgstr ""
 
-#: app/service/common/mail.php:575
+#: app/service/common/mail.php:576
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
 "credential(email, passowrd), or else you might not be able to login again."
 msgstr ""
 
-#: app/service/common/mail.php:577
+#: app/service/common/mail.php:578
 msgid "Disconnect"
 msgstr ""
 
-#: app/service/common/mail.php:647
+#: app/service/common/mail.php:648
 msgid "Sorry, but cannot create valid user name."
 msgstr ""
 
-#: app/service/common/mail.php:656
+#: app/service/common/mail.php:657
 #, php-format
 msgid "%s API returns error."
 msgstr ""
 
-#: app/service/common/mail.php:665
+#: app/service/common/mail.php:666
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr ""
 
-#: app/service/common/mail.php:674
+#: app/service/common/mail.php:675
 #, php-format
 msgid "Welcome, %s!"
 msgstr ""
 
-#: app/service/common/mail.php:683
+#: app/service/common/mail.php:684
 msgid "Oops, Failed to Authenticate."
 msgstr ""
 
-#: app/service/common/mail.php:692
+#: app/service/common/mail.php:693
 msgid "Cannot retrieve email address."
 msgstr ""
 
-#: app/service/common/mail.php:701
+#: app/service/common/mail.php:702
 msgid "Cannot register. Please try again later."
 msgstr ""
 
-#: app/service/common/mail.php:708 app/service/facebook.php:377
+#: app/service/common/mail.php:709 app/service/facebook.php:377
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
 
-#: app/service/common/mail.php:719
+#: app/service/common/mail.php:720
 msgid "No matched user."
 msgstr ""
 
@@ -799,6 +799,37 @@ msgstr ""
 
 #: templates/customize.php:108
 msgid "You can display social login buttons anywhere."
+msgstr ""
+
+#: templates/customize.php:111
+msgid ""
+"Gianism displays social login button on login screen. But you may want to "
+"display in other situations."
+msgstr ""
+
+#: templates/customize.php:112
+msgid ""
+"For example, you have some SNS oriented site and want to hide WordPress's "
+"login screen and want your user to log in only through social login buttons."
+msgstr ""
+
+#: templates/customize.php:113
+msgid ""
+"In this case, you can display social login buttons wherever you like. The "
+"&quot;if&quot; statement is not necessary if you are brave."
+msgstr ""
+
+#: templates/customize.php:127
+msgid ""
+"Further more, you might think your user should be redirect to your single "
+"page. In this case, you can specify redirect URL."
+msgstr ""
+
+#: templates/customize.php:140
+msgid ""
+"First argument is starting tag(e.g. &lt;div id=\"some-id\"&gt;). Second "
+"argument is closing tag(e.g. &lt;/div&gt;). And third argument is redirect "
+"URL where your user will be redirected after logging-in."
 msgstr ""
 
 #: templates/edit/bot.php:7

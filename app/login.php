@@ -53,9 +53,10 @@ class Login extends Pattern\Singleton
      * @param string $before Default '<div id="wpg-login">'.
      * @param string $after Default '</div>'.
      * @param bool $register Is register form.
+     * @param string $redirect_to Redirect URL. Default empty string.
      * @return void
      */
-	public function login_form($before = '', $after = '', $register = false){
+	public function login_form($before = '', $after = '', $register = false, $redirect_to = ''){
         if(empty($before)){
             /** @var \Gianism\Option $option */
             $option = Option::get_instance();
@@ -85,8 +86,9 @@ class Login extends Pattern\Singleton
          * Display login buttons
          *
          * @param bool $register Is register form
+         * @param string $redirect_to Redirect URL after login
          */
-        do_action(self::LOGIN_FORM_ACTION, $register);
+        do_action(self::LOGIN_FORM_ACTION, $register, $redirect_to);
         /**
          * gianism_after_login_form
          *

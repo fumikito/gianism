@@ -72,7 +72,7 @@ abstract class Mail extends Singleton
             // Show profile page
             add_action('gianism_user_profile', array($this, 'profile_connect'));
             //Add Hook on Login Form page
-            add_action(Login::LOGIN_FORM_ACTION, array($this, 'login_form'));
+            add_action(Login::LOGIN_FORM_ACTION, array($this, 'login_form'), 10, 2);
             if(method_exists($this, 'print_script')){
                 //Add Hook On footer
                 add_action('admin_print_footer_scripts', array($this, 'print_script'));
@@ -326,10 +326,11 @@ EOS;
      * Display login buttons
      *
      * @param boolean $is_register
+     * @param string $redirect_to
      * @return void
      */
-    public function login_form($is_register = false){
-        echo $this->login_button(admin_url('profile.php'), $is_register);
+    public function login_form($is_register = false, $redirect_to = ''){
+        echo $this->login_button($redirect_to, $is_register);
     }
 
 	/**

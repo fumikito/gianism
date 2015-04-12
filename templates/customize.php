@@ -107,14 +107,36 @@ echo esc_html($code);
 <p class="description">
 	<?php $this->e('You can display social login buttons anywhere.'); ?>
 </p>
-
+<p>
+	<?php $this->e('Gianism displays social login button on login screen. But you may want to display in other situations.') ?><br />
+	<?php $this->e('For example, you have some SNS oriented site and want to hide WordPress\'s login screen and want your user to log in only through social login buttons.') ?><br />
+	<?php $this->e('In this case, you can display social login buttons wherever you like. The &quot;if&quot; statement is not necessary if you are brave.') ?><br />
+</p>
 <pre class="brush: php">
 <?php
 $code = <<<EOS
-if(function_exists('gianism_login')){
+if( function_exists('gianism_login') ){
 	gianism_login();
 }
 EOS;
 echo esc_html($code);
 ?>
 </pre>
+
+<p>
+	<?php $this->e('Further more, you might think your user should be redirect to your single page. In this case, you can specify redirect URL.') ?><br />
+</p>
+
+<pre class="brush: php">
+<?php
+$code = <<<EOS
+gianism_login('', '', get_permalink());
+EOS;
+echo esc_html($code);
+?>
+</pre>
+
+<p>
+	<?php $this->e('First argument is starting tag(e.g. &lt;div id="some-id"&gt;). Second argument is closing tag(e.g. &lt;/div&gt;). And third argument is redirect URL where your user will be redirected after logging-in.') ?>
+</p>
+

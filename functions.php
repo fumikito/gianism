@@ -416,11 +416,12 @@ function twitter_get_timeline($screen_name = null, array $additional_data = arra
  * @since 1.0
  * @param string $before
  * @param string $after
+ * @param string $redirect_to
  */
-function gianism_login($before = '', $after = ''){
+function gianism_login($before = '', $after = '', $redirect_to = ''){
     /** @var \Gianism\Login $login */
 	$login = \Gianism\Login::get_instance();
-	$login->login_form($before, $after);
+	$login->login_form($before, $after, false, $redirect_to);
 }
 
 /**

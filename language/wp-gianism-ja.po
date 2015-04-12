@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-11 15:33+0900\n"
-"PO-Revision-Date: 2015-01-12 21:55+0900\n"
+"POT-Creation-Date: 2015-04-12 23:18+0900\n"
+"PO-Revision-Date: 2015-04-12 23:21+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: app/admin.php:24 templates/general.php:22
 msgid "Gianism Setting"
-msgstr "設定admin.php?page=hametu-stats"
+msgstr "Gianism設定"
 
 #: app/admin.php:39
 msgid "Google Analytics"
@@ -270,31 +270,31 @@ msgstr ""
 "%1$sアカウントに接続すると、%2$sに%1$sアカウントでログインできるようになりま"
 "す。パスワードやメールアドレスは必要ありません。"
 
-#: app/service/common/mail.php:526
+#: app/service/common/mail.php:527
 #, php-format
 msgid "Log in with %s"
 msgstr "%sでログイン"
 
-#: app/service/common/mail.php:530 app/service/mixi.php:419
+#: app/service/common/mail.php:531 app/service/mixi.php:419
 #, php-format
 msgid "Login with %s"
 msgstr "%sでログイン"
 
-#: app/service/common/mail.php:553
+#: app/service/common/mail.php:554
 #, php-format
 msgid "Connect %s"
 msgstr "%sと接続"
 
-#: app/service/common/mail.php:555
+#: app/service/common/mail.php:556
 msgid "Connect"
 msgstr "コネクト"
 
-#: app/service/common/mail.php:574
+#: app/service/common/mail.php:575
 #, php-format
 msgid "Disconnect %s"
 msgstr "%sを接続解除"
 
-#: app/service/common/mail.php:575
+#: app/service/common/mail.php:576
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
@@ -303,47 +303,47 @@ msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
 
-#: app/service/common/mail.php:577
+#: app/service/common/mail.php:578
 msgid "Disconnect"
 msgstr "切断"
 
-#: app/service/common/mail.php:647
+#: app/service/common/mail.php:648
 msgid "Sorry, but cannot create valid user name."
 msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
 
-#: app/service/common/mail.php:656
+#: app/service/common/mail.php:657
 #, php-format
 msgid "%s API returns error."
 msgstr "%s APIがエラーを返しました。"
 
-#: app/service/common/mail.php:665
+#: app/service/common/mail.php:666
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr "この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: app/service/common/mail.php:674
+#: app/service/common/mail.php:675
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
-#: app/service/common/mail.php:683
+#: app/service/common/mail.php:684
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: app/service/common/mail.php:692
+#: app/service/common/mail.php:693
 msgid "Cannot retrieve email address."
 msgstr "メールアドレスを取得できませんでした。"
 
-#: app/service/common/mail.php:701
+#: app/service/common/mail.php:702
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/service/common/mail.php:708 app/service/facebook.php:377
+#: app/service/common/mail.php:709 app/service/facebook.php:377
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
-#: app/service/common/mail.php:719
+#: app/service/common/mail.php:720
 msgid "No matched user."
 msgstr "一致するユーザーがいません。"
 
@@ -875,6 +875,45 @@ msgstr "好きな場所にログインボタンを表示する"
 #: templates/customize.php:108
 msgid "You can display social login buttons anywhere."
 msgstr "ソーシャルログインボタンはどこにでも表示できます。"
+
+#: templates/customize.php:111
+msgid ""
+"Gianism displays social login button on login screen. But you may want to "
+"display in other situations."
+msgstr ""
+"Gianismはログイン画面にソーシャルログインボタンを表示します。しかし、他のシ"
+"チュエーションで表示したいと思うかもしれません。"
+
+#: templates/customize.php:112
+msgid ""
+"For example, you have some SNS oriented site and want to hide WordPress's "
+"login screen and want your user to log in only through social login buttons."
+msgstr ""
+"たとえば、SNSのようなサイトを運営していて、WordPressのログイン画面を隠した"
+"い、ソーシャルログインボタンからのみログインしてほしいと思ったとしましょう。"
+
+#: templates/customize.php:113
+msgid ""
+"In this case, you can display social login buttons wherever you like. The "
+"&quot;if&quot; statement is not necessary if you are brave."
+msgstr ""
+"この場合、ソーシャルログインボタンを好きな場所に表示できます。&quot;if&quot;"
+"宣言はあなたが勇敢ならば不要です。"
+
+#: templates/customize.php:127
+msgid ""
+"Further more, you might think your user should be redirect to your single "
+"page. In this case, you can specify redirect URL."
+msgstr ""
+"さらに、ユーザーをシングルページにリダイレクトしたいと思うかもしれません。こ"
+"の場合、リダイレクトURLを指定できます。"
+
+#: templates/customize.php:140
+msgid ""
+"First argument is starting tag(e.g. &lt;div id=\"some-id\"&gt;). Second "
+"argument is closing tag(e.g. &lt;/div&gt;). And third argument is redirect "
+"URL where your user will be redirected after logging-in."
+msgstr ""
 
 #: templates/edit/bot.php:7
 #, php-format

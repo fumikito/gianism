@@ -30,7 +30,7 @@ abstract class Singleton extends Base
      * Get instance
      *
      * @param array $argument
-     * @return self
+     * @return static
      */
     final public static function get_instance( array $argument = array() ){
         $class_name = get_called_class();

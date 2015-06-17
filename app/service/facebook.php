@@ -550,34 +550,6 @@ JS;
 	 * @return void
 	 */
 	public function print_script(){
-		$locale = 'ja_JP';
-		if($this->js !== false):
-		?>
-		<?php if($this->js !== 'no-fb-root'):?>
-		<div id="fb-root"></div>
-		<?php endif;?>
-		<script type="text/javascript">
-		window.fbAsyncInit = function() {
-			<?php if( is_ssl() ):?>
-			FB._https = true;
-			<?php endif;?>
-			FB.init({
-				appId: '<?php echo $this->fb_app_id ?>',
-				cookie: true, 
-				xfbml: true,
-				oauth: true
-			});
-			<?php echo $this->scripts; ?>
-		};
-		(function(){
-			var e = document.createElement('script');
-			e.async = true;
-			e.src = document.location.protocol + "//connect.facebook.net/<?php echo $locale; ?>/all.js";
-			document.getElementById('fb-root').appendChild(e);
-		})();
-		</script>
-		<?php
-		endif;
 		if(!empty($this->message)){
 			echo $this->generate_message_script($this->message);
 		}

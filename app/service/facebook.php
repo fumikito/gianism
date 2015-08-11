@@ -221,7 +221,7 @@ class Facebook extends Common\Mail
                         // Test
                         $this->test_user_can_register();
                         try{
-                            $profile = $this->api->api('/me');
+                            $profile = $this->api->api('/me?fields=email,id,name');
                         }catch(\FacebookApiException $e){
                             $profile = $this->api->api('/'.$facebook_id);
                         }

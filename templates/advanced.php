@@ -1,4 +1,11 @@
-<?php /* @var $this WP_Gianism */ ?>
+<?php
+
+defined('ABSPATH') or die();
+
+/** @var \Gianism\Admin $this */
+/** @var \Gianism\Option $option */
+?>
+
 <h3><?php $this->e('Create Facebook page tab'); ?></h3>
 
 <p><?php $this->e('<a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/">Page tab</a> is page which you can add to your facebook page. If you create Facebook Web application and connect it with Gianism, you can assign WordPress page to page tab.'); ?></p>
@@ -148,15 +155,15 @@ $code = <<<EOS
 function _my_gianism_publish_tweet(\$new_status, \$old_status, \$post){
 	// If post status is changed to publish, tweet.
 	if('publish' == \$new_status && 'post' == \$post->post->type){ 
-		switch(\$post->post_type){
+		switch(\$old_status){
 			case 'draft':
 			case 'pending':
 			case 'auto-draft':
 			case 'future':
 				\$url = wp_get_shortlink(\$post->ID);
 				\$author = get_the_author_meta('display_name', \$post->post_author);
-				\$string = sprintf('%s', \$author,
-					\$post->post_title, \$url);
+				\$string = sprintf('%s',
+				    \$author, \$post->post_title, \$url);
 				break;
 		}
 	}
@@ -184,21 +191,23 @@ $code = <<<EOS
 /**
  * %s
  * @param int \$user_id
- * @param mixed \$data Inforamtioon provided from Service
+ * @param mixed \$data Information provided from Service
  * @param string \$service Service name(facebook, twitter, google, yahoo, mixi)
  * @param boolean \$on_creation If user is newly created, true.
  */
 function _my_additional_info(\$user_id, \$data, \$service, \$on_creation){
-	switch(\$data){
+	switch( \$service ){
 		case 'facebook':
-			//Save Facebook bio as user description
-			if(isset(\$data['bio'])){
-				update_user_meta(\$user_id, 'description', \$data['bio']);
+			// Save Facebook bio as user description
+			// On facebook, \$data is Facebook API instance.
+			\$profile = \$data->api('/me');
+			if( isset(\$profile['bio']) ){
+				update_user_meta(\$user_id, 'description', \$profile['bio']);
 			}
 			break;
 	}
 }
-//Add hook. Don't forget to pass 4th argument(arguments length).
+// Add hook. Don't forget to pass 4th argument(arguments length).
 add_action('wpg_connect', '_my_additional_info', 10, 4);
 EOS;
 echo esc_html(sprintf($code, $this->_('Save additional information on SNS connection.')));

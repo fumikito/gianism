@@ -1,0 +1,185 @@
+@import '_compass';
+@import 'gianism_variables';
+@import "lsf_variables";
+
+// Icons
+
+// Icons
+i{
+  &.lsf-facebook{
+    color: $facebook-blue;
+  }
+  &.lsf-google{
+    color: $google-red;
+  }
+  &.lsf-yahoo{
+    color: $yahoo-red;
+  }
+  &.lsf-twitter{
+    color: $twitter-blue;
+  }
+  &.lsf-mixi{
+    color: $mixi-orange;
+  }
+  &.lsf-amazon{
+    color: $amazon-black;
+  }
+  &.lsf-github{
+    color: $github-black;
+  }
+  &.lsf-hatena{
+    color: $hatena-blue;
+  }
+}
+
+// Components
+
+.wpg-button{
+  @include inline-block();
+  padding: 0 0.75em;
+  border: 1px solid $button-border;
+  @include border-radius(3px);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  background: $button-bg;
+  font-size: 14px;
+  line-height: 28px;
+  height: 28px;
+  @include box-shadow(inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08));
+  vertical-align: top;
+  &:link,
+  &:visited{
+    color: $button-text;
+    text-decoration: none;
+  }
+  &:hover{
+    background: $button-bg-hover;
+    border-color: $button-border-hover;
+    color: $button-text-hover;
+  }
+  &:focus{
+    @include box-shadow(1px 1px 1px rgba(0, 0, 0, .2));
+  }
+  .lsf{
+    font-size: 1.4em;
+
+  }
+}
+
+
+.wpg-notices{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10002;
+  @include box-shadow(0 2px 2px 3px rgba(0, 0, 0, 0.2));
+  background: #fff;
+  &.toggle{
+    display: none;
+  }
+  div.error,
+  div.updated{
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 1em 2em;
+    position: relative;
+    @include box-shadow(0 0 0 0 rgba(0, 0, 0, 0));
+    p{
+      background: transparent;
+      position: relative;
+      margin: 0 auto;
+      padding: 0 0 0 50px;
+      max-width: 800px;
+      line-height: 2;
+      &:before{
+        font-family: 'LigatureSymbols';
+        font-size: 30px;
+        display: block;
+        position: absolute;
+        left: 10px;
+        to: 50%;
+        margin-top: -15px;
+      }
+    }
+  }
+  div.error{
+    background: #d54e21;
+    color: #ffffff;
+    p:before{
+      content: $lsf-ban;
+    }
+  }
+  div.updated{
+    color: white;
+    background: $success;
+    p:before{
+      content: $lsf-check;
+    }
+  }
+  a.close-btn{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    $size: 30px;
+    margin-top: $size / 2 * -1;
+    font-size: $size;
+    line-height: $size;
+    @include inline-block();
+    width: $size;
+    height: $size;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
+  div.updated a.close-btn{
+    &:link, &:visited{
+      color: #38703A;
+    }
+    &:hover, &:active{
+      color: #448f4d;
+    }
+  }
+  div.error a.close-btn{
+    &:link, &:visited{
+      color: #5f2410;
+    }
+    &:hover, &:active{
+      color: #9e3c1b;
+    }
+  }
+}
+
+// If admin bar exists
+body.admin-bar{
+  .wpg-notices{
+    top: 32px;
+  }
+}
+
+// Admin bar
+#wpadminbar{
+  #wp-admin-bar-gianism-chat{
+    & > .ab-item .ab-icon:before{
+      content: "\f125";
+      top: 2px;
+    }
+  }
+}
+
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before{
+  content: "\f125";
+}
+
+// If admin bar exists and smart phone
+@media screen and (max-width: 782px){
+  body.admin-bar{
+    .wpg-notices{
+      top: 46px;
+    }
+  }
+}

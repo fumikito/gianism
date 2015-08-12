@@ -123,8 +123,8 @@ class Facebook extends Common\Mail
      * @return void
      */
     public function disconnect($user_id){
-        delete_user_meta(get_current_user_id(), $this->umeta_id);
-        delete_user_meta(get_current_user_id(), $this->umeta_mail);
+        delete_user_meta($user_id, $this->umeta_id);
+        delete_user_meta($user_id, $this->umeta_mail);
     }
 
     /**
@@ -221,9 +221,9 @@ class Facebook extends Common\Mail
                         // Test
                         $this->test_user_can_register();
                         try{
-                            $profile = $this->api->api('/me');
+                            $profile = $this->get_user_profile('login');
                         }catch(\FacebookApiException $e){
-                            $profile = $this->api->api('/'.$facebook_id);
+                            $profile = $this->get_user_profile('login', $facebook_id);
                         }
                         // Check email
                         if( !isset($profile['email']) || !is_email($profile['email'])){
@@ -296,9 +296,9 @@ class Facebook extends Common\Mail
                     }
                     // Get profile
                     try{
-                        $profile = $this->api->api('/me');
+                        $profile = $this->get_user_profile('connect');
                     }catch(\FacebookApiException $e){
-                        $profile = $this->api->api('/'.$fb_uid);
+                        $profile = $this->get_user_profile('connect', $fb_uid);
                     }
                     // Check email
                     if( !isset($profile['email']) || !is_email($profile['email']) ){
@@ -316,7 +316,7 @@ class Facebook extends Common\Mail
                     // Save message
                     $this->welcome($profile['name']);
                 }catch (\FacebookApiException $e){
-                    $this->auth_fail($this->api_error_string());
+                    $this->auth_fail($this->api_error_string().':'.$e->getMessage());
                 }catch(\Exception $e){
                     $this->auth_fail($e->getMessage());
                 }
@@ -584,6 +584,31 @@ JS;
 	public function get_user_mail($wp_user_id){
         return (string) get_user_meta($wp_user_id, $this->umeta_mail, true);
 	}
+
+    /**
+     * Get current users profile
+     *
+     * @param string $context
+     * @param string $user_id Default 'me'
+     * @return array
+     */
+    protected function get_user_profile($context, $user_id = 'me'){
+        /**
+         * gianism_user_profile_fields
+         *
+         * Information field of Facebook user.
+         * Default is id, name, email.
+         *
+         * @see https://developers.facebook.com/docs/graph-api/reference/user
+         * @param array $fields Default array('id', 'name', 'email', 'first_name', 'last_name')
+         * @param string $context 'login' or 'connect'
+         */
+        $fields = apply_filters('gianism_user_profile_fields', array('id', 'name', 'email', 'first_name', 'last_name'), $context);
+        return $this->api->api('/'.$user_id, 'GET', array(
+            'fields' => implode(',', $fields),
+        ));
+
+    }
 	
 	/**
 	 * Save Facebook Mail

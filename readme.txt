@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
 Requires at least: 3.8  
-Tested up to: 4.2  
-Stable tag: 2.2.6
+Tested up to: 4.2.4  
+Stable tag: 2.2.7
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
@@ -69,7 +69,11 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 == Changelog  ==
 
-= 2.2.5 =
+= 2.2.7 =
+
+* Follow facebook Graph API 2.4 change. See detail at [Introducing Graph API v2.4](https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/).
+
+= 2.2.6 =
 
 * Quit loading Facebook JS SDK.
 

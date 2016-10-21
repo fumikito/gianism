@@ -1,6 +1,5 @@
 .svn
 .DS_Store
 *.sass-cache*
-fire_app_log.txt
-config.codekit
-node_modules
+node_modules/
+vendor/

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gianism\Service\Common;
+namespace Gianism\Service;
 
 
 /**
@@ -10,8 +10,7 @@ namespace Gianism\Service\Common;
  * @since 2.0.0
  * @author Takahashi Fumiki
  */
-abstract class Nomail extends Mail
-{
+abstract class NoMailService extends AbstractService {
 
     /**
      * Pseudo domain

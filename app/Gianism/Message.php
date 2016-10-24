@@ -29,7 +29,7 @@ class Message extends Singleton
      *
      * @param array $argument
      */
-    protected function __construct(array $argument = array()){
+    protected function __construct(array $argument = []){
         // Check if current user has message
         add_action('admin_menu', array($this, 'admin_menu'));
         // Regsiter adminbar
@@ -62,7 +62,7 @@ class Message extends Singleton
      * Enqueue assets
      */
     public function enqueue_scripts( $path ){
-        wp_enqueue_style('gisniam-message', $this->url.'assets/compass/stylesheets/chat_admin.css', array(), $this->version);
+        wp_enqueue_style('gisniam-message', $this->url.'assets/compass/stylesheets/chat_admin.css', [], $this->version);
         if( 'toplevel_page_wpg-message' == $path ){
             wp_enqueue_script('gianism-chat-helper', $this->url.'assets/compass/js/chat-helper.js', array('jquery-form', 'jquery-effects-highlight'), $this->version);
         }
@@ -99,7 +99,7 @@ class Message extends Singleton
             $result = $this->get_message_box(get_current_user_id(), $oldest);
             if( $result ){
                 $json['success'] = true;
-                $json['html'] = array();
+                $json['html'] = [];
                 foreach( $result as $chat ){
                     $json['html'][] = $this->render_message($chat);
                     $json['oldest'] = $chat->umeta_id;

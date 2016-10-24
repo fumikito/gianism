@@ -1,6 +1,6 @@
 <?php
 
-namespace Gianism\Service\Common;
+namespace Gianism\Service;
 
 use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
 
@@ -13,8 +13,7 @@ use Gianism\Option, Gianism\Pattern\Singleton, Gianism\Login;
  * @property-read string $service_name
  * @property-read bool $enabled
  */
-abstract class Mail extends Singleton
-{
+abstract class AbstractService extends Singleton {
 
     /**
      * URL prefix

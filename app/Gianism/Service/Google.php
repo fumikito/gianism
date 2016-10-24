@@ -20,8 +20,7 @@ use Gianism\Cron\Daily;
  * @property-read string $ga_table
  *
  */
-class Google extends Common\Mail
-{
+class Google extends AbstractService {
 
     /**
      * URL prefix to prepend

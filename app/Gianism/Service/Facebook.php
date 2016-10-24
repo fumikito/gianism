@@ -15,8 +15,7 @@ namespace Gianism\Service;
  * @property-read array|false $admin_account
  * @property-read array $admin_pages
  */
-class Facebook extends Common\Mail
-{
+class Facebook extends AbstractService {
 	/**
      * Service name to display
      *

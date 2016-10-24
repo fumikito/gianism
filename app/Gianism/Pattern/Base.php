@@ -2,6 +2,7 @@
 
 namespace Gianism\Pattern;
 
+use Gianism\Helper\Input;
 use Gianism\Option;
 
 /**
@@ -12,12 +13,12 @@ use Gianism\Option;
  * @since 2.0
  * @property-read string $dir
  * @property-read string $url
- * @property-read array $all_services
+ * @property-read Input  $input
+ * @property-read array  $all_services
  * @property-read string $nonce_key_name
  *
  */
-abstract class Base
-{
+abstract class Base {
 
     /**
      * Name
@@ -248,6 +249,9 @@ abstract class Base
             case 'dir':
                 return plugin_dir_path(dirname(dirname(__FILE__)));
                 break;
+	        case 'input':
+	        	return Input::get_instance();
+	        	break;
             case 'all_services':
                 if( empty($this->_all_services) ){
                     foreach(scandir($this->dir.'app'.DIRECTORY_SEPARATOR.'service') as $file){

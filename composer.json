@@ -1,0 +1,24 @@
+{
+    "name": "fumikito/gianism",
+    "description": "A plugin which make you WordPress more social.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "fumikito",
+            "email": "guy@hametuha.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "facebook/graph-sdk": "^5.4",
+        "abraham/twitteroauth": "^0.6.6",
+        "google/apiclient": "^2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gianism": "app"
+        }
+    }
+}

@@ -10,8 +10,7 @@ use Gianism\Helper\Bot;
  * @since 2.0.0
  * @author Takahashi Fumiki
  */
-class Twitter extends Common\Nomail
-{
+class Twitter extends NoMailService {
 
     /**
      * URL prefix

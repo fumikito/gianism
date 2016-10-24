@@ -18,7 +18,7 @@ class Profile extends Pattern\Singleton
      *
      * @param array $argument
      */
-    protected function __construct(array $argument = array()){
+    protected function __construct(array $argument = []){
         $option = Option::get_instance();
         // Show connection button on admin screen
         if( $option->is_enabled() ){
@@ -59,7 +59,7 @@ class Profile extends Pattern\Singleton
      * @param \WP_User $user
      */
     public function connect_buttons( \WP_User $user ){
-        $message = array();
+        $message = [];
         // show password notice
         if( get_user_meta($user->ID, '_wpg_unknown_password', true) ){
             $message[] = $this->_('Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.');

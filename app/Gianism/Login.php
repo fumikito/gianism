@@ -33,7 +33,7 @@ class Login extends Pattern\Singleton
      *
      * @param array $argument
      */
-    protected function __construct( array $argument = array() ){
+    protected function __construct( array $argument = [] ){
         /** @var \Gianism\Option $option */
         $option = Option::get_instance();
         if( $option->is_enabled() ){
@@ -60,7 +60,7 @@ class Login extends Pattern\Singleton
         if(empty($before)){
             /** @var \Gianism\Option $option */
             $option = Option::get_instance();
-            $class_name = array();
+            $class_name = [];
             if($register){
                 $class_name[] = 'regsiter';
             }

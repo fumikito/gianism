@@ -65,7 +65,7 @@ class Option extends Pattern\Singleton
      *
      * @var array
      */
-    public $values = array();
+    public $values = [];
 
     /**
      * オプション初期値
@@ -114,7 +114,7 @@ class Option extends Pattern\Singleton
      *
      * @param array $argument
      */
-    protected function __construct(array $argument = array()){
+    protected function __construct(array $argument = []){
         $this->key = $this->name.'_option';
         $saved_option = get_option($this->key);
         foreach($this->default_option as $key => $value){
@@ -231,7 +231,7 @@ class Option extends Pattern\Singleton
     public function has_invalid_option($name){
         switch($name){
             case 'google_redirect':
-                $option = get_option($this->key, array());
+                $option = get_option($this->key, []);
                 return isset($saved_option['ggl_redirect_uri']) && !empty($saved_option['ggl_redirect_uri']);
                 break;
             default:

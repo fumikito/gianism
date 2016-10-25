@@ -1,0 +1,14 @@
+{
+  "strict" : true,
+  "indent" : 2,
+  "unused" : false,
+  "undef" : true,
+  "browser" : true,
+  "devel" : false,
+  "debug"    : true,
+  "jquery": true,
+  "globals": {
+    "google": false,
+    "ga": false
+  }
+}

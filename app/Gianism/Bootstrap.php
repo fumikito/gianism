@@ -34,6 +34,10 @@ class Bootstrap extends Singleton {
 		 * @action gianism_init
 		 */
 		do_action( 'gianism_after_setup' );
+		// Register Gianism command
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::add_command( 'gianism', 'Gianism\\Command' );
+		}
 	}
 
 	/**

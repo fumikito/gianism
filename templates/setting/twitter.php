@@ -41,7 +41,7 @@ defined( 'ABSPATH' ) or die();
 	<tr>
 		<th><label for="tw_access_token_secret"><?php $this->e( 'Access token secret' ); ?></label></th>
 		<td><input class="regular-text" type="text" name="tw_access_token_secret" id="tw_access_token_secret"
-		           value="<?php echo esc_attr( $option->tw_access_token_secret ) ?>"/></td>
+		           value="<?php echo esc_attr( $instance->tw_access_token_secret ) ?>"/></td>
 	</tr>
 	<tr>
 		<th><label for="ggl_redirect_uri"><?php $this->e( 'Redirect URI' ); ?></label></th>
@@ -49,7 +49,13 @@ defined( 'ABSPATH' ) or die();
 			<p class="description">
 				<?php
 				$end_point = home_url( '/twitter/', ( $this->option->is_ssl_required() ? 'https' : 'http' ) );
-				printf( $this->_( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.' ), $this->_( 'Callback URL' ), '<code>' . $end_point . '</code>', "Twitter Developers", 'https://dev.twitter.com/apps' );
+				printf(
+					$this->_( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.' ),
+					$this->_( 'Callback URL' ),
+					'<code>' . $end_point . '</code>',
+					'Twitter Developers',
+					'https://dev.twitter.com/apps'
+				);
 				?>
 				<a class="button" href="<?php echo esc_attr( $end_point ) ?>"
 				   onclick="window.prompt('<?php $this->e( 'Please copy this URL.' ) ?>', this.href); return false;"><?php $this->e( 'Copy' ) ?></a>

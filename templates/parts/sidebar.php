@@ -1,18 +1,17 @@
+<?php
+defined( 'ABSPATH' ) or die();
+?>
 <div class="sidebar">
     <div id="index">
         <h4><?php $this->e( 'Index' ); ?></h4>
         <ol>
         </ol>
         <p class="forum-link">
-            <?php $this->e( 'Have some questions? Go to <a href="http://wordpress.org/support/plugin/gianism">support forum</a> and create thread.' ); ?>
-        </p>
-
-        <p class="amazon-link">
-            <?php printf( $this->_( 'If you find this plugin usefull, don\'t hesitate to buy me some present from <a href="%s">my wishlist</a>.' ), 'http://www.amazon.co.jp/registry/wishlist/29NJ4F9NRNIKB' ); ?>
+            <?php $this->e( 'Have some questions? Go to our support site <a href="https://gianism.info/">gianism.info</a>!' ); ?>
         </p>
 
         <p class="github-link">
-            <?php printf( $this->_( 'This plugin\'s repository is on <a href="%s">Github</a>. Pull requests are welcomed.' ), 'https://github.com/fumikito/Gianism' ); ?>
+            <?php printf( $this->_( 'This plugin\'s is hosted on <a href="%s">Github</a>. Pull requests are welcomed.' ), 'https://github.com/fumikito/Gianism' ); ?>
         </p>
 
         <div class="fb-page" data-href="https://www.facebook.com/TakahashiFumiki.Page" data-small-header="true"

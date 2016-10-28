@@ -30,7 +30,7 @@ $google = \Gianism\Service\Google::get_instance();
 
     <br class="clear" />
 
-    <?php include __DIR__.'/sidebar.php' ?>
+    <?php include __DIR__ . '/sidebar.php' ?>
     <div class="main-content">
 
         <?php if( !$google->is_enabled() ): ?>

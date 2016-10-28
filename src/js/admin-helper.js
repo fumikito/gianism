@@ -17,7 +17,7 @@ jQuery(document).ready(function($){
 
 	// Sidebar's Window scroll
 	var $container = $('.gianism-wrap #index'),
-		$parent = $('.gianism-wrap'),
+		$parent = $('.gianism-inner'),
 		$window = $(window);
 	if ( $container.length && $parent.height() > $container.outerHeight(true)) {
 		var top = $container.offset().top - parseFloat($container.css('marginTop').replace(/auto/, 0)),
@@ -37,11 +37,6 @@ jQuery(document).ready(function($){
 				$container.removeClass(floatingClass);
 			}
 		});
-	}
-
-	// Syntax highlight
-	if($('.gianism-wrap .main-content > pre').length > 0){
-		SyntaxHighlighter.all();
 	}
 
     // Google Analytics

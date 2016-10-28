@@ -40,6 +40,24 @@
 .gianism-wrap {
   position: relative;
 
+  .gianism-inner{
+    position: relative;
+  }
+  .main-content{
+    position: relative;
+    padding-right: 320px;
+  }
+  .sidebar {
+    width: 300px;
+    right: 10px;
+    top: 0;
+    position: absolute;
+  }
+
+  .clear{
+    clear: both;
+  }
+
   // Tab navigation
   .nav-tab {
     .lsf {
@@ -62,7 +80,6 @@
 
   // Main
   .main-content {
-    margin-right: 320px;
     h3 {
       clear: both;
       margin-top: 2em;
@@ -264,12 +281,19 @@
       word-break: break-all;
     }
   }
+
+  // Error
+  .gianism-load-error{
+    margin: 20px 0;
+    padding: 20px;
+    color: red;
+    background: #fff;
+    box-shadow: 0 2px 3px rgba( 0, 0, 0, .2);
+    border-left: 5px solid red;
+  }
+
   // Sidebar
   .sidebar {
-    width: 300px;
-    right: 0;
-    position: absolute;
-    margin-left: -300px;
     #index {
       width: 278px;
       padding: 10px;
@@ -286,7 +310,6 @@
         _position: static;
       }
       .forum-link,
-      .amazon-link,
       .github-link {
         position: relative;
         padding: 0.5em 0.5em 0.5em 40px;
@@ -305,9 +328,6 @@
           font-weight: normal;
           font-style: normal;
         }
-      }
-      .amazon-link:before {
-        content: $lsf-amazon;
       }
       .forum-link:before {
         content: $lsf-wordpress;

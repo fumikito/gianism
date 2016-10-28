@@ -87,7 +87,7 @@ function gianism_get_facebook_publish_permission_link( $redirect_url = null, $ac
  * }
  * </pre>
  *
- * @return \Facebook|WP_Error
+ * @return \Facebook\Facebook|WP_Error
  */
 function gianism_fb_admin() {
 	/** @var \Gianism\Service\Facebook $facebook */
@@ -281,3 +281,19 @@ function gianism_login( $before = '', $after = '', $redirect_to = '' ) {
 	$login->login_form( $before, $after, false, $redirect_to );
 }
 
+/**
+ * Add UTM campaign link to WordPress admin
+ *
+ * @param string $url
+ * @param array  $args
+ *
+ * @return string
+ */
+function gianism_utm_link( $url, $args = [] ) {
+	$args = wp_parse_args( $args, [
+		'utm_source'   => 'wp-admin',
+	    'utm_medium'   => 'link',
+	    'utm_campaign' => 'Plugin User',
+	] );
+	return add_query_arg( $args, $url );
+}

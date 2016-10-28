@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism\Service;
+use Facebook\FacebookRequest;
 use Facebook\GraphNodes\GraphUser;
 use Facebook\SignedRequest;
 
@@ -112,7 +113,15 @@ class Facebook extends AbstractService {
 	protected function init_action() {
 		// Update option
 		if ( $this->fb_use_api ) {
+			// Save action
 			add_action( 'admin_init', array( $this, 'update_facebook_admin' ) );
+			// Add view for API
+			add_filter( 'gianism_setting_screen_views', function( $views, $slug ) {
+				if ( 'gianism' == $slug ) {
+					$views['fb-api'] = sprintf( '<i class="lsf lsf-facebook"></i> %s', $this->_( 'Facebook API' ) );
+				}
+				return $views;
+			}, 10, 2 );
 		}
 	}
 
@@ -160,7 +169,7 @@ class Facebook extends AbstractService {
 		 * @param string $scope
 		 * @return array
 		 */
-		$permission = apply_filters( 'gianism_facebook_permissions', [ 'email' ], $action );
+		$permission = apply_filters( 'gianism_facebook_permissions', $permission, $action );
 		if ( ! $permission ) {
 			return false;
 		}
@@ -343,7 +352,7 @@ class Facebook extends AbstractService {
 						update_user_meta( get_current_user_id(), $this->umeta_token, $token );
 						// If action is set, do it.
 						if ( ! empty( $hook ) ) {
-							do_action( (string) $hook, $this->api, $args );
+							do_action( (string) $hook, $this->api, $args, $token );
 						}
 					}
 				} catch ( \Exception $e ) {
@@ -620,7 +629,7 @@ class Facebook extends AbstractService {
 					return false;
 				}
 				try {
-					return $this->admin->get( '/me' );
+					return $this->admin->get( '/me' )->getGraphUser();
 				} catch ( \Exception $e ) {
 					return false;
 				}
@@ -630,14 +639,18 @@ class Facebook extends AbstractService {
 					return [];
 				} else {
 					try {
-						$accounts = $this->admin->get( '/me/accounts' );
-						if ( ! isset( $accounts['data'] ) || empty( $accounts['data'] ) ) {
-							return array();
-						} else {
-							return $accounts['data'];
+						$response = $this->admin->get( '/me/accounts' )->getGraphEdge();
+						$pages = [];
+						foreach ( $response as $node ) {
+							$pages[] = [
+								'id'   => $node->getProperty( 'id' ),
+							    'name' => $node->getProperty( 'name' ),
+							];
 						}
+						return $pages;
 					} catch ( \Exception $e ) {
-						return array();
+						trigger_error( $e->getMessage(), E_USER_WARNING );
+						return [];
 					}
 				}
 				break;

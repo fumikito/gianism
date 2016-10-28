@@ -7,7 +7,12 @@ defined( 'ABSPATH' ) or die();
         <ol>
         </ol>
         <p class="forum-link">
-            <?php $this->e( 'Have some questions? Go to our support site <a href="https://gianism.info/">gianism.info</a>!' ); ?>
+            <?php printf(
+                $this->_( 'Have some questions? Go to our support site <a href="%s" target="_blank">gianism.info</a>!' ),
+                gianism_utm_link( 'utm_medium', [
+                    'utm_medium' => 'sidebar',
+                ] )
+            ); ?>
         </p>
 
         <p class="github-link">

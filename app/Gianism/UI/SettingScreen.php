@@ -23,18 +23,11 @@ class SettingScreen extends Screen {
 		);
 		// Add option save hook
 		add_action( 'load-settings_page_gianism', [ $this, 'update_option' ] );
-		// Add error message.
-		add_filter( 'gianism_admin_notices', function( $message ) {
-			if ( ! $this->option->is_enabled() ) {
-				$message[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setiting</a> and follow instructions there.' ), $this->setting_url() );
-			}
-			return $message;
-		} );
 		// Add view
 		foreach ( [
 			'setting'   => sprintf( '<i class="lsf lsf-paramater"></i> %s', $this->_( 'Gianism Setting' ) ),
 			'setup'     => sprintf( '<i class="lsf lsf-help"></i> %s', $this->_( 'How to set up' ) ),
-		    'customize' => sprintf( '<i class="lsf lsf-wrench"></i> %s', $this->_( 'Customize' ) ),
+			'customize' => sprintf( '<i class="lsf lsf-wrench"></i> %s', $this->_( 'Customize' ) ),
 			'advanced'  => sprintf( '<i class="lsf lsf-magic"></i> %s', $this->_( 'Advanced Usage' ) ),
 		] as $slug => $label ) {
 			$this->views[ $slug ] = $label;

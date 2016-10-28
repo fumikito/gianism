@@ -71,6 +71,10 @@ class Admin extends AbstractController {
 		}
 		// Error message.
 		$message = [];
+		// No service is available.
+		if ( ! $this->option->is_enabled() ) {
+			$message[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setiting</a> and follow instructions there.' ), $this->setting_url() );
+		}
 		// Check permalink
 		if ( ! get_option( 'rewrite_rules', '' ) ) {
 			$message[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );

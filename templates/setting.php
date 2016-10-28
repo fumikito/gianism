@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or die();
 
-/** @var \Gianism\Controller\Admin $this */
+/** @var \Gianism\UI\SettingScreen $this */
 ?>
 
 <form method="post">

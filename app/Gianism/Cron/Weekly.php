@@ -3,11 +3,6 @@
 namespace Gianism\Cron;
 
 
-abstract class Weekly extends Daily
-{
-
+abstract class Weekly extends Daily {
     const INTERVAL = 'weekly';
-
-
-
-} 
+}

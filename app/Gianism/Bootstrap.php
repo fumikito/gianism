@@ -9,6 +9,7 @@ use Gianism\Controller\Rewrite;
 use Gianism\Helper\ServiceManager;
 use Gianism\Pattern\AppBase;
 use Gianism\Pattern\Singleton;
+use Gianism\Plugins\Analytics;
 
 /**
  * Main controller of Gianism
@@ -36,7 +37,7 @@ class Bootstrap extends Singleton {
 		do_action( 'gianism_after_setup' );
 		// Register Gianism command
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			\WP_CLI::add_command( 'gianism', 'Gianism\\Command' );
+			\WP_CLI::add_command( 'gianism', 'Gianism\\Commands\\TestCommand' );
 		}
 	}
 
@@ -72,7 +73,8 @@ class Bootstrap extends Singleton {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_assets' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		}
-
+		// Fire plugins.
+		Analytics::get_instance();
 	}
 
 	/**
@@ -94,7 +96,6 @@ class Bootstrap extends Singleton {
 		// Admin helper script
 		wp_register_script( $this->name . '-admin-helper', $this->url . 'assets/js/admin-helper.js', [
 			'jquery',
-			'jquery-form',
 		], $this->version, true );
 		// Admin panel style
 		wp_register_style( $this->name . '-admin-panel', $this->url . 'assets/css/gianism-admin.css', [ 'ligature-symbols' ], $this->version );

@@ -2,25 +2,27 @@
 
 namespace Gianism\Api;
 
+use Gianism\Helper\Input;
+use Gianism\Plugins\Analytics;
 use Gianism\Service\Google;
 
 /**
  * Class GA
  * @package Gianism\Api
- * @property-read \Gianism\Service\Google $google
- * @property-read \Google_Service_Analytics $ga
- * @property-read array $profile
- * @property-read string $view_id
+ * @property \Gianism\Plugins\Analytics $google
+ * @property \Google_Service_Analytics $ga
+ * @property array $profile
+ * @property string $view_id
+ * @property Input $input
  */
-abstract class Ga extends Ajax
-{
+abstract class Ga extends Ajax {
 	/**
 	 * Should return array as result
 	 *
 	 * @return array
 	 */
 	protected function get_result() {
-		 return $this->fetch($this->start_date(), $this->end_date(), $this->get_metrics(), $this->get_params());
+		return $this->fetch( $this->start_date(), $this->end_date(), $this->get_metrics(), $this->get_params() );
 	}
 
 	/**
@@ -46,11 +48,11 @@ abstract class Ga extends Ajax
 	 *
 	 * @return string
 	 */
-	protected function start_date(){
-		if( preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->get('from') ) ){
-			return $this->get('from');
-		}else{
-			return date_i18n('Y-m-d', strtotime('1 month ago', current_time('timestamp')));
+	protected function start_date() {
+		if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->input->get( 'from' ) ) ) {
+			return $this->input->get( 'from' );
+		} else {
+			return date_i18n( 'Y-m-d', strtotime( '1 month ago', current_time( 'timestamp' ) ) );
 		}
 	}
 
@@ -61,43 +63,38 @@ abstract class Ga extends Ajax
 	 *
 	 * @return string
 	 */
-	protected function end_date(){
-		if( preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->get('to') ) ){
-			return $this->get('to');
-		}else{
-			return date_i18n('Y-m-d');
+	protected function end_date() {
+		if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->input->get( 'to' ) ) ) {
+			return $this->input->get( 'to' );
+		} else {
+			return date_i18n( 'Y-m-d' );
 		}
 	}
 
+	/**
+	 * Deprecated function
+	 *
+	 * @deprecated 3.0.0
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	protected function get( $name ) {
+		return $this->input->get( $name );
+	}
 
 	/**
-	 * Fetch data from Google Analytics API
+	 * Deprecated function
 	 *
-	 * @param string $start_date Date string
-	 * @param string $end_date Date string
-	 * @param string $metrics CSV of metrics E.g., 'ga:visits,ga:pageviews'
-	 * @param array $params Option params below
+	 * @deprecated 3.0.0
 	 *
-	 * @opt_param string dimensions A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'.
-	 * @opt_param string filters A comma-separated list of dimension or metric filters to be applied to Analytics data.
-	 * @opt_param int max-results The maximum number of entries to include in this feed.
-	 * @opt_param string segment An Analytics advanced segment to be applied to data.
-	 * @opt_param string sort A comma-separated list of dimensions or metrics that determine the sort order for Analytics data.
-	 * @opt_param int start-index An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+	 * @param string $name
 	 *
-	 * @throws \Exception
-	 * @return array
+	 * @return mixed
 	 */
-	public function fetch($start_date, $end_date, $metrics, $params = array()){
-		if( !$this->ga || !$this->view_id ){
-			throw new \Exception('Google Analytics is not connected.', 500);
-		}
-		$result = $this->ga->data_ga->get('ga:'.$this->view_id, $start_date, $end_date, $metrics, $params);
-		if( $result && count($result->rows) > 0 ){
-			return $result->rows;
-		}else{
-			return array();
-		}
+	protected function post( $name ) {
+		return $this->input->post( $name );
 	}
 
 	/**
@@ -107,12 +104,12 @@ abstract class Ga extends Ajax
 	 *
 	 * @return array|\Gianism\Pattern\Singleton|\Google_Service_Analytics|mixed|null
 	 */
-	public function __get($name){
-		switch( $name ){
+	public function __get( $name ) {
+		switch ( $name ) {
 			case 'ga':
-				try{
+				try {
 					return $this->google->ga;
-				}catch (\Exception $e){
+				} catch ( \Exception $e ) {
 					return null;
 				}
 				break;
@@ -123,10 +120,13 @@ abstract class Ga extends Ajax
 				return $this->profile['view'];
 				break;
 			case 'google':
-				return Google::get_instance();
+				return Analytics::get_instance();
+				break;
+			case 'input':
+				return Input::get_instance();
 				break;
 			default:
-				return parent::__get($name);
+				return parent::__get( $name );
 				break;
 		}
 	}

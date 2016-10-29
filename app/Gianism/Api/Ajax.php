@@ -3,14 +3,14 @@
 namespace Gianism\Api;
 
 use Gianism\Pattern\Singleton;
+use Gianism\Plugins\AnalyticsFetcher;
 
 /**
  * Ajax Base
  *
  * @package Gianism\Api
  */
-abstract class Ajax extends Singleton
-{
+abstract class Ajax extends AnalyticsFetcher {
 
 	/**
 	 * Register nopriv Ajax if false
@@ -40,9 +40,9 @@ abstract class Ajax extends Singleton
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
-		add_action('wp_ajax_'.static::ACTION, array($this, 'ajax'));
-		if( !static::ONLY_MEMBER ){
-			add_action('wp_ajax_nopriv_'.static::ACTION, array($this, 'ajax'));
+		add_action( 'wp_ajax_' . static::ACTION, array( $this, 'ajax' ) );
+		if ( ! static::ONLY_MEMBER ) {
+			add_action( 'wp_ajax_nopriv_' . static::ACTION, array( $this, 'ajax' ) );
 		}
 	}
 
@@ -56,30 +56,30 @@ abstract class Ajax extends Singleton
 	 *
 	 * @return array
 	 */
-	protected function parse_result( array $result ){
+	protected function parse_result( array $result ) {
 		return $result;
 	}
 
 	/**
 	 * Do ajax
 	 */
-	public function ajax(){
-		try{
-			if( static::NONCE_ACTION && !wp_verify_nonce($this->get('_wpnonce'), static::NONCE_ACTION) ){
-				throw new \Exception($this->_('You have no permission.'), 403);
+	public function ajax() {
+		try {
+			if ( static::NONCE_ACTION && ! wp_verify_nonce( $this->get( '_wpnonce' ), static::NONCE_ACTION ) ) {
+				throw new \Exception( $this->_( 'You have no permission.' ), 403 );
 			}
 			$result = $this->get_result();
-			if( !is_array($result) ){
-				throw new \Exception($this->_('Wrong value is returned.'), 500);
+			if ( ! is_array( $result ) ) {
+				throw new \Exception( $this->_( 'Wrong value is returned.' ), 500 );
 			}
-			$result = $this->parse_result($result);
+			$result = $this->parse_result( $result );
 			nocache_headers();
-			wp_send_json($result);
-		}catch ( \Exception $e ){
+			wp_send_json( $result );
+		} catch ( \Exception $e ) {
 			$code = $e->getCode() ?: 500;
-			wp_die($e->getMessage(), get_bloginfo('name'), array(
-				'response' => $code
-			));
+			wp_die( $e->getMessage(), get_bloginfo( 'name' ), array(
+				'response' => $code,
+			) );
 		}
 	}
 
@@ -90,14 +90,15 @@ abstract class Ajax extends Singleton
 	 *
 	 * @return string
 	 */
-	public static function endpoint( array $query_params = array() ){
-		$query_params = array_merge(array(
+	public static function endpoint( array $query_params = array() ) {
+		$query_params = array_merge( array(
 			'action' => static::ACTION,
-		), $query_params);
-		$endpoint = add_query_arg($query_params, admin_url('admin-ajax.php'));
-		if( static::NONCE_ACTION ){
-			$endpoint = wp_nonce_url($endpoint, static::NONCE_ACTION);
+		), $query_params );
+		$endpoint     = add_query_arg( $query_params, admin_url( 'admin-ajax.php' ) );
+		if ( static::NONCE_ACTION ) {
+			$endpoint = wp_nonce_url( $endpoint, static::NONCE_ACTION );
 		}
+
 		return $endpoint;
 	}
 
@@ -106,7 +107,7 @@ abstract class Ajax extends Singleton
 	 *
 	 * @return string
 	 */
-	public static function get_nonce(){
-		return static::NONCE_ACTION ? wp_create_nonce(static::NONCE_ACTION) : '';
+	public static function get_nonce() {
+		return static::NONCE_ACTION ? wp_create_nonce( static::NONCE_ACTION ) : '';
 	}
 }

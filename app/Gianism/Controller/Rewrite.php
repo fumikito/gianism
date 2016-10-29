@@ -141,7 +141,17 @@ class Rewrite extends AbstractController {
 		     && ( $service = $wp_query->get( 'gianism_service' ) )
 		     && ( $action = $wp_query->get( 'gianism_action' ) )
 		) {
-			if ( false !== array_search( $service, $this->prefixes ) && ( $instance = $this->service->get( $service ) ) ) {
+			/**
+			 * Convert rewrite rule to service name
+			 *
+			 * @since 3.0.0
+			 * @filter gianism_filter_service_prefix
+			 * @param $prefix
+			 * @return string
+			 */
+			$filtered_service = apply_filters( 'gianism_filter_service_prefix', $service );
+			if ( false !== array_search( $service, $this->prefixes ) && ( $instance = $this->service->get( $filtered_service ) ) ) {
+				nocache_headers();
 				/** @var AbstractService $instance */
 				// Start session
 				$this->session->start();

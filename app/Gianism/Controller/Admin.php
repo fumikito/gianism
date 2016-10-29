@@ -45,14 +45,6 @@ class Admin extends AbstractController {
 			'Gianism\\UI\\SettingScreen',
 		];
 
-		// Add tool
-//		if ( $this->option->is_enabled( 'google' ) ) {
-//			add_submenu_page( 'tools.php', $this->_( 'Google Analytics' ), $this->_( 'Google Analytics' ), 'manage_options', 'gianism_ga', [
-//				$this,
-//				'ga_render',
-//			] );
-//		}
-
 		/**
 		 * These classes will be rendered
 		 *
@@ -119,13 +111,7 @@ class Admin extends AbstractController {
 			'post.php',
 		] ) ) {
 			wp_enqueue_script( $this->name . '-admin-helper' );
-			wp_localize_script( $this->name . '-admin-helper', 'Gianism', array(
-				'endpoint' => admin_url( 'admin-ajax.php' ),
-				'action'   => Google::AJAX_ACTION,
-				'nonce'    => wp_create_nonce( Google::AJAX_ACTION ),
-			) );
 		}
-
 		// Other
 		wp_enqueue_style( $this->name . '-admin-panel' );
 	}

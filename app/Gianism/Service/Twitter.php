@@ -122,8 +122,6 @@ class Twitter extends NoMailService {
 	 * @param string $action
 	 */
 	protected function handle_default( $action ) {
-		/** @var \wpdb $wpdb */
-		global $wpdb;
 		// Get common values
 		$redirect_url = $this->session->get( 'redirect_to' );
 		/**
@@ -237,7 +235,13 @@ class Twitter extends NoMailService {
 				wp_redirect( $redirect_url = $this->filter_redirect( $redirect_url, 'connect' ) );
 				exit;
 			default:
-				// Nothing to do
+				/**
+				 * @see Facebook
+				 */
+				do_action( 'gianism_extra_action', $this->service_name, $action, [
+					'redirect_to' => $redirect_url,
+				] );
+				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
 	}

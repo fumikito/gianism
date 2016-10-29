@@ -378,8 +378,18 @@ class Facebook extends AbstractService {
 				exit;
 				break;
 			default:
-				// No action is set, error.
-				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/', 'http' ), get_bloginfo( 'name' ) ), 500, false );
+				/**
+				 * Do something if no action is set
+				 *
+				 * @action gianism_extra_action
+				 * @param string $service_name facebook, google, etc.
+				 * @param string $action
+				 * @param string $args
+				 */
+				do_action( 'gianism_extra_action', $this->service_name, $action, [
+					'redirect_to' => $redirect_url,
+				] );
+				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
 

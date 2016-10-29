@@ -178,24 +178,25 @@ abstract class AbstractService extends Application {
 	public function parse_request( $action, \WP_Query &$wp_query ) {
 		nocache_headers();
 		$method = 'handle_' . strtolower( str_replace( '-', '_', $action ) );
-		if ( $this->enabled && method_exists( $this, $method ) ) {
-			if ( 'default' !== $action && ! $this->input->verify_nonce( $this->input->nonce_action( "{$this->service_name}_{$action}" ) ) ) {
-				// Despite default, nonce required.
-				$this->input->wp_die( $this->_( 'Cheatin\'? Wrong access.' ), 403 );
-			} elseif ( 'default' == $action ) {
-				// If default, $action required.
-				if ( ! ( $specified_action = $this->session->get( 'action' ) ) ) {
-					$this->kill_wrong_access();
-				}
-				$this->handle_default( $specified_action );
-				// This line shouldn't execute
-				$wp_query->set_404();
-			} elseif ( method_exists( get_called_class(), $method ) ) {
-				// Else, just call
-				$this->{$method}( $wp_query );
-			}
-		} else {
+		if ( ! $this->enabled ) {
+			// Not enabled.
 			$wp_query->set_404();
+			return;
+		}
+		if ( 'default' != $action && ! $this->input->verify_nonce( $this->input->nonce_action( "{$this->service_name}_{$action}" ) ) ) {
+			// If not default, nonce required.
+			$this->input->wp_die( $this->_( 'Cheatin\'? Wrong access.' ), 403 );
+		}
+		if ( 'default' != $action && method_exists( get_called_class(), $method ) ) {
+			// Method found, just call
+			$this->{$method}( $wp_query );
+		} else {
+			// Else, call default.
+			if ( $specified_action = $this->session->get( 'action' ) ) {
+				// If session is set, override with it.
+				$action = $specified_action;
+			}
+			$this->handle_default( $action );
 		}
 	}
 
@@ -489,7 +490,7 @@ EOS;
 	 *
 	 * @return string
 	 */
-	protected function get_redirect_endpoint( $action = '', $nonce_key = '', $args = array() ) {
+	public function get_redirect_endpoint( $action = '', $nonce_key = '', $args = array() ) {
 		$prefix = empty( $this->url_prefix ) ? $this->service_name : $this->url_prefix;
 		$url    = untrailingslashit( home_url( $prefix, ( $this->option->is_ssl_required() ? 'https' : 'http' ) ) ) . '/';
 		if ( ! empty( $action ) ) {

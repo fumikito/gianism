@@ -810,6 +810,7 @@ EOS;
 	 * @return array|\stdClass|bool|null
 	 */
 	protected function get_response( $endpoint, $request = '', $method = 'POST', $json = false, array $additional_headers = array() ) {
+		$method = strtoupper( $method );
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 20 );
@@ -819,6 +820,9 @@ EOS;
 			$additional_headers[] = 'Content-Type: application/json';
 		}
 		switch ( $method ) {
+			case 'PUT':
+			case 'PATCH':
+				curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
 			case 'POST':
 				curl_setopt( $ch, CURLOPT_POST, true );
 				if ( is_array( $request ) ) {
@@ -828,8 +832,9 @@ EOS;
 					curl_setopt( $ch, CURLOPT_POSTFIELDS, $request );
 				}
 				break;
+			case 'DELETE':
+				curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'DELETE' );
 			case 'GET':
-				curl_setopt( $ch, CURLOPT_POST, false );
 				$args = array();
 				if ( is_array( $request ) ) {
 					$request = http_build_query( $request );

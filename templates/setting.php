@@ -61,7 +61,7 @@ defined( 'ABSPATH' ) or die();
 			<td>
 				<select name="button_type" id="button_type">
 					<?php foreach ( $this->option->button_types() as $index => $value ) : ?>
-						<option value="<?php echo $index ?>"<?php selected( $index == $option->button_type ) ?>>
+						<option value="<?php echo $index ?>"<?php selected( $index == $this->option->button_type ) ?>>
 							<?php echo esc_html( $value ); ?>
 						</option>
 					<?php endforeach; ?>

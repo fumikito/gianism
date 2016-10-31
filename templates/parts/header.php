@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) or die();
 			if (d.getElementById(id)) return;
 			js = d.createElement(s);
 			js.id = id;
-			js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=264573556888294";
+			js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=983379265125123";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 

@@ -136,7 +136,11 @@ class Admin extends AbstractController {
 	 */
 	public function plugin_page_link( $links, $file ) {
 		if ( false !== strpos( $file, 'wp-gianism' ) ) {
-			array_unshift( $links, '<a href="' . $this->setting_url() . '">' . __( 'Settings' ) . '</a>' );
+			foreach ( [
+				admin_url( 'options-general.php?page=gianism' ) => $this->_( 'Settings' ),
+			] as $url => $label ) {
+				array_unshift( $links, sprintf( '<a href="%s">%s</a>', esc_url( $url ), esc_html( $label ) ) );
+			}
 		}
 
 		return $links;
@@ -146,21 +150,29 @@ class Admin extends AbstractController {
 	/**
 	 * Plugin row meta
 	 *
-	 * @param array $plugin_meta
+	 * @param array  $plugin_meta
 	 * @param string $plugin_file
-	 * @param array $plugin_data
+	 * @param array  $plugin_data
 	 * @param string $status
 	 *
 	 * @return mixed
 	 */
 	public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
 		if ( false !== strpos( $plugin_file, 'wp-gianism' ) ) {
-			for ( $i = 0, $l = count( $plugin_meta ); $i < $l; $i ++ ) {
-				if ( false !== strpos( $plugin_meta[ $i ], 'http://takahashifumiki.com' ) ) {
-					$plugin_meta[ $i ] = str_replace( 'http://takahashifumiki.com', $this->ga_link( 'http://takahashifumiki.com', 'link' ), $plugin_meta[ $i ] );
+			foreach ( $plugin_meta as $index => $value ) {
+				if ( preg_match( '#href="https://gianism.info"#', $value ) ) {
+					$plugin_meta[ $index ] = preg_replace_callback( '#href="https://gianism.info"#', function( $matches ) {
+						return sprintf( 'href="%s"', esc_url( gianism_utm_link( 'https://gianism.info/', [
+							'utm_medium' => 'plugin_list_author',
+						] ) ) );
+					}, $value );
+					break;
 				}
 			}
-			$plugin_meta[] = sprintf( '<a href="http://github.takahashifumiki.com/Gianism/">Github</a>' );
+			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', esc_url( gianism_utm_link( 'https://gianism.info/', [
+				'utm_medium' => 'plugin_list_support',
+			] ) ), $this->_( 'Support' ) );
+			$plugin_meta[] = '<a href="https://github.com/fumikito/Gianism">Github</a>';
 		}
 
 		return $plugin_meta;

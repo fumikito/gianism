@@ -168,11 +168,16 @@ class Google extends AbstractService {
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
 					$redirect_url = wp_login_url( $redirect_url, true );
+					$redirect_url = $this->filter_redirect( $redirect_url, 'login-failure' );
 				}
 				wp_redirect( $redirect_url );
 				exit;
 				break;
 			case 'connect': // Connect account
+				// Connection finished. Let's redirect.
+				if ( ! $redirect_url ) {
+					$redirect_url = admin_url( 'profile.php' );
+				}
 				try {
 					// Authenticate and get token
 					$token   = $this->api->authenticate( $code );
@@ -196,15 +201,17 @@ class Google extends AbstractService {
 					$this->hook_connect( get_current_user_id(), $profile );
 					// Save message
 					$this->welcome( $profile['name'] );
+					// Apply filter
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
+					// Apply filter
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect-failure' );
 				}
 				// Connection finished. Let's redirect.
 				if ( ! $redirect_url ) {
 					$redirect_url = admin_url( 'profile.php' );
 				}
-				// Apply filter
-				$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				wp_redirect( $redirect_url );
 				exit;
 				break;

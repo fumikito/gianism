@@ -48,7 +48,7 @@ defined( 'ABSPATH' ) or die();
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.0' );
-				$this->e( 'Enter Facebook API version for your app. Format should be v*.*. e.g. <code>v2.8</code>' );
+				$this->e( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be v*.*. e.g. <code>v2.8</code>' );
 				?>
 			</p>
 		</td>

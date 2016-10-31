@@ -2,6 +2,8 @@
  * Read message from cookie
  */
 
+/*global Cookies:false*/
+/*global GianSays:true*/
 
 jQuery(document).ready(function($){
 
@@ -12,7 +14,7 @@ jQuery(document).ready(function($){
         str: ['updated', 'error'],
         pushMsg: function(msg, className){
             var div = $('<div><p></p></div>');
-            div.addClass(className).find('p').html( msg );
+            div.addClass(className).find('p').html( msg.replace( /\+/g, ' ' ) );
             this.divs.push(div);
         },
         grabMessage: function(){

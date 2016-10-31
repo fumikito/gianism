@@ -164,6 +164,8 @@ class Facebook extends AbstractService {
 		/**
 		 * Permission for Facebook
 		 *
+		 * @since 3.0.0
+		 * @see https://developers.facebook.com/docs/facebook-login/permissions/
 		 * @filter gianism_facebook_permissions
 		 * @param array  $permission
 		 * @param string $scope
@@ -300,13 +302,17 @@ class Facebook extends AbstractService {
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
-					$redirect_url = wp_login_url( $redirect_url, true );
+					$redirect_url = $this->filter_redirect( wp_login_url( $redirect_url, true ), 'login-failure' );
 				}
 				// Redirect user
 				wp_redirect( $redirect_url );
 				exit;
 				break;
 			case 'connect': // Connect user account to Facebook
+				// Connection finished. Let's redirect.
+				if ( ! $redirect_url ) {
+					$redirect_url = admin_url( 'profile.php' );
+				}
 				try {
 					// Get user ID
 					$user = $this->get_returned_user();
@@ -326,15 +332,11 @@ class Facebook extends AbstractService {
 					$this->hook_connect( get_current_user_id(), $this->api );
 					// Save message
 					$this->welcome( $user['name'] );
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect-failure' );
 				}
-				// Connection finished. Let's redirect.
-				if ( ! $redirect_url ) {
-					$redirect_url = admin_url( 'profile.php' );
-				}
-				// Apply filter
-				$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				wp_redirect( $redirect_url );
 				exit;
 				break;

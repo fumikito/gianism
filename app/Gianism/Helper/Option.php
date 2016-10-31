@@ -53,9 +53,9 @@ class Option extends Singleton {
 	 * @var array
 	 */
 	protected $original_option = [
+		'force_register'         => true,
 		'show_button_on_login'   => true,
 		'button_type'            => 0,
-		'force_register'         => true,
 		'do_cron'                => false,
 	];
 
@@ -215,10 +215,10 @@ class Option extends Singleton {
 	 * @return array
 	 */
 	public function button_types() {
-		return array(
+		return [
 			$this->_( 'Medium' ),
 			$this->_( 'Large' ),
-		);
+		];
 	}
 
 	/**

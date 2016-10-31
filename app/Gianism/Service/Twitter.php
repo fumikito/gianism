@@ -71,7 +71,7 @@ class Twitter extends NoMailService {
 	public $umeta_id = '_wpg_twitter_id';
 
 	/**
-	 * User's scrren name
+	 * User's screen name
 	 *
 	 * @var string
 	 */
@@ -171,8 +171,8 @@ class Twitter extends NoMailService {
 						update_user_meta( $user_id, $this->umeta_id, $twitter_id );
 						update_user_meta( $user_id, $this->umeta_screen_name, $screen_name );
 						update_user_meta( $user_id, 'nickname', '@' . $screen_name );
-						$wpdb->update(
-							$wpdb->users,
+						$this->db->update(
+							$this->db->users,
 							[
 								'display_name' => "@{$screen_name}",
 								'user_url'     => 'https://twitter.com/' . $screen_name,
@@ -199,6 +199,10 @@ class Twitter extends NoMailService {
 				exit;
 				break;
 			case 'connect':
+				// Connection finished. Let's redirect.
+				if ( ! $redirect_url ) {
+					$redirect_url = admin_url( 'profile.php' );
+				}
 				try {
 					// Is user logged in?
 					if ( ! is_user_logged_in() ) {
@@ -229,10 +233,12 @@ class Twitter extends NoMailService {
 					$this->follow_me( $oauth );
 					$this->hook_connect( get_current_user_id(), $oauth, false );
 					$this->welcome( '@' . $screen_name );
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
+					$redirect_url = $this->filter_redirect( $redirect_url, 'connect-failure' );
 				}
-				wp_redirect( $redirect_url = $this->filter_redirect( $redirect_url, 'connect' ) );
+				wp_redirect( $redirect_url );
 				exit;
 			default:
 				/**

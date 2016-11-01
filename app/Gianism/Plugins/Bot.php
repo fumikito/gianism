@@ -2,9 +2,6 @@
 
 namespace Gianism\Plugins;
 
-
-use Gianism\Pattern\AppBase;
-use Gianism\Pattern\Singleton;
 use Gianism\Service\Twitter;
 
 /**
@@ -12,9 +9,7 @@ use Gianism\Service\Twitter;
  *
  * @package Gianism\Helper
  */
-class Bot extends Singleton {
-
-	use AppBase;
+class Bot extends PluginBase {
 
 	/**
 	 * @var string
@@ -35,6 +30,24 @@ class Bot extends Singleton {
 	 */
 	private $time_key = '_tweet_cron_time';
 
+	/**
+	 * Return plugin description
+	 *
+	 * @return string
+	 */
+	public function plugin_description() {
+		return $this->_( 'Enables you to create twitter bot.' );
+	}
+
+	/**
+	 * Whether if plugin is enabled
+	 *
+	 * @return bool
+	 */
+	public function plugin_enabled() {
+		return $this->service->get( 'twitter' )->tw_use_cron;
+	}
+
 
 	/**
 	 * Constructor
@@ -42,6 +55,9 @@ class Bot extends Singleton {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		if ( ! $this->plugin_enabled() ) {
+			return;
+		}
 		// Post type
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'custom_columns' ), 10, 2 );

@@ -76,7 +76,7 @@ class AnalyticsFetcher extends Singleton {
 			if ( $result && count( $result->rows ) > 0 ) {
 				return $result->rows;
 			} else {
-				return array();
+				return [];
 			}
 		} catch ( \Exception $e ) {
 			if ( $throw ) {

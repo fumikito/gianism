@@ -47,6 +47,11 @@ class Google extends AbstractService {
 	public $ggl_consumer_secret = '';
 
 	/**
+	 * @var bool
+	 */
+	public $ggl_use_analytics = true;
+
+	/**
 	 * @var string
 	 */
 	public $umeta_account = '_wpg_google_account';
@@ -79,6 +84,7 @@ class Google extends AbstractService {
 		'ggl_enabled'         => false,
 		'ggl_consumer_key'    => '',
 		'ggl_consumer_secret' => '',
+		'ggl_use_analytics'   => true,
 	];
 
 	/**
@@ -88,15 +94,13 @@ class Google extends AbstractService {
 	 */
 	protected function __construct( array $argument = [] ) {
 		parent::__construct( $argument );
-		if ( $this->enabled ) {
-			// Filter rewrite name
-			add_filter( 'gianism_filter_service_prefix', function( $prefix ) {
-				if ( 'google-auth' == $prefix ) {
-					$prefix = 'google';
-				}
-				return $prefix;
-			} );
-		}
+		// Filter rewrite name
+		add_filter( 'gianism_filter_service_prefix', function( $prefix ) {
+			if ( 'google-auth' == $prefix ) {
+				$prefix = 'google';
+			}
+			return $prefix;
+		} );
 	}
 
 	/**

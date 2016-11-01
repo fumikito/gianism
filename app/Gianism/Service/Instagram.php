@@ -80,8 +80,9 @@ class Instagram extends NoMailService {
 		parent::__construct( $argument );
 		add_filter( 'gianism_filter_service_prefix', function( $service ) {
 			if ( $service == $this->url_prefix ) {
-				return 'instagram';
+				$service = 'instagram';
 			}
+			return $service;
 		} );
 	}
 

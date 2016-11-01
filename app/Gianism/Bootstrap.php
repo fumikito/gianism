@@ -9,7 +9,6 @@ use Gianism\Controller\Rewrite;
 use Gianism\Helper\ServiceManager;
 use Gianism\Pattern\AppBase;
 use Gianism\Pattern\Singleton;
-use Gianism\Plugins\Analytics;
 
 /**
  * Main controller of Gianism
@@ -58,8 +57,16 @@ class Bootstrap extends Singleton {
 		add_action( 'admin_enqueue_scripts', function () {
 			wp_dequeue_style( 'wpmp-admin-custom' );
 		}, 1000 );
+		/**
+		 * Fires before gianism start.
+		 *
+		 * @action gianism_before_setup
+		 * @since 3.0.0
+		 */
+		do_action( 'gianism_before_setup' );
 		// Initialize service manager.
-		ServiceManager::get_instance();
+		$service = ServiceManager::get_instance();
+		$service->init();
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
 		// If enabled, create interface and rewrite rules.
@@ -73,8 +80,6 @@ class Bootstrap extends Singleton {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_assets' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		}
-		// Fire plugins.
-		Analytics::get_instance();
 	}
 
 	/**

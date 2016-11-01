@@ -35,6 +35,23 @@
   }
 }
 
+.gianism-header{
+  min-height: 0;
+  padding: 30px;
+  background: #F4B700 url("../img/header.png") center right no-repeat;
+  background-size: contain;
+  &-text{
+    font-size: 32px;
+    font-weight: bolder;
+    color: #000;
+    margin: 0 0 10px;
+  }
+  &-lead{
+    font-size: 18px;
+    color: #594324;
+    margin: 0;
+  }
+}
 
 // Admin screen
 .gianism-wrap {
@@ -42,10 +59,12 @@
 
   .gianism-inner{
     position: relative;
+    clear: both;
   }
   .main-content{
     position: relative;
     padding-right: 320px;
+    margin-top: 20px;
   }
   .sidebar {
     width: 300px;
@@ -341,6 +360,28 @@
       .github-link:before {
         content: $lsf-github;
       }
+      .hametuha-link{
+        margin-top: 10px;
+        small{
+          text-align: center;
+          display: block;
+          color: #888;
+          margin-bottom: 5px;
+        }
+
+        a{
+          display: block;
+          border: 1px solid #ddd;
+          &:hover{
+            border: 1px solid #000;
+          }
+          img{
+            max-width: 100%;
+            width: auto;
+            height: auto;
+          }
+        }
+      }
     }
   }
 
@@ -403,6 +444,71 @@
 
 }
 
+.gianism-home{
+
+  &-quote{
+    position: relative;
+    padding: 30px;
+    margin: 20px 0;
+    i{
+      position: absolute;
+      color: #ddd;
+      z-index: 1;
+      top: 30px;
+      left: 10px;
+      font-size: 120px;
+    }
+    p{
+      position: relative;
+      z-index: 2;
+      font-size: 40px;
+      font-weight: normal;
+      font-family: serif;
+      font-style: italic;
+    }
+    cite{
+      display: block;
+      color: #888;
+      font-size: 16px;
+      text-align: right;
+    }
+  }
+
+  &-lead{
+    font-weight: 400;
+    line-height: 1.8;
+    font-size: 20px;
+    border-bottom: 1px dotted #ddd;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+  }
+
+  &-table{
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+    margin: 30px 0 10px;
+    caption{
+      font-size: 24px;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    th, td{
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    thead th{
+      border-bottom: 3px solid #ddd;
+    }
+    .type, .status{
+      width: 5em;
+      text-align: center;
+    }
+  }
+
+}
 
 // Post list
 .column-end_date{
@@ -415,14 +521,22 @@
 @media screen and (max-width: 799px) {
   .gianism-wrap {
     .main-content {
-      margin-right: 0;
+      padding-right: 0;
       img.gian {
         display: none;
       }
     }
     .sidebar {
-      display: none;
+      position: relative;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: auto;
+      #index{
+        width: auto;
+      }
     }
+
   }
   .gianism-post-container {
     .date-table{

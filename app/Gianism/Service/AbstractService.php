@@ -131,10 +131,18 @@ abstract class AbstractService extends Application {
 	/**
 	 * Get setting path
 	 *
+	 * If this class is external, override this function.
+	 *
+	 * @param string $template_dir setting, setup
 	 * @return string
 	 */
-	public function get_setting_path() {
-		return $this->dir.'/templates/setting/'.$this->service_name.'.php';
+	public function get_admin_template( $template_dir ) {
+		$dir = trailingslashit( $this->dir.'templates/'.basename( $template_dir ) );
+		if ( is_dir( $dir ) ) {
+			return sprintf( '%s%s.php', $dir, $this->service_name );
+		} else {
+			return false;
+		}
 	}
 
 

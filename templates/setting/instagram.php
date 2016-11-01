@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) or die();
 	</tr>
 	<tr>
 		<th><label for="instagram_client_secret"><?php $this->e( 'Client Secret' ); ?></label></th>
-		<td><input class="regular-text" type="text" name="instagram_client_secret" id="ggl_consumer_secret"
+		<td><input class="regular-text" type="text" name="instagram_client_secret" id="instagram_client_secret"
 		           value="<?php echo esc_attr( $instance->instagram_client_secret ) ?>"/></td>
 	</tr>
 	<tr>

@@ -40,5 +40,13 @@ defined( 'ABSPATH' ) or die();
                     }
                 }(document, "script", "twitter-wjs");</script>
         </p>
+
+        <p class="hametuha-link">
+            <small>Powered by</small>
+            <a href="<?php echo gianism_utm_link( 'https://hametuha.co.jp/', [ 'utm_medium' => 'sidebar' ] ) ?>" target="_blank">
+                <img src="<?php echo $this->url ?>assets/img/hametuha-logo.png">
+            </a>
+        </p>
+
     </div>
 </div>

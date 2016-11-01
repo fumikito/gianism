@@ -162,7 +162,7 @@ abstract class Screen {
 		if ( ! $view ) {
 			return $this->input->request( 'page' ) == $this->slug;
 		} elseif ( $this->default_view == $view ) {
-			return ( empty( $requested_view ) || 'setting' == $requested_view );
+			return ( empty( $requested_view ) || $this->default_view == $requested_view );
 		} else {
 			return $view == $requested_view;
 		}

@@ -75,13 +75,15 @@ defined( 'ABSPATH' ) or die();
 	<?php submit_button(); ?>
 
 
-	<?php foreach ( $this->service->all_services() as $service ) {
-		/** @var \Gianism\Service\AbstractService $instance */
-		$instance = $this->service->get( $service );
-		$path = $instance->get_setting_path();
-		if ( file_exists( $path ) ) {
-			include $path;
-		}
-	} ?>
+<?php
+foreach ( $this->service->all_services() as $service ) {
+	/** @var \Gianism\Service\AbstractService $instance */
+	$instance = $this->service->get( $service );
+	$path     = $instance->get_admin_template( 'setting' );
+	if ( $path && file_exists( $path ) ) {
+		 include $path;
+	}
+}
+?>
 
 </form>

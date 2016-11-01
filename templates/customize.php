@@ -57,7 +57,7 @@ add_filter('gianism_redirect_to', '_my_redirect_to', 10, 3);
 </p>
 
 
-<h3><?php $this->e( 'Controll login button display' ); ?></h3>
+<h3><?php $this->e( 'Control login button display' ); ?></h3>
 <p class="description">
 	<?php $this->e( 'By default, all login buttons of each services are displayed on both login screen and register screen. You can turn it off on admin screen. Besides it, you can controll it with filter hook.' ); ?>
 </p>

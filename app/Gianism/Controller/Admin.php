@@ -65,7 +65,7 @@ class Admin extends AbstractController {
 		$message = [];
 		// No service is available.
 		if ( ! $this->option->is_enabled() ) {
-			$message[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setiting</a> and follow instructions there.' ), $this->setting_url() );
+			$message[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setting</a> and follow instructions there.' ), admin_url( 'options-general.php?page=gianism&view=setting' ) );
 		}
 		// Check permalink
 		if ( ! get_option( 'rewrite_rules', '' ) ) {

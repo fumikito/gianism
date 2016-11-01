@@ -18,7 +18,9 @@ use Gianism\Service\Google;
  * @property array                     $ga_profile
  * @property array                     $ga_accounts
  */
-class Analytics extends Application {
+class Analytics extends PluginBase {
+
+
 
 	/**
 	 * Analytics service
@@ -66,12 +68,30 @@ class Analytics extends Application {
 	public $ajaxes = [];
 
 	/**
+	 * Is this plugin enabled.
+	 *
+	 * @return bool
+	 */
+	public function plugin_enabled() {
+		return $this->google->enabled;
+	}
+
+	/**
+	 * Plugin's short description
+	 *
+	 * @return string
+	 */
+	public function plugin_description() {
+		return $this->_( 'Interact with Google Analytics data.' );
+	}
+
+	/**
 	 * Analytics constructor.
 	 *
 	 * @param array $argument
 	 */
 	public function __construct( array $argument ) {
-		if ( ! $this->google->enabled ) {
+		if ( ! $this->plugin_enabled() ) {
 			// Do nothing if Google is not enabled.
 			return;
 		}
@@ -476,8 +496,7 @@ SQL;
 					$this->ga_client->setAccessToken( $this->ga_token );
 					if ( $this->ga_client->isAccessTokenExpired() ) {
 						// Refresh token if expired.
-						$token = json_decode( $this->ga_token );
-						$this->ga_client->refreshToken( $token->refresh_token );
+						$this->ga_client->refreshToken( $this->ga_token['refresh_token'] );
 						$this->save_token( $this->ga_client->getAccessToken() );
 					}
 					$this->_ga = new \Google_Service_Analytics( $this->ga_client );

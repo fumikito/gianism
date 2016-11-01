@@ -3,7 +3,6 @@
 namespace Gianism\Service;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Gianism\Plugins\Bot;
 
 /**
  * Description of twitter_controller
@@ -111,9 +110,6 @@ class Twitter extends NoMailService {
 	 */
 	protected function __construct( array $argument = array() ) {
 		parent::__construct( $argument );
-		if ( $this->tw_use_cron ) {
-			Bot::get_instance();
-		}
 	}
 
 	/**
@@ -193,7 +189,7 @@ class Twitter extends NoMailService {
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
-					$redirect_url = wp_login_url( $redirect_url, true );
+					$redirect_url = $this->filter_redirect( wp_login_url( $redirect_url, true ), 'login-fail' );
 				}
 				wp_redirect( $redirect_url );
 				exit;

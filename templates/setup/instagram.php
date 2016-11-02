@@ -55,4 +55,4 @@ defined( 'ABSPATH' ) or die();
 
 <p><?php printf( $this->_( 'Input and save 2 information(Client ID and Client Secret) on <a href="%s">WordPress admin screen</a>.' ), $this->setting_url() ); ?></p>
 
-<p><?php printf( $this->_( 'By default, any instagram account is inside sandbox. So, you have to pass <a href="%s">Permissions Review</a>. If you just need login, <code>basic</code> permission satisfies.' ), 'https://www.instagram.com/developer/review/' ); ?></p>
+<p><?php printf( $this->_( 'By default, any instagram client is inside sandbox. This means that the instagram account which can log in to your site is just yours! So, to use it in production environment, you have to pass <a href="%s">Permissions Review</a>. If you just need login, <code>basic</code> permission satisfies.' ), 'https://www.instagram.com/developer/review/' ); ?></p>

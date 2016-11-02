@@ -103,7 +103,7 @@ function is_user_connected_with( $service, $user_id = 0 ) {
 }
 
 /**
- * Get user object by credencial
+ * Get user object by credential
  *
  * Only facebook is supported.
  *

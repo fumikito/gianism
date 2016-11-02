@@ -18,8 +18,7 @@ defined( 'ABSPATH' ) or die();
 
 	<p class="gianism-home-lead">
 		<?php $this->e( 'Gianism let your site <strong>more social</strong>. Your users can log in to your site via popular SNS.' ) ?>
-
-		<?php $this->e( 'Besides that, some powerful add-ons are available. Your user can be your evangelist. You can automate your WP.' ) ?>
+		<?php $this->e( 'Besides that, some powerful add-ons are available. Your user can be your evangelist. You can even automate your own WordPress. Interact with APIs and make something great!' ) ?>
 	</p>
 
 	<table class="gianism-home-table">
@@ -101,7 +100,7 @@ defined( 'ABSPATH' ) or die();
 
 	<p class="description">
 		<?php printf(
-			'A you interested with add-ons? Find more at <a href="%s">gianism.info</a>!',
+			$this->_( 'A you interested with add-ons? Find more at <a href="%s">gianism.info</a>!' ),
 			gianism_utm_link( 'https://gianism.info/', [ 'utm-medium' => 'dashboard' ] )
 		); ?>
 	</p>

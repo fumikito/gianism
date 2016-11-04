@@ -1,41 +1,39 @@
 #  Gianism 
 
 Contributors: Takahashi_Fumiki  
-Tags: facebook,twitter,google,mixi,yahoo,account,oauth,community  
-Requires at least: 3.8  
-Tested up to: 4.2.4  
-Stable tag: 2.2.7
+Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
+Requires at least: 4.6  
+Tested up to: 4.6.1  
+Stable tag: 3.0.0  
+License: GPL 2.0 or later  
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
 
 ##  Description 
 
-This plugin enables allow users to login/register with major Web service's accounts. Below is supported services.
+This plugin enables your users to login/register with major Web service's accounts. Below is supported services.
 
 If your site needs user's login action, **signing-up is the most difficult step**. With this plugin, users can sign up without inputting email nor password.
 
-**NOTICE: PHP5.3 is required!**
+**NOTICE: Requires PHP5.4 and over!**
 
 ###  Supported Web services
 
 * [Facebook](https://www.facebook.com)
 * [Twitter](https://twitter.com)
-* [Google](http://google.com) *(requires Gmail account)*
-* [Amazon](http://www.amazon.com)
-* [Github](http://github.com)
-* [mixi](http://mixi.jp)
-* [Yahoo! JAPAN](http://yahoo.co.jp)
-* [hatena](http://hatena.ne.jp)
+* [Google](https://google.com)
+* [Instagram](https://instagram.com)
 
 ###  Acknowledgements  
 
-* Use [Abraham Williams' twitteroauth](https://github.com/abraham/twitteroauth). Thanks.
+* Use [Abraham Williams' twitteroauth](https://github.com/abraham/twitteroauth).
 * Use [Facebook's official PHP SDK](https://github.com/facebook/facebook-php-sdk). 
 * Use [Google API PHP Client](http://code.google.com/p/google-api-php-client/).
-* Use [Neuman Vong's JWT](https://github.com/luciferous/jwt).
 * Use [Ligature Symbols](http://kudakurage.com/ligature_symbols/) (Web font).
-* Iconsets for banner image is by [Arabiki's スタンプみたいなソーシャルアイコン](http://arabikinet.com/sns/sns10.html). Thanks lots.
- 
+
+Gianism awes a lot to these open source projects. Thaks lots!
+
 ##  Installation 
 
 Install itself is easy. Auto install from admin panel is recommended. Search with `gianism`.
@@ -43,13 +41,17 @@ Install itself is easy. Auto install from admin panel is recommended. Search wit
 1. Donwload and unpack plugin file, upload `gianims` folder to `/wp-content/plugins` directory.
 2. Activate it from admin panel.
 
+### Use latest source on github
+
+You can get this plugin from [github](https://github.com/fumikito/Gianism/). Clone it and run `composer install && npm install && npm start`. About composer and npm, google it.
+
 ###  How to set up 
 
 After plugin's activation, you have to set it up. Every setup has 2 step. One is on SNS, the other is on your site.
 
 For example, if you use Facebook, register new app on Facebook, then input app ID and token on WordPress admin panel. Every SNS requires **registeration of Apps** and **credentials related to it**.
 
-It seems too difficult? Don't panic. Howtos and manuals are on setting page *(Users > External)*.
+For more details, please refer to our site [gianism.info](https://gianism.info/)
 
 ##  Frequently Asked Questions 
 
@@ -59,7 +61,7 @@ Maybe yes. Translations are welcomed.
 
 > Found bug. It sucks.
 
-Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
+Sorry for that. Please refer to our support site [gianism.info](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
 
 ##  Screenshots 
 
@@ -68,6 +70,22 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 ##  Changelog 
+
+Here is a list of change logs.
+
+### 3.0.0
+
+This release has **breaking changes**. Please check carefully change logs.
+
+* PHP version should be 5.4 and over.
+* Mainly supported SNS are now below.
+  * Facebook
+  * Google
+  * twitter
+  * Instagram
+* Dropped services(mixi, Yahoo! Japan, github, Amazon) are reborned as addons! Please visit our [addon list](https://gianism.info/add-on/).
+* As mentioned above, Gianism now have addon system. You can add new addons.
+* Mail fall back is dropped. So, some user might miss your important notification.
 
 ### 2.2.7
 

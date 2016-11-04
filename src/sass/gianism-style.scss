@@ -1,0 +1,216 @@
+/*!
+ * Gianism style for Buttons, messages.
+ *
+ * @package Gianism
+ */
+@import "gianism_variables";
+@import "lsf_variables";
+@import "components";
+@import "profile";
+
+// Background Gradient: Top to Bottom
+@mixin bg-gradient-t2b($start-colour, $end-colour) {
+	background-color: $start-colour;
+	background-image: linear-gradient(to bottom, $start-colour, $end-colour);
+	filter:            progid:DXImageTransform.Microsoft.gradient(start-colourStr='#{$start-colour}', end-colourStr='#{$end-colour}');
+}
+
+/* Facebook Button */
+.fb_button, .fb_button_rtl {
+	background: #29447E url('https://s-static.ak.facebook.com/rsrc.php/v1/yL/r/FGFbc80dUKj.png');
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: inline-block;
+	padding: 0 0 0 1px;
+	text-decoration: none;
+	outline: none;
+	font-size: 11px;
+	line-height: 14px;
+	background-position-x: 0;
+	background-position-y: -210px;
+	.fb_button_text{
+		background: #5F78AB url('https://s-static.ak.facebook.com/rsrc.php/v1/yL/r/FGFbc80dUKj.png');
+		border-top: solid 1px #879AC0;
+		border-bottom: solid 1px #1A356E;
+		color: white;
+		display: block;
+		font-family: "lucida grande",tahoma,verdana,arial,'Hiragino Kaku Gothic Pro',Meiryo,'MS PGothic',sans-serif;
+		font-weight: bold;
+		padding: 2px 6px 3px 6px;
+		margin: 1px 1px 0 21px;
+		text-shadow: none;
+	}
+	&:link,
+	&:visited{
+		text-decoration: none;
+	}
+	&:hover{
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	}
+}
+
+/* Twitter Button */
+.wpg_tw_btn{
+	height: 28px;
+	border-radius: 4px;
+	box-sizing: border-box;
+	max-width: 100%;
+	position: relative;
+	background-color: #F8F8F8;
+	@include bg-gradient-t2b( white, #DEDEDE );
+	border: #CCC solid 1px;
+	color: #333;
+	user-select: none;
+	cursor: pointer;
+	overflow: hidden;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+	white-space: nowrap;
+	font-size: 13px;
+	line-height: 26px;
+	.label{
+		padding: 0 7px 0 25px;
+		font-size: 11px;
+		line-height: 26px;
+	}
+	&,
+	.label{
+		display: inline-block;
+		vertical-align: top;
+		zoom: 1;
+	}
+	i {
+		position: absolute;
+		background: transparent url('../img/icon-16.png') 0 -16px no-repeat;
+		width: 16px;
+		height: 16px;
+		left: 5px;
+		margin-top: -7px;
+		top: 50%;
+	}
+	&:hover{
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	}
+
+}
+
+/* Common */
+.wpg_ggl_btn,
+.wpg_mixi_btn,
+.wpg_yahoo_btn{
+	position: relative;
+	border: 1px solid gainsboro;
+	font-size: 11px;
+	font-weight: bold;
+	height: 27px;
+	line-height: 27px;
+	outline: 0;
+	padding: 0 8px 0 24px;
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	cursor: pointer;
+	&:link,
+	&:visited{
+		text-decoration: none;
+	}
+	&:hover,
+	&:active{
+		text-decoration: none;
+	}
+	i{
+		position: absolute;
+		background: transparent url('../img/icon-16.png') 0 -32px no-repeat;
+		width: 16px;
+		height: 16px;
+		left: 5px;
+		margin-top: -7px;
+		top: 50%;
+	}
+}
+/* Google */
+.wpg_ggl_btn{
+	color: #444;
+	border-radius: 2px;
+	background-color: whiteSmoke;
+	@include bg-gradient-t2b( whiteSmoke, #F1F1F1 );
+	border-color: rgba(0, 0, 0, 0.1);
+	&:hover,
+	&:active{
+		box-shadow: 0 2px 4px #ccc;
+	}	
+}
+/* mixi */
+.wpg_mixi_btn{
+	border-radius: 5px;
+	background-color: #fefefe;
+	@include bg-gradient-t2b(#fefefe, #f1f1f1);
+	border-color: #bbb;
+	font-weight: normal;
+	text-shadow: 1px 1px 2px #fff;
+	i{
+		background-position: 0 -48px;
+	}
+	&:link,
+	&:visited{
+		color: #777776;
+	}
+	&:hover{
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	}
+}
+/* Yahoo */
+.wpg_yahoo_btn{
+	border-radius: 7px;
+	background-color: #fafafa;
+	@include bg-gradient-t2b(#fafafa, #c8c8c8);
+	border-color: #bbb;
+	i{
+		background-position: 0 -64px;
+	}
+	&:link,
+	&:visited{
+		color: #000;
+	}
+	&:hover{
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	}
+}
+
+#wpg-login{
+  margin: 10px 0;
+  &.large{
+    .wpg-button{
+      position: relative;
+      display: block;
+      border-radius: 0;
+      width: auto;
+      box-shadow: none;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      padding: 7px 10px 7px 50px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+      border-top-width: 0;
+      &:first-child{
+        border-top-width: 1px;
+      }
+      .lsf{
+        position: absolute;
+        font-size: 40px;
+        left: 10px;
+        top: 50%;
+        margin-top: -16px;
+      }
+    }
+  }
+}
+
+/* Message box*/
+.wpg-message{
+	max-height: 500px;
+	overflow: auto;
+}

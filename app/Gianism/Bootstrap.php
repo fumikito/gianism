@@ -102,6 +102,7 @@ class Bootstrap extends Singleton {
 		wp_register_script( $this->name . '-admin-helper', $this->url . 'assets/js/admin-helper.js', [
 			'jquery',
 		], $this->version, true );
+		// Mail chimp CSS
 		// Admin panel style
 		wp_register_style( $this->name . '-admin-panel', $this->url . 'assets/css/gianism-admin.css', [ 'ligature-symbols' ], $this->version );
 	}

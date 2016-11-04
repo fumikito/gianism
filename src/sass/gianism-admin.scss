@@ -118,6 +118,7 @@
     }
     pre{
       margin: 20px 0;
+      overflow-x: scroll;
       padding: 20px;
       background: #ddd;
       color: #000;
@@ -319,12 +320,22 @@
 
   // Sidebar
   .sidebar {
+
+
     #index {
       width: 278px;
       padding: 10px;
       border: 1px solid #ccc;
       background-color: #f9f9f9;
       border-radius: 3px;
+      h4{
+        margin: 1em 0 0.5em;
+        padding-top: 0.5em;
+        border-top: 1px solid #ddd;
+        &:first-child{
+          border-top: none;
+        }
+      }
       &.floating {
         position: fixed;
         top: 38px;
@@ -383,6 +394,72 @@
         }
       }
     }
+
+    .mc{
+      &-embed{
+
+      }
+      &-field{
+
+        &-2col{
+          & > div{
+            width: 50%;
+            float: left;
+          }
+          .mc-field-group{
+            margin-right: 5px;
+            &.last-name{
+              margin-right: 0;
+              margin-left: 5px;
+            }
+          }
+        }
+        &-name-ja{
+          & > div{
+            float: right;
+          }
+          .mc-field-group{
+            margin-right: 0;
+            margin-left: 5px;
+            &.last-name{
+              margin-left: 0;
+              margin-right: 5px;
+            }
+          }
+        }
+
+
+        &-group{
+          margin: 5px 0;
+          .asterisk{
+            color: red;
+          }
+          label{
+            display: block;
+          }
+          input[type=text],
+          input[type=email]{
+            box-sizing: border-box;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    label.inline{
+      display: inline-block;
+      margin-right: 1em;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+
+    p.submit .button-primary{
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
   }
 
 }

@@ -2,7 +2,7 @@
 
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
-Requires at least: 4.5  
+Requires at least: 4.6  
 Tested up to: 4.6.1  
 Stable tag: 3.0.0  
 License: GPL 2.0 or later  
@@ -12,7 +12,7 @@ Connect user accounts with major web services like Facebook, twitter, etc. Stand
 
 ##  Description 
 
-This plugin enables allow users to login/register with major Web service's accounts. Below is supported services.
+This plugin enables your users to login/register with major Web service's accounts. Below is supported services.
 
 If your site needs user's login action, **signing-up is the most difficult step**. With this plugin, users can sign up without inputting email nor password.
 
@@ -41,6 +41,10 @@ Install itself is easy. Auto install from admin panel is recommended. Search wit
 1. Donwload and unpack plugin file, upload `gianims` folder to `/wp-content/plugins` directory.
 2. Activate it from admin panel.
 
+### Use latest source on github
+
+You can get this plugin from [github](https://github.com/fumikito/Gianism/). Clone it and run `composer install && npm install && npm start`. About composer and npm, google it.
+
 ###  How to set up 
 
 After plugin's activation, you have to set it up. Every setup has 2 step. One is on SNS, the other is on your site.
@@ -57,7 +61,7 @@ Maybe yes. Translations are welcomed.
 
 > Found bug. It sucks.
 
-Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
+Sorry for that. Please refer to our support site [gianism.info](http://wordpress.org/support/plugin/gianism) or send pull request to [repository on Github](https://github.com/fumikito/Gianism/).
 
 ##  Screenshots 
 
@@ -67,19 +71,21 @@ Use [support forum on WordPress.org](http://wordpress.org/support/plugin/gianism
 
 ##  Changelog 
 
-Here is a list of change logs. asterisk means a breaking change.
+Here is a list of change logs.
 
 ### 3.0.0
 
 This release has **breaking changes**. Please check carefully change logs.
 
+* PHP version should be 5.4 and over.
 * Mainly supported SNS are now below.
   * Facebook
   * Google
   * twitter
   * Instagram
-* Dropped services(mixi, Yahoo! Japan, github, Amazon) are re-borned as addons! Please visit our [addon store](https://gianism.info/addons/).
+* Dropped services(mixi, Yahoo! Japan, github, Amazon) are reborned as addons! Please visit our [addon list](https://gianism.info/add-on/).
 * As mentioned above, Gianism now have addon system. You can add new addons.
+* Mail fall back is dropped. So, some user might miss your important notification.
 
 ### 2.2.7
 

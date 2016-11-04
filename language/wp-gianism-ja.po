@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-01 21:40+0900\n"
-"PO-Revision-Date: 2016-11-01 21:44+0900\n"
+"POT-Creation-Date: 2016-11-04 17:23+0900\n"
+"PO-Revision-Date: 2016-11-04 17:25+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Settings"
 msgstr "設定"
 
-#: app/Gianism/Controller/Admin.php:174
+#: app/Gianism/Controller/Admin.php:174 templates/parts/sidebar.php:10
 msgid "Support"
 msgstr "サポート"
 
@@ -920,23 +920,23 @@ msgstr "日付。現在時刻からこの時間までの残り時間に変換さ
 msgid "Place holder. Default is %s."
 msgstr "プレースホルダー。初期値は%sです。"
 
-#: templates/edit/bot.php:42
+#: templates/edit/bot.php:51
 msgid "Schedule"
 msgstr "スケジュール"
 
-#: templates/edit/bot.php:66
+#: templates/edit/bot.php:75
 msgid "Add Time Row"
 msgstr "時間帯を追加"
 
-#: templates/edit/bot.php:96
+#: templates/edit/bot.php:105
 msgid "End datetime is mal-formed: YYYY-MM-DD"
 msgstr "終了日が不正です： YYYY-MM-DD"
 
-#: templates/edit/bot.php:103
+#: templates/edit/bot.php:112
 msgid "End Datetime"
 msgstr "終了日"
 
-#: templates/edit/bot.php:109
+#: templates/edit/bot.php:118
 msgid "Passing this limit, This bot will be private. Format is YYYY-MM-DD"
 msgstr "この期限を過ぎると、ボットは非公開になります。書式はYYYY-MM-DDです。"
 
@@ -1072,6 +1072,15 @@ msgstr "デフォルト"
 msgid "Add on"
 msgstr "アドオン"
 
+#: templates/home.php:58
+#, php-format
+msgid ""
+"You can enable all services via <a href=\"%1$s\">Setting</a> and find more "
+"services at <a href=\"%2$s\">gianism.info</a>."
+msgstr ""
+"<a href=\"%1$s\">設定</a>からサービスを有効化できます。もっと沢山のサービスは"
+"<a href=\"%2$s\">gianism.info</a>でご紹介しています。"
+
 #: templates/home.php:66
 msgid "Add-ons"
 msgstr "アドオン"
@@ -1079,6 +1088,15 @@ msgstr "アドオン"
 #: templates/home.php:70
 msgid "Description"
 msgstr "説明"
+
+#: templates/home.php:103
+#, php-format
+msgid ""
+"Are you interested with add-ons? Find more at <a href=\"%s\">gianism.info</"
+"a>!"
+msgstr ""
+"アドオンに興味を持っていただけましたか？　<a href=\"%s\">gianism.info</a>で"
+"もっと沢山紹介しています！"
 
 #: templates/parts/header.php:21
 msgid "Make your WordPress more social. Simple but Extensible."
@@ -1088,7 +1106,7 @@ msgstr "あなたのWordPressをもっとソーシャルに。シンプルだけ
 msgid "Index"
 msgstr "目次"
 
-#: templates/parts/sidebar.php:11
+#: templates/parts/sidebar.php:14
 #, php-format
 msgid ""
 "Have some questions? Go to our support site <a href=\"%s\" target=\"_blank"
@@ -1097,7 +1115,7 @@ msgstr ""
 "わからないことがありますか？　私達のサポートサイト<a href=\"%s\" target="
 "\"_blank\">gianism.info</a>へお越しください！"
 
-#: templates/parts/sidebar.php:19
+#: templates/parts/sidebar.php:22
 #, php-format
 msgid ""
 "This plugin's is hosted on <a href=\"%s\">Github</a>. Pull requests are "
@@ -1105,6 +1123,38 @@ msgid ""
 msgstr ""
 "このプラグインのリポジトリは<a href=\"%s\">Github</a>にあります。プルリクエス"
 "トもお待ちしています。"
+
+#: templates/parts/sidebar.php:39
+msgid "Join our News Letter!"
+msgstr "ニュースレター購読お願いします"
+
+#: templates/parts/sidebar.php:42
+msgid "Email"
+msgstr "メール"
+
+#: templates/parts/sidebar.php:50
+msgid "First Name"
+msgstr "名"
+
+#: templates/parts/sidebar.php:56
+msgid "Last Name"
+msgstr "姓"
+
+#: templates/parts/sidebar.php:66
+msgid "English"
+msgstr "英語"
+
+#: templates/parts/sidebar.php:71
+msgid "Japanese"
+msgstr "日本語"
+
+#: templates/parts/sidebar.php:78
+msgid "Subscribe"
+msgstr "購読する"
+
+#: templates/parts/sidebar.php:85
+msgid "Our social Account"
+msgstr "ソーシャルアカウント"
 
 #: templates/setting.php:12
 msgid "General Setting"

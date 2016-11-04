@@ -88,7 +88,7 @@ echo esc_html( sprintf( $code,
 <pre class="brush: php">
 <?php
 $code = <<<EOS
-update_twitter_status("%s");
+gianism_update_twitter_status( '%s' );
 EOS;
 echo esc_html( sprintf( $code, $this->_( 'Hello, my followers. I updated new post.' ) ) );
 ?>

@@ -55,7 +55,7 @@ defined( 'ABSPATH' ) or die();
 
 	<p class="description">
 		<?php printf(
-			'You can enable all services via <a href="%1$s">Setting</a> and find more services at <a href="%2$s">gianism.info</a>.',
+			$this->_( 'You can enable all services via <a href="%1$s">Setting</a> and find more services at <a href="%2$s">gianism.info</a>.' ),
 			$this->setting_url( 'setting' ),
 			gianism_utm_link( 'https://gianism.info/', [ 'utm-medium' => 'dashboard' ] )
 		); ?>
@@ -100,7 +100,7 @@ defined( 'ABSPATH' ) or die();
 
 	<p class="description">
 		<?php printf(
-			$this->_( 'A you interested with add-ons? Find more at <a href="%s">gianism.info</a>!' ),
+			$this->_( 'Are you interested with add-ons? Find more at <a href="%s">gianism.info</a>!' ),
 			gianism_utm_link( 'https://gianism.info/', [ 'utm-medium' => 'dashboard' ] )
 		); ?>
 	</p>

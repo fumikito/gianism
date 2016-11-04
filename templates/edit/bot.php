@@ -33,6 +33,15 @@ $twitter = \Gianism\Service\Twitter::get_instance();
 		<pre>
 [gianism_limit limit='<?php echo $next_month ?>'] => <?php echo do_shortcode( '[gianism_limit limit=\''. $next_month .'\']' ) ?>
 </pre>
+		<?php
+		/**
+		 * Filter hook for bot documentation
+		 *
+		 * @action gianism_twitter_bot_documentation
+		 * @param  WP_Post $post
+		 */
+		do_action( 'gianism_twitter_bot_documentation', $post )
+		?>
 	</div>
 
 	<hr/>

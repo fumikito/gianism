@@ -147,7 +147,7 @@ class Analytics extends PluginBase {
 			case 'analytics-token':
 				try {
 					$code = isset( $args['code'] ) ? $args['code'] : '';
-					if ( $code && $this->ga_client->authenticate( $code ) ) {
+					if ( $code && $this->ga_client->fetchAccessTokenWithAuthCode( $code ) ) {
 						// O.K. save access token
 						$token = $this->ga_client->getAccessToken();
 						$this->save_token( $this->ga_client->getAccessToken() );
@@ -496,12 +496,13 @@ SQL;
 					$this->ga_client->setAccessToken( $this->ga_token );
 					if ( $this->ga_client->isAccessTokenExpired() ) {
 						// Refresh token if expired.
-						$this->ga_client->refreshToken( $this->ga_token['refresh_token'] );
-						$this->save_token( $this->ga_client->getAccessToken() );
+						$refresh_token = $this->ga_client->getRefreshToken();
+						$token = $this->ga_client->fetchAccessTokenWithRefreshToken( $refresh_token );
+						$token ['refresh_token'] = $refresh_token;
+						$this->save_token( $token );
 					}
 					$this->_ga = new \Google_Service_Analytics( $this->ga_client );
 				}
-
 				return $this->_ga;
 				break;
 			case 'ga_client':

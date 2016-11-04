@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism\Service;
+use Gianism\Helper\PseudoPhpMailer;
 
 
 /**
@@ -78,9 +79,28 @@ abstract class NoMailService extends AbstractService {
 		/** @var string $to */
 		extract( $args );
 		if ( $this->is_pseudo_mail( $to ) && ( $user_id = email_exists( $to ) ) ) {
+			// Send mail
 			$this->wp_mail( $user_id, $subject, $message, $headers, $attachments );
+			add_action( 'phpmailer_init', [ $this, 'hijack_php_mailer' ] );
 		}
-
 		return $args;
+	}
+
+	/**
+	 * Hijack php mailer to pseudo
+	 *
+	 * @param \PHPMailer $php_mailer
+	 */
+	public function hijack_php_mailer( &$php_mailer ) {
+		$instance = new PseudoPhpMailer( true );
+		/**
+		 * You can replace pseudo mail instance
+		 *
+		 * @filter gianism_pseudo_mailer_instance
+		 * @param PseudoPhpMailer $instance
+		 * @return \Gianism\Pattern\DummyPhpMailer
+		 */
+		$php_mailer = apply_filters( 'gianism_pseudo_mailer_instance', $instance );
+		remove_action( 'phpmailer_init', [ $this, 'hijack_php_mailer' ] );
 	}
 }

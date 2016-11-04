@@ -1,15 +1,16 @@
 <?php
-/*
-Plugin Name: Gianism
-Plugin URI: https://wordpress.org/extend/plugins/gianism/
-Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.4 required.
-Author: Takahashi_Fumiki
-Version: 3.0.0
-Author URI: https://gianism.info
-Text Domain: wp-gianism
-Domain Path: /language/
-License: GPL2 or Later
-*/
+/**
+ * Plugin Name: Gianism
+ * Plugin URI: https://wordpress.org/extend/plugins/gianism/
+ * Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.4 required.
+ * Author: Takahashi_Fumiki
+ * Version: 3.0.0
+ * PHP Version: 5.4.0
+ * Author URI: https://gianism.info
+ * Text Domain: wp-gianism
+ * Domain Path: /language/
+ * License: GPL2 or Later
+ */
 
 /*
     Copyright 2010 Takahashi Fumiki (email : takahashi.fumiki@hametuha.co.jp)
@@ -31,19 +32,33 @@ License: GPL2 or Later
 // Don't allow plugin to be loaded directory
 defined( 'ABSPATH' ) or exit;
 
+// Get data from header
+$info = get_file_data( __FILE__, [
+	'version'     => 'Version',
+	'php_version' => 'PHP Version',
+    'text_domain' => 'Text Domain',
+] );
+
 /**
  * Plugin version
  *
  * @const string
  */
-define( 'GIANISM_VERSION', '3.0.0' );
+define( 'GIANISM_VERSION', $info['version'] );
 
 /**
  * Domain for i18n
  *
  * @const string
  */
-define( 'GIANISM_DOMAIN', 'wp-gianism' );
+define( 'GIANISM_DOMAIN', $info['text_domain'] );
+
+/**
+ * Gianism PHP Version
+ *
+ * @const string
+ */
+define( 'GIANISM_PHP_VERSION', $info['php_version'] );
 
 //Add i18n
 load_plugin_textdomain( GIANISM_DOMAIN, false, 'gianism/language' );
@@ -62,8 +77,8 @@ add_action( 'plugins_loaded', '_gianism_setup_after_plugins_loaded' );
 function _gianism_setup_after_plugins_loaded() {
 	// Check PHP version is 5.4.0 or later
 	try {
-		if ( ! version_compare( phpversion(), '5.4.0', '>=' ) ) {
-			throw new Exception( sprintf( __( '[Gianism] PHP <code>5.4.0</code> is required, but your version is <code>%s</code>. So this plugin is still in silence. Please contact server administrator.', GIANISM_DOMAIN ), phpversion() ) );
+		if ( ! version_compare( phpversion(), GIANISM_PHP_VERSION, '>=' ) ) {
+			throw new Exception( sprintf( __( '[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</code>. So this plugin is still in silence. Please contact server administrator.', GIANISM_DOMAIN ), GIANISM_PHP_VERSION, phpversion() ) );
 		}
 		// Load global functions
 		$auto_loader = dirname( __FILE__ ) . '/vendor/autoload.php';
@@ -85,6 +100,6 @@ function _gianism_setup_after_plugins_loaded() {
 		call_user_func( array( 'Gianism\\Bootstrap', 'init' ) );
 	} catch ( Exception $e ) {
 		$error = sprintf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
-		add_action( 'admin_notices', create_function( '', sprintf( 'echo \'%s\';', $error ) ) );
+		add_action( 'admin_notices', create_function( '', sprintf( 'echo \'%s\';', str_replace( '\'', '\\\'', $error ) ) ) );
 	}
 }

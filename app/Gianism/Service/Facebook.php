@@ -245,7 +245,7 @@ class Facebook extends AbstractService {
 					// Get user ID
 					$user = $this->get_returned_user();
 					// If user doesn't exists, try to register.
-					if ( ! ( $user_id = $this->get_meta_owner( $this->umeta_id, $user['id '] ) ) ) {
+					if ( ! ( $user_id = $this->get_meta_owner( $this->umeta_id, $user['id'] ) ) ) {
 						// Test
 						$this->test_user_can_register();
 						// Check email

@@ -87,6 +87,8 @@ This release has **breaking changes**. Please check carefully change logs.
 * As mentioned above, Gianism now have addon system. You can add new addons.
 * Mail fall back is dropped. So, some user might miss your important notification.
 
+**NOTICE:** Please update Google Analytics token if you use it!
+
 ### 2.2.7
 
 * Follow facebook Graph API 2.4 change. See detail at [Introducing Graph API v2.4](https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/).

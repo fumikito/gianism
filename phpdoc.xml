@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>Gianism API | takahashifumiki.com</title>
+    <title>Gianism API</title>
     <parser>
-        <target>../../../api/gianism</target>
+        <target>./doc/gianism</target>
         <markers>
             <item>TODO</item>
             <item>FIXME</item>
@@ -13,7 +13,7 @@
         <visibility></visibility>
     </parser>
     <transformer>
-        <target>../../../api/gianism</target>
+        <target>./doc/gianism</target>
     </transformer>
     <logging>
         <level>warn</level>
@@ -27,7 +27,6 @@
     </transformations>
     <files>
         <file>functions.php</file>
-        <file>wp-gianism.php</file>
         <directory>app</directory>
     </files>
 </phpdoc>

@@ -8,9 +8,9 @@ $facebook = $this->service->get( 'facebook' );
 
 ?>
 <h3><i class="lsf lsf-facebook"></i> <?php $this->e( 'Token setting' ) ?></h3>
-<?php if ( is_wp_error( $facebook->admin ) ) : ?>
+<?php if ( is_wp_error( ( $error = $facebook->admin ) ) ) : ?>
 	<p class="danger">
-		<?php if ( $facebook->admin->get_error_code() == 410 ) : ?>
+		<?php if ( $error->get_error_code() == 410 ) : ?>
 			<?php $this->e( 'Token is outdated. Click link and get new one.' ); ?>
 		<?php else : ?>
 			<?php $this->e( 'Token is not set. Please click link below and get one.' ); ?>

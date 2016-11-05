@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 17:23+0900\n"
-"PO-Revision-Date: 2016-11-04 17:25+0900\n"
+"POT-Creation-Date: 2016-11-05 20:58+0900\n"
+"PO-Revision-Date: 2016-11-05 21:00+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -64,7 +64,7 @@ msgstr ""
 "リライトルールを設定してください。<a href=\"%s\">パーマリンク設定</a>へ行き、"
 "有効化してください。"
 
-#: app/Gianism/Controller/Admin.php:81
+#: app/Gianism/Controller/Admin.php:79
 msgid ""
 "Session is not supported. Gianism requires session for SNS connection, so "
 "please contact to your server administrator."
@@ -72,7 +72,16 @@ msgstr ""
 "セッションがサポートされていません。GianismはSNS接続にセッションを必要としま"
 "す。管理者に連絡を取ってください。"
 
-#: app/Gianism/Controller/Admin.php:85
+#: app/Gianism/Controller/Admin.php:88
+#, php-format
+msgid ""
+"Mmm... session seemed to be not working. Please check permission of "
+"<code>session.save_path</code>( current value is <code>%s</code>)."
+msgstr ""
+"うーん…セッションが動作していないようです。<code>session.save_path</code>の書"
+"き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
+
+#: app/Gianism/Controller/Admin.php:92
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -83,11 +92,11 @@ msgstr ""
 "を変更する必要があります</strong>。<a href=\"%s\">設定を更新し</a>、指示に"
 "従ってください。"
 
-#: app/Gianism/Controller/Admin.php:140
+#: app/Gianism/Controller/Admin.php:147
 msgid "Settings"
 msgstr "設定"
 
-#: app/Gianism/Controller/Admin.php:174 templates/parts/sidebar.php:10
+#: app/Gianism/Controller/Admin.php:181 templates/parts/sidebar.php:10
 msgid "Support"
 msgstr "サポート"
 

@@ -13,6 +13,8 @@ use Gianism\Pattern\Singleton;
  */
 class Session extends Singleton  {
 
+	public $path = '';
+
 	protected $name = 'gianism';
 
 	/**
@@ -24,9 +26,11 @@ class Session extends Singleton  {
 		if ( session_id() && isset( $_SESSION[ $this->name ] ) ) {
 			return true;
 		}
+		$this->path = ini_get( 'session.save_path' ) ?: 'no value';
 		if ( ! session_start() ) {
 			return false;
 		}
+		header( 'X-Gianism-Session: true' );
 		if ( ! isset( $_SESSION[ $this->name ] ) || ! is_array( $_SESSION[ $this->name ] ) ) {
 			$_SESSION[ $this->name ] = [];
 		}

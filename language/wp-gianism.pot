@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 17:28+0900\n"
-"PO-Revision-Date: 2016-11-04 17:29+0900\n"
+"POT-Creation-Date: 2016-11-05 20:58+0900\n"
+"PO-Revision-Date: 2016-11-05 20:58+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -25,8 +25,9 @@ msgstr ""
 #: app/Gianism/Api/Ajax.php:69 app/Gianism/Plugins/Analytics.php:169
 #: app/Gianism/Plugins/Analytics.php:191 app/Gianism/Plugins/Analytics.php:334
 #: app/Gianism/Plugins/Analytics.php:446
+#, fuzzy
 msgid "You have no permission."
-msgstr ""
+msgstr "このカードを削除してよろしいですか？"
 
 #: app/Gianism/Api/Ajax.php:73
 msgid "Wrong value is returned."
@@ -65,13 +66,20 @@ msgid ""
 "enable it."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:81
+#: app/Gianism/Controller/Admin.php:79
 msgid ""
 "Session is not supported. Gianism requires session for SNS connection, so "
 "please contact to your server administrator."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:85
+#: app/Gianism/Controller/Admin.php:88
+#, php-format
+msgid ""
+"Mmm... session seemed to be not working. Please check permission of "
+"<code>session.save_path</code>( current value is <code>%s</code>)."
+msgstr ""
+
+#: app/Gianism/Controller/Admin.php:92
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -79,11 +87,11 @@ msgid ""
 "a> and follow the instruction there."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:140
+#: app/Gianism/Controller/Admin.php:147
 msgid "Settings"
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:174 templates/parts/sidebar.php:10
+#: app/Gianism/Controller/Admin.php:181 templates/parts/sidebar.php:10
 msgid "Support"
 msgstr ""
 
@@ -122,8 +130,9 @@ msgid "Option updated."
 msgstr ""
 
 #: app/Gianism/Helper/Option.php:108
+#, fuzzy
 msgid "Option failed to update."
-msgstr ""
+msgstr "クレジットカードの追加に失敗しました。"
 
 #: app/Gianism/Helper/Option.php:219
 msgid "Medium"
@@ -174,8 +183,9 @@ msgid "Table created."
 msgstr ""
 
 #: app/Gianism/Plugins/Analytics.php:358
+#, fuzzy
 msgid "Invalid action."
-msgstr ""
+msgstr "不正なアクセスです。"
 
 #: app/Gianism/Plugins/Analytics.php:449
 msgid "Such action does not exist."
@@ -272,14 +282,16 @@ msgid "%s minutes"
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:196
+#, fuzzy
 msgid "Cheatin'? Wrong access."
-msgstr ""
+msgstr "不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
 #: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:205
+#, fuzzy
 msgid "You must be logged in."
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: app/Gianism/Service/AbstractService.php:235
 #, php-format
@@ -302,8 +314,9 @@ msgid "Your account is now unlinked from %s."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:293
+#, fuzzy
 msgid "You are logged in, ah?"
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: app/Gianism/Service/AbstractService.php:367
 #, php-format
@@ -372,8 +385,9 @@ msgid "Welcome, %s!"
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:749
+#, fuzzy
 msgid "Oops, Failed to Authenticate."
-msgstr ""
+msgstr "クレジットカードの削除に失敗しました。"
 
 #: app/Gianism/Service/AbstractService.php:758
 msgid "Cannot retrieve email address."
@@ -400,12 +414,14 @@ msgid "Facebook API"
 msgstr ""
 
 #: app/Gianism/Service/Facebook.php:243
+#, fuzzy
 msgid "You are already logged in"
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: app/Gianism/Service/Facebook.php:375
+#, fuzzy
 msgid "Access token is saved."
-msgstr ""
+msgstr "不正なアクセスです。"
 
 #: app/Gianism/Service/Facebook.php:447
 msgid "Saved facebook account to use."
@@ -437,14 +453,16 @@ msgid "Home"
 msgstr ""
 
 #: app/Gianism/UI/SettingScreen.php:33
+#, fuzzy
 msgid "Setting"
-msgstr ""
+msgstr "WebPayは日本円しかサポートしていません。あなたの通貨設定は%sです。"
 
 #: app/Gianism/UI/SettingScreen.php:34 templates/setting/facebook.php:23
 #: templates/setting/google.php:16 templates/setting/instagram.php:23
 #: templates/setting/twitter.php:17
+#, fuzzy
 msgid "How to set up"
-msgstr ""
+msgstr "Item set"
 
 #: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:55
 msgid "Customize"
@@ -585,20 +603,23 @@ msgid ""
 msgstr ""
 
 #: templates/analytics.php:37
+#, fuzzy
 msgid "Get"
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: templates/analytics.php:45
+#, fuzzy
 msgid "Delete"
-msgstr ""
+msgstr "クレジットカードの削除に失敗しました。"
 
 #: templates/analytics.php:52
 msgid "Account, Profile, View"
 msgstr ""
 
 #: templates/analytics.php:61
+#, fuzzy
 msgid "Account"
-msgstr ""
+msgstr "WebPayの決済モジュール。アカウントが必要です。"
 
 #: templates/analytics.php:67 templates/analytics.php:89
 #: templates/analytics.php:100
@@ -636,8 +657,9 @@ msgid "Column"
 msgstr ""
 
 #: templates/analytics.php:124 templates/home.php:30 templates/home.php:72
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "Post Type"
 
 #: templates/analytics.php:125
 msgid "Length"
@@ -670,8 +692,9 @@ msgid "Nothing is installed."
 msgstr ""
 
 #: templates/analytics.php:201 templates/analytics.php:257
+#, fuzzy
 msgid "Class Name"
-msgstr ""
+msgstr "カード名義"
 
 #: templates/analytics.php:202
 msgid "Category"
@@ -856,8 +879,9 @@ msgid "Schedule"
 msgstr ""
 
 #: templates/edit/bot.php:75
+#, fuzzy
 msgid "Add Time Row"
-msgstr ""
+msgstr "クレジットカードの追加に失敗しました。"
 
 #: templates/edit/bot.php:105
 msgid "End datetime is mal-formed: YYYY-MM-DD"
@@ -921,8 +945,9 @@ msgid "Please select account to use."
 msgstr ""
 
 #: templates/fb-api.php:46
+#, fuzzy
 msgid "You"
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: templates/fb-api.php:54
 msgid "Your Page"
@@ -973,8 +998,9 @@ msgid "Available Services"
 msgstr ""
 
 #: templates/home.php:28 templates/home.php:69
+#, fuzzy
 msgid "Name"
-msgstr ""
+msgstr "カード名義"
 
 #: templates/home.php:29 templates/home.php:71
 msgid "Status"
@@ -985,8 +1011,9 @@ msgid "Default"
 msgstr ""
 
 #: templates/home.php:48 templates/home.php:93
+#, fuzzy
 msgid "Add on"
-msgstr ""
+msgstr "クレジットカードの追加に失敗しました。"
 
 #: templates/home.php:58
 #, php-format
@@ -996,8 +1023,9 @@ msgid ""
 msgstr ""
 
 #: templates/home.php:66
+#, fuzzy
 msgid "Add-ons"
-msgstr ""
+msgstr "クレジットカードの追加に失敗しました。"
 
 #: templates/home.php:70
 msgid "Description"
@@ -1041,12 +1069,14 @@ msgid "Email"
 msgstr ""
 
 #: templates/parts/sidebar.php:50
+#, fuzzy
 msgid "First Name"
-msgstr ""
+msgstr "カード名義"
 
 #: templates/parts/sidebar.php:56
+#, fuzzy
 msgid "Last Name"
-msgstr ""
+msgstr "カード名義"
 
 #: templates/parts/sidebar.php:66
 msgid "English"
@@ -1081,8 +1111,9 @@ msgid "Disabled"
 msgstr ""
 
 #: templates/setting.php:30
+#, fuzzy
 msgid "Force register"
-msgstr ""
+msgstr "新しいクレジットカードを登録"
 
 #: templates/setting.php:35
 msgid "Depends on WP setting"
@@ -1217,8 +1248,9 @@ msgid ""
 msgstr ""
 
 #: templates/setting/twitter.php:22 templates/setting/twitter.php:72
+#, fuzzy
 msgid "Screen Name"
-msgstr ""
+msgstr "カード名義"
 
 #: templates/setting/twitter.php:27 templates/setting/twitter.php:72
 msgid "Consumer Key"
@@ -1229,12 +1261,14 @@ msgid "Consumer Secret"
 msgstr ""
 
 #: templates/setting/twitter.php:37 templates/setting/twitter.php:73
+#, fuzzy
 msgid "Access Token"
-msgstr ""
+msgstr "不正なアクセスです。"
 
 #: templates/setting/twitter.php:42 templates/setting/twitter.php:73
+#, fuzzy
 msgid "Access token secret"
-msgstr ""
+msgstr "不正なアクセスです。"
 
 #: templates/setting/twitter.php:54
 msgid "Callback URL"
@@ -1349,8 +1383,9 @@ msgid ""
 msgstr ""
 
 #: templates/setup/google.php:13 templates/setup/instagram.php:14
+#, fuzzy
 msgid "Create new Project"
-msgstr ""
+msgstr "新しいクレジットカードを登録"
 
 #: templates/setup/google.php:15
 msgid ""
@@ -1444,8 +1479,9 @@ msgid ""
 msgstr ""
 
 #: templates/setup/instagram.php:54
+#, fuzzy
 msgid "Get out of sandbox"
-msgstr ""
+msgstr "WebPayのダッシュボードで取得できます。"
 
 #: templates/setup/instagram.php:58
 #, php-format

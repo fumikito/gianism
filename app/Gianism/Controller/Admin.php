@@ -72,13 +72,20 @@ class Admin extends AbstractController {
 			$message[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );
 		}
 		// Check session
-		if ( ! session_id() ) {
-			session_start();
+		if ( ! $this->session->is_available() ) {
+			if ( ! $this->session->start() ) {
+				// Oops, session seemed to be not available.
+				if ( current_user_can( 'manage_options' ) ) {
+					$message[] = $this->_( 'Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.' );
+				}
+			}
 		}
-		if ( ! session_id() ) {
-			// Oops, session seemed to be not available.
-			if ( current_user_can( 'manage_options' ) ) {
-				$message[] = $this->_( 'Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.' );
+		// Check if session is really available
+		if ( current_user_can( 'manage_options' ) ) {
+			$timestamp = current_time( 'timestamp' );
+			$this->session->write( 'tmp', $timestamp );
+			if ( $timestamp != $this->session->get( 'tmp' ) ) {
+				$message[] = sprintf( $this->_( 'Mmm... session seemed to be not working. Please check permission of <code>session.save_path</code>( current value is <code>%s</code>).' ), $this->session->path );
 			}
 		}
 		if ( current_user_can( 'manage_options' ) && $this->option->has_invalid_option( 'google_redirect' ) ) {

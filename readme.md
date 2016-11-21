@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
 Tested up to: 4.6.1  
-Stable tag: 3.0.1  
+Stable tag: 3.0.2
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.0.2
+
+* Minor bugfix on bootstrap file `wp-gianism.php`. PHP < 5.4 failed with syntax error.
 
 ### 3.0.1
 

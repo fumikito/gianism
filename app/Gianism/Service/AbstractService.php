@@ -782,7 +782,7 @@ EOS;
 	 */
 	protected function test_user_can_register() {
 		if ( ! $this->user_can_register() ) {
-			throw new \Exception( sprintf( $this->_( 'Sorry, but you can\'t register via %s.' ), $this->verbose_service_name ) );
+			throw new \Exception( sprintf( $this->_( 'Sorry, but registration via %s is not allowed.' ), $this->verbose_service_name ) );
 		}
 
 		return true;

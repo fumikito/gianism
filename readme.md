@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
-Tested up to: 4.6.1  
-Stable tag: 3.0.2
+Tested up to: 4.7
+Stable tag: 3.0.3
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ If your site needs user's login action, **signing-up is the most difficult step*
 ###  Supported Web services
 
 * [Facebook](https://www.facebook.com)
-* [Twitter](https://twitter.com)
+* [Twitter](https://twitter.com) *Requires PHP >=5.5*
 * [Google](https://google.com)
 * [Instagram](https://instagram.com)
 
@@ -65,13 +65,19 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 ##  Screenshots 
 
-1. Buttons on Login/registeration screen.
+1. Buttons on Login/registration screen.
 2. Show connection status on profile screen. Registered users can connect account here.
 3. Suit to plugins which customize login screen, e.g. [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/).
 
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.0.3
+
+* Twitter login now requires PHP 5.5 and over.
+* If `redirect_to` query is set, redirect user.
+* Change error message.
 
 ### 3.0.2
 

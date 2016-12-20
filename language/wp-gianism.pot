@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 20:58+0900\n"
-"PO-Revision-Date: 2016-11-05 20:58+0900\n"
+"POT-Creation-Date: 2016-12-20 17:41+0900\n"
+"PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: en_US\n"
@@ -288,7 +288,7 @@ msgstr "不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
-#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:205
+#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:214
 #, fuzzy
 msgid "You must be logged in."
 msgstr "WebPayのダッシュボードで取得できます。"
@@ -399,14 +399,14 @@ msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:774
 #: app/Gianism/Service/Facebook.php:394 app/Gianism/Service/Google.php:230
-#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:246
+#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:255
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:785
 #, php-format
-msgid "Sorry, but you can't register via %s."
+msgid "Sorry, but registration via %s is not allowed."
 msgstr ""
 
 #: app/Gianism/Service/Facebook.php:121
@@ -437,6 +437,13 @@ msgstr ""
 
 #: app/Gianism/Service/Facebook.php:630
 msgid "Token is outdated. Please update it."
+msgstr ""
+
+#: app/Gianism/Service/Twitter.php:118
+#, php-format
+msgid ""
+"Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login "
+"will be failed."
 msgstr ""
 
 #: app/Gianism/UI/Screen.php:111

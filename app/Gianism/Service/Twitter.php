@@ -110,6 +110,15 @@ class Twitter extends NoMailService {
 	 */
 	protected function __construct( array $argument = array() ) {
 		parent::__construct( $argument );
+		// TODO: Change this process if PHP requirements changed.
+		if ( version_compare( phpversion(), '5.5.0', '<' ) && $this->enabled ) {
+			add_action( 'admin_notices', function() {
+				printf(
+					'<div class="error"><p>%s</p></div>',
+					sprintf( $this->_( 'Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login will be failed.' ), phpversion() )
+				);
+			} );
+		}
 	}
 
 	/**

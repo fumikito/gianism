@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 20:58+0900\n"
-"PO-Revision-Date: 2016-11-05 21:00+0900\n"
+"POT-Creation-Date: 2016-12-20 17:41+0900\n"
+"PO-Revision-Date: 2016-12-20 17:42+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -295,7 +295,7 @@ msgstr "なにかしましたか？　不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
-#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:205
+#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:214
 msgid "You must be logged in."
 msgstr "ログインする必要があります。"
 
@@ -407,15 +407,15 @@ msgstr "登録できませんでした。時間をおいてからもう一度試
 
 #: app/Gianism/Service/AbstractService.php:774
 #: app/Gianism/Service/Facebook.php:394 app/Gianism/Service/Google.php:230
-#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:246
+#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:255
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
 #: app/Gianism/Service/AbstractService.php:785
 #, php-format
-msgid "Sorry, but you can't register via %s."
-msgstr "申し訳ありません、%sを登録できませんでした。"
+msgid "Sorry, but registration via %s is not allowed."
+msgstr "申し訳ありません、%sでの登録は許可されていません。"
 
 #: app/Gianism/Service/Facebook.php:121
 msgid "Facebook API"
@@ -444,6 +444,15 @@ msgstr "トークンが設定されていません。取得してください。
 #: app/Gianism/Service/Facebook.php:630
 msgid "Token is outdated. Please update it."
 msgstr "トークンが期限切れです。更新してください。"
+
+#: app/Gianism/Service/Twitter.php:118
+#, php-format
+msgid ""
+"Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login "
+"will be failed."
+msgstr ""
+"twitterログインはPHP5.5以上が必須ですが、あなたのバージョンは%sです。すべての"
+"twitterログインは失敗します。"
 
 #: app/Gianism/UI/Screen.php:111
 #, php-format

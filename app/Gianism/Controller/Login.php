@@ -72,6 +72,9 @@ class Login extends AbstractController {
 		if ( empty( $after ) ) {
 			$after = '</div>';
 		}
+		if ( '' === $redirect_to && ( $redirect_query = $this->input->get( 'redirect_to' ) ) ) {
+			$redirect_to = $redirect_query;
+		}
 		echo $before;
 		/**
 		 * gianism_before_login_form

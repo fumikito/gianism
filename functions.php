@@ -12,6 +12,7 @@
  * Returns Facebook ID
  *
  * @since 3.0.0
+ * @package Gianism
  *
  * @param int $user_id
  *
@@ -58,6 +59,7 @@ function gianism_get_facebook_id( $user_id ) {
  * </pre>
  *
  * @since 3.0.0
+ * @package Gianism
  *
  * @param string $redirect_url URL where user will be redirect after authentication
  * @param string $action Action name which will be fired after authentication
@@ -87,6 +89,8 @@ function gianism_get_facebook_publish_permission_link( $redirect_url = null, $ac
  * }
  * </pre>
  *
+ * @package Gianism
+ * @since 3.0.0
  * @return \Facebook\Facebook|WP_Error
  */
 function gianism_fb_admin() {
@@ -112,6 +116,8 @@ function gianism_fb_admin() {
  * }
  * </pre>
  *
+ * @package Gianism
+ * @since 3.0.0
  * @return int|string
  */
 function gianism_fb_admin_id() {
@@ -124,6 +130,7 @@ function gianism_fb_admin_id() {
 /**
  * Returns if user is connected with particular web service.
  *
+ * @package Gianism
  * @since 3.0.0
  *
  * @param string $service One of facebook, mixi, yahoo, twitter or google.
@@ -148,6 +155,7 @@ function gianism_is_user_connected_with( $service, $user_id = 0 ) {
  * Only facebook is supported.
  *
  * @todo Make other services to work.
+ * @package Gianism
  * @since 3.0.0
  * @global \wpdb $wpdb
  * @param string $service
@@ -180,6 +188,7 @@ function gianism_get_user_by_service( $service, $credential ) {
 /**
  * Get Twitter Screen Name
  *
+ * @package Gianism
  * @since 3.0.0
  *
  * @param int $user_id
@@ -197,6 +206,7 @@ function gianism_get_twitter_screen_name( $user_id ) {
 /**
  * Update Twitter time line
  *
+ * @package Gianism
  * @since 3.0.0
  *
  * @param string $string
@@ -210,6 +220,7 @@ function gianism_update_twitter_status( $string ) {
 /**
  * Reply to specified user by Owner Account
  *
+ * @package Gianism
  * @since 3.0.0
  *
  * @param int $user_id
@@ -243,6 +254,7 @@ function gianism_twitter_reply_to( $user_id, $string ) {
  * }
  * </pre>
  *
+ * @package Gianism
  * @since 3.0.0
  *
  * @param string $screen_name If not specified, admin user's screen name will be used.
@@ -269,6 +281,7 @@ function gianism_twitter_get_timeline( $screen_name = null, array $additional_da
  *
  * Show login buttons where you want.
  *
+ * @package Gianism
  * @since 1.0
  *
  * @param string $before
@@ -284,6 +297,9 @@ function gianism_login( $before = '', $after = '', $redirect_to = '' ) {
 /**
  * Add UTM campaign link to WordPress admin
  *
+ * @package Gianism
+ * @since 3.0.0
+ * @internal
  * @param string $url
  * @param array  $args
  *

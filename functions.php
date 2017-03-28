@@ -145,7 +145,7 @@ function gianism_is_user_connected_with( $service, $user_id = 0 ) {
 		$user_id = get_current_user_id();
 	}
 
-	return ( $instance = $gianism->get_service_instance( $service ) ) && $instance->is_connected( $user_id );
+	return ( $instance = $gianism->service->get( $service ) ) && $instance->is_connected( $user_id );
 }
 
 
@@ -166,7 +166,7 @@ function gianism_is_user_connected_with( $service, $user_id = 0 ) {
 function gianism_get_user_by_service( $service, $credential ) {
 	global $wpdb;
 	$gianism  = \Gianism\Bootstrap::get_instance();
-	$instance = $gianism->get_instance( $service );
+	$instance = $gianism->service->get( $service );
 	if ( ! $instance ) {
 		return false;
 	}

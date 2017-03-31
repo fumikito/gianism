@@ -16,7 +16,7 @@ env:
   - WP_VERSION=4.6 WP_MULTISITE=0
   global:
   - SVN_REPO: https://plugins.svn.wordpress.org/gianism/
-  - secure: "HM/WQwdBmnmvHJ+60V7zwHEa1kpcLY0vHzWMJWhJwA89JjIm+YFJL1XRZUxgooVKK/L0zBSMxrmy7oG2KtqGIcoXH2NYnbrQHUblbw9xIejfkowBC4QMcCXmYlVUmR1zc42XUFzn7Dd8YkGyqoSHYa4AvQrLu35b4yt8m6L5JP0="
+  - secure: "SoQvImLE6BURpTxCgnN05XQAhCPGARVDxvqmz9W+WEbzy/dQYSP2mFMDwspeCk7WcNjDzzCjDk6Zz3SRj31rvzaYsdPOboLPkSX/n+RwiCQYWpAiiAL+OYm7RYoj+6N7cK2dzaDhYRG2sbdZ0nkS/+4J4TmEp9CtiA5Q+S5RLJo="
 matrix:
   include:
   - php: 5.6

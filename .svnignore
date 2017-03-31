@@ -1,0 +1,11 @@
+.git
+.gitignore
+.travis.yml
+tests
+bin
+node_modules
+package.json
+phpdoc.xml
+phpunit.xml.dist
+composer.json
+composer.lock

@@ -210,11 +210,13 @@ function gianism_get_twitter_screen_name( $user_id ) {
  * @since 3.0.0
  *
  * @param string $string
+ * @return bool
  */
 function gianism_update_twitter_status( $string ) {
 	/** @var \Gianism\Service\Twitter $twitter */
 	$twitter = \Gianism\Service\Twitter::get_instance();
-	$twitter->tweet( $string );
+	$response = $twitter->tweet( $string );
+	return ! $response->errors;
 }
 
 /**

@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
-Tested up to: 4.7
-Stable tag: 3.0.3
+Tested up to: 4.7.3  
+Stable tag: 3.0.4  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,7 @@ If your site needs user's login action, **signing-up is the most difficult step*
 * Use [Google API PHP Client](http://code.google.com/p/google-api-php-client/).
 * Use [Ligature Symbols](http://kudakurage.com/ligature_symbols/) (Web font).
 
-Gianism awes a lot to these open source projects. Thaks lots!
+Gianism awes a lot to these open source projects. Thanks lots!
 
 ##  Installation 
 
@@ -51,7 +51,7 @@ After plugin's activation, you have to set it up. Every setup has 2 step. One is
 
 For example, if you use Facebook, register new app on Facebook, then input app ID and token on WordPress admin panel. Every SNS requires **registeration of Apps** and **credentials related to it**.
 
-For more details, please refer to our site [gianism.info](https://gianism.info/)
+For more details, please refer to setting screen's instruction or our site [gianism.info](https://gianism.info/).
 
 ##  Frequently Asked Questions 
 
@@ -72,6 +72,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.0.4
+
+* Fix fatal error on utility function call([detail](https://github.com/fumikito/Gianism/pull/70)). Thanks [@atomita](https://github.com/atomita)!
 
 ### 3.0.3
 

@@ -290,7 +290,7 @@ abstract class AbstractService extends Application {
 		try {
 			// Is user logged in?
 			if ( is_user_logged_in() ) {
-				throw new \Exception( $this->_( 'You are logged in, ah?' ) );
+				throw new \Exception( $this->_( 'You are logged in, ah?' ), 403 );
 			}
 			// Create URL
 			$url = $this->get_api_url( 'login' );

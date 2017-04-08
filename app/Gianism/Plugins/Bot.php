@@ -7,7 +7,7 @@ use Gianism\Service\Twitter;
 /**
  * Class Bot
  *
- * @package Gianism\Helper
+ * @package Gianism
  */
 class Bot extends PluginBase {
 

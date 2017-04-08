@@ -11,7 +11,7 @@ use Gianism\Helper\Session;
 
 /**
  * Application base trait
- * @package Gianism\Pattern
+ * @package Gianism
  * @property \wpdb          $db      Database controller
  * @property string         $url     Base URL of plugin.
  * @property string         $dir     Base directory of plugin.

@@ -7,7 +7,7 @@ use Gianism\Pattern\Singleton;
 
 /**
  * Input Helper
- * @package Gianism\Helper
+ * @package Gianism
  */
 class Input extends Singleton {
 

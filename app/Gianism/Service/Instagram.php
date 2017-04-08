@@ -6,7 +6,7 @@ namespace Gianism\Service;
  * Instagram
  *
  * @since 3.0.0
- * @package Gianism\Service
+ * @package Gianism
  */
 class Instagram extends NoMailService {
 

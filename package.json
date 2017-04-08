@@ -1,11 +1,13 @@
 {
   "name": "gianism",
-  "version": "3.0.1",
+  "version": "3.0.4",
   "description": "Gianism Gulp Tasks",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp build"
+    "start": "gulp build && gulp watch",
+    "watch": "gulp watch",
+    "package": "gulp build"
   },
   "author": "Hametuha inc.",
   "license": "GPL-2.0",

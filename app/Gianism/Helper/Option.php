@@ -7,7 +7,7 @@ use Gianism\Pattern\Singleton;
 /**
  * Option interface
  *
- * @package Gianism\Helper
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  *
@@ -280,7 +280,13 @@ class Option extends Singleton {
 	 * @return bool
 	 */
 	public function user_can_register() {
-		return $this->force_register ?: (bool) get_option( 'users_can_register' );
+		// WordPress' default.
+		$can = $this->force_register ?: (bool) get_option( 'users_can_register' );
+		// If WooCommerce is installed, change it.
+		if ( gianism_woocommerce_detected() ) {
+			$can = true;
+		}
+		return $can;
 	}
 
 	/**

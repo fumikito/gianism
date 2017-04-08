@@ -11,7 +11,7 @@ use Gianism\Controller\Login;
 /**
  * Common Utility for Social Service
  *
- * @package Gianism\Service\Common
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  * @property-read string $service_name
@@ -76,7 +76,7 @@ abstract class AbstractService extends Application {
 			// Show profile page
 			add_action( 'gianism_user_profile', array( $this, 'profile_connect' ) );
 			//Add Hook on Login Form page
-			add_action( Login::LOGIN_FORM_ACTION, array( $this, 'login_form' ), 10, 2 );
+			add_action( 'gianism_login_form', array( $this, 'login_form' ), 10, 3 );
 			if ( method_exists( $this, 'print_script' ) ) {
 				//Add Hook On footer
 				add_action( 'admin_print_footer_scripts', array( $this, 'print_script' ) );
@@ -376,12 +376,13 @@ EOS;
 	 * Display login buttons
 	 *
 	 * @param boolean $is_register
-	 * @param string $redirect_to
+	 * @param string  $redirect_to
+	 * @param string  $context
 	 *
 	 * @return void
 	 */
-	public function login_form( $is_register = false, $redirect_to = '' ) {
-		echo $this->login_button( $redirect_to, $is_register );
+	public function login_form( $is_register = false, $redirect_to = '', $context = '' ) {
+		echo $this->login_button( $redirect_to, $is_register, $context );
 	}
 
 	/**
@@ -454,19 +455,20 @@ EOS;
 	 *
 	 * @return string
 	 */
-	public function filter_link( $markup, $href, $text, $is_register = false ) {
+	public function filter_link( $markup, $href, $text, $is_register = false, $context = '' ) {
 		/**
-		 * Button filter
+		 * gianism_link_html
 		 *
-		 * @filter gianism_link_html
-		 *
-		 * @param string $markup
-		 * @param string $href
-		 * @param string $text
-		 * @param bool   $is_register Is register form
-		 * @param string $service facebook, twitter, etc.
+		 * @package Gianism
+		 * @since 3.0.4 Add context parameter.
+		 * @param string $markup      Final markup.
+		 * @param string $href        Link's attribute.
+		 * @param string $text        Link text.
+		 * @param bool   $is_register Is register form.
+		 * @param string $service     Service name. facebook, twitter, etc.
+		 * @param string $context     Context. Default empty.
 		 */
-		$link = apply_filters( 'gianism_link_html', $markup, $href, $text, $is_register, $this->service_name );
+		$link = apply_filters( 'gianism_link_html', $markup, $href, $text, $is_register, $this->service_name, $context );
 		return $link;
 	}
 
@@ -516,6 +518,8 @@ EOS;
 
 	/**
 	 * Detect if current client is smart phone.
+	 *
+	 * @deprecated 3.0.0
 	 * @return boolean
 	 */
 	protected function is_smartphone() {
@@ -525,21 +529,23 @@ EOS;
 	/**
 	 * Create common button
 	 *
-	 * @param string $text
-	 * @param string $href
-	 * @param bool $icon_name
-	 * @param array $class_names
-	 * @param array $attributes
+	 * @param string $text        Text to display.
+	 * @param string $href        Link's href.
+	 * @param bool   $icon_name   Icon name of LSF.
+	 * @param array  $class_names Class name for this button.
+	 * @param array  $attributes  Attributes for link.
+	 * @param string $context     Display context. Default empty.
 	 *
 	 * @return string
 	 */
-	public function button( $text, $href, $icon_name = true, array $class_names = [ 'wpg-button' ], array $attributes = [] ) {
+	public function button( $text, $href, $icon_name = true, array $class_names = [ 'wpg-button' ], array $attributes = [], $context = '' ) {
 		// Create icon
-		$icon = '';
 		if ( true === $icon_name ) {
 			$icon = "<i class=\"lsf lsf-{$this->service_name}\"></i> ";
 		} elseif ( is_string( $icon_name ) ) {
 			$icon = "<i class=\"lsf lsf-{$icon_name}\"></i> ";
+		} else {
+			$icon = '';
 		}
 		$class_attr = implode( ' ', array_map( function ( $attr ) {
 			return esc_attr( $attr );
@@ -559,27 +565,46 @@ EOS;
 		}
 		$atts = ' ' . implode( ' ', $atts );
 
-		return sprintf(
-			'<a href="%2$s" rel="nofollow" class="%4$s"%5$s>%3$s%1$s</a>',
-			$text,
-			$href,
-			$icon,
-			$class_attr,
-			$atts
-		);
+		switch ( $context ) {
+			case 'woo-checkout':
+				return 'ログイン';
+				break;
+			default:
+				return sprintf(
+					'<a href="%2$s" rel="nofollow" class="%4$s"%5$s>%3$s%1$s</a>',
+					$text,
+					$href,
+					$icon,
+					$class_attr,
+					$atts
+				);
+				break;
+		}
 	}
 
 	/**
 	 * Show login button
 	 *
 	 * @param string $redirect
-	 * @param bool $register
+	 * @param bool   $register
+	 * @param string $context
 	 *
 	 * @return string
 	 */
-	public function login_button( $redirect = '', $register = false ) {
+	public function login_button( $redirect = '', $register = false, $context = '' ) {
 		if ( ! $redirect ) {
 			$redirect = admin_url( 'profile.php' );
+			/**
+			 * gianism_default_redirect_link
+			 *
+			 * @package Gianism
+			 * @since 3.0.4
+			 * @param string $redirect Redirect URL.
+			 * @param string $service  Service name. e.g. twitter.
+			 * @param bool   $register Detect if this is register context.
+			 * @param string $context  Context of this button. Default empty string.
+			 */
+			$redirect = apply_filters( 'gianism_default_redirect_link', $redirect, $this->service_name, $register, $context );
 		}
 		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', array(
 			'redirect_to' => $redirect,
@@ -589,9 +614,9 @@ EOS;
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'login',
 			'gianism-ga-label'    => sprintf( $this->_( 'Login with %s' ), $this->verbose_service_name ),
-		) );
+		), $context );
 
-		return $this->filter_link( $button, $url, $text, $register );
+		return $this->filter_link( $button, $url, $text, $register, $context );
 	}
 
 

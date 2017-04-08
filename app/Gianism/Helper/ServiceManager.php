@@ -8,7 +8,7 @@ use Gianism\Pattern\Singleton;
 
 /**
  * Class ServiceManager
- * @package Gianism\Helper
+ * @package Gianism
  */
 class ServiceManager extends Singleton  {
 

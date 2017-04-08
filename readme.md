@@ -18,6 +18,10 @@ If your site needs user's login action, **signing-up is the most difficult step*
 
 **NOTICE: Requires PHP5.4 and over!**
 
+### Log in Flow Video
+
+https://youtu.be/JXl3EMPmXkY
+
 ###  Supported Web services
 
 * [Facebook](https://www.facebook.com)

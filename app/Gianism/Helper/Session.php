@@ -8,7 +8,7 @@ use Gianism\Pattern\Singleton;
 /**
  * Session controller
  *
- * @package Gianism\Helper
+ * @package Gianism
  * @since 3.0.0
  */
 class Session extends Singleton  {

@@ -4,7 +4,7 @@ namespace Gianism\Helper;
 
 /**
  * i18n helper
- * @package Gianism\Helper
+ * @package Gianism
  */
 trait i18n {
 

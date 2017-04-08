@@ -7,7 +7,7 @@ use Gianism\Helper\PseudoPhpMailer;
 /**
  * Service which doesn't provide email address
  *
- * @package Gianism\Service\Common
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  */

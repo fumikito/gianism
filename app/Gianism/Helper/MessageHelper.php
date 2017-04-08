@@ -5,7 +5,7 @@ namespace Gianism\Helper;
 
 /**
  * Add message helper
- * @package Gianism\Helper
+ * @package Gianism
  * @since 3.0.0
  */
 trait MessageHelper {

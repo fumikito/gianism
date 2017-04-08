@@ -8,7 +8,7 @@ use Facebook\SignedRequest;
 /**
  * Description of facebook_controller
  *
- * @package Gianism\Service
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  * @property-read \Facebook\Facebook|\WP_Error $api Facebook object

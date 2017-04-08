@@ -7,7 +7,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 /**
  * Description of twitter_controller
  *
- * @package Gianism\Service
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  */

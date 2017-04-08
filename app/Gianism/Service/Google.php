@@ -7,7 +7,7 @@ use Gianism\Cron\Daily;
 /**
  * Google client
  *
- * @package Gianism\Service
+ * @package Gianism
  * @since 2.0.0
  * @author Takahashi Fumiki
  *

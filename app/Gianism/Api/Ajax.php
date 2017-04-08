@@ -8,7 +8,7 @@ use Gianism\Plugins\AnalyticsFetcher;
 /**
  * Ajax Base
  *
- * @package Gianism\Api
+ * @package Gianism
  */
 abstract class Ajax extends AnalyticsFetcher {
 

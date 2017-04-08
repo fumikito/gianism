@@ -5,7 +5,7 @@ use Gianism\Pattern\DummyPhpMailer;
 
 /**
  * Pseudo PHPMailer class for Hijack mail sending.
- * @package Gianism\Helper
+ * @package Gianism
  */
 class PseudoPhpMailer implements DummyPhpMailer {
 

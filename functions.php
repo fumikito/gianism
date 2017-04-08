@@ -315,3 +315,14 @@ function gianism_utm_link( $url, $args = [] ) {
 	] );
 	return add_query_arg( $args, $url );
 }
+
+/**
+ * Detect if WooCommerce is activated
+ *
+ * @package Gianism
+ * @since 3.0.5
+ * @return bool
+ */
+function gianism_woocommerce_detected() {
+	return class_exists( 'WooCommerce' );
+}

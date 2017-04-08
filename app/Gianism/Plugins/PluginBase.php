@@ -10,7 +10,7 @@ use Gianism\Pattern\Application;
  *
  * Override this class to make plugin or add-ons.
  *
- * @package Gianism\Plugins
+ * @package Gianism
  * @property string $plugin_name
  */
 abstract class PluginBase extends Application {

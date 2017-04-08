@@ -5,7 +5,7 @@ namespace Gianism\UI;
 /**
  * Setting Screen
  *
- * @package Gianism\UI
+ * @package Gianism
  */
 class SettingScreen extends Screen {
 
@@ -49,5 +49,4 @@ class SettingScreen extends Screen {
 			exit;
 		}
 	}
-
 }

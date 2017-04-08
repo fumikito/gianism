@@ -4,7 +4,7 @@ namespace Gianism\Helper;
 
 /**
  * Extension manager
- * @package Gianism\Helper
+ * @package Gianism
  */
 trait ExtensionManager {
 	/**

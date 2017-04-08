@@ -52,6 +52,32 @@ class Bootstrap extends Singleton {
 		add_action( 'admin_menu', function () {
 			Admin::get_instance();
 		} );
+		// Register notices
+		if ( is_admin() ) {
+			$notices = [];
+			foreach ( scandir( __DIR__ . '/Notices' ) as $file ) {
+				if ( preg_match( '#^([^_.]+)\.php$#u', $file, $matches ) ) {
+					$class_name = "Gianism\\Notices\\{$matches[1]}";
+					if ( class_exists( $class_name ) ) {
+						$notices[] = $class_name;
+					}
+				}
+			}
+			/**
+			 * gianism_admin_notices_class
+			 *
+			 * @package Gianism
+			 * @since 3.0.4
+			 * @param array $notices Class name array.
+			 */
+			$notices = apply_filters( 'gianism_admin_notices_class', $notices );
+			foreach ( $notices as $notice ) {
+				if ( is_subclass_of( $notice, 'Gianism\\Pattern\\AbstractNotice' ) ) {
+					$instance = new $notice();
+				}
+			}
+		}
+
 		// Remove WP Multi-byte Patch's CSS
 		// Because it breaks icon font
 		add_action( 'admin_enqueue_scripts', function () {

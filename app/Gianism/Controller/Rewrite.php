@@ -9,7 +9,7 @@ use Gianism\Service\AbstractService;
 /**
  * Rewrite rule controller
  *
- * @package Gianism\Controller
+ * @package Gianism
  */
 class Rewrite extends AbstractController {
 

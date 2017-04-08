@@ -6,7 +6,7 @@ namespace Gianism\Pattern;
 /**
  * Base class
  *
- * @package Gianism\Pattern
+ * @package Gianism
  * @author Takahashi Fumiki
  * @since 2.0
  *

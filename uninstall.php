@@ -18,6 +18,7 @@ delete_option( 'wpg_analytics_profile' );
 delete_option( 'gianism_facebook_admin_token' );
 delete_option( 'gianism_facebook_admin_refreshed' );
 delete_option( 'gianism_facebook_admin_id' );
+delete_option( 'gianism_notice_log' );
 
 
 // Delete All message if exists.

@@ -7,7 +7,7 @@ use Gianism\Pattern\Singleton;
 /**
  * Ability to fetch Google analytics data
  *
- * @package Gianism\Plugins
+ * @package Gianism
  * @property \Gianism\Plugins\Analytics $google
  * @property \Google_Service_Analytics $ga
  * @property array  $profile

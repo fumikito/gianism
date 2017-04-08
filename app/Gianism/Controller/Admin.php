@@ -91,15 +91,6 @@ class Admin extends AbstractController {
 		if ( current_user_can( 'manage_options' ) && $this->option->has_invalid_option( 'google_redirect' ) ) {
 			$message[] = sprintf( $this->_( 'Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.' ), admin_url( 'options-general.php?page=gianism' ) );
 		}
-		/**
-		 * Admin error message to display
-		 *
-		 * @filter gianism_admin_notices
-		 * @param  array $message
-		 * @return array
-		 */
-		$this->invalid_options = apply_filters( 'gianism_admin_notices', $message );
-		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
 	}
 
 
@@ -110,15 +101,7 @@ class Admin extends AbstractController {
 	 */
 	public function admin_enqueue_scripts( $hook_suffix ) {
 		// Setting page and profile page
-		if ( false !== array_search( $hook_suffix, [
-			'settings_page_gianism',
-			'profile.php',
-			'tools_page_gianism_ga',
-			'post-new.php',
-			'post.php',
-		] ) ) {
-			wp_enqueue_script( $this->name . '-admin-helper' );
-		}
+		wp_enqueue_script( $this->name . '-admin-helper' );
 		// Other
 		wp_enqueue_style( $this->name . '-admin-panel' );
 	}

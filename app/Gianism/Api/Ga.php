@@ -8,7 +8,7 @@ use Gianism\Service\Google;
 
 /**
  * Class GA
- * @package Gianism\Api
+ * @package Gianism
  * @property \Gianism\Plugins\Analytics $google
  * @property \Google_Service_Analytics $ga
  * @property array $profile

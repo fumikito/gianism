@@ -204,7 +204,7 @@ class Facebook extends AbstractService {
 	public function handle_admin( \WP_Query $wp_query ) {
 		try {
 			if ( $this->input->request( 'publish' ) ) {
-				add_filter( 'gianism_facebook_permissions', function( $permission, $action ){
+				add_filter( 'gianism_facebook_permissions', function( $permission, $action ) {
 					if ( 'admin' == $action ) {
 						$permission[] = 'publish_actions';
 					}
@@ -280,7 +280,9 @@ class Facebook extends AbstractService {
 								'display_name' => $user['name'],
 								'user_url'     => $user['link'],
 							],
-							[ 'ID' => $user_id ],
+							[
+								'ID' => $user_id,
+							],
 							[ '%s', '%s' ],
 							[ '%d' ]
 						);

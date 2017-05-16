@@ -129,7 +129,7 @@ class Instagram extends NoMailService {
 					if ( ! $user_id ) {
 						$this->test_user_can_register();
 						// Make pseudo mail
-						$email = $user->data->username. '@' . $this->pseudo_domain;
+						$email = $user->data->username . '@' . $this->pseudo_domain;
 						// Make username from screen name
 						$user_name = ( ! username_exists( '@' . $user->data->username ) ) ? '@' . $user->data->username : $email;
 						/**
@@ -158,7 +158,9 @@ class Instagram extends NoMailService {
 								'display_name' => $user_name,
 								'user_url'     => sprintf( 'https://www.instagram.com/%s/', $user->data->username ),
 							],
-							[ 'ID' => $user_id ],
+							[
+								'ID' => $user_id,
+							],
 							[ '%s', '%s' ],
 							[ '%d' ]
 						);
@@ -304,7 +306,7 @@ class Instagram extends NoMailService {
 	 */
 	public function request_api( $token, $endpoint, $params = [], $method = 'GET', $headers = [] ) {
 		$headers = array_merge( [ 'Accept: application/json' ], $headers );
-		$endpoint = 'https://api.instagram.com/v1/'.trailingslashit( ltrim( $endpoint, '/' ) );
+		$endpoint = 'https://api.instagram.com/v1/' . trailingslashit( ltrim( $endpoint, '/' ) );
 		$params['access_token'] = $token;
 		$response = $this->get_response( $endpoint, $params, $method, false, $headers );
 		$code = 400;

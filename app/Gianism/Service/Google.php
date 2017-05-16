@@ -158,7 +158,9 @@ class Google extends AbstractService {
 							array(
 								'display_name' => $profile['name'],
 							),
-							array( 'ID' => $user_id ),
+							array(
+								'ID' => $user_id,
+							),
 							array( '%s' ),
 							array( '%d' )
 						);

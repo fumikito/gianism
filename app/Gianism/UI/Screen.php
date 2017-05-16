@@ -5,6 +5,10 @@ namespace Gianism\UI;
 
 use Gianism\Pattern\AppBase;
 
+/**
+ * Screen base class.
+ * @package Gianism
+ */
 abstract class Screen {
 
 	use AppBase;
@@ -18,6 +22,8 @@ abstract class Screen {
 	protected $base_url = 'options-general.php';
 
 	/**
+	 * View names
+	 *
 	 * @var array
 	 */
 	protected $views = [];
@@ -103,7 +109,8 @@ abstract class Screen {
 	 */
 	protected function load_template( $name ) {
 		include $this->get_dir() . '/parts/header.php';
-		if ( $path = $this->get_template( $name ) ) {
+		$path = $this->get_template( $name );
+		if ( $path ) {
 			include $path;
 		} else {
 			printf(
@@ -137,7 +144,7 @@ abstract class Screen {
 	 * @return string
 	 */
 	protected function get_dir() {
-		return dirname( dirname( dirname( __DIR__ ) ) ).'/templates';
+		return dirname( dirname( dirname( __DIR__ ) ) ) . '/templates';
 	}
 
 	/**

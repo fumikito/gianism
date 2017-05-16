@@ -196,7 +196,9 @@ class Twitter extends NoMailService {
 								'display_name' => "@{$screen_name}",
 								'user_url'     => 'https://twitter.com/' . $screen_name,
 							],
-							[ 'ID' => $user_id ],
+							[
+								'ID' => $user_id,
+							],
 							[ '%s', '%s' ],
 							[ '%d' ]
 						);
@@ -458,7 +460,7 @@ class Twitter extends NoMailService {
 	 * @return string
 	 */
 	private function authorize_url( $token ) {
-		return 'https://api.twitter.com/oauth/authorize?oauth_token='.$token['oauth_token'];
+		return 'https://api.twitter.com/oauth/authorize?oauth_token=' . $token['oauth_token'];
 	}
 
 

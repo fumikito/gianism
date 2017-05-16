@@ -22,7 +22,7 @@ class Option extends Singleton {
 	use i18n, MessageHelper;
 
 	/**
-	 * @const UPDATED_ACTION Action name which fires on updating option
+	 * Action name which fires on updating option
 	 */
 	const UPDATED_ACTION = 'gianism_option_updated';
 
@@ -63,7 +63,7 @@ class Option extends Singleton {
 	/**
 	 * Constructor
 	 *
-	 * @param array $argument
+	 * @param array $argument Settings array.
 	 */
 	protected function __construct( array $argument = [] ) {
 		$this->values = get_option( $this->key, [] );
@@ -78,7 +78,7 @@ class Option extends Singleton {
 	 * Set default option
 	 *
 	 * @param string $key
-	 * @param mixed $default
+	 * @param mixed  $default
 	 */
 	public function set_default( $key, $default ) {
 		if ( ! isset( $this->values[ $key ] ) ) {

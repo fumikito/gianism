@@ -137,7 +137,7 @@ abstract class AbstractService extends Application {
 	 * @return string
 	 */
 	public function get_admin_template( $template_dir ) {
-		$dir = trailingslashit( $this->dir.'templates/'.basename( $template_dir ) );
+		$dir = trailingslashit( $this->dir . 'templates/' . basename( $template_dir ) );
 		if ( is_dir( $dir ) ) {
 			return sprintf( '%s%s.php', $dir, $this->service_name );
 		} else {

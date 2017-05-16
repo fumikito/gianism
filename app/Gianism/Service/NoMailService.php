@@ -72,15 +72,9 @@ abstract class NoMailService extends AbstractService {
 	 * @return array
 	 */
 	final public function mail_handler( $args ) {
-		/** @var string $subject */
-		/** @var string $message */
-		/** @var string $headers */
-		/** @var string $attachments */
-		/** @var string $to */
-		extract( $args );
-		if ( $this->is_pseudo_mail( $to ) && ( $user_id = email_exists( $to ) ) ) {
+		if ( $this->is_pseudo_mail( $args['to'] ) && ( $user_id = email_exists( $args['to'] ) ) ) {
 			// Send mail
-			$this->wp_mail( $user_id, $subject, $message, $headers, $attachments );
+			$this->wp_mail( $user_id, $args['subject'], $args['message'], $args['headers'], $args['attachments'] );
 			add_action( 'phpmailer_init', [ $this, 'hijack_php_mailer' ] );
 		}
 		return $args;

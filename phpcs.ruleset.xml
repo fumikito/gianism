@@ -8,8 +8,13 @@
 		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
 		<exclude name="WordPress.Files.FileName" />
 		<exclude name="Squiz.Commenting.FileComment" />
+		<exclude name="Squiz.PHP.CommentedOutCode" />
+		<exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+		<exclude name="Squiz.Commenting.VariableComment.Missing" />
+		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
+		<exclude name="WordPress.WP.I18n.SingleUnderscoreGetTextFunction" />
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
 	</rule>
-	<rule ref="WordPress-Docs" />
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>

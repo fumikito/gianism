@@ -150,16 +150,30 @@ class Twitter extends NoMailService {
 					if ( ! isset( $access_token['user_id'], $access_token['screen_name'] ) ) {
 						throw new \Exception( $this->api_error_string() );
 					}
-					$twitter_id  = $access_token['user_id'];
-					$screen_name = $access_token['screen_name'];
+					$twitter_id   = $access_token['user_id'];
+					$screen_name  = $access_token['screen_name'];
+					$oauth_token  = $access_token['oauth_token'];
+					$oauth_secret = $access_token['oauth_token_secret'];
+					// Get exiting user ID
 					$user_id     = $this->get_meta_owner( $this->umeta_id, $twitter_id );
 					if ( ! $user_id ) {
 						// Test
 						$this->test_user_can_register();
-						// Make pseudo mail
-						$email = $screen_name . '@' . $this->pseudo_domain;
-						if ( email_exists( $email ) ) {
-							$email = 'tw-' . $twitter_id . '@' . $this->pseudo_domain;
+						// Check if you can get email
+						$verified = $this->get_oauth( $oauth_token, $oauth_secret );
+						$profile  = $verified->get( 'account/verify_credentials', [
+							'skip_status'   => 'true',
+							'include_email' => 'true',
+						] );
+						if ( $profile && isset( $profile->email ) && $profile->email ) {
+							// Yay! Email retrieved.
+							$email = $profile->email;
+						} else {
+							// No mail, let's make pseudo mail address.
+							$email = $screen_name . '@' . $this->pseudo_domain;
+							if ( email_exists( $email ) ) {
+								$email = 'tw-' . $twitter_id . '@' . $this->pseudo_domain;
+							}
 						}
 						// Make username from screen name
 						$user_name = ( ! username_exists( '@' . $screen_name ) ) ? '@' . $screen_name : $email;

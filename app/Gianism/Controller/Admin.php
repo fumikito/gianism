@@ -24,8 +24,9 @@ class Admin extends AbstractController {
 	 */
 	protected $views = [];
 
-	protected $default_views = [];
-
+	/**
+	 * Invalid option
+	 */
 	protected $invalid_options = [];
 
 	/**
@@ -61,36 +62,19 @@ class Admin extends AbstractController {
 				$instance = new $class_name();
 			}
 		}
-		// Error message.
-		$message = [];
 		// No service is available.
 		if ( ! $this->option->is_enabled() ) {
-			$message[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setting</a> and follow instructions there.' ), admin_url( 'options-general.php?page=gianism&view=setting' ) );
+			$this->invalid_options[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setting</a> and follow instructions there.' ), admin_url( 'options-general.php?page=gianism&view=setting' ) );
 		}
 		// Check permalink
 		if ( ! get_option( 'rewrite_rules', '' ) ) {
-			$message[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );
+			$this->invalid_options[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );
 		}
-		// Check session
-		if ( ! $this->session->is_available() ) {
-			if ( ! $this->session->start() ) {
-				// Oops, session seemed to be not available.
-				if ( current_user_can( 'manage_options' ) ) {
-					$message[] = $this->_( 'Session is not supported. Gianism requires session for SNS connection, so please contact to your server administrator.' );
-				}
-			}
-		}
-		// Check if session is really available
-		if ( current_user_can( 'manage_options' ) ) {
-			$timestamp = current_time( 'timestamp' );
-			$this->session->write( 'tmp', $timestamp );
-			if ( $timestamp != $this->session->get( 'tmp' ) ) {
-				$message[] = sprintf( $this->_( 'Mmm... session seemed to be not working. Please check permission of <code>session.save_path</code>( current value is <code>%s</code>).' ), $this->session->path );
-			}
-		}
+		// Check old setting
 		if ( current_user_can( 'manage_options' ) && $this->option->has_invalid_option( 'google_redirect' ) ) {
-			$message[] = sprintf( $this->_( 'Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.' ), admin_url( 'options-general.php?page=gianism' ) );
+			$this->invalid_options[] = sprintf( $this->_( 'Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.' ), admin_url( 'options-general.php?page=gianism' ) );
 		}
+		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
 	}
 
 

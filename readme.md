@@ -80,6 +80,8 @@ Here is a list of change logs.
 ### 3.0.4
 
 * Fix fatal error on utility function call([detail](https://github.com/fumikito/Gianism/pull/70)). Thanks [@atomita](https://github.com/atomita)!
+* Now you can get twitter email(extra setting on [twitter application manager](https://apps.twitter.com/) required)!
+* WooCommerce supported.
 
 ### 3.0.3
 

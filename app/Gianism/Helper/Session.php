@@ -10,10 +10,9 @@ use Gianism\Pattern\Singleton;
  *
  * @package Gianism
  * @since 3.0.0
+ * @property string $path
  */
 class Session extends Singleton  {
-
-	public $path = '';
 
 	protected $name = 'gianism';
 
@@ -26,7 +25,6 @@ class Session extends Singleton  {
 		if ( session_id() && isset( $_SESSION[ $this->name ] ) ) {
 			return true;
 		}
-		$this->path = ini_get( 'session.save_path' ) ?: 'no value';
 		if ( ! session_start() ) {
 			return false;
 		}
@@ -86,5 +84,24 @@ class Session extends Singleton  {
 			unset( $_SESSION[ $this->name ][ $key ] );
 		}
 	}
+
+	/**
+	 * Getter
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		switch ( $name ) {
+			case 'path':
+				return session_save_path() ?: 'no value';
+				break;
+			default:
+				return null;
+				break;
+		}
+	}
+
 
 }

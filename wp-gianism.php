@@ -60,8 +60,6 @@ define( 'GIANISM_DOMAIN', $info['text_domain'] );
  */
 define( 'GIANISM_PHP_VERSION', $info['php_version'] );
 
-//Add i18n
-load_plugin_textdomain( GIANISM_DOMAIN, false, 'gianism/language' );
 // For PoEdit scraping
 if ( false ) {
 	__( 'Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.4 required.', GIANISM_DOMAIN );
@@ -75,6 +73,8 @@ add_action( 'plugins_loaded', '_gianism_setup_after_plugins_loaded' );
  * @ignore
  */
 function _gianism_setup_after_plugins_loaded() {
+	//Add i18n for here for other plugins.
+	load_plugin_textdomain( GIANISM_DOMAIN, false, 'gianism/language' );
 	// Check PHP version is 5.4.0 or later
 	try {
 		if ( ! version_compare( phpversion(), GIANISM_PHP_VERSION, '>=' ) ) {

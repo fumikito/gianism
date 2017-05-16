@@ -83,7 +83,7 @@ function _gianism_setup_after_plugins_loaded() {
 		// Load global functions
 		$auto_loader = dirname( __FILE__ ) . '/vendor/autoload.php';
 		if ( ! file_exists( $auto_loader ) ) {
-			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %s. Did you run %s', GIANISM_DOMAIN ) ), dirname( __FILE__ ) . '/vendor/autoload.php', '<code>composer install</code>' ) );
+			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %s. Did you run %s?', GIANISM_DOMAIN ) ), dirname( __FILE__ ) . '/vendor/autoload.php', '<code>composer install</code>' ) );
 		}
 		// Load auto loader.
 		require $auto_loader;

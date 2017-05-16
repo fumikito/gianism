@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-20 17:41+0900\n"
-"PO-Revision-Date: 2016-12-20 17:42+0900\n"
+"POT-Creation-Date: 2017-05-16 13:55+0900\n"
+"PO-Revision-Date: 2017-05-16 13:55+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,13 +13,13 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 2.0\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: app/Gianism/Api/Ajax.php:69 app/Gianism/Plugins/Analytics.php:169
-#: app/Gianism/Plugins/Analytics.php:191 app/Gianism/Plugins/Analytics.php:334
-#: app/Gianism/Plugins/Analytics.php:446
+#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:127
+#: app/Gianism/Plugins/Analytics.php:169 app/Gianism/Plugins/Analytics.php:191
+#: app/Gianism/Plugins/Analytics.php:334 app/Gianism/Plugins/Analytics.php:446
 msgid "You have no permission."
 msgstr "実行する許可がありません。"
 
@@ -46,7 +46,7 @@ msgstr "Google アナリティクスが接続されていません。"
 msgid "Get popular page from %s to %s"
 msgstr "%sから%sまでの人気ページを取得する"
 
-#: app/Gianism/Controller/Admin.php:68
+#: app/Gianism/Controller/Admin.php:67
 #, php-format
 msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setting</a> and "
@@ -55,7 +55,7 @@ msgstr ""
 "サービスが有効になっていません。<a href=\"%s\">Gianism 設定</a>へ行き、画面の"
 "指示に従ってください。"
 
-#: app/Gianism/Controller/Admin.php:72
+#: app/Gianism/Controller/Admin.php:71
 #, php-format
 msgid ""
 "You should set rewrite rules. Go to <a href=\"%s\">Permalink Setting</a> and "
@@ -64,24 +64,7 @@ msgstr ""
 "リライトルールを設定してください。<a href=\"%s\">パーマリンク設定</a>へ行き、"
 "有効化してください。"
 
-#: app/Gianism/Controller/Admin.php:79
-msgid ""
-"Session is not supported. Gianism requires session for SNS connection, so "
-"please contact to your server administrator."
-msgstr ""
-"セッションがサポートされていません。GianismはSNS接続にセッションを必要としま"
-"す。管理者に連絡を取ってください。"
-
-#: app/Gianism/Controller/Admin.php:88
-#, php-format
-msgid ""
-"Mmm... session seemed to be not working. Please check permission of "
-"<code>session.save_path</code>( current value is <code>%s</code>)."
-msgstr ""
-"うーん…セッションが動作していないようです。<code>session.save_path</code>の書"
-"き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
-
-#: app/Gianism/Controller/Admin.php:92
+#: app/Gianism/Controller/Admin.php:75
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -92,11 +75,11 @@ msgstr ""
 "を変更する必要があります</strong>。<a href=\"%s\">設定を更新し</a>、指示に"
 "従ってください。"
 
-#: app/Gianism/Controller/Admin.php:147
+#: app/Gianism/Controller/Admin.php:114
 msgid "Settings"
 msgstr "設定"
 
-#: app/Gianism/Controller/Admin.php:181 templates/parts/sidebar.php:10
+#: app/Gianism/Controller/Admin.php:148 templates/parts/sidebar.php:10
 msgid "Support"
 msgstr "サポート"
 
@@ -150,6 +133,34 @@ msgstr "中"
 #: app/Gianism/Helper/Option.php:220
 msgid "Large"
 msgstr "大"
+
+#: app/Gianism/Notices/SessionSetting.php:51
+#, php-format
+msgid ""
+"Mmm... session seemed to be not working. Please check permission of "
+"<code>session.save_path</code>( current value is <code>%s</code>)."
+msgstr ""
+"うーん…セッションが動作していないようです。<code>session.save_path</code>の書"
+"き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
+
+#: app/Gianism/Notices/WooCompatible.php:42
+#, php-format
+msgid ""
+"<strong>[Notice]</strong> WooCommerce detected but the default user role is "
+"<code>%1$s</code>. It is recommended to change default role to "
+"<strong>Customer</strong> on <a href=\"%2$s\">Setting Page</a>."
+msgstr ""
+"<strong>[Notice]</strong> WooCommerce が検出されましたが、デフォルトの権限グ"
+"ループが <code>%1$s</code> になっています。デフォルト権限グループは<a href="
+"\"%2$s\">設定ページ</a>で<strong>顧客</strong> にしておいてください。"
+
+#: app/Gianism/Pattern/AbstractNotice.php:131
+msgid "This request type is not allowed."
+msgstr "このリクエストタイプは許可されていません。"
+
+#: app/Gianism/Pattern/AbstractNotice.php:136
+msgid "This notice is already dismissed."
+msgstr "この通知はすでに非表示になりました。"
 
 #: app/Gianism/Plugins/Analytics.php:85
 msgid "Interact with Google Analytics data."
@@ -295,7 +306,7 @@ msgstr "なにかしましたか？　不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
-#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:214
+#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:228
 msgid "You must be logged in."
 msgstr "ログインする必要があります。"
 
@@ -337,31 +348,31 @@ msgstr ""
 "%1$sアカウントに接続すると、%2$sに%1$sアカウントでログインできるようになりま"
 "す。パスワードやメールアドレスは必要ありません。"
 
-#: app/Gianism/Service/AbstractService.php:587
+#: app/Gianism/Service/AbstractService.php:612
 #, php-format
 msgid "Log in with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:591
+#: app/Gianism/Service/AbstractService.php:616
 #, php-format
 msgid "Login with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:615
+#: app/Gianism/Service/AbstractService.php:640
 #, php-format
 msgid "Connect %s"
 msgstr "%sと接続"
 
-#: app/Gianism/Service/AbstractService.php:618
+#: app/Gianism/Service/AbstractService.php:643
 msgid "Connect"
 msgstr "コネクト"
 
-#: app/Gianism/Service/AbstractService.php:638
+#: app/Gianism/Service/AbstractService.php:663
 #, php-format
 msgid "Disconnect %s"
 msgstr "%sを接続解除"
 
-#: app/Gianism/Service/AbstractService.php:639
+#: app/Gianism/Service/AbstractService.php:664
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
@@ -370,49 +381,49 @@ msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
 
-#: app/Gianism/Service/AbstractService.php:642
+#: app/Gianism/Service/AbstractService.php:667
 msgid "Disconnect"
 msgstr "切断"
 
-#: app/Gianism/Service/AbstractService.php:713
+#: app/Gianism/Service/AbstractService.php:738
 msgid "Sorry, but cannot create valid user name."
 msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:722
+#: app/Gianism/Service/AbstractService.php:747
 #, php-format
 msgid "%s API returns error."
 msgstr "%s APIがエラーを返しました。"
 
-#: app/Gianism/Service/AbstractService.php:731
+#: app/Gianism/Service/AbstractService.php:756
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr "この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: app/Gianism/Service/AbstractService.php:740
+#: app/Gianism/Service/AbstractService.php:765
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
-#: app/Gianism/Service/AbstractService.php:749
+#: app/Gianism/Service/AbstractService.php:774
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:758
+#: app/Gianism/Service/AbstractService.php:783
 msgid "Cannot retrieve email address."
 msgstr "メールアドレスを取得できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:767
+#: app/Gianism/Service/AbstractService.php:792
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/Gianism/Service/AbstractService.php:774
+#: app/Gianism/Service/AbstractService.php:799
 #: app/Gianism/Service/Facebook.php:394 app/Gianism/Service/Google.php:230
-#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:255
+#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:269
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
-#: app/Gianism/Service/AbstractService.php:785
+#: app/Gianism/Service/AbstractService.php:810
 #, php-format
 msgid "Sorry, but registration via %s is not allowed."
 msgstr "申し訳ありません、%sでの登録は許可されていません。"
@@ -477,7 +488,7 @@ msgstr "設定"
 msgid "How to set up"
 msgstr "設定方法"
 
-#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:55
+#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:60
 msgid "Customize"
 msgstr "カスタマイズ"
 
@@ -1183,12 +1194,12 @@ msgid "Current registration setting"
 msgstr "現在の登録設定"
 
 #: templates/setting.php:20
-msgid "Enabled"
-msgstr "有効"
+msgid "User can register account."
+msgstr "ユーザーはアカウントを登録できます。"
 
 #: templates/setting.php:23
-msgid "Disabled"
-msgstr "無効"
+msgid "User can't register account."
+msgstr "ユーザーはアカウント登録できません。"
 
 #: templates/setting.php:30
 msgid "Force register"
@@ -1210,19 +1221,27 @@ msgstr ""
 "される情報を元にアカウントが作成されます。そうでない場合、接続済みのユーザー"
 "だけがSNSアカウントでログインできます。"
 
-#: templates/setting.php:42
+#: templates/setting.php:41
+msgid ""
+"<strong>WooCommerce found!</strong> In spite of this setting, user can "
+"always register account."
+msgstr ""
+"<strong>WooCommerce が見つかりました！</strong> この設定に関わらず、ユーザー"
+"は常に登録可能です。"
+
+#: templates/setting.php:47
 msgid "Login screen"
 msgstr "ログイン画面"
 
-#: templates/setting.php:47
+#: templates/setting.php:52
 msgid "Show all button on Login screen."
 msgstr "すべてのボタンをログイン画面に表示する。"
 
-#: templates/setting.php:52
+#: templates/setting.php:57
 msgid "Do not show login button."
 msgstr "ログインボタンを表示しない。"
 
-#: templates/setting.php:55
+#: templates/setting.php:60
 #, php-format
 msgid ""
 "You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
@@ -1231,11 +1250,11 @@ msgstr ""
 "ログインボタンは手動で表示できます。詳しくは<a href=\"%2$s\">%1$s</a>を見てく"
 "ださい。"
 
-#: templates/setting.php:60
+#: templates/setting.php:65
 msgid "Button size"
 msgstr "ボタンサイズ"
 
-#: templates/setting.php:70
+#: templates/setting.php:75
 msgid "This setting is valid only if login button's display setting is on."
 msgstr "この設定はログインボタンの表示設定がONの場合だけ有効です。"
 
@@ -1727,8 +1746,49 @@ msgstr ""
 "上記に加え、あなたのtwitterスクリーン名が必要です。<a href=\"%s\">設定ページ"
 "</a>にそれらの情報を入力してください。"
 
+#: wp-gianism.php:65
+msgid ""
+"Connect user accounts with major web services like Facebook, twitter, etc. "
+"Stand on the shoulders of giants! Notice: PHP5.4 required."
+msgstr ""
+"ユーザーアカウントをFacebookやtwitterのような有名Webサービスと接続します。巨"
+"人の肩に立ちましょう！ ※PHP 5.4 必須"
+
+#: wp-gianism.php:81
+#, php-format
+msgid ""
+"[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</"
+"code>. So this plugin is still in silence. Please contact server "
+"administrator."
+msgstr ""
+"PHP <code>%1$s</code>が必須ですが、あなたのバージョンは<code>%2$s</code>で"
+"す。このため、プラグインは現在動作していません。サーバ管理者に連絡してくださ"
+"い。"
+
+#: wp-gianism.php:86
+#, php-format
+msgid "[Gianism] missing composer's auto loader at %s. Did you run %s?"
+msgstr "[Gianism] composer が%sに見つかりません。 %s は実行しましたか？"
+
+#: wp-gianism.php:92
+msgid "[Gianism] Bootstrap file not found."
+msgstr "[Gianism] Bootstrapファイルが見つかりません。"
+
 #~ msgid "Application Type"
 #~ msgstr "アプリケーションの種類"
+
+#~ msgid ""
+#~ "Session is not supported. Gianism requires session for SNS connection, so "
+#~ "please contact to your server administrator."
+#~ msgstr ""
+#~ "セッションがサポートされていません。GianismはSNS接続にセッションを必要とし"
+#~ "ます。管理者に連絡を取ってください。"
+
+#~ msgid "Enabled"
+#~ msgstr "有効"
+
+#~ msgid "Disabled"
+#~ msgstr "無効"
 
 #~ msgid "Message"
 #~ msgstr "メッセージ"
@@ -2115,21 +2175,6 @@ msgstr ""
 #~ msgstr ""
 #~ "プラグインが便利だと思ったら、<a href=\"%s\">ウィッシュリスト</a>からプレ"
 #~ "ゼントをいただけると嬉しいです。"
-
-#~ msgid ""
-#~ "Connect user accounts with major web services like Facebook, twitter, "
-#~ "etc. Stand on the shoulders of giants! Notice: PHP5.3 required."
-#~ msgstr ""
-#~ "ユーザーアカウントをFacebookやtwitterのような有名Webサービスと接続します。"
-#~ "巨人の肩に立ちましょう！ ※PHP 5.3 必須"
-
-#~ msgid ""
-#~ "PHP <code>5.3.0</code> is required, but your version is <code>%s</code>. "
-#~ "So this plugin is still in silence. Please conatct server administrator."
-#~ msgstr ""
-#~ "PHP <code>5.3.0</code>が必須ですが、あなたのバージョンは<code>%s</code>で"
-#~ "す。このため、プラグインは現在動作していません。サーバ管理者に連絡してくだ"
-#~ "さい。"
 
 #~ msgid ""
 #~ "Gianism let your site's users login or register in few steps, with their "

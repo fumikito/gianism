@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-16 13:55+0900\n"
-"PO-Revision-Date: 2017-05-16 13:55+0900\n"
+"POT-Creation-Date: 2017-05-24 00:34+0900\n"
+"PO-Revision-Date: 2017-05-24 00:35+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:127
+#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:139
 #: app/Gianism/Plugins/Analytics.php:169 app/Gianism/Plugins/Analytics.php:191
 #: app/Gianism/Plugins/Analytics.php:334 app/Gianism/Plugins/Analytics.php:446
 msgid "You have no permission."
@@ -134,14 +134,23 @@ msgstr "中"
 msgid "Large"
 msgstr "大"
 
-#: app/Gianism/Notices/SessionSetting.php:51
+#: app/Gianism/Notices/SessionSetting.php:52
 #, php-format
 msgid ""
-"Mmm... session seemed to be not working. Please check permission of "
-"<code>session.save_path</code>( current value is <code>%s</code>)."
+"Maybe session is not working. Please check permission of <code>session."
+"save_path</code>( current value is <code>%s</code>)."
 msgstr ""
-"うーん…セッションが動作していないようです。<code>session.save_path</code>の書"
+"セッションが動作していないかもしれません。<code>session.save_path</code>の書"
 "き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
+
+#: app/Gianism/Notices/SessionSetting.php:56
+#, php-format
+msgid ""
+"For more details, please see our <a href=\"%s\" target=\"_blank\">blog post</"
+"a> about session."
+msgstr ""
+"詳細については、私たちの<a target=\"_blank\" href=\"%s\">セッションについての"
+"ブログ記事</a>をごらんください。"
 
 #: app/Gianism/Notices/WooCompatible.php:42
 #, php-format
@@ -154,11 +163,11 @@ msgstr ""
 "ループが <code>%1$s</code> になっています。デフォルト権限グループは<a href="
 "\"%2$s\">設定ページ</a>で<strong>顧客</strong> にしておいてください。"
 
-#: app/Gianism/Pattern/AbstractNotice.php:131
+#: app/Gianism/Pattern/AbstractNotice.php:143
 msgid "This request type is not allowed."
 msgstr "このリクエストタイプは許可されていません。"
 
-#: app/Gianism/Pattern/AbstractNotice.php:136
+#: app/Gianism/Pattern/AbstractNotice.php:148
 msgid "This notice is already dismissed."
 msgstr "この通知はすでに非表示になりました。"
 
@@ -306,7 +315,7 @@ msgstr "なにかしましたか？　不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
-#: app/Gianism/Service/Instagram.php:192 app/Gianism/Service/Twitter.php:228
+#: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:230
 msgid "You must be logged in."
 msgstr "ログインする必要があります。"
 
@@ -417,8 +426,8 @@ msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
 #: app/Gianism/Service/AbstractService.php:799
-#: app/Gianism/Service/Facebook.php:394 app/Gianism/Service/Google.php:230
-#: app/Gianism/Service/Instagram.php:228 app/Gianism/Service/Twitter.php:269
+#: app/Gianism/Service/Facebook.php:396 app/Gianism/Service/Google.php:232
+#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Twitter.php:271
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
@@ -436,23 +445,23 @@ msgstr "Facebook API"
 msgid "You are already logged in"
 msgstr "すでにログインしています。"
 
-#: app/Gianism/Service/Facebook.php:375
+#: app/Gianism/Service/Facebook.php:377
 msgid "Access token is saved."
 msgstr "アクセストークンが保存されました。"
 
-#: app/Gianism/Service/Facebook.php:447
+#: app/Gianism/Service/Facebook.php:449
 msgid "Saved facebook account to use."
 msgstr "利用するFacebookアカウントが保存されました。"
 
-#: app/Gianism/Service/Facebook.php:466
+#: app/Gianism/Service/Facebook.php:468
 msgid "Sorry, but failed to get user data."
 msgstr "申し訳ございません、ユーザー情報を取得できませんでした。"
 
-#: app/Gianism/Service/Facebook.php:619
+#: app/Gianism/Service/Facebook.php:621
 msgid "Token is not set. Please get it."
 msgstr "トークンが設定されていません。取得してください。"
 
-#: app/Gianism/Service/Facebook.php:630
+#: app/Gianism/Service/Facebook.php:632
 msgid "Token is outdated. Please update it."
 msgstr "トークンが期限切れです。更新してください。"
 
@@ -465,7 +474,7 @@ msgstr ""
 "twitterログインはPHP5.5以上が必須ですが、あなたのバージョンは%sです。すべての"
 "twitterログインは失敗します。"
 
-#: app/Gianism/UI/Screen.php:111
+#: app/Gianism/UI/Screen.php:118
 #, php-format
 msgid "Template file <code>%s</code> is missing."
 msgstr "テンプレートファイル<code>%s</code>がありません。"

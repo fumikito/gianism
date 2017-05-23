@@ -33,6 +33,26 @@ abstract class AbstractNotice {
 			// Register notices
 			add_action( 'wp_ajax_gianism_admin_notice', [ $this, 'admin_notice_handler' ] );
 		}
+		// Check notice and register them if exists.
+		add_action( 'admin_init', [ $this, 'register_notice' ] );
+	}
+
+	/**
+	 * Register notice if exists.
+	 */
+	public function register_notice() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			// Do nothing.
+			return;
+		}
+		if ( ! current_user_can( $this->role ) || ! $this->has_notice() ) {
+			// Setting is O.K.
+			return;
+		}
+		if ( $this->notice_dismissed() ) {
+			// Already dismissed.
+			return;
+		}
 		// Print notice
 		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
 	}
@@ -98,14 +118,6 @@ abstract class AbstractNotice {
 	 * Show setting error on screen.
 	 */
 	public function invalid_option_notices() {
-		if (  ! current_user_can( $this->role ) || ! $this->has_notice() ) {
-			// Setting is O.K.
-			return;
-		}
-		if ( $this->notice_dismissed() ) {
-			// Already dismissed.
-			return;
-		}
 		$endpoint = wp_nonce_url( admin_url( 'admin-ajax.php?action=gianism_admin_notice&key=' . $this->get_key() ), 'gianism_notice' );
 		?>
 		<div class="error" style="position: relative;">

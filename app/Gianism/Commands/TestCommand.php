@@ -7,7 +7,7 @@ use Gianism\Service\Twitter;
 use cli\Table;
 
 /**
- * Command for gianism
+ * Command for API test of gianism
  *
  * @package Gianism
  */
@@ -83,6 +83,27 @@ class TestCommand extends \WP_CLI_Command {
 			$table->display();
 		} catch ( \Exception $e ) {
 			\WP_CLI::error( $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Get current page info
+	 */
+	public function get_fb_page_info() {
+		$api = gianism_fb_page_api();
+		if ( is_wp_error( $api ) ) {
+			\WP_CLI::error( $api->get_error_message() );
+		}
+		try {
+			$page = $api->get( '/me' )->getGraphPage();
+			$table = new Table( [ 'Key', 'Value' ], [
+				[ 'Name', $page->getName() ],
+				[ 'ID', $page->getId() ],
+				[ 'Category', $page->getCategory() ?: '---' ],
+			] );
+			$table->display();
+		} catch ( \Exception $e ) {
+			\WP_CLI::error( sprintf( '%s: %s', $e->getCode(), $e->getMessage() ) );
 		}
 	}
 }

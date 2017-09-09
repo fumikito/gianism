@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 00:34+0900\n"
-"PO-Revision-Date: 2017-05-24 00:35+0900\n"
+"POT-Creation-Date: 2017-09-09 22:48+0900\n"
+"PO-Revision-Date: 2017-09-09 22:49+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -134,7 +134,7 @@ msgstr "中"
 msgid "Large"
 msgstr "大"
 
-#: app/Gianism/Notices/SessionSetting.php:52
+#: app/Gianism/Notices/SessionSetting.php:51
 #, php-format
 msgid ""
 "Maybe session is not working. Please check permission of <code>session."
@@ -143,7 +143,7 @@ msgstr ""
 "セッションが動作していないかもしれません。<code>session.save_path</code>の書"
 "き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
 
-#: app/Gianism/Notices/SessionSetting.php:56
+#: app/Gianism/Notices/SessionSetting.php:55
 #, php-format
 msgid ""
 "For more details, please see our <a href=\"%s\" target=\"_blank\">blog post</"
@@ -464,6 +464,15 @@ msgstr "トークンが設定されていません。取得してください。
 #: app/Gianism/Service/Facebook.php:632
 msgid "Token is outdated. Please update it."
 msgstr "トークンが期限切れです。更新してください。"
+
+#: app/Gianism/Service/Facebook.php:691
+msgid "Page is not set."
+msgstr "ページが設定されていません。"
+
+#: app/Gianism/Service/Facebook.php:701
+msgid "No page found. Do you have permission for that page?"
+msgstr ""
+"ページが見つかりませんでした。そのページのパーミッションはお持ちですか？"
 
 #: app/Gianism/Service/Twitter.php:118
 #, php-format

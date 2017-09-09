@@ -659,6 +659,7 @@ class Facebook extends AbstractService {
 							$pages[] = [
 								'id'   => $node->getProperty( 'id' ),
 							    'name' => $node->getProperty( 'name' ),
+								'token' => $node->getProperty( 'access_token' ),
 							];
 						}
 						return $pages;
@@ -674,6 +675,41 @@ class Facebook extends AbstractService {
 			default:
 				return parent::__get( $name );
 				break;
+		}
+	}
+
+	/**
+	 * Get current page api
+	 *
+	 * @package Gianism
+	 * @since 3.0.6
+	 * @return \Facebook\Facebook|\WP_Error
+	 */
+	public function get_current_page_api() {
+		$page_id = $this->admin_id;
+		if ( 'me' == $page_id ) {
+			return new \WP_Error( 500, __( 'Page is not set.', 'wp-gianism' ) );
+		}
+		$token = '';
+		foreach ( $this->admin_pages as $page ) {
+			if ( $page_id == $page['id'] ) {
+				$token = $page['token'];
+				break;
+			}
+		}
+		if ( ! $token ) {
+			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'wp-gianism' ) );
+		}
+		try {
+			$api = new \Facebook\Facebook( [
+				'app_id'  => $this->fb_app_id,
+				'app_secret' => $this->fb_app_secret,
+				'default_graph_version' => $this->fb_version,
+			] );
+			$api->setDefaultAccessToken( $token );
+			return $api;
+		} catch ( \Exception $e ) {
+			return new \WP_Error( $e->getCode(), $e->getMessage() );
 		}
 	}
 

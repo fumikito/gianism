@@ -101,6 +101,17 @@ function gianism_fb_admin() {
 }
 
 /**
+ * Get currently set page API
+ *
+ * @package Gianism
+ * @since 3.0.6
+ * @return \Facebook\Facebook|WP_Error
+ */
+function gianism_fb_page_api() {
+	return \Gianism\Service\Facebook::get_instance()->get_current_page_api();
+}
+
+/**
  * Get admin facebook id
  *
  * This will be user id or facebook page id.

@@ -41,5 +41,6 @@ class Gianism_Basic_Test extends WP_UnitTestCase {
 	 */
 	function test_facebook() {
 		$this->assertEmpty( gianism_get_facebook_id( 1 ) );
+		$this->assertTrue( is_wp_error( gianism_fb_page_api() ) );
 	}
 }

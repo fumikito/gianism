@@ -1,10 +1,11 @@
 #  Gianism 
 
-Contributors: Takahashi_Fumiki  
+Contributors: Takahashi_Fumiki, hametuha
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
-Tested up to: 4.7.5
-Stable tag: 3.0.5
+Tested up to: 4.8.1
+Stable tag: 3.0.6
+Requires PHP: 5.4
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +77,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.0.6
+
+* Add facebook page api feature because we thought it had been available but actually wasn't.
+  For details, see our [blog post](https://gianism.info/2017/09/09/post-as-facebook-page/).
 
 ### 3.0.5
 

@@ -86,11 +86,11 @@ $facebook = $this->service->get( 'facebook' );
 </p>
 <pre class="brush: php">
 <?php
-echo <<<'PHP'
+$string =  <<<'PHP'
 // Add action hook.
 add_action('wp_footer', function(){
-    $status = my_fb_status();
-    echo '&lt;div class="footer-fb-status"&gt;'.$status.'&lt;/div&gt;';
+    $status = esc_html( my_fb_status() );
+    echo '<div class="footer-fb-status">' . $status . '</div>';
 });
 
 /**
@@ -104,17 +104,14 @@ function my_fb_status(){
 	if( false === $status ){
 		// If settings are done,
 		// You can get token-ready client with this function.
-		$fb = gianism_fb_admin();
-		if( is_wp_error(\$fb) ){
+		$page = gianism_fb_page_api();
+		if ( is_wp_error( $page ) ) {
 			// Oops,
 			return 'Sorry!';
 		}
-		// Let's get Page setting.
-		$page = gianism_fb_page_api();
 		// api method is SDK's method for Graph API
 		$feeds = $fb->get("{$page_id}/feed");
 		// Parse result and extract first message.
-		$status = '';
 		foreach ( $feeds->getGraphEdge() as $fb_post ) {
 			$status = $fb_post->getField( 'message' );
 			break;
@@ -125,6 +122,7 @@ function my_fb_status(){
 	return $status
 }
 PHP;
+echo esc_html( $string );
 ?>
 </pre>
 <p><?php $this->e( 'You should know about Facebook Graph API. Useful resources are below.' ) ?></p>

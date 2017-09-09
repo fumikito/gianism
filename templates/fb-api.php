@@ -110,13 +110,15 @@ function my_fb_status(){
 			return 'Sorry!';
 		}
 		// Let's get Page setting.
-		$page_id = gianism_fb_admin_id();
+		$page = gianism_fb_page_api();
 		// api method is SDK's method for Graph API
-		$feeds = $fb->api("{$page_id}/feed");
-		if ( ! $feeds['data'] ) {
-			return 'Sorry, no updates.';
+		$feeds = $fb->get("{$page_id}/feed");
+		// Parse result and extract first message.
+		$status = '';
+		foreach ( $feeds->getGraphEdge() as $fb_post ) {
+			$status = $fb_post->getField( 'message' );
+			break;
 		}
-		$status = $feeds['data'][0]['message'];
 		// Save it for 0.5h.
 		set_transient( 'my_fb_status', $status, 60 * 60 * 0.5 );
 	}

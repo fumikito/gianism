@@ -24,7 +24,7 @@ function _my_login_link_facebook($markup, $link, $title, $is_register, $service)
 	return '&lt;a class="my_fb_link my_fb_link_{$service}" href="'.$link.'"&gt;'.$title.'&lt;/a&gt;';
 }
 // Add filter.
-add_filter('gianism_link_html', '_my_login_link_facebook', 10, 3);
+add_filter('gianism_link_html', '_my_login_link_facebook', 10, 5);
 </pre>
 
 <h3><?php $this->e( 'Change Redirect' ); ?></h3>

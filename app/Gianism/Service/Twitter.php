@@ -337,7 +337,7 @@ class Twitter extends NoMailService {
 	 *
 	 * @return TwitterOAuth
 	 */
-	private function get_oauth( $oauth_token = null, $oauth_token_secret = null ) {
+	public function get_oauth( $oauth_token = null, $oauth_token_secret = null ) {
 		$oauth = new TwitterOAuth( $this->tw_consumer_key, $this->tw_consumer_secret, $oauth_token, $oauth_token_secret );
 		/**
 		 * Twitter OAuth Client
@@ -405,6 +405,77 @@ class Twitter extends NoMailService {
 		return $this->call_api( 'statuses/update', [
 			'status' => $string,
 		], 'POST', $oauth );
+	}
+
+	/**
+	 * Tweet with media
+	 *
+	 * @param string       $string
+	 * @param array        $medias
+	 * @param TwitterOAuth $oauth
+	 * @return object JSON format object
+	 */
+	public function tweet_with_media( $string, array $medias, $oauth = null ) {
+		$media_ids = [];
+		foreach ( $medias as $media ) {
+			$media_id = $this->upload( $media, $oauth );
+			if ( ! is_wp_error( $media_id ) ) {
+				$media_ids[] = $media_id;
+			}
+		}
+		if ( ! $media_ids ) {
+			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
+		}
+		return $this->call_api( 'statuses/update', [
+			'status' => $string,
+			'media_ids' => implode( ',', $media_ids ),
+		], 'POST', $oauth );
+	}
+
+	/**
+	 * Upload media to twitter.
+	 *
+	 * @since 3.0.7
+	 * @param int|string $path_or_id attachment ID or URL. Integer is recognized as attachment ID.
+	 * @param TwitterOAuth $oauth Default null.
+	 * @return string|\WP_Error Media ID on twitter.
+	 */
+	public function upload( $path_or_id, $oauth = null ) {
+		if ( is_null( $oauth ) ) {
+			$oauth = $this->get_oauth( $this->tw_access_token, $this->tw_access_token_secret );
+		}
+		if ( is_numeric( $path_or_id ) ) {
+			// This is attachment
+			$path = get_attached_file( $path_or_id );
+			if ( ! $path ) {
+				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+			}
+			$object = $path;
+		} elseif ( preg_match( '#^https?://#u', $path_or_id ) ) {
+			// This is URL
+			$file = @file_get_contents( $path_or_id );
+			if ( ! $file ) {
+				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+			}
+			$path = sys_get_temp_dir() . '/' . tmpfile() . '-' . basename( $path_or_id );
+			if ( ! @file_put_contents( $path, $file ) ) {
+				return new \WP_Error( 500, __( 'Failed to download media', 'wp-gianism' ) );
+			}
+			$object = $path;
+		} else {
+			// This is file
+			if ( ! file_exists( $path_or_id ) ) {
+				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+			}
+			$object = $path_or_id;
+		}
+		$media = $oauth->upload( 'media/upload', [
+			'media' => $object,
+		] );
+		if ( ! $media ) {
+			return new \WP_Error( 500, __( 'Failed to upload media to twitter.', 'wp-gianism' ) );
+		}
+		return $media->media_id_string;
 	}
 
 	/**

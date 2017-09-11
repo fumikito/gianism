@@ -30,6 +30,24 @@ class TestCommand extends \WP_CLI_Command {
 	}
 
 	/**
+	 * Upload media to twitter
+	 *
+	 * @since 3.0.7
+	 * @synopsis <url_or_id> <status>
+	 * @param array $args
+	 */
+	public function twitter_upload_media( $args ) {
+		list( $path_or_id, $status ) = $args;
+		$result = Twitter::get_instance()->tweet_with_media( $status, [ $path_or_id ] );
+		if ( is_wp_error( $result ) ) {
+			\WP_CLI::error( $result->get_error_message() );
+		} else {
+			print_r( $result );
+			\WP_CLI::success( 'Media is successfully uploaded.' );
+		}
+	}
+
+	/**
 	 * Get recent mentions.
 	 *
 	 * ## Options

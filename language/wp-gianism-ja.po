@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 22:48+0900\n"
-"PO-Revision-Date: 2017-09-09 22:49+0900\n"
+"POT-Creation-Date: 2017-09-11 13:43+0900\n"
+"PO-Revision-Date: 2017-09-11 13:43+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -32,16 +32,16 @@ msgstr "間違った値が戻ってきました。"
 msgid "Tweet has been sent as %s. Response message is above."
 msgstr "ツイートが%sとして送信されました。レスポンスは上の通りです。"
 
-#: app/Gianism/Commands/TestCommand.php:56
+#: app/Gianism/Commands/TestCommand.php:74
 #, php-format
 msgid "Got %d response."
 msgstr "%d件のレスポンスを取得しました。"
 
-#: app/Gianism/Commands/TestCommand.php:70
+#: app/Gianism/Commands/TestCommand.php:88
 msgid "Google Analytics is not connected."
 msgstr "Google アナリティクスが接続されていません。"
 
-#: app/Gianism/Commands/TestCommand.php:75
+#: app/Gianism/Commands/TestCommand.php:93
 #, php-format
 msgid "Get popular page from %s to %s"
 msgstr "%sから%sまでの人気ページを取得する"
@@ -482,6 +482,23 @@ msgid ""
 msgstr ""
 "twitterログインはPHP5.5以上が必須ですが、あなたのバージョンは%sです。すべての"
 "twitterログインは失敗します。"
+
+#: app/Gianism/Service/Twitter.php:427
+msgid "Failed to upload media"
+msgstr "メディアのアップロードに失敗しました。"
+
+#: app/Gianism/Service/Twitter.php:451 app/Gianism/Service/Twitter.php:458
+#: app/Gianism/Service/Twitter.php:468
+msgid "File not found."
+msgstr "ファイルが見つかりません。"
+
+#: app/Gianism/Service/Twitter.php:462
+msgid "Failed to download media"
+msgstr "メディアのダウンロードに失敗しました。"
+
+#: app/Gianism/Service/Twitter.php:476
+msgid "Failed to upload media to twitter."
+msgstr "メディアをtwitterにアップロードできませんでした。"
 
 #: app/Gianism/UI/Screen.php:118
 #, php-format

@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki, hametuha
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
 Tested up to: 4.8.1  
-Stable tag: 3.0.6  
+Stable tag: 3.0.7  
 Requires PHP: 5.4  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +77,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.0.7
+
+* Add twitter media upload feature.
 
 ### 3.0.6
 

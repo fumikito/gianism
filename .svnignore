@@ -7,5 +7,5 @@ node_modules
 package.json
 phpdoc.xml
 phpunit.xml.dist
-composer.json
+phpcs.ruleset.xml
 composer.lock

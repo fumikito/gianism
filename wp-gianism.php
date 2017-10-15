@@ -4,7 +4,7 @@
  * Plugin URI: https://wordpress.org/extend/plugins/gianism/
  * Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.4 required.
  * Author: Takahashi_Fumiki
- * Version: 3.0.7
+ * Version: 3.0.8
  * PHP Version: 5.4.0
  * Author URI: https://gianism.info
  * Text Domain: wp-gianism
@@ -93,6 +93,11 @@ function _gianism_setup_after_plugins_loaded() {
 		}
 		// Load functions
 		require __DIR__ . '/functions.php';
+		foreach ( scandir( __DIR__ . '/functions' ) as $file ) {
+			if ( preg_match( '#^[^._].*\.php$#u', $file ) ) {
+				require __DIR__ . '/functions/' . $file;
+			}
+		}
 		if ( defined( 'GIANISM_SKIP_DEPRECATED' ) ) {
 			require __DIR__ . '/functions-deprecated.php';
 		}

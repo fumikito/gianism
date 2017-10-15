@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism\Commands;
+use Facebook\GraphNodes\GraphNode;
 use Gianism\Helper\i18n;
 use Gianism\Plugins\AnalyticsFetcher;
 use Gianism\Service\Twitter;
@@ -13,8 +14,6 @@ use cli\Table;
  */
 class TestCommand extends \WP_CLI_Command {
 
-	use i18n;
-
 	/**
 	 * Try tweet as twitter app's account
 	 *
@@ -26,7 +25,7 @@ class TestCommand extends \WP_CLI_Command {
 		$twitter = Twitter::get_instance();
 		$tweet = $twitter->tweet( $message );
 		print_r( $tweet );
-		\WP_CLI::success( printf( $this->_( 'Tweet has been sent as %s. Response message is above.' ), $twitter->tw_screen_name ) );
+		\WP_CLI::success( printf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
 	}
 
 	/**
@@ -43,7 +42,7 @@ class TestCommand extends \WP_CLI_Command {
 			\WP_CLI::error( $result->get_error_message() );
 		} else {
 			print_r( $result );
-			\WP_CLI::success( 'Media is successfully uploaded.' );
+			\WP_CLI::success( __( 'Media is successfully uploaded.', 'wp-gianism' ) );
 		}
 	}
 
@@ -71,7 +70,7 @@ class TestCommand extends \WP_CLI_Command {
 				\WP_CLI::line( '' );
 			}
 		}
-		\WP_CLI::success( sprintf( $this->_( 'Got %d response.' ), count( $response ) ) );
+		\WP_CLI::success( sprintf( _x( 'Got %d response.', 'CLI', 'wp-gianism' ), count( $response ) ) );
 	}
 
 	/**
@@ -85,12 +84,12 @@ class TestCommand extends \WP_CLI_Command {
 	public function analytics( $args, $assoc ) {
 		$fetch = AnalyticsFetcher::get_instance();
 		if ( ! $fetch->ga ) {
-			\WP_CLI::error( $this->_( 'Google Analytics is not connected.' ) );
+			\WP_CLI::error( __( 'Google Analytics is not connected.', 'wp-gianism' ) );
 		}
 		$from = isset( $assoc['from'] ) ? $assoc['from'] : date_i18n( 'Y-m-d', strtotime( '7 days ago' ) );
 		$to   = isset( $assoc['to'] ) ? $assoc['to'] : date_i18n( 'Y-m-d', strtotime( 'Yesterday' ) );
 		try {
-			\WP_CLI::line( sprintf( $this->_( 'Get popular page from %s to %s' ), $from, $to ) );
+			\WP_CLI::line( sprintf( __( 'Get popular pages from %1$s to %2$s.', 'wp-gianism' ), $from, $to ) );
 			$table = new Table();
 			$table->setHeaders( [ 'Page Path', 'PV' ] );
 			$table->setRows( $fetch->fetch( $from, $to, 'ga:pageviews', [
@@ -123,5 +122,92 @@ class TestCommand extends \WP_CLI_Command {
 		} catch ( \Exception $e ) {
 			\WP_CLI::error( sprintf( '%s: %s', $e->getCode(), $e->getMessage() ) );
 		}
+	}
+
+	/**
+	 * Get instant articles information.
+	 *
+	 * ## OPTIONS
+	 *
+	 * : [--offset=<offset>]
+	 *   Optional. Pagination ID for offset. You can get one after execution.
+	 *
+	 * : [--develop]
+	 *   Optional. If set, development content will be retrieved.
+	 *
+	 * @synopsis [--offset=<offset>] [--develop]
+	 * @param array $args
+	 * @param array $assoc
+	 */
+	public function fb_instant_articles( $args, $assoc ) {
+		try {
+			$is_develop = isset( $assoc['develop'] ) && $assoc['develop'];
+			$offset  = isset( $assoc['offset'] ) ? $assoc['offset'] : 0;
+			$api = gianism_fb_page_api();
+			$arguments = [
+				'access_token' => $api->getDefaultAccessToken()->getValue(),
+				'development_mode' => $is_develop,
+			];
+			if ( $offset ) {
+				$arguments['after'] = $offset;
+			}
+			$edge = $api->get( add_query_arg( $args, 'me/instant_articles' ) )->getGraphEdge();
+			$table = new Table();
+			$table->setHeaders( [ 'Facebook ID', __( 'Post ID', 'wp-gianism' ), __( 'Post Title', 'wp-gianism' ), 'URL' ] );
+			foreach ( $edge->getIterator() as $node ) {
+				/* @var GraphNode $node */
+				$url = $node->getField( 'canonical_url', '---' );
+				$post_id = url_to_postid( $url );
+				$table->addRow( [
+					$node->getField( 'id' ),
+					$post_id,
+					get_the_title( $post_id ),
+					$url,
+				] );
+			}
+			$table->display();
+			// Show paging information.
+			$next_page = $edge->getCursor( 'after' );
+			$line = __( 'Successfully retrieved instant articles!', 'wp-gianism' );
+			if ( $next_page ) {
+				\WP_CLI::success( $line . ' ' . sprintf( __( 'If you need more instant articles, set --after=%s', 'wp-gianism' ), $next_page ) );
+			} else {
+				\WP_CLI::success( $line );
+			}
+		} catch ( \Exception $e ) {
+			\WP_CLI::error( $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Get instant article name.
+	 *
+	 * ## OPTIONS
+	 *
+	 * : <url_or_id>
+	 *   URL or ID of post.
+	 *
+	 * : [--develop]
+	 *   Optional. If set, development content will be retrieved.
+	 *
+	 * @synopsis <url_or_id> [--develop]
+	 * @param array $args
+	 * @param array $assoc
+	 */
+	public function fb_instant_article_status( $args, $assoc ) {
+		list( $url_or_id ) = $args;
+		$is_develop = isset( $assoc['develop'] ) && $assoc['develop'];
+		$result = gianism_fb_instant_article_status( $url_or_id, $is_develop );
+		if ( is_wp_error( $result ) ) {
+			\WP_CLI::error( $result->get_error_message() );
+		}
+		\WP_CLI::line( '' );
+		\WP_CLI::line( '=====HTML====' );
+		\WP_CLI::line( '' );
+		echo $result['html_source'];
+		\WP_CLI::line( '' );
+		\WP_CLI::line( '=====HTML====' );
+		\WP_CLI::line( '' );
+		\WP_CLI::success( sprintf( '%s: %s',  $result['id'], $result['url'] ) );
 	}
 }

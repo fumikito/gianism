@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-11 13:43+0900\n"
-"PO-Revision-Date: 2017-09-11 13:43+0900\n"
+"POT-Creation-Date: 2018-03-23 14:05+0530\n"
+"PO-Revision-Date: 2018-03-23 14:07+0530\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -27,24 +27,47 @@ msgstr "実行する許可がありません。"
 msgid "Wrong value is returned."
 msgstr "間違った値が戻ってきました。"
 
-#: app/Gianism/Commands/TestCommand.php:29
+#: app/Gianism/Commands/TestCommand.php:28
 #, php-format
 msgid "Tweet has been sent as %s. Response message is above."
 msgstr "ツイートが%sとして送信されました。レスポンスは上の通りです。"
 
-#: app/Gianism/Commands/TestCommand.php:74
+#: app/Gianism/Commands/TestCommand.php:45
+msgid "Media is successfully uploaded."
+msgstr "メディアは無事アップロードされました。"
+
+#: app/Gianism/Commands/TestCommand.php:73
 #, php-format
 msgid "Got %d response."
 msgstr "%d件のレスポンスを取得しました。"
 
-#: app/Gianism/Commands/TestCommand.php:88
+#: app/Gianism/Commands/TestCommand.php:87
 msgid "Google Analytics is not connected."
 msgstr "Google アナリティクスが接続されていません。"
 
-#: app/Gianism/Commands/TestCommand.php:93
+#: app/Gianism/Commands/TestCommand.php:92
 #, php-format
-msgid "Get popular page from %s to %s"
-msgstr "%sから%sまでの人気ページを取得する"
+msgid "Get popular pages from %1$s to %2$s."
+msgstr "%1$sから%2$sまでの人気ページを取得する"
+
+#: app/Gianism/Commands/TestCommand.php:156
+msgid "Post ID"
+msgstr "投稿ID"
+
+#: app/Gianism/Commands/TestCommand.php:156
+msgid "Post Title"
+msgstr "投稿タイトル"
+
+#: app/Gianism/Commands/TestCommand.php:171
+msgid "Successfully retrieved instant articles!"
+msgstr "インスタント記事を取得できました！"
+
+#: app/Gianism/Commands/TestCommand.php:173
+#, php-format
+msgid "If you need more instant articles, set --after=%s"
+msgstr ""
+"もっとたくさんのインスタント記事が必要な場合は --after=%s を指定してくださ"
+"い。"
 
 #: app/Gianism/Controller/Admin.php:67
 #, php-format
@@ -1333,15 +1356,43 @@ msgstr ""
 "あなたのアプリのFacebook APIバージョンを入力してください。Facebook APIのライ"
 "フサイクルは2年です。形式は v*.* です。 例 <code>v2.8</code>"
 
-#: templates/setting/facebook.php:57
+#: templates/setting/facebook.php:57 templates/setting/google.php:32
+#: templates/setting/google.php:39 templates/setting/instagram.php:40
+#: templates/setting/instagram.php:47 templates/setting/twitter.php:47
+msgid "Redirect URI"
+msgstr "リダイレクトURI"
+
+#: templates/setting/facebook.php:63 templates/setting/google.php:46
+#: templates/setting/instagram.php:54 templates/setting/twitter.php:61
+msgid "Please copy this URL."
+msgstr "URLをコピーしてください。"
+
+#: templates/setting/facebook.php:63 templates/setting/google.php:46
+#: templates/setting/instagram.php:54 templates/setting/twitter.php:61
+msgid "Copy"
+msgstr "コピー"
+
+#: templates/setting/facebook.php:70
+#, php-format
+msgid ""
+"Since March 2018, Facebook changes redirect URIs policy and you must set URI "
+"above as <a href=\"%1$s\" target=\"_blank\">Valid OAuth Redirect URIs</a>. "
+"For more detail, see our <a href=\"%2$s\" target=\"_blank\">blog post</a>."
+msgstr ""
+"2018年3月から、 Facebook はリダイレクトURIのポリシーを変更し、上記のURI を<a "
+"href=\"%1$s\" target=\"_blank\">Valid OAuth Redirect URIs</a> として設定しな"
+"ければならなくなりました。詳細は<a href=\"%2$s\" target=\"_blank\">ブログポス"
+"ト</a> をご覧ください。"
+
+#: templates/setting/facebook.php:80
 msgid "Use Facebook API"
 msgstr "Facebook APIを使う"
 
-#: templates/setting/facebook.php:63
+#: templates/setting/facebook.php:86
 msgid "If enabled, you can get Facebook API Token for this site."
 msgstr "有効にすると、サイト管理用のFacebook API トークンを取得できます。"
 
-#: templates/setting/facebook.php:68
+#: templates/setting/facebook.php:91
 #, php-format
 msgid "You must set up token on <a href=\"%s\">Facebook API page</a>."
 msgstr ""
@@ -1361,28 +1412,12 @@ msgstr "Client ID"
 msgid "Client Secret"
 msgstr "Client Secret"
 
-#: templates/setting/google.php:32 templates/setting/google.php:39
-#: templates/setting/instagram.php:40 templates/setting/instagram.php:47
-#: templates/setting/twitter.php:47
-msgid "Redirect URI"
-msgstr "リダイレクトURI"
-
 #: templates/setting/google.php:38 templates/setting/instagram.php:46
 #: templates/setting/twitter.php:53
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 "<a target=\"_blank\" href=\"%4$s\">%3$s</a>で%1$sを%2$sに設定してください。"
-
-#: templates/setting/google.php:46 templates/setting/instagram.php:54
-#: templates/setting/twitter.php:61
-msgid "Please copy this URL."
-msgstr "URLをコピーしてください。"
-
-#: templates/setting/google.php:46 templates/setting/instagram.php:54
-#: templates/setting/twitter.php:61
-msgid "Copy"
-msgstr "コピー"
 
 #: templates/setting/google.php:48
 #, php-format

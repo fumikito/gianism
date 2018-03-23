@@ -1,7 +1,9 @@
 .svn
+comopser.lock
 *.sass-cache*
 node_modules/
 vendor/
 assets/
 doc/
 readme.txt
+language/wp-gianism.mo

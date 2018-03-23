@@ -348,7 +348,7 @@ class Facebook extends AbstractService {
 					$args = $this->session->get( 'args' );
 					$user = $this->get_returned_user();
 					// Check permission exists, save it.
-					$token = $this->api->getRedirectLoginHelper()->getAccessToken();
+					$token = $this->api->getRedirectLoginHelper()->getAccessToken( $this->get_redirect_endpoint() );
 					$perms = $this->api->get( '/me/permissions', $token );
 					// Get hook
 					if ( $perms && isset( $perms['data'][0]['publish_actions'] ) && $perms['data'][0]['publish_actions'] ) {
@@ -368,7 +368,7 @@ class Facebook extends AbstractService {
 			case 'admin':
 				try {
 					$helper = $this->api->getRedirectLoginHelper();
-					$token  = $helper->getAccessToken();
+					$token  = $helper->getAccessToken( $this->get_redirect_endpoint() );
 					$oauth  = $this->api->getOAuth2Client();
 					$long_token = $oauth->getLongLivedAccessToken( $token );
 					// O.K. Token ready and save it.
@@ -460,7 +460,7 @@ class Facebook extends AbstractService {
 	 */
 	public function get_returned_user() {
 		$redirect_helper = $this->api->getRedirectLoginHelper();
-		if ( ! ( $access_token = $redirect_helper->getAccessToken() ) ) {
+		if ( ! ( $access_token = $redirect_helper->getAccessToken( $this->get_redirect_endpoint() ) ) ) {
 			throw new \Exception( $redirect_helper->getError(), $redirect_helper->getErrorCode() );
 		}
 		$user = $this->get_user_profile( 'login', $access_token );

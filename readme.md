@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.6  
-Tested up to: 4.9.4  
-Stable tag: 3.0.9  
+Tested up to: 4.9.5  
+Stable tag: 3.1.0  
 Requires PHP: 5.4  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +77,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 3.1.0
+
+* Add support for [WP Members](https://wordpress.org/plugins/wp-members/). Now your users will be redirected to original page.
 
 ### 3.0.9
 

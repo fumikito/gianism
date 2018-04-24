@@ -13,6 +13,9 @@ curl -L https://raw.githubusercontent.com/fumikito/wp-readme/master/wp-readme.ph
 rm -rf node_modules
 rm -rf tests
 rm -rf bin
+rm -rf phpcs.ruleset.xml
+rm -rf phpunit.xml.dist
+rm -rf phpdoc.xml
 
 if [ $TRAVIS_TAG ]; then
     echo $TRAVIS_TAG

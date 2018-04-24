@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-23 14:05+0530\n"
-"PO-Revision-Date: 2018-03-23 14:07+0530\n"
+"POT-Creation-Date: 2018-04-24 19:27+0900\n"
+"PO-Revision-Date: 2018-04-24 19:29+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -48,7 +48,7 @@ msgstr "Google アナリティクスが接続されていません。"
 #: app/Gianism/Commands/TestCommand.php:92
 #, php-format
 msgid "Get popular pages from %1$s to %2$s."
-msgstr "%1$sから%2$sまでの人気ページを取得する"
+msgstr "%1$sから%2$sまでの人気ページを取得する。"
 
 #: app/Gianism/Commands/TestCommand.php:156
 msgid "Post ID"
@@ -66,8 +66,7 @@ msgstr "インスタント記事を取得できました！"
 #, php-format
 msgid "If you need more instant articles, set --after=%s"
 msgstr ""
-"もっとたくさんのインスタント記事が必要な場合は --after=%s を指定してくださ"
-"い。"
+"もっとたくさんのインスタント記事が必要な場合は --after=%s を指定してください"
 
 #: app/Gianism/Controller/Admin.php:67
 #, php-format
@@ -1816,15 +1815,7 @@ msgstr ""
 "上記に加え、あなたのtwitterスクリーン名が必要です。<a href=\"%s\">設定ページ"
 "</a>にそれらの情報を入力してください。"
 
-#: wp-gianism.php:65
-msgid ""
-"Connect user accounts with major web services like Facebook, twitter, etc. "
-"Stand on the shoulders of giants! Notice: PHP5.4 required."
-msgstr ""
-"ユーザーアカウントをFacebookやtwitterのような有名Webサービスと接続します。巨"
-"人の肩に立ちましょう！ ※PHP 5.4 必須"
-
-#: wp-gianism.php:81
+#: wp-gianism.php:78
 #, php-format
 msgid ""
 "[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</"
@@ -1835,17 +1826,26 @@ msgstr ""
 "す。このため、プラグインは現在動作していません。サーバ管理者に連絡してくださ"
 "い。"
 
-#: wp-gianism.php:86
+#: wp-gianism.php:84
 #, php-format
-msgid "[Gianism] missing composer's auto loader at %s. Did you run %s?"
-msgstr "[Gianism] composer が%sに見つかりません。 %s は実行しましたか？"
+msgid "[Gianism] missing composer's auto loader at %1$s. Did you run %2$s?"
+msgstr ""
+"[Gianism] composerのオートローダーが %1$s に見つかりません。 %2$s は実行しま"
+"したか？"
 
-#: wp-gianism.php:92
+#: wp-gianism.php:90
 msgid "[Gianism] Bootstrap file not found."
 msgstr "[Gianism] Bootstrapファイルが見つかりません。"
 
 #~ msgid "Application Type"
 #~ msgstr "アプリケーションの種類"
+
+#~ msgid ""
+#~ "Connect user accounts with major web services like Facebook, twitter, "
+#~ "etc. Stand on the shoulders of giants! Notice: PHP5.4 required."
+#~ msgstr ""
+#~ "ユーザーアカウントをFacebookやtwitterのような有名Webサービスと接続します。"
+#~ "巨人の肩に立ちましょう！ ※PHP 5.4 必須"
 
 #~ msgid ""
 #~ "Session is not supported. Gianism requires session for SNS connection, so "

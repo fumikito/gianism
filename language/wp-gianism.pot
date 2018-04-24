@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-23 14:05+0530\n"
+"POT-Creation-Date: 2018-04-24 19:27+0900\n"
 "PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
@@ -15,12 +15,14 @@ msgstr ""
 "esc_attr_e;esc_attr__;esc_html__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: wp-gianism.php\n"
 "X-Poedit-SearchPath-1: templates\n"
 "X-Poedit-SearchPath-2: app\n"
 "X-Poedit-SearchPath-3: functions.php\n"
 "X-Poedit-SearchPath-4: functions-deprecated.php\n"
+"X-Poedit-SearchPath-5: functions\n"
+"X-Poedit-SearchPath-6: hooks\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: src\n"
@@ -1626,13 +1628,7 @@ msgid ""
 "these credentials on <a href=\"%s\">Setting page</a>."
 msgstr ""
 
-#: wp-gianism.php:65
-msgid ""
-"Connect user accounts with major web services like Facebook, twitter, etc. "
-"Stand on the shoulders of giants! Notice: PHP5.4 required."
-msgstr ""
-
-#: wp-gianism.php:81
+#: wp-gianism.php:78
 #, php-format
 msgid ""
 "[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</"
@@ -1640,12 +1636,12 @@ msgid ""
 "administrator."
 msgstr ""
 
-#: wp-gianism.php:86
+#: wp-gianism.php:84
 #, php-format
-msgid "[Gianism] missing composer's auto loader at %s. Did you run %s?"
+msgid "[Gianism] missing composer's auto loader at %1$s. Did you run %2$s?"
 msgstr ""
 
-#: wp-gianism.php:92
+#: wp-gianism.php:90
 msgid "[Gianism] Bootstrap file not found."
 msgstr ""
 

@@ -10,6 +10,15 @@
         }
     ],
     "minimum-stability": "stable",
+    "scripts": {
+        "cs": [
+            "vendor/bin/phpcs --config-set installed_paths $(pwd)/vendor/wp-coding-standards/wpcs",
+            "vendor/bin/phpcs --standard=phpcs.ruleset.xml $(find ./app -name '*.php')",
+            "vendor/bin/phpcs --standard=phpcs.ruleset.xml functions.php",
+            "vendor/bin/phpcs --standard=phpcs.ruleset.xml $(find ./functions -name '*.php')"
+        ],
+        "test": "phpunit"
+    },
     "require": {
         "php": ">=5.4.0",
         "facebook/graph-sdk": "^5.4",

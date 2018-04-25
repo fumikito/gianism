@@ -16,15 +16,3 @@ rm -rf bin
 rm -rf phpcs.ruleset.xml
 rm -rf phpunit.xml.dist
 rm -rf phpdoc.xml
-
-if [ $TRAVIS_TAG ]; then
-    echo $TRAVIS_TAG
-fi
-
-if [ $SVN_USER ]; then
-    echo "SVN_USER exists."
-fi
-
-if [ $SVN_PASS ]; then
-    echo "SVN_PASS exists."
-fi

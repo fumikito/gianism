@@ -1,5 +1,4 @@
 .svn
-comopser.lock
 *.sass-cache*
 node_modules/
 vendor/

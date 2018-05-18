@@ -32,10 +32,12 @@ i{
   &.lsf-instagram{
     color: $instagram-purple;
   }
+  &.lsf-line{
+    color: $line-green;
+  }
 }
 
 // Components
-
 .wpg-button{
   display: inline-block;
   padding: 0 0.75em;

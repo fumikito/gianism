@@ -181,7 +181,7 @@ class Option extends Singleton {
 			if ( $result ) {
 				do_action( self::UPDATED_ACTION, $this->values );
 			}
-
+			flush_rewrite_rules();
 			return $result;
 		}
 

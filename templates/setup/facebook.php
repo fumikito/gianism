@@ -63,6 +63,14 @@ defined( 'ABSPATH' ) or die();
 			<code>Website with Facebook Login</code>
 		</td>
 	</tr>
+	<tr>
+		<th>Valid redirect URIs</th>
+		<td>
+			<?php $this->e( 'The URL where user will be redirected after authentication.' ); ?>
+			<br/>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), home_url( "/{$instance->url_prefix}/", $this->option->is_ssl_required() ? 'https' : 'http' ) ); ?>
+		</td>
+	</tr>
 </table>
 
 <h4>Step2. <?php $this->e( 'Enter App ID and App secret' ); ?></h4>

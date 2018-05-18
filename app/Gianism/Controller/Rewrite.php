@@ -150,7 +150,6 @@ class Rewrite extends AbstractController {
 			 * @return string
 			 */
 			$filtered_service = apply_filters( 'gianism_filter_service_prefix', $service );
-
 			if ( false !== array_search( $service, $this->prefixes ) && ( $instance = $this->service->get( $filtered_service ) ) ) {
 				nocache_headers();
 				/** @var AbstractService $instance */

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-24 19:27+0900\n"
+"POT-Creation-Date: 2018-05-18 19:18+0900\n"
 "PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
@@ -329,7 +329,7 @@ msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:231
 #: app/Gianism/Service/AbstractService.php:267
-#: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:230
+#: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:229
 msgid "You must be logged in."
 msgstr ""
 
@@ -436,8 +436,9 @@ msgid "Cannot register. Please try again later."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:799
-#: app/Gianism/Service/Facebook.php:396 app/Gianism/Service/Google.php:232
-#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Twitter.php:271
+#: app/Gianism/Service/Facebook.php:404 app/Gianism/Service/Google.php:232
+#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:239
+#: app/Gianism/Service/Twitter.php:270
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
@@ -447,40 +448,48 @@ msgstr ""
 msgid "Sorry, but registration via %s is not allowed."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:121
+#: app/Gianism/Service/Facebook.php:128
 msgid "Facebook API"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:243
+#: app/Gianism/Service/Facebook.php:250
 msgid "You are already logged in"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:377
+#: app/Gianism/Service/Facebook.php:385
 msgid "Access token is saved."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:449
+#: app/Gianism/Service/Facebook.php:457
 msgid "Saved facebook account to use."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:468
+#: app/Gianism/Service/Facebook.php:476
 msgid "Sorry, but failed to get user data."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:621
+#: app/Gianism/Service/Facebook.php:629
 msgid "Token is not set. Please get it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:632
+#: app/Gianism/Service/Facebook.php:640
 msgid "Token is outdated. Please update it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:691
+#: app/Gianism/Service/Facebook.php:699
 msgid "Page is not set."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:701
+#: app/Gianism/Service/Facebook.php:709
 msgid "No page found. Do you have permission for that page?"
+msgstr ""
+
+#: app/Gianism/Service/Line.php:124
+msgid "Sorry, but wrong access. Please try again."
+msgstr ""
+
+#: app/Gianism/Service/Line.php:141
+msgid "Sorry, but failed to parse request."
 msgstr ""
 
 #: app/Gianism/Service/Twitter.php:118
@@ -490,20 +499,20 @@ msgid ""
 "will be failed."
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:427
+#: app/Gianism/Service/Twitter.php:426
 msgid "Failed to upload media"
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:451 app/Gianism/Service/Twitter.php:458
-#: app/Gianism/Service/Twitter.php:468
+#: app/Gianism/Service/Twitter.php:450 app/Gianism/Service/Twitter.php:457
+#: app/Gianism/Service/Twitter.php:467
 msgid "File not found."
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:462
+#: app/Gianism/Service/Twitter.php:461
 msgid "Failed to download media"
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:476
+#: app/Gianism/Service/Twitter.php:475
 msgid "Failed to upload media to twitter."
 msgstr ""
 
@@ -526,7 +535,7 @@ msgstr ""
 
 #: app/Gianism/UI/SettingScreen.php:34 templates/setting/facebook.php:23
 #: templates/setting/google.php:16 templates/setting/instagram.php:23
-#: templates/setting/twitter.php:17
+#: templates/setting/line.php:17 templates/setting/twitter.php:17
 msgid "How to set up"
 msgstr ""
 
@@ -1219,7 +1228,7 @@ msgid "Connect with Facebook"
 msgstr ""
 
 #: templates/setting/facebook.php:16 templates/setting/google.php:15
-#: templates/setting/instagram.php:16 templates/setting/twitter.php:16
+#: templates/setting/instagram.php:16
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
@@ -1227,7 +1236,8 @@ msgid ""
 msgstr ""
 
 #: templates/setting/facebook.php:21 templates/setting/google.php:16
-#: templates/setting/instagram.php:21 templates/setting/twitter.php:17
+#: templates/setting/instagram.php:21 templates/setting/line.php:17
+#: templates/setting/twitter.php:17
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
 msgstr ""
@@ -1252,17 +1262,20 @@ msgstr ""
 
 #: templates/setting/facebook.php:57 templates/setting/google.php:32
 #: templates/setting/google.php:39 templates/setting/instagram.php:40
-#: templates/setting/instagram.php:47 templates/setting/twitter.php:47
+#: templates/setting/instagram.php:47 templates/setting/line.php:32
+#: templates/setting/twitter.php:47 templates/setup/line.php:32
 msgid "Redirect URI"
 msgstr ""
 
 #: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/twitter.php:61
+#: templates/setting/instagram.php:54 templates/setting/line.php:46
+#: templates/setting/twitter.php:61
 msgid "Please copy this URL."
 msgstr ""
 
 #: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/twitter.php:61
+#: templates/setting/instagram.php:54 templates/setting/line.php:46
+#: templates/setting/twitter.php:61
 msgid "Copy"
 msgstr ""
 
@@ -1288,7 +1301,7 @@ msgid "You must set up token on <a href=\"%s\">Facebook API page</a>."
 msgstr ""
 
 #: templates/setting/google.php:11 templates/setting/instagram.php:11
-#: templates/setting/twitter.php:11
+#: templates/setting/line.php:11 templates/setting/twitter.php:11
 #, php-format
 msgid "Connect with %s"
 msgstr ""
@@ -1302,7 +1315,7 @@ msgid "Client Secret"
 msgstr ""
 
 #: templates/setting/google.php:38 templates/setting/instagram.php:46
-#: templates/setting/twitter.php:53
+#: templates/setting/line.php:38 templates/setting/twitter.php:53
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
@@ -1312,6 +1325,25 @@ msgstr ""
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "
 "You must set up again on Google API Console."
+msgstr ""
+
+#: templates/setting/line.php:16 templates/setting/twitter.php:16
+#, php-format
+msgid ""
+"You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
+"get required information."
+msgstr ""
+
+#: templates/setting/line.php:22
+msgid "Channel ID"
+msgstr ""
+
+#: templates/setting/line.php:27
+msgid "Channel Secret"
+msgstr ""
+
+#: templates/setting/line.php:39 templates/setting/twitter.php:54
+msgid "Callback URL"
 msgstr ""
 
 #: templates/setting/twitter.php:22 templates/setting/twitter.php:72
@@ -1332,10 +1364,6 @@ msgstr ""
 
 #: templates/setting/twitter.php:42 templates/setting/twitter.php:73
 msgid "Access token secret"
-msgstr ""
-
-#: templates/setting/twitter.php:54
-msgid "Callback URL"
 msgstr ""
 
 #: templates/setting/twitter.php:66
@@ -1496,7 +1524,7 @@ msgid ""
 "<code>%s</code> is recommended."
 msgstr ""
 
-#: templates/setup/google.php:51
+#: templates/setup/google.php:51 templates/setup/line.php:39
 msgid "Enter API Information"
 msgstr ""
 
@@ -1517,7 +1545,7 @@ msgid ""
 "a> and click <code>Manage Clients</code>."
 msgstr ""
 
-#: templates/setup/instagram.php:18
+#: templates/setup/instagram.php:18 templates/setup/line.php:16
 msgid "Then register new client. Enter required information."
 msgstr ""
 
@@ -1552,6 +1580,44 @@ msgid ""
 "instagram account which can log in to your site is just yours! So, to use it "
 "in production environment, you have to pass <a href=\"%s\">Permissions "
 "Review</a>. If you just need login, <code>basic</code> permission satisfies."
+msgstr ""
+
+#: templates/setup/line.php:12
+msgid "Create new channel"
+msgstr ""
+
+#: templates/setup/line.php:14
+msgid "If you don't have LINE account, create new one."
+msgstr ""
+
+#: templates/setup/line.php:15
+msgid ""
+"Go to <a href=\"https://developers.line.me/\">LINE developer</a> and click "
+"<code>Start LINE login</code>."
+msgstr ""
+
+#: templates/setup/line.php:20
+msgid "Provider Name"
+msgstr ""
+
+#: templates/setup/line.php:22
+#, php-format
+msgid "Your service or company name. e.g. <code>%s</code>"
+msgstr ""
+
+#: templates/setup/line.php:26
+msgid "Application Name"
+msgstr ""
+
+#: templates/setup/line.php:28
+#, php-format
+msgid ""
+"Your application name. Site name <code>%s</code> is clear for your user."
+msgstr ""
+
+#: templates/setup/line.php:41
+#, php-format
+msgid "Save credentials on <a href=\"%s\">WordPress admin screen</a>."
 msgstr ""
 
 #: templates/setup/twitter.php:11

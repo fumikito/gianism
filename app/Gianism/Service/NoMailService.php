@@ -97,4 +97,15 @@ abstract class NoMailService extends AbstractService {
 		$php_mailer = apply_filters( 'gianism_pseudo_mailer_instance', $instance );
 		remove_action( 'phpmailer_init', [ $this, 'hijack_php_mailer' ] );
 	}
+
+	/**
+	 * Get pseudo email.
+	 *
+	 * @param mixed $prefix
+	 *
+	 * @return string
+	 */
+	protected function create_pseudo_email( $prefix ) {
+		return sprintf( '%s@%s', $prefix, $this->pseudo_domain );
+	}
 }

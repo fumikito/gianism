@@ -169,11 +169,10 @@ class Twitter extends NoMailService {
 							// Yay! Email retrieved.
 							$email = $profile->email;
 						} else {
-							// No mail, let's make pseudo mail address.
-							$email = $screen_name . '@' . $this->pseudo_domain;
-							if ( email_exists( $email ) ) {
-								$email = 'tw-' . $twitter_id . '@' . $this->pseudo_domain;
-							}
+							$email = $this->create_pseudo_email( [
+								'screen_name' => $screen_name,
+								'twitter_id'  => $twitter_id,
+							]);
 						}
 						// Make username from screen name
 						$user_name = ( ! username_exists( '@' . $screen_name ) ) ? '@' . $screen_name : $email;
@@ -534,6 +533,21 @@ class Twitter extends NoMailService {
 		return 'https://api.twitter.com/oauth/authorize?oauth_token=' . $token['oauth_token'];
 	}
 
+	/**
+	 * Get pseudo email
+	 *
+	 * @param mixed $prefix
+	 *
+	 * @return string
+	 */
+	protected function create_pseudo_email( $prefix ) {
+		// No mail, let's make pseudo mail address.
+		$email = $prefix['screen_name'] . '@' . $this->pseudo_domain;
+		if ( email_exists( $email ) ) {
+			$email = 'tw-' . $prefix['twitter_id'] . '@' . $this->pseudo_domain;
+		}
+		return $email;
+	}
 
 
 	/**

@@ -17,7 +17,7 @@ use Facebook\SignedRequest;
  * @property-read array|false $admin_account
  * @property-read array $admin_pages
  */
-class Facebook extends AbstractService {
+class Facebook extends NoMailService {
 
 	/**
 	 * Service name to display
@@ -88,6 +88,13 @@ class Facebook extends AbstractService {
 	 * @var string
 	 */
 	public $umeta_token = '_wpg_facebook_access_token';
+
+	/**
+	 * Pseudo email address
+	 *
+	 * @var string
+	 */
+	protected $pseudo_domain = 'pseudo.facebook.com';
 
 	/**
 	 * @var array
@@ -249,18 +256,19 @@ class Facebook extends AbstractService {
 						// Test
 						$this->test_user_can_register();
 						// Check email
-						if ( ! isset( $user['email'] ) || ! is_email( $user['email'] ) ) {
-							throw new \Exception( $this->mail_fail_string() );
+						if ( isset( $user['email'] ) && is_email( $user['email'] ) ) {
+							$email = (string) $user['email'];
+						} else {
+							$email = $this->create_pseudo_email( $user['id'] );
 						}
 						// Does mail duplicated?
-						$email = (string) $user['email'];
 						if ( $this->mail_owner( $email ) ) {
 							throw new \Exception( $this->duplicate_account_string() );
 						}
-						// Not found, Create New User
-						// There might be no available string for login name, so use Facebook id for login.
 						/**
 						 * Filter default user login name on register.
+						 *
+						 * There might be no available string for login name, so use Facebook id for login.
 						 *
 						 * @filter gianism_register_name
 						 * @param string $user_login

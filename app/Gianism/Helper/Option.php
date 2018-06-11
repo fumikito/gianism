@@ -96,6 +96,8 @@ class Option extends Singleton {
 				$this->values[ $key ] = (int) $input;
 			} elseif ( is_bool( $default ) ) {
 				$this->values[ $key ] = (bool) $input;
+			} elseif ( is_array( $default ) ) {
+				$this->values[ $key ] = (array) $input;
 			} else {
 				$this->values[ $key ] = trim( (string) $input );
 			}

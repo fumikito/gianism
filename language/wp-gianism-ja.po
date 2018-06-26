@@ -124,7 +124,7 @@ msgid ""
 "your account."
 msgstr ""
 "あなたのパスワードは自動生成されたものです。アカウントの接続を解除する前に"
-"<strong><a href=\"#pass1\">パスワードを更新</a>してください。"
+"<strong><a href=\"#pass1\">パスワードを更新</a></strong>してください。"
 
 #: app/Gianism/Controller/Profile.php:72
 msgid ""

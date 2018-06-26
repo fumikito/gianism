@@ -79,6 +79,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
+### 3.2.1
+
+* Fix translation error. Thank you, [velthgithub](https://github.com/fumikito/Gianism/pull/77)!
+* Allow custom option to save array. Thank you, [noellabo](https://github.com/fumikito/Gianism/pull/75)!
+
 ### 3.2.0
 
 * LINE is available.

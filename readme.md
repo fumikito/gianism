@@ -82,6 +82,7 @@ Here is a list of change logs.
 ### 3.3.0
 
 * Add consent screen for LINE login. IF you need email, use this screen as screenshot.
+* Remove `link` permission because facebook [deprecated it](https://developers.facebook.com/docs/graph-api/changelog/version3.0).
 
 ### 3.2.2
 

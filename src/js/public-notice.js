@@ -4,6 +4,7 @@
 
 /*global Cookies:false*/
 /*global GianSays:true*/
+/*global GianismHelper: false*/
 
 jQuery(document).ready(function($){
 
@@ -58,6 +59,39 @@ jQuery(document).ready(function($){
                 });
                 this.div = [];
             }
+        },
+        confirm: function(e) {
+            var $btn = $(this);
+            var message = $btn.attr('data-gianism-confirmation');
+            var labels  = $btn.attr('data-gianism-target').split(',');
+            e.preventDefault();
+            GianSays.confirmDialog( message, labels, $btn.attr('href') );
+        },
+        confirmDialog: function( message, labels, url ) {
+          var list = $.map(labels, function(item, index){
+              return '<li>' + item + '</li>';
+          }).join('');
+          var $markup = $('<div class="wpg-confirm-container">' +
+              '<div class="wpg-confirm-body">' +
+                '<div class="wpg-confirm-title">' + GianismHelper.confirmLabel + '</div>' +
+                '<div class="wpg-confirm-content">' +
+                   '<p>' + message + '</p>' +
+                   '<ul>' + list + '</ul>' +
+                '</div>' +
+                '<div class="wpg-confirm-footer">' +
+                  '<button class="deny">' + GianismHelper.btnCancel + '</button>' +
+                  '<button class="confirm">' + GianismHelper.btnConfirm + '</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>');
+          $('body').append($markup);
+          $markup.on('click', 'button', function(){
+              if($(this).hasClass('deny')){
+                  $markup.remove();
+              }else if($(this).hasClass('confirm')){
+                  window.location.href = url;
+              }
+          });
         }
     };
 
@@ -71,5 +105,8 @@ jQuery(document).ready(function($){
         GianSays.pushMsg('This is a test message. Just check for that.', match[1]);
         GianSays.flushMessage();
     }
+
+    // Confirmation button.
+    $('.wpg-button[data-gianism-confirmation]').click(GianSays.confirm);
 
 });

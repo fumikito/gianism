@@ -567,7 +567,7 @@ EOS;
 
 		switch ( $context ) {
 			case 'woo-checkout':
-				return 'ログイン';
+				return __( 'Log in', 'wp-gianism' );
 				break;
 			default:
 				return sprintf(
@@ -610,11 +610,24 @@ EOS;
 			'redirect_to' => $redirect,
 		) );
 		$text   = sprintf( $this->_( 'Log in with %s' ), $this->verbose_service_name );
-		$button = $this->button( $text, $url, $this->service_name, array( 'wpg-button', 'wpg-button-login' ), array(
+		$args = [
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'login',
 			'gianism-ga-label'    => sprintf( $this->_( 'Login with %s' ), $this->verbose_service_name ),
-		), $context );
+		];
+		if ( $this->need_confirmation( $context ) ) {
+			$args['gianism-confirmation'] = $this->confirmation_message( $context );
+			/**
+			 * gianism_user_credentails
+			 *
+			 * @param array  $credentials An array of credentail names. Default, [ 'User ID', 'Email' ]
+			 * @param string $service
+			 * @return array
+			 */
+			$credentials = apply_filters( 'gianism_user_credentials', $this->target_credentials( $context ), $this->service_name );
+			$args['gianism-target']     = implode( ',', $credentials );
+		}
+		$button = $this->button( $text, $url, $this->service_name, array( 'wpg-button', 'wpg-button-login' ), $args, $context );
 
 		return $this->filter_link( $button, $url, $text, $register, $context );
 	}
@@ -889,6 +902,54 @@ EOS;
 
 		return json_decode( $response );
 
+	}
+
+	/**
+	 * Does this service needs confirmation?
+	 *
+	 * @param string $context 'login' or 'register'
+	 * @return bool
+	 */
+	public function need_confirmation( $context = 'login' ) {
+		return false;
+	}
+
+	/**
+	 * Get confirmation message
+	 *
+	 * @param string $context
+	 * @return string
+	 */
+	public function confirmation_message( $context = 'login' ) {
+		$message = sprintf(
+			// translators: %1$s blog name, %2$s is service name.
+			__( '%1$s get your information below from %2$s. Please proceed with your agreement.', 'wp-gianism' ),
+			get_bloginfo( 'name' ),
+			$this->verbose_service_name
+		);
+		/**
+		 * gianism_confirmation_message
+		 *
+		 * @param string $message
+		 * @param string $service
+		 * @param string $context
+		 * @return string
+		 */
+		return apply_filters( 'gianism_confirmation_message', $message, $this->service_name, $context );
+	}
+
+	/**
+	 * Information to retrieve.
+	 *
+	 * @param string $context
+	 * @return array
+	 */
+	public function target_credentials( $context = 'login' ) {
+		return [
+			'id'      => sprintf( __( '%s User ID', 'wp-gianism' ), $this->verbose_service_name ),
+			'profile' => __( 'Profile', 'wp-gianism' ),
+			'email'   => __( 'Email', 'wp-gianism' ),
+		];
 	}
 
 	/**

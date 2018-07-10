@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 19:18+0900\n"
-"PO-Revision-Date: 2018-06-27 13:19+0900\n"
+"POT-Creation-Date: 2018-07-10 19:40+0900\n"
+"PO-Revision-Date: 2018-07-10 19:43+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -26,6 +26,18 @@ msgstr "実行する許可がありません。"
 #: app/Gianism/Api/Ajax.php:73
 msgid "Wrong value is returned."
 msgstr "間違った値が戻ってきました。"
+
+#: app/Gianism/Bootstrap.php:143
+msgid "Consent Required"
+msgstr "同意が必要です"
+
+#: app/Gianism/Bootstrap.php:144
+msgid "Confirm"
+msgstr "確認"
+
+#: app/Gianism/Bootstrap.php:145
+msgid "Cancel"
+msgstr "キャンセル"
 
 #: app/Gianism/Commands/TestCommand.php:28
 #, php-format
@@ -140,19 +152,19 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr "SNS接続"
 
-#: app/Gianism/Helper/Option.php:105
+#: app/Gianism/Helper/Option.php:107
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: app/Gianism/Helper/Option.php:108
+#: app/Gianism/Helper/Option.php:110
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: app/Gianism/Helper/Option.php:219
+#: app/Gianism/Helper/Option.php:221
 msgid "Medium"
 msgstr "中"
 
-#: app/Gianism/Helper/Option.php:220
+#: app/Gianism/Helper/Option.php:222
 msgid "Large"
 msgstr "大"
 
@@ -379,6 +391,10 @@ msgstr ""
 "%1$sアカウントに接続すると、%2$sに%1$sアカウントでログインできるようになりま"
 "す。パスワードやメールアドレスは必要ありません。"
 
+#: app/Gianism/Service/AbstractService.php:570
+msgid "Log in"
+msgstr "ログイン"
+
 #: app/Gianism/Service/AbstractService.php:612
 #, php-format
 msgid "Log in with %s"
@@ -389,21 +405,21 @@ msgstr "%sでログイン"
 msgid "Login with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:640
+#: app/Gianism/Service/AbstractService.php:653
 #, php-format
 msgid "Connect %s"
 msgstr "%sと接続"
 
-#: app/Gianism/Service/AbstractService.php:643
+#: app/Gianism/Service/AbstractService.php:656
 msgid "Connect"
 msgstr "コネクト"
 
-#: app/Gianism/Service/AbstractService.php:663
+#: app/Gianism/Service/AbstractService.php:676
 #, php-format
 msgid "Disconnect %s"
 msgstr "%sを接続解除"
 
-#: app/Gianism/Service/AbstractService.php:664
+#: app/Gianism/Service/AbstractService.php:677
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
@@ -412,53 +428,74 @@ msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
 
-#: app/Gianism/Service/AbstractService.php:667
+#: app/Gianism/Service/AbstractService.php:680
 msgid "Disconnect"
 msgstr "切断"
 
-#: app/Gianism/Service/AbstractService.php:738
+#: app/Gianism/Service/AbstractService.php:751
 msgid "Sorry, but cannot create valid user name."
 msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:747
+#: app/Gianism/Service/AbstractService.php:760
 #, php-format
 msgid "%s API returns error."
 msgstr "%s APIがエラーを返しました。"
 
-#: app/Gianism/Service/AbstractService.php:756
+#: app/Gianism/Service/AbstractService.php:769
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr "この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: app/Gianism/Service/AbstractService.php:765
+#: app/Gianism/Service/AbstractService.php:778
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
-#: app/Gianism/Service/AbstractService.php:774
+#: app/Gianism/Service/AbstractService.php:787
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:783
+#: app/Gianism/Service/AbstractService.php:796
 msgid "Cannot retrieve email address."
 msgstr "メールアドレスを取得できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:792
+#: app/Gianism/Service/AbstractService.php:805
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/Gianism/Service/AbstractService.php:799
+#: app/Gianism/Service/AbstractService.php:812
 #: app/Gianism/Service/Facebook.php:404 app/Gianism/Service/Google.php:232
-#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:239
+#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:271
 #: app/Gianism/Service/Twitter.php:270
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
-#: app/Gianism/Service/AbstractService.php:810
+#: app/Gianism/Service/AbstractService.php:823
 #, php-format
 msgid "Sorry, but registration via %s is not allowed."
 msgstr "申し訳ありません、%sでの登録は許可されていません。"
+
+#: app/Gianism/Service/AbstractService.php:926
+#, php-format
+msgid ""
+"%1$s get your information below from %2$s. Please proceed with your "
+"agreement."
+msgstr ""
+"%1$s は %2$s より以下の情報を取得します。確認した上で先に進んでください。"
+
+#: app/Gianism/Service/AbstractService.php:949
+#, php-format
+msgid "%s User ID"
+msgstr "%sのユーザーID"
+
+#: app/Gianism/Service/AbstractService.php:950 templates/analytics.php:83
+msgid "Profile"
+msgstr "プロパティ"
+
+#: app/Gianism/Service/AbstractService.php:951 templates/parts/sidebar.php:42
+msgid "Email"
+msgstr "メール"
 
 #: app/Gianism/Service/Facebook.php:128
 msgid "Facebook API"
@@ -497,11 +534,11 @@ msgid "No page found. Do you have permission for that page?"
 msgstr ""
 "ページが見つかりませんでした。そのページのパーミッションはお持ちですか？"
 
-#: app/Gianism/Service/Line.php:124
+#: app/Gianism/Service/Line.php:129
 msgid "Sorry, but wrong access. Please try again."
 msgstr "不正なアクセスです。やりなおしてください。"
 
-#: app/Gianism/Service/Line.php:141
+#: app/Gianism/Service/Line.php:146
 msgid "Sorry, but failed to parse request."
 msgstr "申し訳ございません、情報を取得できませんでした。"
 
@@ -738,10 +775,6 @@ msgid "Mmh, can't get Analytics accounts. Your token might be wrong."
 msgstr ""
 "うーん、アナリティクスのアカウントを取得できませんでした。おそらくトークンが"
 "間違っています。"
-
-#: templates/analytics.php:83
-msgid "Profile"
-msgstr "プロパティ"
 
 #: templates/analytics.php:96
 msgid "View"
@@ -1223,10 +1256,6 @@ msgstr ""
 msgid "Join our News Letter!"
 msgstr "ニュースレター購読お願いします"
 
-#: templates/parts/sidebar.php:42
-msgid "Email"
-msgstr "メール"
-
 #: templates/parts/sidebar.php:50
 msgid "First Name"
 msgstr "名"
@@ -1442,9 +1471,6 @@ msgstr ""
 
 #: templates/setting/line.php:16 templates/setting/twitter.php:16
 #, php-format
-#| msgid ""
-#| "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> "
-#| "to get required infomation."
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
 "get required information."
@@ -1463,6 +1489,19 @@ msgstr "チャンネルシークレット"
 #: templates/setting/line.php:39 templates/setting/twitter.php:54
 msgid "Callback URL"
 msgstr "コールバックURL"
+
+#: templates/setting/line.php:51
+msgid "Retrieve Email"
+msgstr "メールアドレスを取得する"
+
+#: templates/setting/line.php:56
+#, php-format
+msgid ""
+"You need registration to retrieve user email. Go to <a target=\"_blank\" "
+"href=\"%1$s\">LINE developer</a> and submit request."
+msgstr ""
+"ユーザーのメールアドレスを取得するには、登録する必要があります。<a target="
+"\"_blank\" href=\"%1$s\">LINE developer</a>へ行き、申請してください。"
 
 #: templates/setting/twitter.php:22 templates/setting/twitter.php:72
 msgid "Screen Name"
@@ -1551,10 +1590,10 @@ msgstr ""
 
 #: templates/setup/facebook.php:27 templates/setup/facebook.php:34
 #: templates/setup/facebook.php:42 templates/setup/facebook.php:49
-#: templates/setup/facebook.php:56 templates/setup/instagram.php:25
-#: templates/setup/instagram.php:39 templates/setup/instagram.php:47
-#: templates/setup/twitter.php:28 templates/setup/twitter.php:42
-#: templates/setup/twitter.php:50
+#: templates/setup/facebook.php:56 templates/setup/facebook.php:71
+#: templates/setup/instagram.php:25 templates/setup/instagram.php:39
+#: templates/setup/instagram.php:47 templates/setup/twitter.php:28
+#: templates/setup/twitter.php:42 templates/setup/twitter.php:50
 #, php-format
 msgid "<strong>e.g.</strong> <code>%s</code>"
 msgstr "<strong>例：</strong> <code>%s</code>"
@@ -1589,11 +1628,15 @@ msgstr "オフ"
 msgid "You can activate several connection types, but below is required."
 msgstr "接続タイプは幾つか選べますが、以下が必須です。"
 
-#: templates/setup/facebook.php:68
+#: templates/setup/facebook.php:69 templates/setup/instagram.php:45
+msgid "The URL where user will be redirected after authentication."
+msgstr "認証後、ユーザーがリダイレクトされるURL。"
+
+#: templates/setup/facebook.php:76
 msgid "Enter App ID and App secret"
 msgstr "App IDとApp secretの入力"
 
-#: templates/setup/facebook.php:70
+#: templates/setup/facebook.php:78
 #, php-format
 msgid ""
 "Once you create Facebook App, App ID and App secret will be provided. Now "
@@ -1718,10 +1761,6 @@ msgstr "アプリが何をするのかを書きましょう。この情報はユ
 msgid "Website's URL. Use this blog's URL"
 msgstr "WebサイトのURL。このブログのURLを使用してください。"
 
-#: templates/setup/instagram.php:45
-msgid "The URL where user will be redirected after authentication."
-msgstr "認証後、ユーザーがリダイレクトされるURL。"
-
 #: templates/setup/instagram.php:52
 #, php-format
 msgid ""
@@ -1758,9 +1797,6 @@ msgid "If you don't have LINE account, create new one."
 msgstr "LINEアカウントをお持ちでない場合は新たに作成してください。"
 
 #: templates/setup/line.php:15
-#| msgid ""
-#| "Go to <a href=\"https://www.instagram.com/developer/\">Instagram "
-#| "developer</a> and click <code>Manage Clients</code>."
 msgid ""
 "Go to <a href=\"https://developers.line.me/\">LINE developer</a> and click "
 "<code>Start LINE login</code>."
@@ -1791,9 +1827,6 @@ msgstr ""
 
 #: templates/setup/line.php:41
 #, php-format
-#| msgid ""
-#| "Input and save 2 information(Client ID and Client Secret) on <a href=\"%s"
-#| "\">WordPress admin screen</a>."
 msgid "Save credentials on <a href=\"%s\">WordPress admin screen</a>."
 msgstr "<a href=\"%s\">WordPress管理画面</a>で認証情報を保存してください。"
 
@@ -2271,13 +2304,6 @@ msgstr "[Gianism] Bootstrapファイルが見つかりません。"
 #~ "ファンページを持っていて、WordPressページを割り当てている場合、ここで指定"
 #~ "してください。幾つかの関数を利用できます。詳細はこちら: <strong>%s</"
 #~ "strong>"
-
-#~ msgid ""
-#~ "You have to register your application <a target=\"_blank\" href=\"%1$s"
-#~ "\">here</a> to get required infomation."
-#~ msgstr ""
-#~ "必要な情報を取得するには<a target=\"_blank\" href=\"%1$s\">ここ</a>でアプ"
-#~ "リケーションを作成する必要があります。"
 
 #~ msgid "Application ID"
 #~ msgstr "アプリケーションID"

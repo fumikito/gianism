@@ -187,3 +187,98 @@ body.admin-bar{
     }
   }
 }
+
+// Confirmation dialog
+.wpg-confirm{
+
+  $divider: 1px solid #eee;
+
+  &-container{
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba( 0, 0, 0, .4);
+  }
+
+  &-body{
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 5px rgba( 0, 0, 0, .6);
+    width: 300px;
+    max-height: 100%;
+    overflow-y: scroll;
+    max-width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+  }
+
+  $padding: 1.5em;
+
+  &-title{
+    padding: $padding / 2 $padding;
+    font-size: 22px;
+    font-weight: bold;
+    color: #888;
+    border-bottom: $divider;
+  }
+
+  &-content {
+    padding: $padding / 2 $padding;
+    font-size: 16px;
+    p{
+      margin: 0 0 1em;
+      color: #222;
+    }
+    ul{
+      margin: 0;
+      padding: 0 0 0 2em;
+    }
+    li{
+      font-size: 14px;
+      margin: 5px 0;
+      color: #666;
+    }
+  }
+
+  &-footer{
+    text-align: right;
+    padding: $padding / 2 $padding;
+    margin-top: $padding / 2;
+    border-top: $divider;
+    button{
+      display: inline-block;
+      cursor: pointer;
+      padding: 0.5em 1em;
+      border: 1px solid transparent;
+      background-color: transparent;
+      font-size: 14px;
+      transition: background-color .3s linear, color .3s linear, border-color .3s linear;
+      border-radius: 2px;
+      &.deny{
+        color: #888;
+        &:hover{
+          background-color: #f9f9f9;
+          color: red;
+        }
+      }
+
+      &.confirm{
+        color: $success;
+        border-color: $success;
+        background-color: #fff;
+        &:hover{
+          color: #fff;
+          background-color: $success;
+        }
+      }
+      & + button {
+        margin-left: 1em;
+      }
+    }
+  }
+
+}

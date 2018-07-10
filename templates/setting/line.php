@@ -47,6 +47,16 @@ defined( 'ABSPATH' ) or die();
 			</p>
 		</td>
 	</tr>
+	<tr>
+		<th><label><?php esc_html_e( 'Retrieve Email', 'wp-gianism' ); ?></label></th>
+		<td>
+			<?php $this->switch_button( 'line_retrieve_email', $instance->line_retrieve_email, 1 ) ?>
+			<label>
+			<p class="description">
+				<?php printf( __( 'You need registration to retrieve user email. Go to <a target="_blank" href="%1$s">LINE developer</a> and submit request.', 'wp-gianism' ), 'https://developers.line.me/' ); ?>
+			</p>
+		</td>
+	</tr>
 	</tbody>
 </table>
 <?php submit_button(); ?>

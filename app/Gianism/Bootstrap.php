@@ -139,6 +139,11 @@ class Bootstrap extends Singleton {
 	public function enqueue_global_assets() {
 		wp_enqueue_style( $this->name );
 		wp_enqueue_script( $this->name . '-notice-helper' );
+		wp_localize_script( $this->name . '-notice-helper', 'GianismHelper', [
+			'confirmLabel' => __( 'Consent Required', 'wp-gianism' ),
+			'btnConfirm'   => __( 'Confirm', 'wp-gianism' ),
+			'btnCancel'    => __( 'Cancel', 'wp-gianism' ),
+		] );
 		wp_localize_script( $this->name . '-notice-helper', 'Gianism', array(
 			'admin' => false,
 		) );

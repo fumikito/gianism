@@ -696,7 +696,7 @@ class Facebook extends NoMailService {
 	public function get_current_page_api() {
 		$page_id = $this->admin_id;
 		if ( 'me' == $page_id ) {
-			return new \WP_Error( 500, __( 'Page is not set.', 'wp-gianism' ) );
+			return new \WP_Error( 500, __( 'Page is not set.', 'gianism' ) );
 		}
 		$token = '';
 		foreach ( $this->admin_pages as $page ) {
@@ -706,7 +706,7 @@ class Facebook extends NoMailService {
 			}
 		}
 		if ( ! $token ) {
-			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'wp-gianism' ) );
+			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'gianism' ) );
 		}
 		try {
 			$api = new \Facebook\Facebook( [

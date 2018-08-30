@@ -143,7 +143,7 @@ class Line extends NoMailService {
 		}
 		$json = json_decode( $result['body'] );
 		if ( ! $json || ! isset( $json->id_token ) ) {
-			throw new \Exception( __( 'Sorry, but failed to parse request.', 'wp-gianism' ), 500 );
+			throw new \Exception( __( 'Sorry, but failed to parse request.', 'gianism' ), 500 );
 		}
 		$jwt = JWT::decode( $json->id_token, $this->line_channel_secret, ['HS256'] );
 		$json->id_token = $jwt;
@@ -268,7 +268,7 @@ class Line extends NoMailService {
 				do_action( 'gianism_extra_action', $this->service_name, $action, [
 					'redirect_to' => $redirect_url,
 				] );
-				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.', 'wp-gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
+				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.', 'gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
 	}

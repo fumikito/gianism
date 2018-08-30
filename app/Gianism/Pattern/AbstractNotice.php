@@ -136,16 +136,16 @@ abstract class AbstractNotice {
 	final public function admin_notice_handler() {
 		try {
 			if ( ! $this->input->verify_nonce( 'gianism_notice' ) ) {
-				throw new \Exception( __( 'You have no permission.', 'wp-gianism' ), 401 );
+				throw new \Exception( __( 'You have no permission.', 'gianism' ), 401 );
 			}
 			$key = $this->input->get( 'key' );
 			if ( ! isset( self::$notices[ $key ] ) ) {
-				throw new \Exception( __( 'This request type is not allowed.', 'wp-gianism' ), 400 );
+				throw new \Exception( __( 'This request type is not allowed.', 'gianism' ), 400 );
 			}
 			/** @var AbstractNotice $instance */
 			$instance = self::$notices[ $key ];
 			if ( $instance->notice_dismissed() ) {
-				throw new \Exception( __( 'This notice is already dismissed.', 'wp-gianism' ), 400 );
+				throw new \Exception( __( 'This notice is already dismissed.', 'gianism' ), 400 );
 			}
 			// Update option
 			$instance->update_notice();

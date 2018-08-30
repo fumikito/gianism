@@ -54,20 +54,20 @@ defined( 'ABSPATH' ) or die();
 		</td>
 	</tr>
 	<tr>
-		<th><label for="fb_redirect_uri"><?php esc_html_e( 'Redirect URI', 'wp-gianism' ); ?></label></th>
+		<th><label for="fb_redirect_uri"><?php esc_html_e( 'Redirect URI', 'gianism' ); ?></label></th>
 		<td>
 			<?php $end_point = $instance->get_redirect_endpoint(); ?>
 			<input type="text" class="regular-text" name="fb_redirect_uri" id="fb_redirect_uri" readonly
 				   value="<?php echo esc_attr( $end_point ) ?>"/>
 			<a class="button" href="<?php echo esc_attr( $end_point ) ?>"
-			   onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ) ?>', this.href); return false;"><?php $this->e( 'Copy' ) ?></a>
+			   onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'gianism' ) ?>', this.href); return false;"><?php $this->e( 'Copy' ) ?></a>
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.9' );
 				$setting_uri = 'https://developers.facebook.com/apps/' . $instance->fb_app_id . '/fb-login/settings/';
 				echo wp_kses_post( sprintf(
 					// translators: %1$s is fb URL, %2$s blog post URL.
-					__( 'Since March 2018, Facebook changes redirect URIs policy and you must set URI above as <a href="%1$s" target="_blank">Valid OAuth Redirect URIs</a>. For more detail, see our <a href="%2$s" target="_blank">blog post</a>.', 'wp-gianism' ),
+					__( 'Since March 2018, Facebook changes redirect URIs policy and you must set URI above as <a href="%1$s" target="_blank">Valid OAuth Redirect URIs</a>. For more detail, see our <a href="%2$s" target="_blank">blog post</a>.', 'gianism' ),
 					esc_attr( $setting_uri ),
 					'https://gianism.info/2018/03/23/failed-facebook-login-since-2018/'
 				) );

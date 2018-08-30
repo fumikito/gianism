@@ -423,7 +423,7 @@ class Twitter extends NoMailService {
 			}
 		}
 		if ( ! $media_ids ) {
-			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
+			return new \WP_Error( 500, __( 'Failed to upload media', 'gianism' ) );
 		}
 		return $this->call_api( 'statuses/update', [
 			'status' => $string,
@@ -447,24 +447,24 @@ class Twitter extends NoMailService {
 			// This is attachment
 			$path = get_attached_file( $path_or_id );
 			if ( ! $path ) {
-				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+				return new \WP_Error( 404, __( 'File not found.', 'gianism' ) );
 			}
 			$object = $path;
 		} elseif ( preg_match( '#^https?://#u', $path_or_id ) ) {
 			// This is URL
 			$file = @file_get_contents( $path_or_id );
 			if ( ! $file ) {
-				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+				return new \WP_Error( 404, __( 'File not found.', 'gianism' ) );
 			}
 			$path = sys_get_temp_dir() . '/' . tmpfile() . '-' . basename( $path_or_id );
 			if ( ! @file_put_contents( $path, $file ) ) {
-				return new \WP_Error( 500, __( 'Failed to download media', 'wp-gianism' ) );
+				return new \WP_Error( 500, __( 'Failed to download media', 'gianism' ) );
 			}
 			$object = $path;
 		} else {
 			// This is file
 			if ( ! file_exists( $path_or_id ) ) {
-				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
+				return new \WP_Error( 404, __( 'File not found.', 'gianism' ) );
 			}
 			$object = $path_or_id;
 		}
@@ -472,7 +472,7 @@ class Twitter extends NoMailService {
 			'media' => $object,
 		] );
 		if ( ! $media ) {
-			return new \WP_Error( 500, __( 'Failed to upload media to twitter.', 'wp-gianism' ) );
+			return new \WP_Error( 500, __( 'Failed to upload media to twitter.', 'gianism' ) );
 		}
 		return $media->media_id_string;
 	}

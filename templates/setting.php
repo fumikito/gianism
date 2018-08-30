@@ -17,10 +17,10 @@ defined( 'ABSPATH' ) or die();
 				<p>
 					<?php if ( $this->option->user_can_register() ) : ?>
 						<i class="lsf lsf-check" style="color: green; font-size: 1.4em;"></i>
-						<strong><?php _e( 'User can register account.', 'wp-gianism' ) ?></strong>
+						<strong><?php _e( 'User can register account.', 'gianism' ) ?></strong>
 					<?php else : ?>
 						<i class="lsf lsf-ban" style="color: lightgrey; font-size: 1.4em;"></i>
-						<strong><?php _e( 'User can\'t register account.', 'wp-gianism' ) ?></strong>
+						<strong><?php _e( 'User can\'t register account.', 'gianism' ) ?></strong>
 					<?php endif; ?>
 				</p>
 				<p>
@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) or die();
 				<p class="description"><?php printf( $this->_( 'Whether registration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.' ), admin_url( 'options-general.php' ) ) ?></p>
 				<?php if ( gianism_woocommerce_detected() ) : ?>
 				<p class="description" style="color: #f34357;">
-					<?php echo wp_kses( __( '<strong>WooCommerce found!</strong> In spite of this setting, user can always register account.', 'wp-gianism' ), [ 'strong' => [] ] ) ?>
+					<?php echo wp_kses( __( '<strong>WooCommerce found!</strong> In spite of this setting, user can always register account.', 'gianism' ), [ 'strong' => [] ] ) ?>
 				</p>
 				<?php endif; ?>
 			</td>

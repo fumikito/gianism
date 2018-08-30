@@ -25,7 +25,7 @@ class TestCommand extends \WP_CLI_Command {
 		$twitter = Twitter::get_instance();
 		$tweet = $twitter->tweet( $message );
 		print_r( $tweet );
-		\WP_CLI::success( printf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
+		\WP_CLI::success( printf( __( 'Tweet has been sent as %s. Response message is above.', 'gianism' ), $twitter->tw_screen_name ) );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class TestCommand extends \WP_CLI_Command {
 			\WP_CLI::error( $result->get_error_message() );
 		} else {
 			print_r( $result );
-			\WP_CLI::success( __( 'Media is successfully uploaded.', 'wp-gianism' ) );
+			\WP_CLI::success( __( 'Media is successfully uploaded.', 'gianism' ) );
 		}
 	}
 
@@ -70,7 +70,7 @@ class TestCommand extends \WP_CLI_Command {
 				\WP_CLI::line( '' );
 			}
 		}
-		\WP_CLI::success( sprintf( _x( 'Got %d response.', 'CLI', 'wp-gianism' ), count( $response ) ) );
+		\WP_CLI::success( sprintf( _x( 'Got %d response.', 'CLI', 'gianism' ), count( $response ) ) );
 	}
 
 	/**
@@ -84,12 +84,12 @@ class TestCommand extends \WP_CLI_Command {
 	public function analytics( $args, $assoc ) {
 		$fetch = AnalyticsFetcher::get_instance();
 		if ( ! $fetch->ga ) {
-			\WP_CLI::error( __( 'Google Analytics is not connected.', 'wp-gianism' ) );
+			\WP_CLI::error( __( 'Google Analytics is not connected.', 'gianism' ) );
 		}
 		$from = isset( $assoc['from'] ) ? $assoc['from'] : date_i18n( 'Y-m-d', strtotime( '7 days ago' ) );
 		$to   = isset( $assoc['to'] ) ? $assoc['to'] : date_i18n( 'Y-m-d', strtotime( 'Yesterday' ) );
 		try {
-			\WP_CLI::line( sprintf( __( 'Get popular pages from %1$s to %2$s.', 'wp-gianism' ), $from, $to ) );
+			\WP_CLI::line( sprintf( __( 'Get popular pages from %1$s to %2$s.', 'gianism' ), $from, $to ) );
 			$table = new Table();
 			$table->setHeaders( [ 'Page Path', 'PV' ] );
 			$table->setRows( $fetch->fetch( $from, $to, 'ga:pageviews', [
@@ -153,7 +153,7 @@ class TestCommand extends \WP_CLI_Command {
 			}
 			$edge = $api->get( add_query_arg( $args, 'me/instant_articles' ) )->getGraphEdge();
 			$table = new Table();
-			$table->setHeaders( [ 'Facebook ID', __( 'Post ID', 'wp-gianism' ), __( 'Post Title', 'wp-gianism' ), 'URL' ] );
+			$table->setHeaders( [ 'Facebook ID', __( 'Post ID', 'gianism' ), __( 'Post Title', 'gianism' ), 'URL' ] );
 			foreach ( $edge->getIterator() as $node ) {
 				/* @var GraphNode $node */
 				$url = $node->getField( 'canonical_url', '---' );
@@ -168,9 +168,9 @@ class TestCommand extends \WP_CLI_Command {
 			$table->display();
 			// Show paging information.
 			$next_page = $edge->getCursor( 'after' );
-			$line = __( 'Successfully retrieved instant articles!', 'wp-gianism' );
+			$line = __( 'Successfully retrieved instant articles!', 'gianism' );
 			if ( $next_page ) {
-				\WP_CLI::success( $line . ' ' . sprintf( __( 'If you need more instant articles, set --after=%s', 'wp-gianism' ), $next_page ) );
+				\WP_CLI::success( $line . ' ' . sprintf( __( 'If you need more instant articles, set --after=%s', 'gianism' ), $next_page ) );
 			} else {
 				\WP_CLI::success( $line );
 			}

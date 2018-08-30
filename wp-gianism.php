@@ -7,8 +7,6 @@
  * Version: 3.3.0
  * PHP Version: 5.4.0
  * Author URI: https://gianism.info
- * Text Domain: wp-gianism
- * Domain Path: /language/
  * License: GPL2 or Later
  */
 
@@ -69,25 +67,23 @@ add_action( 'plugins_loaded', 'gianism_setup_after_plugins_loaded' );
  * @ignore
  */
 function gianism_setup_after_plugins_loaded() {
-	// Add i18n for here for other plugins.
-	load_plugin_textdomain( 'wp-gianism', false, 'gianism/language' );
 	// Check PHP version is 5.4.0 or later.
 	try {
 		if ( ! version_compare( phpversion(), GIANISM_PHP_VERSION, '>=' ) ) {
 			// translators: %1$s is required PHP version, %2$s is current PHP version.
-			throw new Exception( sprintf( __( '[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</code>. So this plugin is still in silence. Please contact server administrator.', 'wp-gianism' ), GIANISM_PHP_VERSION, phpversion() ) );
+			throw new Exception( sprintf( __( '[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</code>. So this plugin is still in silence. Please contact server administrator.', 'gianism' ), GIANISM_PHP_VERSION, phpversion() ) );
 		}
 		// Load composer.
 		$auto_loader = dirname( __FILE__ ) . '/vendor/autoload.php';
 		if ( ! file_exists( $auto_loader ) ) {
 			// translators: %s is file path, %2$s is composer command.
-			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %1$s. Did you run %2$s?', 'wp-gianism' ) ), dirname( __FILE__ ) . '/vendor/autoload.php', '<code>composer install</code>' ) );
+			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %1$s. Did you run %2$s?', 'gianism' ) ), dirname( __FILE__ ) . '/vendor/autoload.php', '<code>composer install</code>' ) );
 		}
 		// Load auto loader.
 		require $auto_loader;
 		// Avoiding syntax error, call Bootstrap.
 		if ( ! class_exists( 'Gianism\\Bootstrap' ) ) {
-			throw new Exception( esc_html( __( '[Gianism] Bootstrap file not found.', 'wp-gianism' ) ) );
+			throw new Exception( esc_html( __( '[Gianism] Bootstrap file not found.', 'gianism' ) ) );
 		}
 		// Load functions.
 		require __DIR__ . '/functions.php';

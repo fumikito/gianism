@@ -567,7 +567,7 @@ EOS;
 
 		switch ( $context ) {
 			case 'woo-checkout':
-				return __( 'Log in', 'wp-gianism' );
+				return __( 'Log in', 'gianism' );
 				break;
 			default:
 				return sprintf(
@@ -923,7 +923,7 @@ EOS;
 	public function confirmation_message( $context = 'login' ) {
 		$message = sprintf(
 			// translators: %1$s blog name, %2$s is service name.
-			__( '%1$s get your information below from %2$s. Please proceed with your agreement.', 'wp-gianism' ),
+			__( '%1$s get your information below from %2$s. Please proceed with your agreement.', 'gianism' ),
 			get_bloginfo( 'name' ),
 			$this->verbose_service_name
 		);
@@ -946,9 +946,9 @@ EOS;
 	 */
 	public function target_credentials( $context = 'login' ) {
 		return [
-			'id'      => sprintf( __( '%s User ID', 'wp-gianism' ), $this->verbose_service_name ),
-			'profile' => __( 'Profile', 'wp-gianism' ),
-			'email'   => __( 'Email', 'wp-gianism' ),
+			'id'      => sprintf( __( '%s User ID', 'gianism' ), $this->verbose_service_name ),
+			'profile' => __( 'Profile', 'gianism' ),
+			'email'   => __( 'Email', 'gianism' ),
 		];
 	}
 

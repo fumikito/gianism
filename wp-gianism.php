@@ -8,6 +8,7 @@
  * PHP Version: 5.4.0
  * Author URI: https://gianism.info
  * License: GPL2 or Later
+ * Text Domain: gianism
  */
 
 /*

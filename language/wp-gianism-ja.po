@@ -1380,7 +1380,7 @@ msgstr "App ID"
 
 #: templates/setting/facebook.php:37
 msgid "App Secret"
-msgstr "アプリの秘訣"
+msgstr "App シークレット"
 
 #: templates/setting/facebook.php:44
 msgid "API Version"

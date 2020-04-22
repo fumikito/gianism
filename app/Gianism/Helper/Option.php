@@ -135,6 +135,7 @@ class Option extends Singleton {
 	 * @return bool
 	 */
 	public function is_enabled( $service = '' ) {
+		
 		if ( ! empty( $service ) ) {
 			// Service is specified, use it
 			switch ( $service ) { // Backward compatibility
@@ -158,7 +159,6 @@ class Option extends Singleton {
 					break;
 				}
 			}
-
 			return false;
 		}
 	}

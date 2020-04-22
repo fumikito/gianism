@@ -736,7 +736,8 @@ EOS;
 	 * @throws \Exception
 	 */
 	protected function valid_username_from_mail( $email ) {
-		$suffix = array_shift( explode( '@', $email ) );
+		$emails = explode( '@', $email );
+		$suffix = array_shift( $emails );
 		if ( ! username_exists( $suffix ) ) {
 			return $suffix;
 		}

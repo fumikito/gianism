@@ -10,7 +10,7 @@ use Gianism\Pattern\AbstractNotice;
  * Session checker
  * @package Gianism
  * @deprecated
- * @since 4.0.0 This no required anymore.
+ * @since 4.0.0 This is not required anymore.
  */
 class SessionSetting extends AbstractNotice {
 

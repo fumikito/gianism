@@ -4,6 +4,7 @@ namespace Gianism\Service;
 use Facebook\FacebookRequest;
 use Facebook\GraphNodes\GraphUser;
 use Facebook\SignedRequest;
+use Gianism\Helper\FacebookCookiePersistentDataHandler;
 
 /**
  * Description of facebook_controller
@@ -608,17 +609,17 @@ class Facebook extends NoMailService {
 	 * Getter
 	 *
 	 * @param string $name
-	 *
-	 * @return mixed|string
+	 * @return mixed
 	 */
 	public function __get( $name ) {
 		switch ( $name ) {
 			case 'api':
 				if ( is_null( $this->_api ) ) {
 					$this->_api = new \Facebook\Facebook( [
-						'app_id'  => $this->fb_app_id,
-						'app_secret' => $this->fb_app_secret,
-						'default_graph_version' => $this->fb_version,
+						'app_id'                  => $this->fb_app_id,
+						'app_secret'              => $this->fb_app_secret,
+						'default_graph_version'   => $this->fb_version,
+						'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
 					] );
 				}
 				return $this->_api;

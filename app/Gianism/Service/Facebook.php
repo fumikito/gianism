@@ -19,20 +19,25 @@ use Gianism\Helper\FacebookCookiePersistentDataHandler;
  * @property-read array $admin_pages
  */
 class Facebook extends NoMailService {
-
+	
 	/**
 	 * Service name to display
 	 *
 	 * @var string
 	 */
 	public $verbose_service_name = 'Facebook';
-
+	
+	/**
+	 * @var string Minimum graph api version
+	 */
+	public $minimum_api_version = 'v6.0';
+	
 	/**
 	 * Facebook app version
 	 *
 	 * @var string
 	 */
-	public $fb_version = 'v2.8';
+	public $fb_version = '';
 
 	/**
 	 * Facebook application ID
@@ -112,7 +117,7 @@ class Facebook extends NoMailService {
 		'fb_app_id'     => '',
 		'fb_app_secret' => '',
 		'fb_use_api'    => false,
-	    'fb_version'    => 'v2.8',
+	    'fb_version'    => '',
 	];
 
 	/**
@@ -618,7 +623,7 @@ class Facebook extends NoMailService {
 					$this->_api = new \Facebook\Facebook( [
 						'app_id'                  => $this->fb_app_id,
 						'app_secret'              => $this->fb_app_secret,
-						'default_graph_version'   => $this->fb_version,
+						'default_graph_version'   => $this->get_graph_version(),
 						'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
 					] );
 				}
@@ -633,7 +638,8 @@ class Facebook extends NoMailService {
 						$this->_admin_api = new \Facebook\Facebook( [
 							'app_id'  => $this->fb_app_id,
 							'app_secret' => $this->fb_app_secret,
-							'default_graph_version' => $this->fb_version,
+							'default_graph_version' => $this->get_graph_version(),
+							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
 						] );
 						// Check last updated
 						$updated = get_option( 'gianism_facebook_admin_refreshed', 0 );
@@ -686,6 +692,23 @@ class Facebook extends NoMailService {
 				break;
 		}
 	}
+	
+	/**
+	 * Get graph api version.
+	 *
+	 * @since 4.0.0
+	 * @return string
+	 */
+	public function get_graph_version() {
+		$version = $this->fb_version;
+		if ( ! preg_match( '/^v\d+\.\d+$/u', $version ) ) {
+			return $this->minimum_api_version;
+		} elseif ( version_compare( $version, $this->minimum_api_version,'<' ) ) {
+			return $this->minimum_api_version;
+		} else {
+			return $version;
+		}
+	}
 
 	/**
 	 * Get current page api
@@ -713,7 +736,8 @@ class Facebook extends NoMailService {
 			$api = new \Facebook\Facebook( [
 				'app_id'  => $this->fb_app_id,
 				'app_secret' => $this->fb_app_secret,
-				'default_graph_version' => $this->fb_version,
+				'default_graph_version' => $this->get_graph_version(),
+				'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
 			] );
 			$api->setDefaultAccessToken( $token );
 			return $api;

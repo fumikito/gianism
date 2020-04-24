@@ -43,12 +43,12 @@ defined( 'ABSPATH' ) or die();
 	<tr>
 		<th><label for="fb_version"><?php $this->e( 'API Version' ); ?></label></th>
 		<td>
-			<input type="text" class="regular-text" name="fb_version" id="fb_version"
+			<input type="text" class="regular-text" name="fb_version" id="fb_version" placeholder="<?php echo esc_attr( $instance->minimum_api_version ) ?>"
 			       value="<?php echo esc_attr( $instance->fb_version ) ?>"/>
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.0' );
-				$this->e( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be v*.*. e.g. <code>v2.8</code>' );
+				echo wp_kses_post( sprintf( __( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be <code>v0.0</code>. Less than minimum version <code>%s</code> will be ignored.' ), $instance->minimum_api_version ) );
 				?>
 			</p>
 		</td>

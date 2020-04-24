@@ -9,9 +9,13 @@ use Gianism\Pattern\AbstractNotice;
 /**
  * Session checker
  * @package Gianism
+ * @deprecated
+ * @since 4.0.0 This no required anymore.
  */
 class SessionSetting extends AbstractNotice {
 
+	const DEPRECATED = true;
+	
 	/**
 	 * Get key
 	 *

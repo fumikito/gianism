@@ -10,50 +10,100 @@ use Gianism\Pattern\Singleton;
  *
  * @package Gianism
  * @since 3.0.0
+ * @since 4.0.0 Drop PHP Session usage.
  * @property string $path
  */
 class Session extends Singleton  {
 
-	protected $name = 'gianism';
+	protected $name = 'gianism_session';
+	
+	protected $data = null;
 
 	/**
 	 * Check and start session if not started
 	 *
+	 * @deprecated No more PHP Session.
 	 * @return bool
 	 */
 	public function start() {
-		if ( session_id() && isset( $_SESSION[ $this->name ] ) ) {
-			return true;
-		}
-		if ( ! session_start() ) {
-			return false;
-		}
-		header( 'X-Gianism-Session: true' );
-		if ( ! isset( $_SESSION[ $this->name ] ) || ! is_array( $_SESSION[ $this->name ] ) ) {
-			$_SESSION[ $this->name ] = [];
-		}
 		return true;
 	}
 
 	/**
 	 * Check if session is available
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function is_available() {
-		return session_id();
+		return isset( $_COOKIE );
+	}
+	
+	/**
+	 * Get cookie data as JSON.
+	 *
+	 * @return array
+	 */
+	protected function get_data() {
+		if ( ! isset( $_COOKIE[ $this->name ] ) ) {
+			return [];
+		}
+		$cookie = $_COOKIE[ $this->name ];
+		$cookie = json_decode( stripslashes( $cookie ), true );
+		return is_array( $cookie ) ? $cookie : [];
+	}
+	
+	/**
+	 * Ensure cookie data.
+	 */
+	protected function ensure_cookie() {
+		if ( is_null( $this->data ) ) {
+			$this->data = $this->get_data();
+		}
+	}
+	
+	/**
+	 * Save cookie data.
+	 *
+	 * @return bool
+	 */
+	protected function save_cookie() {
+		$this->ensure_cookie();
+		$json = json_encode( $this->data );
+		$is_ssl = is_ssl();
+		$domain = '';
+		$expire = current_time( 'timestamp', true ) + 60 * 20;
+		if ( preg_match( '#^https?://([^/:]+)#u', home_url(), $matches ) ) {
+			$domain = $matches[1];
+		}
+		if ( version_compare( phpversion(), '7.3.0', '>=' ) ) {
+			return setrawcookie( $this->name, rawurlencode( $json ), [
+				'secure'   => $is_ssl,
+				'httponly' => true,
+				'expires'  => $expire,
+				'domain'   => $domain,
+				'path'     => '/',
+				'samesite' => 'Lax',
+			] );
+		} else {
+			return setrawcookie( $this->name, rawurlencode( $json ), $expire, '/; SameSite=Lax', $domain, $is_ssl, true );
+		}
 	}
 
 	/**
 	 * Write session
 	 *
-	 * @param string $key
-	 * @param mixed $value
+	 * @param string|array $key   If array, treated as key=>value.
+	 * @param mixed        $value Omitted if $key is array.
+	 * @return bool
 	 */
-	public function write( $key, $value ) {
-		if ( isset( $_SESSION[ $this->name ] ) ) {
-			$_SESSION[ $this->name ][ $key ] = $value;
+	public function write( $key, $value = '' ) {
+		$this->ensure_cookie();
+		if ( is_array( $key ) ) {
+			$this->data = array_merge( $this->data, $key );
+		} else {
+			$this->data[ $key ] = $value;
 		}
+		return $this->save_cookie();
 	}
 
 	/**
@@ -63,25 +113,31 @@ class Session extends Singleton  {
 	 *
 	 * @param string $key
 	 *
-	 * @return bool
+	 * @return bool|string
 	 */
 	public function get( $key ) {
-		if ( isset( $_SESSION[ $this->name ][ $key ] ) ) {
-			$value = $_SESSION[ $this->name ][ $key ];
-			$this->delete( $key );
-			return $value;
+		$this->ensure_cookie();
+		if ( ! isset( $this->data[ $key ] ) ) {
+			return false;
 		}
-		return false;
+		$value = $this->data[ $key ];
+		$this->delete( $key );
+		return $value;
 	}
 
 	/**
 	 * Delete session
 	 *
 	 * @param string $key
+	 * @return bool
 	 */
 	public function delete( $key ) {
-		if ( isset( $_SESSION[ $this->name ][ $key ] ) ) {
-			unset( $_SESSION[ $this->name ][ $key ] );
+		$this->ensure_cookie();
+		if ( isset( $this->data[ $key ] ) ) {
+			unset( $this->data[ $key ] );
+			return $this->save_cookie();
+		} else {
+			return false;
 		}
 	}
 

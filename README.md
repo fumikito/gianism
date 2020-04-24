@@ -2,10 +2,10 @@
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
-Requires at least: 4.6  
-Tested up to: 4.9.5  
-Stable tag: 3.3.0  
-Requires PHP: 5.4  
+Requires at least: 5.0  
+Tested up to: 5.4  
+Stable tag: 4.0.0  
+Requires PHP: 5.6  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,8 +17,6 @@ This plugin enables your users to login/register with major Web service's accoun
 
 If your site needs user's login action, **signing-up is the most difficult step**. With this plugin, users can sign up without inputting email nor password.
 
-**NOTICE: Requires PHP5.4 and over!**
-
 ### Log in Flow Video
 
 https://youtu.be/JXl3EMPmXkY
@@ -26,7 +24,7 @@ https://youtu.be/JXl3EMPmXkY
 ###  Supported Web services
 
 * [Facebook](https://www.facebook.com)
-* [Twitter](https://twitter.com) *Requires PHP >=5.5*
+* [Twitter](https://twitter.com)
 * [Google](https://google.com)
 * [Instagram](https://instagram.com)
 * [LINE](https://line.me) *NEW* since 3.2.0

@@ -120,7 +120,7 @@ class Google extends AbstractService {
 			case 'login': // Let user login
 				try {
 					// Authenticate and get token
-					$token   = $this->api->authenticate( $code );
+					$token   = $this->api->fetchAccessTokenWithAuthCode( $code );
 					$profile = $this->get_profile();
 					// Check email validity
 					if ( ! isset( $profile['email'] ) || ! is_email( $profile['email'] ) ) {
@@ -186,7 +186,7 @@ class Google extends AbstractService {
 				}
 				try {
 					// Authenticate and get token
-					$token   = $this->api->authenticate( $code );
+					$token   = $this->api->fetchAccessTokenWithAuthCode( $code );
 					$profile = $this->get_profile();
 					// Check email validity
 					if ( ! isset( $profile['email'] ) || ! is_email( $profile['email'] ) ) {

@@ -240,8 +240,10 @@ abstract class AbstractService extends Application {
 				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
 			}
 			// Write session
-			$this->session->write( 'redirect_to', $this->input->get( 'redirect_to' ) );
-			$this->session->write( 'action', 'connect' );
+			$this->session->write( [
+				'redirect_to' => $this->input->get( 'redirect_to' ),
+				'action'      => 'connect',
+			] );
 			// OK, let's redirect.
 			wp_redirect( $url );
 			exit;
@@ -298,8 +300,10 @@ abstract class AbstractService extends Application {
 				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
 			}
 			// Write session
-			$this->session->write( 'redirect_to', $this->input->get( 'redirect_to' ) );
-			$this->session->write( 'action', 'login' );
+			$this->session->write( [
+				'redirect_to' => $this->input->get( 'redirect_to' ),
+				'action'      => 'login',
+			] );
 			// O.K. let's redirect
 			wp_redirect( $url );
 			exit;

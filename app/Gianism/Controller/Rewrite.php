@@ -58,6 +58,11 @@ class Rewrite extends AbstractController {
 				"^({$preg})/?$"         => 'index.php?gianism_service=$matches[1]&gianism_action=default',
 				"^({$preg})/([^/]+)/?$" => 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]',
 			];
+			$prefix = $this->option->get_formatted_prefix();
+			if ( $prefix ) {
+				$rewrites[ "^{$prefix}/({$preg})/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=default';
+				$rewrites[ "^{$prefix}/({$preg})/([^/]+)/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]';
+			}
 			/**
 			 * Rewrite rules array for Gianism
 			 *

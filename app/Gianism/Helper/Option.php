@@ -107,6 +107,7 @@ class Option extends Singleton {
 		// Save message.
 		if ( update_option( $this->key, $this->values ) ) {
 			$this->add_message( $this->_( 'Option updated.' ) );
+			flush_rewrite_rules();
 			do_action( self::UPDATED_ACTION, $this->values );
 		} else {
 			$this->add_message( $this->_( 'Option failed to update.' ), true );

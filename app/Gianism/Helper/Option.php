@@ -292,6 +292,15 @@ class Option extends Singleton {
 		}
 		return $can;
 	}
+	
+	/**
+	 * Get prefix
+	 *
+	 * @return string
+	 */
+	public function get_formatted_prefix() {
+		return trim( trim( $this->prefix ), '/' );
+	}
 
 	/**
 	 * Getter

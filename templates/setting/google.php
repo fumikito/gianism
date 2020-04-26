@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<p class="description">
 				<?php
-				$end_point = home_url( '/google-auth/', ( $this->option->is_ssl_required() ? 'https' : 'http' ) );
+				$end_point = $instance->get_redirect_endpoint();
 				printf(
 					$this->_( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.' ),
 					$this->_( 'Redirect URI' ),

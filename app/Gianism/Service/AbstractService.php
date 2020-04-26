@@ -506,6 +506,10 @@ EOS;
 	 */
 	public function get_redirect_endpoint( $action = '', $nonce_key = '', $args = array() ) {
 		$prefix = empty( $this->url_prefix ) ? $this->service_name : $this->url_prefix;
+		$pre_prefix = $this->option->get_formatted_prefix();
+		if ( $pre_prefix ) {
+			$prefix = $pre_prefix . '/' . $prefix;
+		}
 		$url    = untrailingslashit( home_url( $prefix, ( $this->option->is_ssl_required() ? 'https' : 'http' ) ) ) . '/';
 		if ( ! empty( $action ) ) {
 			$url .= $action . '/';

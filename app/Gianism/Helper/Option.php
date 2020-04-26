@@ -16,6 +16,7 @@ use Gianism\Pattern\Singleton;
  * @property-read bool           $force_register
  * @property-read bool           $show_button_on_login
  * @property-read int            $button_type
+ * @property-read prefix         $prefix
  */
 class Option extends Singleton {
 
@@ -57,6 +58,7 @@ class Option extends Singleton {
 		'show_button_on_login'   => true,
 		'button_type'            => 0,
 		'do_cron'                => false,
+		'prefix'                 => '',
 	];
 
 
@@ -105,6 +107,7 @@ class Option extends Singleton {
 		// Save message.
 		if ( update_option( $this->key, $this->values ) ) {
 			$this->add_message( $this->_( 'Option updated.' ) );
+			flush_rewrite_rules();
 			do_action( self::UPDATED_ACTION, $this->values );
 		} else {
 			$this->add_message( $this->_( 'Option failed to update.' ), true );
@@ -135,6 +138,7 @@ class Option extends Singleton {
 	 * @return bool
 	 */
 	public function is_enabled( $service = '' ) {
+		
 		if ( ! empty( $service ) ) {
 			// Service is specified, use it
 			switch ( $service ) { // Backward compatibility
@@ -158,7 +162,6 @@ class Option extends Singleton {
 					break;
 				}
 			}
-
 			return false;
 		}
 	}
@@ -289,6 +292,15 @@ class Option extends Singleton {
 			$can = true;
 		}
 		return $can;
+	}
+	
+	/**
+	 * Get prefix
+	 *
+	 * @return string
+	 */
+	public function get_formatted_prefix() {
+		return trim( trim( $this->prefix ), '/' );
 	}
 
 	/**

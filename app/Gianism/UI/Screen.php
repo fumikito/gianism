@@ -202,7 +202,7 @@ abstract class Screen {
 		$version = $this->major_version( $version );
 		$current_version = $this->major_version( $this->version );
 		if ( version_compare( $version, $current_version, '>=' ) ) {
-			echo '<span class="gianism-new">New since ' . $version . '</span>';
+			printf( '<span class="gianism-new">%s</span>', esc_html( sprintf( __( 'New Since %s', 'wp-gianism' ), $version ) ) );
 		}
 	}
 

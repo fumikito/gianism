@@ -40,6 +40,7 @@ i{
 // Components
 .wpg-button{
   display: inline-block;
+  box-sizing: content-box;
   padding: 0 0.75em;
   border: 1px solid $button-border;
   border-radius: 3px;
@@ -50,6 +51,7 @@ i{
   font-size: 14px;
   line-height: 28px;
   height: 28px;
+
   box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
   vertical-align: top;
   &:link,

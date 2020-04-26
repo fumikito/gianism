@@ -4,8 +4,8 @@
  * Plugin URI: https://wordpress.org/extend/plugins/gianism/
  * Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants! Notice: PHP5.4 required.
  * Author: Takahashi_Fumiki
- * Version: 3.3.0
- * PHP Version: 5.4.0
+ * Version: 4.0.0
+ * PHP Version: 5.6.0
  * Author URI: https://gianism.info
  * Text Domain: wp-gianism
  * Domain Path: /language/
@@ -71,7 +71,7 @@ add_action( 'plugins_loaded', 'gianism_setup_after_plugins_loaded' );
 function gianism_setup_after_plugins_loaded() {
 	// Add i18n for here for other plugins.
 	load_plugin_textdomain( 'wp-gianism', false, 'gianism/language' );
-	// Check PHP version is 5.4.0 or later.
+	// Check PHP version.
 	try {
 		if ( ! version_compare( phpversion(), GIANISM_PHP_VERSION, '>=' ) ) {
 			// translators: %1$s is required PHP version, %2$s is current PHP version.
@@ -87,7 +87,7 @@ function gianism_setup_after_plugins_loaded() {
 		require $auto_loader;
 		// Avoiding syntax error, call Bootstrap.
 		if ( ! class_exists( 'Gianism\\Bootstrap' ) ) {
-			throw new Exception( esc_html( __( '[Gianism] Bootstrap file not found.', 'wp-gianism' ) ) );
+			throw new Exception( esc_html__( '[Gianism] Bootstrap file not found.', 'wp-gianism' ) );
 		}
 		// Load functions.
 		require __DIR__ . '/functions.php';

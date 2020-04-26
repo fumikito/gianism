@@ -58,7 +58,7 @@ class Bootstrap extends Singleton {
 			foreach ( scandir( __DIR__ . '/Notices' ) as $file ) {
 				if ( preg_match( '#^([^_.]+)\.php$#u', $file, $matches ) ) {
 					$class_name = "Gianism\\Notices\\{$matches[1]}";
-					if ( class_exists( $class_name ) ) {
+					if ( class_exists( $class_name ) && ! $class_name::DEPRECATED ) {
 						$notices[] = $class_name;
 					}
 				}

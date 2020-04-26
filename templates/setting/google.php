@@ -33,19 +33,22 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<p class="description">
 				<?php
-				$end_point = home_url( '/google-auth/', ( $this->option->is_ssl_required() ? 'https' : 'http' ) );
+				$end_point = $instance->get_redirect_endpoint();
 				printf(
-					$this->_( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.' ),
-					$this->_( 'Redirect URI' ),
+					__( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.', 'wp-gianism' ),
+					__( 'Redirect URI', 'wp-gianism' ),
 					'<code>' . $end_point . '</code>',
 					'Google API Console',
 					'https://code.google.com/apis/console'
 				);
 				?>
 				<a class="button" href="<?php echo esc_attr( $end_point ) ?>"
-				   onclick="window.prompt('<?php $this->e( 'Please copy this URL.' ) ?>', this.href); return false;"><?php $this->e( 'Copy' ) ?></a>
+				   onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ) ?>', this.href); return false;"><?php esc_html_e( 'Copy', 'wp-gianism' ) ?></a>
 				<br/>
-				<?php printf( $this->_( '<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. You must set up again on Google API Console.' ) ) ?>
+				<?php
+				$this->new_from( '2.0' );
+				printf( $this->_( '<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. You must set up again on Google API Console.' ) );
+				?>
 			</p>
 		</td>
 	</tr>

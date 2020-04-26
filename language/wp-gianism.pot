@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-10 19:40+0900\n"
+"POT-Creation-Date: 2020-04-27 02:24+0900\n"
 "PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_attr_e;esc_attr__;esc_html__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SearchPath-0: wp-gianism.php\n"
 "X-Poedit-SearchPath-1: templates\n"
 "X-Poedit-SearchPath-2: app\n"
@@ -29,7 +29,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: tests\n"
 "X-Poedit-SearchPathExcluded-4: assets\n"
 
-#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:139
+#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:146
 #: app/Gianism/Plugins/Analytics.php:169 app/Gianism/Plugins/Analytics.php:191
 #: app/Gianism/Plugins/Analytics.php:334 app/Gianism/Plugins/Analytics.php:446
 msgid "You have no permission."
@@ -151,30 +151,30 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:107
+#: app/Gianism/Helper/Option.php:109
 msgid "Option updated."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:110
+#: app/Gianism/Helper/Option.php:113
 msgid "Option failed to update."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:221
+#: app/Gianism/Helper/Option.php:224
 msgid "Medium"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:222
+#: app/Gianism/Helper/Option.php:225
 msgid "Large"
 msgstr ""
 
-#: app/Gianism/Notices/SessionSetting.php:51
+#: app/Gianism/Notices/SessionSetting.php:55
 #, php-format
 msgid ""
 "Maybe session is not working. Please check permission of <code>session."
 "save_path</code>( current value is <code>%s</code>)."
 msgstr ""
 
-#: app/Gianism/Notices/SessionSetting.php:55
+#: app/Gianism/Notices/SessionSetting.php:59
 #, php-format
 msgid ""
 "For more details, please see our <a href=\"%s\" target=\"_blank\">blog post</"
@@ -189,11 +189,11 @@ msgid ""
 "<strong>Customer</strong> on <a href=\"%2$s\">Setting Page</a>."
 msgstr ""
 
-#: app/Gianism/Pattern/AbstractNotice.php:143
+#: app/Gianism/Pattern/AbstractNotice.php:150
 msgid "This request type is not allowed."
 msgstr ""
 
-#: app/Gianism/Pattern/AbstractNotice.php:148
+#: app/Gianism/Pattern/AbstractNotice.php:155
 msgid "This notice is already dismissed."
 msgstr ""
 
@@ -340,7 +340,7 @@ msgid "Cheatin'? Wrong access."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:231
-#: app/Gianism/Service/AbstractService.php:267
+#: app/Gianism/Service/AbstractService.php:269
 #: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:229
 msgid "You must be logged in."
 msgstr ""
@@ -351,172 +351,172 @@ msgid "You are already connected with %s"
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:240
-#: app/Gianism/Service/AbstractService.php:298
+#: app/Gianism/Service/AbstractService.php:300
 msgid "Sorry, but failed to connect with API."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:271
+#: app/Gianism/Service/AbstractService.php:273
 #, php-format
 msgid "Your account is not connected with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:275
+#: app/Gianism/Service/AbstractService.php:277
 #, php-format
 msgid "Your account is now unlinked from %s."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:293
+#: app/Gianism/Service/AbstractService.php:295
 msgid "You are logged in, ah?"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:367
+#: app/Gianism/Service/AbstractService.php:371
 #, php-format
 msgid "Your account is already connected with %s account."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:370
+#: app/Gianism/Service/AbstractService.php:374
 #, php-format
 msgid ""
 "Connecting with %1$s, you can login with %2$s via %1$s without password or "
 "email address."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:570
+#: app/Gianism/Service/AbstractService.php:578
 msgid "Log in"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:612
+#: app/Gianism/Service/AbstractService.php:620
 #, php-format
 msgid "Log in with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:616
+#: app/Gianism/Service/AbstractService.php:624
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:653
+#: app/Gianism/Service/AbstractService.php:661
 #, php-format
 msgid "Connect %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:656
+#: app/Gianism/Service/AbstractService.php:664
 msgid "Connect"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:676
+#: app/Gianism/Service/AbstractService.php:684
 #, php-format
 msgid "Disconnect %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:677
+#: app/Gianism/Service/AbstractService.php:685
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
 "credential(email, passowrd), or else you might not be able to login again."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:680
+#: app/Gianism/Service/AbstractService.php:688
 msgid "Disconnect"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:751
-msgid "Sorry, but cannot create valid user name."
-msgstr ""
-
 #: app/Gianism/Service/AbstractService.php:760
-#, php-format
-msgid "%s API returns error."
+msgid "Sorry, but cannot create valid user name."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:769
 #, php-format
-msgid "This %s account is already connected with others."
+msgid "%s API returns error."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:778
 #, php-format
-msgid "Welcome, %s!"
+msgid "This %s account is already connected with others."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:787
-msgid "Oops, Failed to Authenticate."
+#, php-format
+msgid "Welcome, %s!"
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:796
-msgid "Cannot retrieve email address."
+msgid "Oops, Failed to Authenticate."
 msgstr ""
 
 #: app/Gianism/Service/AbstractService.php:805
+msgid "Cannot retrieve email address."
+msgstr ""
+
+#: app/Gianism/Service/AbstractService.php:814
 msgid "Cannot register. Please try again later."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:812
-#: app/Gianism/Service/Facebook.php:404 app/Gianism/Service/Google.php:232
+#: app/Gianism/Service/AbstractService.php:821
+#: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
 #: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:271
 #: app/Gianism/Service/Twitter.php:270
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:823
+#: app/Gianism/Service/AbstractService.php:832
 #, php-format
 msgid "Sorry, but registration via %s is not allowed."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:926
+#: app/Gianism/Service/AbstractService.php:935
 #, php-format
 msgid ""
 "%1$s get your information below from %2$s. Please proceed with your "
 "agreement."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:949
+#: app/Gianism/Service/AbstractService.php:958
 #, php-format
 msgid "%s User ID"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:950 templates/analytics.php:83
+#: app/Gianism/Service/AbstractService.php:959 templates/analytics.php:83
 msgid "Profile"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:951 templates/parts/sidebar.php:42
+#: app/Gianism/Service/AbstractService.php:960 templates/parts/sidebar.php:42
 msgid "Email"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:128
+#: app/Gianism/Service/Facebook.php:134
 msgid "Facebook API"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:250
+#: app/Gianism/Service/Facebook.php:256
 msgid "You are already logged in"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:385
+#: app/Gianism/Service/Facebook.php:391
 msgid "Access token is saved."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:457
+#: app/Gianism/Service/Facebook.php:463
 msgid "Saved facebook account to use."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:476
+#: app/Gianism/Service/Facebook.php:482
 msgid "Sorry, but failed to get user data."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:629
+#: app/Gianism/Service/Facebook.php:635
 msgid "Token is not set. Please get it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:640
+#: app/Gianism/Service/Facebook.php:647
 msgid "Token is outdated. Please update it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:699
+#: app/Gianism/Service/Facebook.php:723
 msgid "Page is not set."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:709
+#: app/Gianism/Service/Facebook.php:733
 msgid "No page found. Do you have permission for that page?"
 msgstr ""
 
@@ -555,6 +555,11 @@ msgstr ""
 #: app/Gianism/UI/Screen.php:118
 #, php-format
 msgid "Template file <code>%s</code> is missing."
+msgstr ""
+
+#: app/Gianism/UI/Screen.php:205
+#, php-format
+msgid "New Since %s"
 msgstr ""
 
 #: app/Gianism/UI/SettingScreen.php:22 app/Gianism/UI/SettingScreen.php:23
@@ -1251,6 +1256,22 @@ msgstr ""
 msgid "This setting is valid only if login button's display setting is on."
 msgstr ""
 
+#: templates/setting.php:80
+msgid "URL Prefix"
+msgstr ""
+
+#: templates/setting.php:85
+msgid ""
+"You can add prefix for all Gianism redirect URIs. Useful if you site is "
+"under CDN network which filters cookie strings."
+msgstr ""
+
+#: templates/setting.php:87
+msgid ""
+"<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
+"app setting in each SNS. It might cause error on live site."
+msgstr ""
+
 #: templates/setting/facebook.php:10
 msgid "Connect with Facebook"
 msgstr ""
@@ -1283,9 +1304,11 @@ msgid "API Version"
 msgstr ""
 
 #: templates/setting/facebook.php:51
+#, php-format
 msgid ""
 "Enter Facebook API version for your app. Facebook API's life cycle is 2 "
-"years. Format should be v*.*. e.g. <code>v2.8</code>"
+"years. Format should be <code>v0.0</code>. Less than minimum version <code>"
+"%s</code> will be ignored."
 msgstr ""
 
 #: templates/setting/facebook.php:57 templates/setting/google.php:32
@@ -1348,7 +1371,7 @@ msgstr ""
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 
-#: templates/setting/google.php:48
+#: templates/setting/google.php:50
 #, php-format
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "

@@ -240,8 +240,10 @@ abstract class AbstractService extends Application {
 				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
 			}
 			// Write session
-			$this->session->write( 'redirect_to', $this->input->get( 'redirect_to' ) );
-			$this->session->write( 'action', 'connect' );
+			$this->session->write( [
+				'redirect_to' => $this->input->get( 'redirect_to' ),
+				'action'      => 'connect',
+			] );
 			// OK, let's redirect.
 			wp_redirect( $url );
 			exit;
@@ -298,8 +300,10 @@ abstract class AbstractService extends Application {
 				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
 			}
 			// Write session
-			$this->session->write( 'redirect_to', $this->input->get( 'redirect_to' ) );
-			$this->session->write( 'action', 'login' );
+			$this->session->write( [
+				'redirect_to' => $this->input->get( 'redirect_to' ),
+				'action'      => 'login',
+			] );
 			// O.K. let's redirect
 			wp_redirect( $url );
 			exit;
@@ -502,6 +506,10 @@ EOS;
 	 */
 	public function get_redirect_endpoint( $action = '', $nonce_key = '', $args = array() ) {
 		$prefix = empty( $this->url_prefix ) ? $this->service_name : $this->url_prefix;
+		$pre_prefix = $this->option->get_formatted_prefix();
+		if ( $pre_prefix ) {
+			$prefix = $pre_prefix . '/' . $prefix;
+		}
 		$url    = untrailingslashit( home_url( $prefix, ( $this->option->is_ssl_required() ? 'https' : 'http' ) ) ) . '/';
 		if ( ! empty( $action ) ) {
 			$url .= $action . '/';
@@ -736,7 +744,8 @@ EOS;
 	 * @throws \Exception
 	 */
 	protected function valid_username_from_mail( $email ) {
-		$suffix = array_shift( explode( '@', $email ) );
+		$emails = explode( '@', $email );
+		$suffix = array_shift( $emails );
 		if ( ! username_exists( $suffix ) ) {
 			return $suffix;
 		}

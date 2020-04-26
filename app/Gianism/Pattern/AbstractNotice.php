@@ -11,7 +11,14 @@ use Gianism\Helper\Input;
  * @property Input $input
  */
 abstract class AbstractNotice {
-
+	
+	const DEPRECATED = false;
+	
+	/**
+	 * @var bool If duplicated, never executed.
+	 */
+	public static $deprecated = false;
+	
 	/**
 	 * @var bool
 	 */

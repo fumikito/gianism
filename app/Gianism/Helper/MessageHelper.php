@@ -23,6 +23,6 @@ trait MessageHelper {
 		} else {
 			$messages = array( $string );
 		}
-		setcookie( $key, json_encode( $messages ), current_time( 'timestamp' ) + 180, '/' );
+		setrawcookie( $key, rawurlencode( json_encode( $messages ) ), current_time( 'timestamp', true ) + 180, '/; SameSite=Lax' );
 	}
 }

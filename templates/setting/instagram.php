@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 /** @var \Gianism\UI\Screen $this */
-/** @var \Gianism\Service\Instagam $instance */
+/** @var \Gianism\Service\Instagram $instance */
 ?>
 
 <h3><i class="lsf lsf-instagram"></i> Instagram</h3>
@@ -37,11 +37,11 @@ defined( 'ABSPATH' ) or die();
 		           value="<?php echo esc_attr( $instance->instagram_client_secret ) ?>"/></td>
 	</tr>
 	<tr>
-		<th><label for="ggl_redirect_uri"><?php $this->e( 'Redirect URI' ); ?></label></th>
+		<th><label for="instagram_redirect_uri"><?php $this->e( 'Redirect URI' ); ?></label></th>
 		<td>
 			<p class="description">
 				<?php
-				$end_point = home_url( '/instagram-auth/', ( $this->option->is_ssl_required() ? 'https' : 'http' ) );
+				$end_point = $instance->get_redirect_endpoint();
 				printf(
 					$this->_( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.' ),
 					$this->_( 'Redirect URI' ),

@@ -10,9 +10,13 @@ branches:
 php:
 - 5.6
 - 7.0
+- 7.1
+- 7.2
+- 7.3
 env:
   matrix:
   - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=5.0 WP_MULTISITE=0
   - WP_VERSION=4.7 WP_MULTISITE=0
   global:
   - SVN_REPO: https://plugins.svn.wordpress.org/gianism/
@@ -23,12 +27,12 @@ matrix:
     env: WP_VERSION=4.7 WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
 before_script:
 - composer install
-- curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
+- curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.33.0/nvm.sh
 - source $HOME/.nvm/nvm.sh
-- nvm install v4.4.2
+- nvm install v10.13.0
 - node --version
 - npm install && npm run package
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
-- vendor/bin/phpunit
+- composer test
 after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | sed 's/svn co -q/svn co/' | bash

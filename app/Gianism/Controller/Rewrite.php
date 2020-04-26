@@ -58,6 +58,11 @@ class Rewrite extends AbstractController {
 				"^({$preg})/?$"         => 'index.php?gianism_service=$matches[1]&gianism_action=default',
 				"^({$preg})/([^/]+)/?$" => 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]',
 			];
+			$prefix = $this->option->get_formatted_prefix();
+			if ( $prefix ) {
+				$rewrites[ "^{$prefix}/({$preg})/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=default';
+				$rewrites[ "^{$prefix}/({$preg})/([^/]+)/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]';
+			}
 			/**
 			 * Rewrite rules array for Gianism
 			 *
@@ -153,8 +158,6 @@ class Rewrite extends AbstractController {
 			if ( false !== array_search( $service, $this->prefixes ) && ( $instance = $this->service->get( $filtered_service ) ) ) {
 				nocache_headers();
 				/** @var AbstractService $instance */
-				// Start session
-				$this->session->start();
 				// Parse Request
 				$instance->parse_request( $action, $wp_query );
 			} else {

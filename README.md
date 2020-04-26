@@ -2,7 +2,7 @@
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
-Requires at least: 5.0  
+Requires at least: 4.7  
 Tested up to: 5.4  
 Stable tag: 4.0.0  
 Requires PHP: 5.6  
@@ -76,6 +76,22 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 4.0.0
+
+4.0 is major update. Please check the changes.
+
+* **BREAKING CHANGE** Requires PHP 5.6 and higher.
+* **BREAKING CHANGE** PHP Session is not required anymore. Now Gianism uses Cookie instead. Therefore, please check Cookie's name below are passed to PHP. On environments under CDN like Amazon Cloudfront, Cookies are filtered with a whitelist.
+  * `gianism_session`
+  * `gianism_updated`
+  * `gianism_error`
+  * If possible, allow cookie prefixed `gianism_` for future updates.
+* All Cookie headers have now new property `SameSite=Lax`.
+* URL prefix for redirect URI is now available. Since previous version, Ginanism's endpoints are at root(e.g. `example.com/facebook`). Now you can add prefix as you like(e.g. `example.com/gianism/facebook`). Sorry for late update, but I was young.
+* Facebook API version update is very frequent, so Gianims ensure minimum API version. Gianism 4.0 igonres Facebook API version less than 6.0.
+* Remove unused libraries of Google PHP API Client from Gianism, because the library sizes are too huge. This may break your site if you use Google's library in your custom code. To check remaining libraries, refer `bin/composer-fixer.php`.
+* Some small fixes.
 
 ### 3.3.0
 

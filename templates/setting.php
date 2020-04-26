@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) or die();
 						<?php esc_html_e(  'Depends on WP setting' , 'wp-gianism' ); ?>
 					</label>
 				</p>
-				<p class="description"><?php echo wp_kses_post( sprintf( __(  'Whether registration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.', '' ), admin_url( 'options-general.php' ) ) ) ?></p>
+				<p class="description"><?php echo wp_kses_post( sprintf( __(  'Whether registration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.', 'wp-gianism' ), admin_url( 'options-general.php' ) ) ) ?></p>
 				<?php if ( gianism_woocommerce_detected() ) : ?>
 				<p class="description" style="color: #f34357;">
 					<?php echo wp_kses( __( '<strong>WooCommerce found!</strong> In spite of this setting, user can always register account.', 'wp-gianism' ), [ 'strong' => [] ] ) ?>

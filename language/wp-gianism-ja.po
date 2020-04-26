@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-10 19:40+0900\n"
-"PO-Revision-Date: 2018-07-10 19:43+0900\n"
+"POT-Creation-Date: 2020-04-27 02:24+0900\n"
+"PO-Revision-Date: 2020-04-27 02:25+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:139
+#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:146
 #: app/Gianism/Plugins/Analytics.php:169 app/Gianism/Plugins/Analytics.php:191
 #: app/Gianism/Plugins/Analytics.php:334 app/Gianism/Plugins/Analytics.php:446
 msgid "You have no permission."
@@ -152,23 +152,23 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr "SNS接続"
 
-#: app/Gianism/Helper/Option.php:107
+#: app/Gianism/Helper/Option.php:109
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: app/Gianism/Helper/Option.php:110
+#: app/Gianism/Helper/Option.php:113
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: app/Gianism/Helper/Option.php:221
+#: app/Gianism/Helper/Option.php:224
 msgid "Medium"
 msgstr "中"
 
-#: app/Gianism/Helper/Option.php:222
+#: app/Gianism/Helper/Option.php:225
 msgid "Large"
 msgstr "大"
 
-#: app/Gianism/Notices/SessionSetting.php:51
+#: app/Gianism/Notices/SessionSetting.php:55
 #, php-format
 msgid ""
 "Maybe session is not working. Please check permission of <code>session."
@@ -177,7 +177,7 @@ msgstr ""
 "セッションが動作していないかもしれません。<code>session.save_path</code>の書"
 "き込み権限をチェックしてください（現在の値は<code>%s</code>です）。"
 
-#: app/Gianism/Notices/SessionSetting.php:55
+#: app/Gianism/Notices/SessionSetting.php:59
 #, php-format
 msgid ""
 "For more details, please see our <a href=\"%s\" target=\"_blank\">blog post</"
@@ -197,11 +197,11 @@ msgstr ""
 "ループが <code>%1$s</code> になっています。デフォルト権限グループは<a href="
 "\"%2$s\">設定ページ</a>で<strong>顧客</strong> にしておいてください。"
 
-#: app/Gianism/Pattern/AbstractNotice.php:143
+#: app/Gianism/Pattern/AbstractNotice.php:150
 msgid "This request type is not allowed."
 msgstr "このリクエストタイプは許可されていません。"
 
-#: app/Gianism/Pattern/AbstractNotice.php:148
+#: app/Gianism/Pattern/AbstractNotice.php:155
 msgid "This notice is already dismissed."
 msgstr "この通知はすでに非表示になりました。"
 
@@ -348,7 +348,7 @@ msgid "Cheatin'? Wrong access."
 msgstr "なにかしましたか？　不正なアクセスです。"
 
 #: app/Gianism/Service/AbstractService.php:231
-#: app/Gianism/Service/AbstractService.php:267
+#: app/Gianism/Service/AbstractService.php:269
 #: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:229
 msgid "You must be logged in."
 msgstr "ログインする必要があります。"
@@ -359,30 +359,30 @@ msgid "You are already connected with %s"
 msgstr "あなたのアカウントはすでに%sに接続されています。"
 
 #: app/Gianism/Service/AbstractService.php:240
-#: app/Gianism/Service/AbstractService.php:298
+#: app/Gianism/Service/AbstractService.php:300
 msgid "Sorry, but failed to connect with API."
 msgstr "申し訳ございません、APIに接続できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:271
+#: app/Gianism/Service/AbstractService.php:273
 #, php-format
 msgid "Your account is not connected with %s"
 msgstr "あなたのアカウントは%sに接続されていません。"
 
-#: app/Gianism/Service/AbstractService.php:275
+#: app/Gianism/Service/AbstractService.php:277
 #, php-format
 msgid "Your account is now unlinked from %s."
 msgstr "あなたのアカウントは%sとの接続を解除されました。"
 
-#: app/Gianism/Service/AbstractService.php:293
+#: app/Gianism/Service/AbstractService.php:295
 msgid "You are logged in, ah?"
 msgstr "ログインしていますね？"
 
-#: app/Gianism/Service/AbstractService.php:367
+#: app/Gianism/Service/AbstractService.php:371
 #, php-format
 msgid "Your account is already connected with %s account."
 msgstr "あなたのアカウントはすでに%sアカウントに接続されています。"
 
-#: app/Gianism/Service/AbstractService.php:370
+#: app/Gianism/Service/AbstractService.php:374
 #, php-format
 msgid ""
 "Connecting with %1$s, you can login with %2$s via %1$s without password or "
@@ -391,35 +391,35 @@ msgstr ""
 "%1$sアカウントに接続すると、%2$sに%1$sアカウントでログインできるようになりま"
 "す。パスワードやメールアドレスは必要ありません。"
 
-#: app/Gianism/Service/AbstractService.php:570
+#: app/Gianism/Service/AbstractService.php:578
 msgid "Log in"
 msgstr "ログイン"
 
-#: app/Gianism/Service/AbstractService.php:612
+#: app/Gianism/Service/AbstractService.php:620
 #, php-format
 msgid "Log in with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:616
+#: app/Gianism/Service/AbstractService.php:624
 #, php-format
 msgid "Login with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:653
+#: app/Gianism/Service/AbstractService.php:661
 #, php-format
 msgid "Connect %s"
 msgstr "%sと接続"
 
-#: app/Gianism/Service/AbstractService.php:656
+#: app/Gianism/Service/AbstractService.php:664
 msgid "Connect"
 msgstr "コネクト"
 
-#: app/Gianism/Service/AbstractService.php:676
+#: app/Gianism/Service/AbstractService.php:684
 #, php-format
 msgid "Disconnect %s"
 msgstr "%sを接続解除"
 
-#: app/Gianism/Service/AbstractService.php:677
+#: app/Gianism/Service/AbstractService.php:685
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
@@ -428,55 +428,55 @@ msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
 
-#: app/Gianism/Service/AbstractService.php:680
+#: app/Gianism/Service/AbstractService.php:688
 msgid "Disconnect"
 msgstr "切断"
 
-#: app/Gianism/Service/AbstractService.php:751
+#: app/Gianism/Service/AbstractService.php:760
 msgid "Sorry, but cannot create valid user name."
 msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:760
+#: app/Gianism/Service/AbstractService.php:769
 #, php-format
 msgid "%s API returns error."
 msgstr "%s APIがエラーを返しました。"
 
-#: app/Gianism/Service/AbstractService.php:769
+#: app/Gianism/Service/AbstractService.php:778
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr "この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: app/Gianism/Service/AbstractService.php:778
+#: app/Gianism/Service/AbstractService.php:787
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
-#: app/Gianism/Service/AbstractService.php:787
+#: app/Gianism/Service/AbstractService.php:796
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:796
+#: app/Gianism/Service/AbstractService.php:805
 msgid "Cannot retrieve email address."
 msgstr "メールアドレスを取得できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:805
+#: app/Gianism/Service/AbstractService.php:814
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/Gianism/Service/AbstractService.php:812
-#: app/Gianism/Service/Facebook.php:404 app/Gianism/Service/Google.php:232
+#: app/Gianism/Service/AbstractService.php:821
+#: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
 #: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:271
 #: app/Gianism/Service/Twitter.php:270
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
-#: app/Gianism/Service/AbstractService.php:823
+#: app/Gianism/Service/AbstractService.php:832
 #, php-format
 msgid "Sorry, but registration via %s is not allowed."
 msgstr "申し訳ありません、%sでの登録は許可されていません。"
 
-#: app/Gianism/Service/AbstractService.php:926
+#: app/Gianism/Service/AbstractService.php:935
 #, php-format
 msgid ""
 "%1$s get your information below from %2$s. Please proceed with your "
@@ -484,52 +484,52 @@ msgid ""
 msgstr ""
 "%1$s は %2$s より以下の情報を取得します。確認した上で先に進んでください。"
 
-#: app/Gianism/Service/AbstractService.php:949
+#: app/Gianism/Service/AbstractService.php:958
 #, php-format
 msgid "%s User ID"
 msgstr "%sのユーザーID"
 
-#: app/Gianism/Service/AbstractService.php:950 templates/analytics.php:83
+#: app/Gianism/Service/AbstractService.php:959 templates/analytics.php:83
 msgid "Profile"
 msgstr "プロパティ"
 
-#: app/Gianism/Service/AbstractService.php:951 templates/parts/sidebar.php:42
+#: app/Gianism/Service/AbstractService.php:960 templates/parts/sidebar.php:42
 msgid "Email"
 msgstr "メール"
 
-#: app/Gianism/Service/Facebook.php:128
+#: app/Gianism/Service/Facebook.php:134
 msgid "Facebook API"
 msgstr "Facebook API"
 
-#: app/Gianism/Service/Facebook.php:250
+#: app/Gianism/Service/Facebook.php:256
 msgid "You are already logged in"
 msgstr "すでにログインしています。"
 
-#: app/Gianism/Service/Facebook.php:385
+#: app/Gianism/Service/Facebook.php:391
 msgid "Access token is saved."
 msgstr "アクセストークンが保存されました。"
 
-#: app/Gianism/Service/Facebook.php:457
+#: app/Gianism/Service/Facebook.php:463
 msgid "Saved facebook account to use."
 msgstr "利用するFacebookアカウントが保存されました。"
 
-#: app/Gianism/Service/Facebook.php:476
+#: app/Gianism/Service/Facebook.php:482
 msgid "Sorry, but failed to get user data."
 msgstr "申し訳ございません、ユーザー情報を取得できませんでした。"
 
-#: app/Gianism/Service/Facebook.php:629
+#: app/Gianism/Service/Facebook.php:635
 msgid "Token is not set. Please get it."
 msgstr "トークンが設定されていません。取得してください。"
 
-#: app/Gianism/Service/Facebook.php:640
+#: app/Gianism/Service/Facebook.php:647
 msgid "Token is outdated. Please update it."
 msgstr "トークンが期限切れです。更新してください。"
 
-#: app/Gianism/Service/Facebook.php:699
+#: app/Gianism/Service/Facebook.php:723
 msgid "Page is not set."
 msgstr "ページが設定されていません。"
 
-#: app/Gianism/Service/Facebook.php:709
+#: app/Gianism/Service/Facebook.php:733
 msgid "No page found. Do you have permission for that page?"
 msgstr ""
 "ページが見つかりませんでした。そのページのパーミッションはお持ちですか？"
@@ -572,6 +572,11 @@ msgstr "メディアをtwitterにアップロードできませんでした。"
 #, php-format
 msgid "Template file <code>%s</code> is missing."
 msgstr "テンプレートファイル<code>%s</code>がありません。"
+
+#: app/Gianism/UI/Screen.php:205
+#, php-format
+msgid "New Since %s"
+msgstr "%sから追加"
 
 #: app/Gianism/UI/SettingScreen.php:22 app/Gianism/UI/SettingScreen.php:23
 msgid "Gianism Setting"
@@ -1353,6 +1358,27 @@ msgstr "ボタンサイズ"
 msgid "This setting is valid only if login button's display setting is on."
 msgstr "この設定はログインボタンの表示設定がONの場合だけ有効です。"
 
+#: templates/setting.php:80
+msgid "URL Prefix"
+msgstr "URL接頭辞"
+
+#: templates/setting.php:85
+msgid ""
+"You can add prefix for all Gianism redirect URIs. Useful if you site is "
+"under CDN network which filters cookie strings."
+msgstr ""
+"GianismのリダイレクトURIに接頭辞をつけることができます。サイトがCookie文字列"
+"をフィルタリングするCDN配下にある環境などで役立ちます。"
+
+#: templates/setting.php:87
+msgid ""
+"<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
+"app setting in each SNS. It might cause error on live site."
+msgstr ""
+"<strong>注意：</strong>URL接頭辞を変更した場合、それぞれのSNSでアプリの設定を"
+"変更する必要があります。運用中のサイトでの変更はエラーを起こす可能性がありま"
+"す。"
+
 #: templates/setting/facebook.php:10
 msgid "Connect with Facebook"
 msgstr "Facebookと接続"
@@ -1387,12 +1413,15 @@ msgid "API Version"
 msgstr "API バージョン"
 
 #: templates/setting/facebook.php:51
+#, php-format
 msgid ""
 "Enter Facebook API version for your app. Facebook API's life cycle is 2 "
-"years. Format should be v*.*. e.g. <code>v2.8</code>"
+"years. Format should be <code>v0.0</code>. Less than minimum version <code>"
+"%s</code> will be ignored."
 msgstr ""
 "あなたのアプリのFacebook APIバージョンを入力してください。Facebook APIのライ"
-"フサイクルは2年です。形式は v*.* です。 例 <code>v2.8</code>"
+"フサイクルは2年です。形式は<code>v0.0</code> です。 最小必須バージョン <code>"
+"%s</code>より小さいバージョンは無視されます。"
 
 #: templates/setting/facebook.php:57 templates/setting/google.php:32
 #: templates/setting/google.php:39 templates/setting/instagram.php:40
@@ -1460,7 +1489,7 @@ msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 "<a target=\"_blank\" href=\"%4$s\">%3$s</a>で%1$sを%2$sに設定してください。"
 
-#: templates/setting/google.php:48
+#: templates/setting/google.php:50
 #, php-format
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "

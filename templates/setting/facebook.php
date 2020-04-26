@@ -48,7 +48,7 @@ defined( 'ABSPATH' ) or die();
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.0' );
-				echo wp_kses_post( sprintf( __( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be <code>v0.0</code>. Less than minimum version <code>%s</code> will be ignored.' ), $instance->minimum_api_version ) );
+				echo wp_kses_post( sprintf( __( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be <code>v0.0</code>. Less than minimum version <code>%s</code> will be ignored.', 'wp-gianism' ), $instance->minimum_api_version ) );
 				?>
 			</p>
 		</td>

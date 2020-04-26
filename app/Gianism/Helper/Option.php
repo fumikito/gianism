@@ -16,6 +16,7 @@ use Gianism\Pattern\Singleton;
  * @property-read bool           $force_register
  * @property-read bool           $show_button_on_login
  * @property-read int            $button_type
+ * @property-read prefix         $prefix
  */
 class Option extends Singleton {
 
@@ -57,6 +58,7 @@ class Option extends Singleton {
 		'show_button_on_login'   => true,
 		'button_type'            => 0,
 		'do_cron'                => false,
+		'prefix'                 => '',
 	];
 
 

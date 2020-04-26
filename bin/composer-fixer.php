@@ -2,8 +2,9 @@
 /**
  * Composer package cleaner.
  *
- * The PHP library "" is too huge and the files
- *
+ * The PHP library "google/api-client" is too huge and the files are so many.
+ * This script removes unwanted libraries written in ``REQUIRED_LIBS.
+ * These command lines are executed in `bin/build.sh`.
  */
 
 const REQUIRED_LIBS = [

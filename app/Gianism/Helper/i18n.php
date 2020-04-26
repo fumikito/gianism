@@ -18,6 +18,7 @@ trait i18n {
 	/**
 	 * Alias of __
 	 *
+	 * @deprecated 4.0.0
 	 * @param string $string
 	 *
 	 * @return string
@@ -29,6 +30,7 @@ trait i18n {
 	/**
 	 * Alias of _e
 	 *
+	 * @deprecated 4.0.0
 	 * @param string $string
 	 */
 	public function e( $string ) {

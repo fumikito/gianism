@@ -61,7 +61,7 @@ define( 'GIANISM_DOMAIN', $info['text_domain'] );
 define( 'GIANISM_PHP_VERSION', $info['php_version'] );
 
 // Add action after plugins are loaded.
-add_action( 'plugins_loaded', 'gianism_setup_after_plugins_loaded' );
+add_action( 'plugins_loaded', 'gianism_setup_after_plugins_loaded', 11 );
 
 /**
  * Start plugin

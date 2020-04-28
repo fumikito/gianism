@@ -73,8 +73,8 @@ class AnalyticsFetcher extends Singleton {
 				throw new \Exception( 'Google Analytics is not connected.', 500 );
 			}
 			$result = $this->ga->data_ga->get( 'ga:' . $this->view_id, $start_date, $end_date, $metrics, $params );
-			if ( $result && count( $result->rows ) > 0 ) {
-				return $result->rows;
+			if ( $result && $result->getRows() && count( $result->getRows() ) > 0 ) {
+				return $result->getRows();
 			} else {
 				return [];
 			}

@@ -22,10 +22,6 @@ env:
   global:
   - SVN_REPO: https://plugins.svn.wordpress.org/gianism/
   - secure: "SoQvImLE6BURpTxCgnN05XQAhCPGARVDxvqmz9W+WEbzy/dQYSP2mFMDwspeCk7WcNjDzzCjDk6Zz3SRj31rvzaYsdPOboLPkSX/n+RwiCQYWpAiiAL+OYm7RYoj+6N7cK2dzaDhYRG2sbdZ0nkS/+4J4TmEp9CtiA5Q+S5RLJo="
-matrix:
-  include:
-  - php: 5.6
-    env: WP_VERSION=4.7 WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
 before_script:
 - composer install
 - curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.33.0/nvm.sh
@@ -36,6 +32,8 @@ before_script:
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
 - composer test
+before_deploy:
+  - export WP_PULUGIN_DEPLOY=1
 deploy:
   - provider: script
     script: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | sed 's/svn co -q/svn co/' | bash

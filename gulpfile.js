@@ -1,8 +1,8 @@
-var gulp        = require('gulp'),
-    fs          = require('fs'),
-    $           = require('gulp-load-plugins')(),
-    pngquant    = require('imagemin-pngquant'),
-    eventStream = require('event-stream');
+const gulp        = require('gulp');
+const fs          = require('fs');
+const $           = require('gulp-load-plugins')();
+const pngquant    = require('imagemin-pngquant');
+const mergeStream = require('merge-stream');
 
 
 // Sass tasks
@@ -12,7 +12,7 @@ gulp.task('sass', function () {
       errorHandler: $.notify.onError('<%= error.message %>')
     }))
     .pipe($.sourcemaps.init({loadMaps: true}))
-    .pipe($.sassBulkImport())
+    .pipe($.sassGlob())
     .pipe($.sass({
       errLogToConsole: true,
       outputStyle    : 'compressed',
@@ -20,7 +20,7 @@ gulp.task('sass', function () {
         './src/sass'
       ]
     }))
-    .pipe($.autoprefixer({browsers: ['last 2 version', '> 5%']}))
+    .pipe($.autoprefixer())
     .pipe($.sourcemaps.write('./map'))
     .pipe(gulp.dest('./assets/css'));
 });
@@ -29,11 +29,13 @@ gulp.task('sass', function () {
 // Minify All
 gulp.task('js', function () {
   return gulp.src(['./src/js/**/*.js'])
+      .pipe($.plumber({
+          errorHandler: $.notify.onError('<%= error.message %>')
+      }))
     .pipe($.sourcemaps.init({
       loadMaps: true
     }))
     .pipe($.uglify())
-    .on('error', $.util.log)
     .pipe($.sourcemaps.write('./map'))
     .pipe(gulp.dest('./assets/js/'));
 });
@@ -48,21 +50,18 @@ gulp.task('jshint', function () {
 
 // Build libraries
 gulp.task('copylib', function () {
-  return eventStream.merge(
-
+  return mergeStream(
     // Copy LigatureSymbols
     gulp.src([
       './src/fonts/**/*'
     ])
       .pipe(gulp.dest('./assets/fonts/')),
-
     // Copy JS Cookie
     gulp.src([
       './node_modules/js-cookie/src/js.cookie.js'
     ])
       .pipe($.uglify())
       .pipe(gulp.dest('./assets/js/'))
-
   );
 });
 
@@ -90,7 +89,7 @@ gulp.task('watch', function () {
 
 
 // Build
-gulp.task('build', ['copylib', 'js', 'sass', 'imagemin']);
+gulp.task('build', gulp.parallel( 'copylib', 'js', 'sass', 'imagemin' ) );
 
 // Default Tasks
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.parallel( 'watch' ) );

@@ -23,6 +23,7 @@ env:
   - SVN_REPO: https://plugins.svn.wordpress.org/gianism/
   - secure: "SoQvImLE6BURpTxCgnN05XQAhCPGARVDxvqmz9W+WEbzy/dQYSP2mFMDwspeCk7WcNjDzzCjDk6Zz3SRj31rvzaYsdPOboLPkSX/n+RwiCQYWpAiiAL+OYm7RYoj+6N7cK2dzaDhYRG2sbdZ0nkS/+4J4TmEp9CtiA5Q+S5RLJo="
 before_script:
+- composer clear-cache
 - composer install
 - curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.33.0/nvm.sh
 - source $HOME/.nvm/nvm.sh
@@ -38,7 +39,7 @@ deploy:
   - provider: script
     script: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | sed 's/svn co -q/svn co/' | bash
     on:
-      php: 7.0
+      php: 7.2
       tags: true
       condition: $WP_VERSION = latest
     skip_cleanup: true

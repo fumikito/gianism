@@ -11,7 +11,6 @@ defined( 'ABSPATH' ) or die();
 		<th><label><?php printf( __( 'Connect with %s', 'wp-gianism' ), 'LINE' ); ?></label></th>
 		<td>
 			<?php $this->switch_button( 'line_enabled', $this->option->is_enabled( 'line'), 'line_enabled' ) ?>
-			<label>
 			<p class="description">
 				<?php printf( __( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required information.', 'wp-gianism' ), "LINE", "https://developers.line.me/" ); ?>
 				<?php printf( __( 'See detail at <a href="%1$s">%2$s</a>.', 'wp-gianism' ), $this->setting_url( 'setup' ), __( 'How to set up', 'wp-gianism' ) ); ?>
@@ -51,9 +50,25 @@ defined( 'ABSPATH' ) or die();
 		<th><label><?php esc_html_e( 'Retrieve Email', 'wp-gianism' ); ?></label></th>
 		<td>
 			<?php $this->switch_button( 'line_retrieve_email', $instance->line_retrieve_email, 1 ) ?>
-			<label>
 			<p class="description">
 				<?php printf( __( 'You need registration to retrieve user email. Go to <a target="_blank" href="%1$s">LINE developer</a> and submit request.', 'wp-gianism' ), 'https://developers.line.me/' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="line-add-friend-prompt"><?php esc_html_e( 'Add Friend', 'wp-gianism' ); ?></label></th>
+		<td>
+			<select id="line-add-friend-prompt" name="line_add_friend_prompt">
+				<?php foreach ( [
+					''           => __( 'Not display', 'wp-gianism' ),
+					'normal'     => __( 'Display as option', 'wp-gianism' ),
+					'aggressive' => __( 'Aggressive Prompt', 'wp-gianism' ),
+				] as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ) ?>" <?php selected( $value, $instance->line_add_friend_prompt ) ?>><?php echo esc_html( $label ) ?></option>
+				<?php endforeach; ?>
+			</select>
+			<p class="description">
+				<?php echo wp_kses_post( sprintf( __( 'If you have an official account in LINE, you can display "Add friend button" in your connect screen. For more details, see <a href="%s" target="_blank" rel="noopener,noreferrer">LINE Developer</a>.', 'wp-gianism' ), _x( 'https://developers.line.biz/en/docs/line-login/link-a-bot/#getting-the-friendship-status-of-the-user-and-the-line-official-account', 'LINE DOC', 'wp-gianism' ) ) ); ?>
 			</p>
 		</td>
 	</tr>

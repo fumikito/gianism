@@ -10,7 +10,8 @@ use Firebase\JWT\JWT;
  *
  * @property string $line_channel_id
  * @property string $line_channel_secret
- * @property bool $line_retrieve_email
+ * @property bool   $line_retrieve_email
+ * @property string $line_add_friend_prompt
  */
 class Line extends NoMailService {
 
@@ -25,10 +26,11 @@ class Line extends NoMailService {
 	protected $pseudo_domain = 'pseudo.line.me';
 
 	protected $option_keys = [
-		'line_enabled'        => false,
-		'line_channel_id'     => '',
-		'line_channel_secret' => '',
-		'line_retrieve_email' => false,
+		'line_enabled'           => false,
+		'line_channel_id'        => '',
+		'line_channel_secret'    => '',
+		'line_retrieve_email'    => false,
+		'line_add_friend_prompt' => '',
 	];
 
 

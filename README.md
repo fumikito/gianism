@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.7  
-Tested up to: 5.4  
-Stable tag: 4.0.0  
+Tested up to: 5.5  
+Stable tag: 4.1.0  
 Requires PHP: 5.6  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 4.1.0
+
+* "Add friend" button for [LINE](https://developers.line.biz/en/docs/line-login/link-a-bot/#getting-the-friendship-status-of-the-user-and-the-line-official-account) if you have an official account.
 
 ### 4.0.0
 

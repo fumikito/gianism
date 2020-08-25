@@ -10,7 +10,8 @@ use Firebase\JWT\JWT;
  *
  * @property string $line_channel_id
  * @property string $line_channel_secret
- * @property bool $line_retrieve_email
+ * @property bool   $line_retrieve_email
+ * @property string $line_add_friend_prompt
  */
 class Line extends NoMailService {
 
@@ -25,10 +26,11 @@ class Line extends NoMailService {
 	protected $pseudo_domain = 'pseudo.line.me';
 
 	protected $option_keys = [
-		'line_enabled'        => false,
-		'line_channel_id'     => '',
-		'line_channel_secret' => '',
-		'line_retrieve_email' => false,
+		'line_enabled'           => false,
+		'line_channel_id'        => '',
+		'line_channel_secret'    => '',
+		'line_retrieve_email'    => false,
+		'line_add_friend_prompt' => '',
 	];
 
 
@@ -67,21 +69,25 @@ class Line extends NoMailService {
 					$state = sha1( uniqid() );
 				}
 				$this->session->write( 'line_state', $state );
+				$params = [
+					'response_type' => 'code',
+					'client_id' => $this->line_channel_id,
+					'redirect_uri' => home_url( "/{$this->url_prefix}/" ),
+					'scope' => rawurlencode( 'profile openid email' ),
+					'state' => $state,
+					// 'prompt' => 'consent', // For Debug by displaying consent screen always.
+				];
+				if ( ( $prompt = $this->line_add_friend_prompt ) ) {
+					$params['bot_prompt'] = $prompt;
+				}
 				/**
 				 * giansim_line_auth_params
 				 *
 				 * @param array  $args    Query parameters
 				 * @param string $context login or connect.
 				 */
-				$args = apply_filters( 'giansim_line_auth_params', [
-					'response_type' => 'code',
-					'client_id' => $this->line_channel_id,
-					'redirect_uri' => home_url( "/{$this->url_prefix}/" ),
-					'scope' => rawurlencode( 'profile openid email' ),
-					'state' => $state,
-				], $action );
+				$args = apply_filters( 'gianism_line_auth_params', $params, $action );
 				return add_query_arg( $args, $auth_url );
-				break;
 			default:
 				return false;
 				break;

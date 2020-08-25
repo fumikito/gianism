@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 02:24+0900\n"
-"PO-Revision-Date: 2020-04-27 02:25+0900\n"
+"POT-Creation-Date: 2020-08-25 15:20+0900\n"
+"PO-Revision-Date: 2020-08-25 15:23+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -465,7 +465,7 @@ msgstr "登録できませんでした。時間をおいてからもう一度試
 
 #: app/Gianism/Service/AbstractService.php:821
 #: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
-#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:271
+#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:277
 #: app/Gianism/Service/Twitter.php:270
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
@@ -534,11 +534,11 @@ msgid "No page found. Do you have permission for that page?"
 msgstr ""
 "ページが見つかりませんでした。そのページのパーミッションはお持ちですか？"
 
-#: app/Gianism/Service/Line.php:129
+#: app/Gianism/Service/Line.php:135
 msgid "Sorry, but wrong access. Please try again."
 msgstr "不正なアクセスです。やりなおしてください。"
 
-#: app/Gianism/Service/Line.php:146
+#: app/Gianism/Service/Line.php:152
 msgid "Sorry, but failed to parse request."
 msgstr "申し訳ございません、情報を取得できませんでした。"
 
@@ -592,7 +592,7 @@ msgstr "設定"
 
 #: app/Gianism/UI/SettingScreen.php:34 templates/setting/facebook.php:23
 #: templates/setting/google.php:16 templates/setting/instagram.php:23
-#: templates/setting/line.php:17 templates/setting/twitter.php:17
+#: templates/setting/line.php:16 templates/setting/twitter.php:17
 msgid "How to set up"
 msgstr "設定方法"
 
@@ -1394,7 +1394,7 @@ msgstr ""
 "リケーションを作成する必要があります。"
 
 #: templates/setting/facebook.php:21 templates/setting/google.php:16
-#: templates/setting/instagram.php:21 templates/setting/line.php:17
+#: templates/setting/instagram.php:21 templates/setting/line.php:16
 #: templates/setting/twitter.php:17
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
@@ -1425,19 +1425,19 @@ msgstr ""
 
 #: templates/setting/facebook.php:57 templates/setting/google.php:32
 #: templates/setting/google.php:39 templates/setting/instagram.php:40
-#: templates/setting/instagram.php:47 templates/setting/line.php:32
+#: templates/setting/instagram.php:47 templates/setting/line.php:31
 #: templates/setting/twitter.php:47 templates/setup/line.php:32
 msgid "Redirect URI"
 msgstr "リダイレクトURI"
 
 #: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/line.php:46
+#: templates/setting/instagram.php:54 templates/setting/line.php:45
 #: templates/setting/twitter.php:61
 msgid "Please copy this URL."
 msgstr "URLをコピーしてください。"
 
 #: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/line.php:46
+#: templates/setting/instagram.php:54 templates/setting/line.php:45
 #: templates/setting/twitter.php:61
 msgid "Copy"
 msgstr "コピー"
@@ -1483,7 +1483,7 @@ msgid "Client Secret"
 msgstr "Client Secret"
 
 #: templates/setting/google.php:38 templates/setting/instagram.php:46
-#: templates/setting/line.php:38 templates/setting/twitter.php:53
+#: templates/setting/line.php:37 templates/setting/twitter.php:53
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
@@ -1498,7 +1498,7 @@ msgstr ""
 "<strong>注意： </strong><code>Gianims v2.0</code>から設定が変更されました。"
 "Google API Consoleで再設定する必要があります。"
 
-#: templates/setting/line.php:16 templates/setting/twitter.php:16
+#: templates/setting/line.php:15 templates/setting/twitter.php:16
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
@@ -1507,23 +1507,23 @@ msgstr ""
 "必要な情報を入手するために<a target=\"_blank\" href=\"%2$s\">こちら</a>で新し"
 "い%1$sアプリを作成する必要があります。"
 
-#: templates/setting/line.php:22
+#: templates/setting/line.php:21
 msgid "Channel ID"
 msgstr "チャンネルID"
 
-#: templates/setting/line.php:27
+#: templates/setting/line.php:26
 msgid "Channel Secret"
 msgstr "チャンネルシークレット"
 
-#: templates/setting/line.php:39 templates/setting/twitter.php:54
+#: templates/setting/line.php:38 templates/setting/twitter.php:54
 msgid "Callback URL"
 msgstr "コールバックURL"
 
-#: templates/setting/line.php:51
+#: templates/setting/line.php:50
 msgid "Retrieve Email"
 msgstr "メールアドレスを取得する"
 
-#: templates/setting/line.php:56
+#: templates/setting/line.php:54
 #, php-format
 msgid ""
 "You need registration to retrieve user email. Go to <a target=\"_blank\" "
@@ -1531,6 +1531,41 @@ msgid ""
 msgstr ""
 "ユーザーのメールアドレスを取得するには、登録する必要があります。<a target="
 "\"_blank\" href=\"%1$s\">LINE developer</a>へ行き、申請してください。"
+
+#: templates/setting/line.php:59
+msgid "Add Friend"
+msgstr "友達を追加"
+
+#: templates/setting/line.php:63
+msgid "Not display"
+msgstr "表示しない"
+
+#: templates/setting/line.php:64
+msgid "Display as option"
+msgstr "オプションとして表示"
+
+#: templates/setting/line.php:65
+msgid "Aggressive Prompt"
+msgstr "全画面表示の選択画面"
+
+#: templates/setting/line.php:71
+#, php-format
+msgid ""
+"If you have an official account in LINE, you can display \"Add friend button"
+"\" in your connect screen. For more details, see <a href=\"%s\" target="
+"\"_blank\" rel=\"noopener,noreferrer\">LINE Developer</a>."
+msgstr ""
+"LINE公式アカウントをお持ちの場合、アカウント接続許可画面に「友だち追加」ボタ"
+"ンを表示することができます。詳細は<a href=\"%s\" target=\"_blank\" rel="
+"\"noopener,noreferrer\">LINE Developer</a>をご覧下さい。"
+
+#: templates/setting/line.php:71
+msgid ""
+"https://developers.line.biz/en/docs/line-login/link-a-bot/#getting-the-"
+"friendship-status-of-the-user-and-the-line-official-account"
+msgstr ""
+"https://developers.line.biz/ja/docs/line-login/link-a-bot/#getting-the-"
+"friendship-status-of-the-user-and-the-line-official-account"
 
 #: templates/setting/twitter.php:22 templates/setting/twitter.php:72
 msgid "Screen Name"

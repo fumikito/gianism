@@ -8,6 +8,10 @@ use Gianism\Pattern\Singleton;
 /**
  * Session controller
  *
+ * This class is named "Session" but actually it doesn't rely on PHP session.
+ * Since 4.0, Gianism uses Cookie instead of PHP Session.
+ * For backward compatibility, it keeps old name.
+ *
  * @package Gianism
  * @since 3.0.0
  * @since 4.0.0 Drop PHP Session usage.

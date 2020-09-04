@@ -155,7 +155,10 @@ class ProfileChecker extends AbstractController {
 		$error = $this->get_error( get_current_user_id() );
 		if ( ! $error->get_error_messages() ) {
 			return;
-		} elseif ( false !== strpos( $_SERVER['REQUEST_URI'], $this->option->profile_completion_path ) ) {
+		}
+		$skip_redirect = false !== strpos( $_SERVER['REQUEST_URI'], $this->option->profile_completion_path );
+		$skip_redirect = apply_filters( 'gianism_skip_redirect', $skip_redirect );
+		if ( $skip_redirect ) {
 			return;
 		}
 		wp_redirect( $this->redirect_url() );

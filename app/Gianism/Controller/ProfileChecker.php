@@ -144,7 +144,6 @@ class ProfileChecker extends AbstractController {
 				$error->add( 'email', __( 'Your email is pseudo one because your SNS has no permission to provide email to us. ', 'wp-gianism' ) );
 			}
 			$error = apply_filters( 'gianism_profile_error', $error );
-			$error->add( 'erro', 'You have error.' );
 		}
 		return $error;
 	}
@@ -153,6 +152,13 @@ class ProfileChecker extends AbstractController {
 	 * Redirect incomplete users.
 	 */
 	public function redirect() {
+		$error = $this->get_error( get_current_user_id() );
+		if ( ! $error->get_error_messages() ) {
+			return;
+		} elseif ( false !== strpos( $_SERVER['REQUEST_URI'], $this->option->profile_completion_path ) ) {
+			return;
+		}
+		wp_redirect( $this->redirect_url() );
 	}
 	
 	/**
@@ -163,8 +169,10 @@ class ProfileChecker extends AbstractController {
 		if ( ! $error->get_error_messages() ) {
 			return;
 		}
-		$message = sprintf( __( 'You have an incomplete profile. To access full features of this site, plese fill your profile <a href="%s">here</a>.', 'wp-gianism' ), $this->redirect_url() );
+		$message = sprintf( __( 'You have an incomplete profile. To access full features of this site, please fill your profile <a href="%s">here</a>.', 'wp-gianism' ), $this->redirect_url() );
 		$message = apply_filters( 'gianism_profile_error_popup', $message, $this->redirect_url(), $error );
 		$this->add_message( $message, true );
 	}
+	
+	
 }

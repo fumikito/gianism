@@ -16,7 +16,9 @@ use Gianism\Pattern\Singleton;
  * @property-read bool           $force_register
  * @property-read bool           $show_button_on_login
  * @property-read int            $button_type
- * @property-read prefix         $prefix
+ * @property-read string         $prefix
+ * @property-read string         $check_profile
+ * @property-read string         $profile_completion_path
  */
 class Option extends Singleton {
 
@@ -54,11 +56,13 @@ class Option extends Singleton {
 	 * @var array
 	 */
 	protected $original_option = [
-		'force_register'         => true,
-		'show_button_on_login'   => true,
-		'button_type'            => 2,
-		'do_cron'                => false,
-		'prefix'                 => '',
+		'force_register'          => true,
+		'show_button_on_login'    => true,
+		'button_type'             => 2,
+		'do_cron'                 => false,
+		'prefix'                  => '',
+		'check_profile'           => '',
+		'profile_completion_path' => '',
 	];
 
 

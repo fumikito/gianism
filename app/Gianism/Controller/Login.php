@@ -42,7 +42,7 @@ class Login extends AbstractController {
 	protected function __construct( array $argument = [] ) {
 
 		if ( $this->option->is_enabled() ) {
-			// Only for acount holder
+			// Only for account holder
 			if ( $this->option->show_button_on_login( 'login' ) ) {
 				add_action( 'login_form', array( $this, 'login_form' ) );
 			}

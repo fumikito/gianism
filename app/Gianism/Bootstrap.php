@@ -5,6 +5,7 @@ namespace Gianism;
 use Gianism\Controller\Admin;
 use Gianism\Controller\Login;
 use Gianism\Controller\Profile;
+use Gianism\Controller\ProfileChecker;
 use Gianism\Controller\Rewrite;
 use Gianism\Helper\ServiceManager;
 use Gianism\Pattern\AppBase;
@@ -95,10 +96,13 @@ class Bootstrap extends Singleton {
 		$service->init();
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
+		// Initialize profile checker.
+		
 		// If enabled, create interface and rewrite rules.
 		if ( $this->option->is_enabled() ) {
 			// Init profile manager
 			Profile::get_instance();
+			ProfileChecker::get_instance();
 			// Init login manager
 			Login::get_instance();
 			// Enqueue scripts

@@ -44,6 +44,39 @@ defined( 'ABSPATH' ) or die();
 			</td>
 		</tr>
 		<tr>
+			<th><label for="wpg-check-profile"><?php esc_html_e(  'Profile Completion' , 'wp-gianism' ); ?></label></th>
+			<td>
+				<?php $this->new_from( '4.1.0' ); ?>
+				<select name="check_profile" id="wpg-check-profile">
+					<?php foreach( [
+						''         => __( 'Notify on admin profile screen(Default)', 'wpg-gianism' ),
+						'popup'    => __( 'Show pop up for incomplete users(Aggressive)', 'wpg-gianism' ),
+						'redirect' => __( 'Redirect users to fill profile(Forcible)', 'wpg-gianism' ),
+					] as $value => $label ) {
+						printf( '<option value="%1$s"%3$s>%2$s</option>', esc_attr( $value ), esc_html( $label ), selected( $value, $this->option->check_profile, false ) );
+					} ?>
+				</select>
+				<p class="description">
+					<?php echo wp_kses_post( __(  'Users who registered account via SNS have sometimes incomplete profile. You can choose how to treat them by this option.' , 'wp-gianism' ) ); ?>
+				</p>
+				<label>
+					<?php esc_html_e( 'Redirect Path', 'wp-gianism' ) ?>
+					<input name="profile_completion_path" class="regular-text" type="text" value="<?php echo esc_attr( $this->option->profile_completion_path ) ?>" placeholder="<?php esc_attr_e( 'e.g. /my-profile/account', 'wp-gianism' ) ?>" />
+				</label>
+				<p class="description">
+					<?php esc_html_e( 'If you choose to redirect incomplete users, you can specify the path to profile completion page.', 'wp-gianism' ); ?><br />
+					<strong><?php esc_html_e( 'Current Setting', 'wp-gianism' ) ?></strong>:
+					<?php
+						printf(
+							'<%1$s>%2$s</%1$s>',
+							'redirect' === $this->option->check_profile ? 'code' : 'del',
+							esc_url( \Gianism\Controller\ProfileChecker::get_instance()->redirect_url() )
+						);
+					?>
+				</p>
+			</td>
+		</tr>
+		<tr>
 			<th><?php esc_html_e(  'Login screen' , 'wp-gianism' ); ?></th>
 			<td>
 				<label>

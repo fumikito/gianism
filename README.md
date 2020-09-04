@@ -5,7 +5,7 @@ Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns
 Requires at least: 4.7  
 Tested up to: 5.5  
 Stable tag: 4.1.0  
-Requires PHP: 5.6  
+Requires PHP: 7.0  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

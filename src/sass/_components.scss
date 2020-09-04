@@ -4,283 +4,335 @@
 // Icons
 
 // Icons
-i{
-  &.lsf-facebook{
-    color: $facebook-blue;
-  }
-  &.lsf-google{
-    color: $google-red;
-  }
-  &.lsf-yahoo{
-    color: $yahoo-red;
-  }
-  &.lsf-twitter{
-    color: $twitter-blue;
-  }
-  &.lsf-mixi{
-    color: $mixi-orange;
-  }
-  &.lsf-amazon{
-    color: $amazon-black;
-  }
-  &.lsf-github{
-    color: $github-black;
-  }
-  &.lsf-hatena{
-    color: $hatena-blue;
-  }
-  &.lsf-instagram{
-    color: $instagram-purple;
-  }
-  &.lsf-line{
-    color: $line-green;
-  }
+i {
+	&.lsf-facebook {
+		color: $facebook-blue;
+	}
+
+	&.lsf-google {
+		color: $google-blue;
+	}
+
+	&.lsf-yahoo {
+		color: $yahoo-red;
+	}
+
+	&.lsf-twitter {
+		color: $twitter-blue;
+	}
+
+	&.lsf-mixi {
+		color: $mixi-orange;
+	}
+
+	&.lsf-amazon {
+		color: $amazon-black;
+	}
+
+	&.lsf-github {
+		color: $github-black;
+	}
+
+	&.lsf-hatena {
+		color: $hatena-blue;
+	}
+
+	&.lsf-instagram {
+		color: $instagram-purple;
+	}
+
+	&.lsf-line {
+		color: $line-green;
+	}
 }
 
 // Components
-.wpg-button{
-  display: inline-block;
-  box-sizing: content-box;
-  padding: 0 0.75em;
-  border: 1px solid $button-border;
-  border-radius: 3px;
-  white-space: nowrap;
-  cursor: pointer;
-  text-decoration: none;
-  background: $button-bg;
-  font-size: 14px;
-  line-height: 28px;
-  height: 28px;
+.wpg-button {
+	display: inline-block;
+	box-sizing: content-box;
+	padding: 0 0.75em;
+	border: 1px solid $button-border;
+	border-radius: 3px;
+	white-space: nowrap;
+	cursor: pointer;
+	text-decoration: none;
+	background: $button-bg;
+	font-size: 14px;
+	line-height: 28px;
+	height: 28px;
 
-  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
-  vertical-align: top;
-  &:link,
-  &:visited{
-    color: $button-text;
-    text-decoration: none;
-  }
-  &:hover{
-    background: $button-bg-hover;
-    border-color: $button-border-hover;
-    color: $button-text-hover;
-  }
-  &:focus{
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-  }
-  .lsf{
-    font-size: 1.4em;
+	box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
+	vertical-align: top;
 
-  }
+	&:link,
+	&:visited {
+		color: $button-text;
+		text-decoration: none;
+	}
+
+	&:hover {
+		background: $button-bg-hover;
+		border-color: $button-border-hover;
+		color: $button-text-hover;
+	}
+
+	&:focus {
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+	}
+
+	.lsf {
+		font-size: 1.4em;
+
+	}
 }
 
 
-.wpg-notices{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 10002;
-  box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  &.toggle{
-    display: none;
-  }
-  div.error,
-  div.updated{
-    background: transparent;
-    border: none;
-    margin: 0;
-    padding: 1em 2em;
-    position: relative;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    p{
-      background: transparent;
-      position: relative;
-      margin: 0 auto;
-      padding: 0 0 0 50px;
-      max-width: 800px;
-      line-height: 2;
-      &:before{
-        font-family: 'LigatureSymbols';
-        font-size: 30px;
-        display: block;
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
-  }
-  div.error{
-    background: #d54e21;
-    color: #ffffff;
-    p:before{
-      content: $lsf-ban;
-    }
-  }
-  div.updated{
-    color: white;
-    background: $success;
-    p:before{
-      content: $lsf-check;
-    }
-  }
-  a.close-btn{
-    position: absolute;
-    display: inline-block;
-    right: 20px;
-    top: 50%;
-    $size: 30px;
-    margin-top: $size / 2 * -1;
-    font-size: $size;
-    line-height: $size;
-    width: $size;
-    height: $size;
-    text-decoration: none;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), inset 1px 1px 2px rgba(0, 0, 0, 0.4);
-    &:hover{
-      text-decoration: none;
-    }
-  }
+.wpg-notices {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10002;
+	box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
+	background: #fff;
 
-  div.updated a.close-btn{
-    &:link, &:visited{
-      color: #38703A;
-    }
-    &:hover, &:active{
-      color: #448f4d;
-    }
-  }
-  div.error a.close-btn{
-    &:link, &:visited{
-      color: #5f2410;
-    }
-    &:hover, &:active{
-      color: #9e3c1b;
-    }
-  }
+	&.toggle {
+		display: none;
+	}
+
+	div.error,
+	div.updated {
+		background: transparent;
+		border: none;
+		margin: 0;
+		padding: 1em 2em;
+		position: relative;
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+
+		p {
+			background: transparent;
+			position: relative;
+			margin: 0 auto;
+			padding: 0 0 0 50px;
+			max-width: 800px;
+			line-height: 2;
+
+			&:before {
+				font-family: 'LigatureSymbols';
+				font-size: 30px;
+				display: block;
+				position: absolute;
+				left: 10px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+		}
+	}
+
+	div.error {
+		background: #d54e21;
+		color: #ffffff;
+
+		p:before {
+			content: $lsf-ban;
+		}
+	}
+
+	div.updated {
+		color: white;
+		background: $success;
+
+		p:before {
+			content: $lsf-check;
+		}
+	}
+
+	a:not( .close-btn ) {
+		font-weight: bold;
+		transition: opacity .3s linear;
+
+		&:link,
+		&:visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		&:hover,
+		&:active {
+			color: inherit;
+			text-decoration: none;
+			opacity: .6;
+		}
+	}
+
+	a.close-btn {
+		position: absolute;
+		display: inline-block;
+		right: 20px;
+		top: 50%;
+		$size: 30px;
+		margin-top: $size / 2 * -1;
+		font-size: $size;
+		line-height: $size;
+		width: $size;
+		height: $size;
+		text-decoration: none;
+		text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	div.updated a.close-btn {
+		&:link, &:visited {
+			color: #38703A;
+		}
+
+		&:hover, &:active {
+			color: #448f4d;
+		}
+	}
+
+	div.error a.close-btn {
+		&:link, &:visited {
+			color: #5f2410;
+		}
+
+		&:hover, &:active {
+			color: #9e3c1b;
+		}
+	}
 }
 
 // If admin bar exists
-body.admin-bar{
-  .wpg-notices{
-    top: 32px;
-  }
+body.admin-bar {
+	.wpg-notices {
+		top: 32px;
+	}
 }
 
 // Admin bar
-#wpadminbar{
-  #wp-admin-bar-gianism-chat{
-    & > .ab-item .ab-icon:before{
-      content: "\f125";
-      top: 2px;
-    }
-  }
+#wpadminbar {
+	#wp-admin-bar-gianism-chat {
+		& > .ab-item .ab-icon:before {
+			content: "\f125";
+			top: 2px;
+		}
+	}
 }
 
-#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before{
-  content: "\f125";
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
+	content: "\f125";
 }
 
 // If admin bar exists and smart phone
-@media screen and (max-width: 782px){
-  body.admin-bar{
-    .wpg-notices{
-      top: 46px;
-    }
-  }
+@media screen and (max-width: 782px) {
+	body.admin-bar {
+		.wpg-notices {
+			top: 46px;
+		}
+	}
 }
 
 // Confirmation dialog
-.wpg-confirm{
+.wpg-confirm {
 
-  $divider: 1px solid #eee;
+	$divider: 1px solid #eee;
 
-  &-container{
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba( 0, 0, 0, .4);
-  }
+	&-container {
+		position: fixed;
+		z-index: 9999;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, .4);
+	}
 
-  &-body{
-    position: absolute;
-    background: #fff;
-    box-shadow: 0 0 5px rgba( 0, 0, 0, .6);
-    width: 300px;
-    max-height: 100%;
-    overflow-y: scroll;
-    max-width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate( -50%, -50% );
-  }
+	&-body {
+		position: absolute;
+		background: #fff;
+		box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+		width: 300px;
+		max-height: 100%;
+		overflow-y: scroll;
+		max-width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 
-  $padding: 1.5em;
+	$padding: 1.5em;
 
-  &-title{
-    padding: $padding / 2 $padding;
-    font-size: 22px;
-    font-weight: bold;
-    color: #888;
-    border-bottom: $divider;
-  }
+	&-title {
+		padding: $padding / 2 $padding;
+		font-size: 22px;
+		font-weight: bold;
+		color: #888;
+		border-bottom: $divider;
+	}
 
-  &-content {
-    padding: $padding / 2 $padding;
-    font-size: 16px;
-    p{
-      margin: 0 0 1em;
-      color: #222;
-    }
-    ul{
-      margin: 0;
-      padding: 0 0 0 2em;
-    }
-    li{
-      font-size: 14px;
-      margin: 5px 0;
-      color: #666;
-    }
-  }
+	&-content {
+		padding: $padding / 2 $padding;
+		font-size: 16px;
 
-  &-footer{
-    text-align: right;
-    padding: $padding / 2 $padding;
-    margin-top: $padding / 2;
-    border-top: $divider;
-    button{
-      display: inline-block;
-      cursor: pointer;
-      padding: 0.5em 1em;
-      border: 1px solid transparent;
-      background-color: transparent;
-      font-size: 14px;
-      transition: background-color .3s linear, color .3s linear, border-color .3s linear;
-      border-radius: 2px;
-      &.deny{
-        color: #888;
-        &:hover{
-          background-color: #f9f9f9;
-          color: red;
-        }
-      }
+		p {
+			margin: 0 0 1em;
+			color: #222;
+		}
 
-      &.confirm{
-        color: $success;
-        border-color: $success;
-        background-color: #fff;
-        &:hover{
-          color: #fff;
-          background-color: $success;
-        }
-      }
-      & + button {
-        margin-left: 1em;
-      }
-    }
-  }
+		ul {
+			margin: 0;
+			padding: 0 0 0 2em;
+		}
+
+		li {
+			font-size: 14px;
+			margin: 5px 0;
+			color: #666;
+		}
+	}
+
+	&-footer {
+		text-align: right;
+		padding: $padding / 2 $padding;
+		margin-top: $padding / 2;
+		border-top: $divider;
+
+		button {
+			display: inline-block;
+			cursor: pointer;
+			padding: 0.5em 1em;
+			border: 1px solid transparent;
+			background-color: transparent;
+			font-size: 14px;
+			transition: background-color .3s linear, color .3s linear, border-color .3s linear;
+			border-radius: 2px;
+
+			&.deny {
+				color: #888;
+
+				&:hover {
+					background-color: #f9f9f9;
+					color: red;
+				}
+			}
+
+			&.confirm {
+				color: $success;
+				border-color: $success;
+				background-color: #fff;
+
+				&:hover {
+					color: #fff;
+					background-color: $success;
+				}
+			}
+
+			& + button {
+				margin-left: 1em;
+			}
+		}
+	}
 
 }

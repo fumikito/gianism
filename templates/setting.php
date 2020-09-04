@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) or die();
 
+global $wp_version;
+
 /** @var \Gianism\UI\SettingScreen $this */
 ?>
 
@@ -58,18 +60,21 @@ defined( 'ABSPATH' ) or die();
 				</select>
 				<p class="description">
 					<?php echo wp_kses_post( __(  'Users who registered account via SNS have sometimes incomplete profile. You can choose how to treat them by this option.' , 'wp-gianism' ) ); ?>
+					<?php if ( ! $this->profile_checker->is_over_5() ) : ?>
+						<br /><strong style="color: red"><?php esc_html_e( 'This feature requires WordPress 5.0 and higher. Please consider upgrading.', 'wp-gianism' ); ?></strong>
+					<?php endif; ?>
 				</p>
 				<label>
-					<?php esc_html_e( 'Redirect Path', 'wp-gianism' ) ?>
+					<?php esc_html_e( 'Profile URL', 'wp-gianism' ) ?>
 					<input name="profile_completion_path" class="regular-text" type="text" value="<?php echo esc_attr( $this->option->profile_completion_path ) ?>" placeholder="<?php esc_attr_e( 'e.g. /my-profile/account', 'wp-gianism' ) ?>" />
 				</label>
 				<p class="description">
-					<?php esc_html_e( 'If you choose to redirect incomplete users, you can specify the path to profile completion page.', 'wp-gianism' ); ?><br />
+					<?php esc_html_e( 'If you want your users to complete their profiles, you can specify the path to profile completion page.', 'wp-gianism' ); ?><br />
 					<strong><?php esc_html_e( 'Current Setting', 'wp-gianism' ) ?></strong>:
 					<?php
 						printf(
 							'<%1$s>%2$s</%1$s>',
-							'redirect' === $this->option->check_profile ? 'code' : 'del',
+							$this->option->check_profile ? 'code' : 'del',
 							esc_url( \Gianism\Controller\ProfileChecker::get_instance()->redirect_url() )
 						);
 					?>

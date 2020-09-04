@@ -56,7 +56,7 @@ class Option extends Singleton {
 	protected $original_option = [
 		'force_register'         => true,
 		'show_button_on_login'   => true,
-		'button_type'            => 0,
+		'button_type'            => 2,
 		'do_cron'                => false,
 		'prefix'                 => '',
 	];
@@ -221,8 +221,9 @@ class Option extends Singleton {
 	 */
 	public function button_types() {
 		return [
-			$this->_( 'Medium' ),
-			$this->_( 'Large' ),
+			__( 'Medium', 'wp-gianism' ),
+			__( 'Large', 'wp-gianism' ),
+			__( 'Guide Line Style', 'wp-gianism' ),
 		];
 	}
 

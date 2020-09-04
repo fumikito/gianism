@@ -1,18 +1,35 @@
-
 $disabled: #acacac;
 $success: #5dc06e;
 $notice-color: #d54e21;
 
 $facebook-blue: #3C5A96;
-$twitter-blue:#1DAEEC;
+$twitter-blue: #1DAEEC;
 $mixi-orange: #D1AD60;
 $yahoo-red: #FD0F3A;
 $google-red: #DD4B39;
+$google-blue: #4285F4;
 $amazon-black: #030606;
+$slack-purple: #4A144B;
 $github-black: #333333;
 $hatena-blue: #547CE4;
 $instagram-purple: #c13584;
 $line-green: #00C300;
+$line-hover: #00E000;
+$line-active: #00B300;
+
+$gianism-brands: (
+	"facebook": $facebook-blue,
+	"twitter": $twitter-blue,
+	"mixi": $mixi-orange,
+	"yahoo": $yahoo-red,
+	"google": $google-blue,
+	"amazon": $amazon-black,
+	"github": $github-black,
+	"hatena": $hatena-blue,
+	"instagram": $instagram-purple,
+	"line": $line-green,
+	"slack": $slack-purple,
+);
 
 $button-bg: #f7f7f7;
 $button-border: #ccc;
@@ -26,22 +43,46 @@ $button-text-hover: #222;
 
 // Animations
 @-moz-keyframes gianism-spin {
-  0% { -moz-transform: rotate(0deg); }
-  100% { -moz-transform: rotate(359deg); }
+	0% {
+		-moz-transform: rotate(0deg);
+	}
+	100% {
+		-moz-transform: rotate(359deg);
+	}
 }
+
 @-webkit-keyframes gianism-spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(359deg); }
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+	}
 }
+
 @-o-keyframes gianism-spin {
-  0% { -o-transform: rotate(0deg); }
-  100% { -o-transform: rotate(359deg); }
+	0% {
+		-o-transform: rotate(0deg);
+	}
+	100% {
+		-o-transform: rotate(359deg);
+	}
 }
+
 @-ms-keyframes gianism-spin {
-  0% { -ms-transform: rotate(0deg); }
-  100% { -ms-transform: rotate(359deg); }
+	0% {
+		-ms-transform: rotate(0deg);
+	}
+	100% {
+		-ms-transform: rotate(359deg);
+	}
 }
+
 @keyframes gianism-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(359deg); }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
 }

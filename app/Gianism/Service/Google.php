@@ -295,7 +295,16 @@ class Google extends AbstractService {
 				break;
 		}
 	}
-
+	
+	protected function login_label( $register = false, $context = '' ) {
+		return sprintf( _x( 'Sign in with %s',  'login label', 'wp-gianism' ), $this->verbose_service_name );
+	}
+	
+	protected function svg_path() {
+		return 'google.png';
+	}
+	
+	
 	/**
 	 * Getter
 	 *

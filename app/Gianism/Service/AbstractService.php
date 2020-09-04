@@ -555,6 +555,11 @@ EOS;
 		} else {
 			$icon = '';
 		}
+		// If SVG exists, use it for public button style.
+		if ( in_array( 'wpg-guideline-button', $class_names ) && ( $file = $this->svg_path() ) ) {
+			$icon = $this->url . "/assets/img/brands/" . $file;
+			$icon = sprintf( '<img src="%s" alt="" class="wpg-icon" />', esc_url( $icon ) );
+		}
 		$class_attr = implode( ' ', array_map( function ( $attr ) {
 			return esc_attr( $attr );
 		}, $class_names ) );
@@ -589,6 +594,18 @@ EOS;
 				break;
 		}
 	}
+	
+	/**
+	 * Login label
+	 *
+	 * @param bool $register
+	 * @param string $context
+	 *
+	 * @return string
+	 */
+	protected function login_label( $register = false, $context = '' ) {
+		return sprintf( __( 'Log in with %s', 'wp-gianism' ), $this->verbose_service_name );
+	}
 
 	/**
 	 * Show login button
@@ -617,7 +634,8 @@ EOS;
 		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', array(
 			'redirect_to' => $redirect,
 		) );
-		$text   = sprintf( $this->_( 'Log in with %s' ), $this->verbose_service_name );
+		$text   = apply_filters( 'gianism_login_button_label', $this->login_label(), $register, $context );
+		
 		$args = [
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'login',
@@ -635,7 +653,17 @@ EOS;
 			$credentials = apply_filters( 'gianism_user_credentials', $this->target_credentials( $context ), $this->service_name );
 			$args['gianism-target']     = implode( ',', $credentials );
 		}
-		$button = $this->button( $text, $url, $this->service_name, array( 'wpg-button', 'wpg-button-login' ), $args, $context );
+		// Build class
+		switch ( $this->option->button_type ) {
+			case 2:
+				$class_names = [ 'wpg-guideline-button' ];
+				break;
+			default:
+				$class_names = [ 'wpg-button', 'wpg-button-login' ];
+				break;
+		}
+		$class_names[] = $this->service_name;
+		$button = $this->button( $text, $url, $this->service_name, $class_names, $args, $context );
 
 		return $this->filter_link( $button, $url, $text, $register, $context );
 	}
@@ -959,6 +987,15 @@ EOS;
 			'profile' => __( 'Profile', 'wp-gianism' ),
 			'email'   => __( 'Email', 'wp-gianism' ),
 		];
+	}
+	
+	/**
+	 * Get SVG path
+	 *
+	 * @return string
+	 */
+	protected function svg_path() {
+		return '';
 	}
 
 	/**

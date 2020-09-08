@@ -161,6 +161,10 @@ class ProfileChecker extends AbstractController {
 		if ( ! $skip_redirect && $this->is_excluded_paths( $path ) ) {
 			$skip_redirect = true;
 		}
+		// If this is admin, skip redirect.
+		if ( ! $skip_redirect && current_user_can( 'manage_options' ) ) {
+			$skip_redirect = true;
+		}
 		// Hook for redirection.
 		$skip_redirect = apply_filters( 'gianism_skip_redirect', $skip_redirect );
 		if ( $skip_redirect ) {

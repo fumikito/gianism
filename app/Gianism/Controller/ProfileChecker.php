@@ -143,7 +143,7 @@ class ProfileChecker extends AbstractController {
 			if ( $this->is_pseudo_mail( $user->user_email ) ) {
 				$error->add( 'email', __( 'Your email is pseudo one because your SNS has no permission to provide email to us. ', 'wp-gianism' ) );
 			}
-			$error = apply_filters( 'gianism_profile_error', $error );
+			$error = apply_filters( 'gianism_profile_error', $error, $user );
 		}
 		return $error;
 	}

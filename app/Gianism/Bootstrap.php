@@ -130,7 +130,7 @@ class Bootstrap extends Singleton {
 		], $this->version, true );
 		// Admin helper script
 		wp_register_script( $this->name . '-admin-helper', $this->url . 'assets/js/admin-helper.js', [
-			'jquery',
+			'jquery-effects-highlight',
 		], $this->version, true );
 		// Mail chimp CSS
 		// Admin panel style

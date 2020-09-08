@@ -19,6 +19,7 @@ use Gianism\Pattern\Singleton;
  * @property-read string         $prefix
  * @property-read string         $check_profile
  * @property-read string         $profile_completion_path
+ * @property-read string         $exclude_from_redirect
  */
 class Option extends Singleton {
 
@@ -63,6 +64,7 @@ class Option extends Singleton {
 		'prefix'                  => '',
 		'check_profile'           => '',
 		'profile_completion_path' => '',
+		'exclude_from_redirect'   => '',
 	];
 
 

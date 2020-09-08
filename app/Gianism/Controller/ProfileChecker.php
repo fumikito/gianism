@@ -156,7 +156,12 @@ class ProfileChecker extends AbstractController {
 		if ( ! $error->get_error_messages() ) {
 			return;
 		}
-		$skip_redirect = false !== strpos( $_SERVER['REQUEST_URI'], $this->option->profile_completion_path );
+		$path = empty( $_SERVER['REQUEST_URI'] ) ? '/' : $_SERVER['REQUEST_URI'];
+		$skip_redirect = false !== strpos( $path, $this->option->profile_completion_path );
+		if ( ! $skip_redirect && $this->is_excluded_paths( $path ) ) {
+			$skip_redirect = true;
+		}
+		// Hook for redirection.
 		$skip_redirect = apply_filters( 'gianism_skip_redirect', $skip_redirect );
 		if ( $skip_redirect ) {
 			return;
@@ -176,6 +181,27 @@ class ProfileChecker extends AbstractController {
 		$message = apply_filters( 'gianism_profile_error_popup', $message, $this->redirect_url(), $error );
 		$this->add_message( $message, true );
 	}
-	
-	
+
+	/**
+	 * Check if path is excluded.
+	 *
+	 * @param string      $path
+	 * @param string|null $excluded
+	 *
+	 * @return bool
+	 */
+	public function is_excluded_paths( $path, $excluded = null ) {
+		if ( is_null( $excluded ) ) {
+			$excluded = $this->option->exclude_from_redirect;
+		}
+		$patterns = array_filter( array_map( function( $line ) {
+			return trim( $line );
+		}, preg_split( '#[\r\n]#u', $excluded ) ) );
+		foreach ( $patterns as $pattern ) {
+			if ( fnmatch( $pattern, $path ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

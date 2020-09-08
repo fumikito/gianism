@@ -36,4 +36,15 @@ class Gianism_Basic_Test extends WP_UnitTestCase {
 		$this->assertFalse( gianism_update_twitter_status( 'Test Tweet' ) );
 		$this->assertEquals( gianism_get_twitter_screen_name( 1 ), '' );
 	}
+	
+	/**
+	 * Redirect options
+	 */
+	function test_exclude_redirect() {
+		$instance = \Gianism\Controller\ProfileChecker::get_instance();
+		$this->assertTrue( $instance->is_excluded_paths( '/', '/' ) );
+		$this->assertTrue( $instance->is_excluded_paths( '/my-account/login', '/my-account*' ) );
+		$this->assertTrue( $instance->is_excluded_paths( '/my-account', '/my-account*' ) );
+		$this->assertTrue( $instance->is_excluded_paths( '/my-account', "/login\n/my-account" ) );
+	}
 }

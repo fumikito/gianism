@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-04 14:29+0900\n"
+"POT-Creation-Date: 2020-09-08 15:14+0900\n"
 "PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_attr_e;esc_attr__;esc_html__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SearchPath-0: wp-gianism.php\n"
 "X-Poedit-SearchPath-1: templates\n"
 "X-Poedit-SearchPath-2: app\n"
@@ -39,15 +39,15 @@ msgstr ""
 msgid "Wrong value is returned."
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:143
+#: app/Gianism/Bootstrap.php:147
 msgid "Consent Required"
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:144
+#: app/Gianism/Bootstrap.php:148
 msgid "Confirm"
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:145
+#: app/Gianism/Bootstrap.php:149
 msgid "Cancel"
 msgstr ""
 
@@ -151,23 +151,40 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:109
+#: app/Gianism/Controller/ProfileChecker.php:141
+msgid "Your password is automatically generated. Please change it to your own."
+msgstr ""
+
+#: app/Gianism/Controller/ProfileChecker.php:144
+msgid ""
+"Your email is pseudo one because your SNS has no permission to provide email "
+"to us. "
+msgstr ""
+
+#: app/Gianism/Controller/ProfileChecker.php:180
+#, php-format
+msgid ""
+"You have an incomplete profile. To access full features of this site, please "
+"fill your profile <a href=\"%s\">here</a>."
+msgstr ""
+
+#: app/Gianism/Helper/Option.php:115
 msgid "Option updated."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:113
+#: app/Gianism/Helper/Option.php:119
 msgid "Option failed to update."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:224
+#: app/Gianism/Helper/Option.php:230
 msgid "Medium"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:225
+#: app/Gianism/Helper/Option.php:231
 msgid "Large"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:226
+#: app/Gianism/Helper/Option.php:232
 msgid "Guide Line Style"
 msgstr ""
 
@@ -589,7 +606,7 @@ msgstr ""
 msgid "How to set up"
 msgstr ""
 
-#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:60
+#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:62
 msgid "Customize"
 msgstr ""
 
@@ -1199,31 +1216,31 @@ msgstr ""
 msgid "Our social Account"
 msgstr ""
 
-#: templates/setting.php:12
+#: templates/setting.php:14
 msgid "General Setting"
 msgstr ""
 
-#: templates/setting.php:15
+#: templates/setting.php:17
 msgid "Current registration setting"
 msgstr ""
 
-#: templates/setting.php:20
+#: templates/setting.php:22
 msgid "User can register account."
 msgstr ""
 
-#: templates/setting.php:23
+#: templates/setting.php:25
 msgid "User can't register account."
 msgstr ""
 
-#: templates/setting.php:30
+#: templates/setting.php:32
 msgid "Force register"
 msgstr ""
 
-#: templates/setting.php:35
+#: templates/setting.php:37
 msgid "Depends on WP setting"
 msgstr ""
 
-#: templates/setting.php:38
+#: templates/setting.php:40
 #, php-format
 msgid ""
 "Whether registration setting depends on <a href=\"%s\">General setting</a>. "
@@ -1232,53 +1249,108 @@ msgid ""
 "account."
 msgstr ""
 
-#: templates/setting.php:41
+#: templates/setting.php:43
 msgid ""
 "<strong>WooCommerce found!</strong> In spite of this setting, user can "
 "always register account."
 msgstr ""
 
-#: templates/setting.php:47
+#: templates/setting.php:49
 msgid "Login screen"
 msgstr ""
 
-#: templates/setting.php:52
+#: templates/setting.php:54
 msgid "Show all button on Login screen."
 msgstr ""
 
-#: templates/setting.php:57
+#: templates/setting.php:59
 msgid "Do not show login button."
 msgstr ""
 
-#: templates/setting.php:60
+#: templates/setting.php:62
 #, php-format
 msgid ""
 "You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
 "a>."
 msgstr ""
 
-#: templates/setting.php:65
+#: templates/setting.php:67
 msgid "Button size"
 msgstr ""
 
-#: templates/setting.php:75
+#: templates/setting.php:77
 msgid "This setting is valid only if login button's display setting is on."
 msgstr ""
 
-#: templates/setting.php:80
+#: templates/setting.php:82
 msgid "URL Prefix"
 msgstr ""
 
-#: templates/setting.php:85
+#: templates/setting.php:87
 msgid ""
 "You can add prefix for all Gianism redirect URIs. Useful if you site is "
 "under CDN network which filters cookie strings."
 msgstr ""
 
-#: templates/setting.php:87
+#: templates/setting.php:89
 msgid ""
 "<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
 "app setting in each SNS. It might cause error on live site."
+msgstr ""
+
+#: templates/setting.php:94
+msgid "Profile Completion"
+msgstr ""
+
+#: templates/setting.php:99
+msgid "Notify on admin profile screen(Default)"
+msgstr ""
+
+#: templates/setting.php:100
+msgid "Show pop up for incomplete users(Aggressive)"
+msgstr ""
+
+#: templates/setting.php:101
+msgid "Redirect users to fill profile(Forcible)"
+msgstr ""
+
+#: templates/setting.php:107
+msgid ""
+"Users who registered account via SNS have sometimes incomplete profile. You "
+"can choose how to treat them by this option."
+msgstr ""
+
+#: templates/setting.php:109
+msgid ""
+"This feature requires WordPress 5.0 and higher. Please consider upgrading."
+msgstr ""
+
+#: templates/setting.php:114
+msgid "Profile URL"
+msgstr ""
+
+#: templates/setting.php:117
+msgid "e.g. /my-profile/account"
+msgstr ""
+
+#: templates/setting.php:120
+msgid ""
+"If you want your users to complete their profiles, you can specify the path "
+"to profile completion page."
+msgstr ""
+
+#: templates/setting.php:121
+msgid "Current Setting"
+msgstr ""
+
+#: templates/setting.php:130
+msgid "Excluded Path"
+msgstr ""
+
+#: templates/setting.php:134
+msgid ""
+"To avoid the redirect loop, enter paths excluded from redirection. 1 path in "
+"1 line. Asterisk(*) means wildcard."
 msgstr ""
 
 #: templates/setting/facebook.php:10

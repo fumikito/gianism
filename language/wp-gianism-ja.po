@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-04 14:29+0900\n"
-"PO-Revision-Date: 2020-09-04 14:29+0900\n"
+"POT-Creation-Date: 2020-09-08 15:14+0900\n"
+"PO-Revision-Date: 2020-09-08 15:33+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -27,15 +27,15 @@ msgstr "実行する許可がありません。"
 msgid "Wrong value is returned."
 msgstr "間違った値が戻ってきました。"
 
-#: app/Gianism/Bootstrap.php:143
+#: app/Gianism/Bootstrap.php:147
 msgid "Consent Required"
 msgstr "同意が必要です"
 
-#: app/Gianism/Bootstrap.php:144
+#: app/Gianism/Bootstrap.php:148
 msgid "Confirm"
 msgstr "確認"
 
-#: app/Gianism/Bootstrap.php:145
+#: app/Gianism/Bootstrap.php:149
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -152,23 +152,40 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr "SNS接続"
 
-#: app/Gianism/Helper/Option.php:109
+#: app/Gianism/Controller/ProfileChecker.php:141
+msgid "Your password is automatically generated. Please change it to your own."
+msgstr "パスワードは自動生成されたものです。ご自身のものに変更してください。"
+
+#: app/Gianism/Controller/ProfileChecker.php:144
+msgid ""
+"Your email is pseudo one because your SNS has no permission to provide email "
+"to us. "
+msgstr ""
+
+#: app/Gianism/Controller/ProfileChecker.php:180
+#, php-format
+msgid ""
+"You have an incomplete profile. To access full features of this site, please "
+"fill your profile <a href=\"%s\">here</a>."
+msgstr ""
+
+#: app/Gianism/Helper/Option.php:115
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: app/Gianism/Helper/Option.php:113
+#: app/Gianism/Helper/Option.php:119
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: app/Gianism/Helper/Option.php:224
+#: app/Gianism/Helper/Option.php:230
 msgid "Medium"
 msgstr "中"
 
-#: app/Gianism/Helper/Option.php:225
+#: app/Gianism/Helper/Option.php:231
 msgid "Large"
 msgstr "大"
 
-#: app/Gianism/Helper/Option.php:226
+#: app/Gianism/Helper/Option.php:232
 msgid "Guide Line Style"
 msgstr "ガイドライン準拠"
 
@@ -605,7 +622,7 @@ msgstr "設定"
 msgid "How to set up"
 msgstr "設定方法"
 
-#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:60
+#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:62
 msgid "Customize"
 msgstr "カスタマイズ"
 
@@ -1294,31 +1311,31 @@ msgstr "購読する"
 msgid "Our social Account"
 msgstr "ソーシャルアカウント"
 
-#: templates/setting.php:12
+#: templates/setting.php:14
 msgid "General Setting"
 msgstr "一般設定"
 
-#: templates/setting.php:15
+#: templates/setting.php:17
 msgid "Current registration setting"
 msgstr "現在の登録設定"
 
-#: templates/setting.php:20
+#: templates/setting.php:22
 msgid "User can register account."
 msgstr "ユーザーはアカウントを登録できます。"
 
-#: templates/setting.php:23
+#: templates/setting.php:25
 msgid "User can't register account."
 msgstr "ユーザーはアカウント登録できません。"
 
-#: templates/setting.php:30
+#: templates/setting.php:32
 msgid "Force register"
 msgstr "登録を強制する"
 
-#: templates/setting.php:35
+#: templates/setting.php:37
 msgid "Depends on WP setting"
 msgstr "WPの設定に従う"
 
-#: templates/setting.php:38
+#: templates/setting.php:40
 #, php-format
 msgid ""
 "Whether registration setting depends on <a href=\"%s\">General setting</a>. "
@@ -1330,7 +1347,7 @@ msgstr ""
 "される情報を元にアカウントが作成されます。そうでない場合、接続済みのユーザー"
 "だけがSNSアカウントでログインできます。"
 
-#: templates/setting.php:41
+#: templates/setting.php:43
 msgid ""
 "<strong>WooCommerce found!</strong> In spite of this setting, user can "
 "always register account."
@@ -1338,19 +1355,19 @@ msgstr ""
 "<strong>WooCommerce が見つかりました！</strong> この設定に関わらず、ユーザー"
 "は常に登録可能です。"
 
-#: templates/setting.php:47
+#: templates/setting.php:49
 msgid "Login screen"
 msgstr "ログイン画面"
 
-#: templates/setting.php:52
+#: templates/setting.php:54
 msgid "Show all button on Login screen."
 msgstr "すべてのボタンをログイン画面に表示する。"
 
-#: templates/setting.php:57
+#: templates/setting.php:59
 msgid "Do not show login button."
 msgstr "ログインボタンを表示しない。"
 
-#: templates/setting.php:60
+#: templates/setting.php:62
 #, php-format
 msgid ""
 "You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
@@ -1359,19 +1376,19 @@ msgstr ""
 "ログインボタンは手動で表示できます。詳しくは<a href=\"%2$s\">%1$s</a>を見てく"
 "ださい。"
 
-#: templates/setting.php:65
+#: templates/setting.php:67
 msgid "Button size"
 msgstr "ボタンサイズ"
 
-#: templates/setting.php:75
+#: templates/setting.php:77
 msgid "This setting is valid only if login button's display setting is on."
 msgstr "この設定はログインボタンの表示設定がONの場合だけ有効です。"
 
-#: templates/setting.php:80
+#: templates/setting.php:82
 msgid "URL Prefix"
 msgstr "URL接頭辞"
 
-#: templates/setting.php:85
+#: templates/setting.php:87
 msgid ""
 "You can add prefix for all Gianism redirect URIs. Useful if you site is "
 "under CDN network which filters cookie strings."
@@ -1379,7 +1396,7 @@ msgstr ""
 "GianismのリダイレクトURIに接頭辞をつけることができます。サイトがCookie文字列"
 "をフィルタリングするCDN配下にある環境などで役立ちます。"
 
-#: templates/setting.php:87
+#: templates/setting.php:89
 msgid ""
 "<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
 "app setting in each SNS. It might cause error on live site."
@@ -1387,6 +1404,68 @@ msgstr ""
 "<strong>注意：</strong>URL接頭辞を変更した場合、それぞれのSNSでアプリの設定を"
 "変更する必要があります。運用中のサイトでの変更はエラーを起こす可能性がありま"
 "す。"
+
+#: templates/setting.php:94
+msgid "Profile Completion"
+msgstr "プロフィール完成"
+
+#: templates/setting.php:99
+msgid "Notify on admin profile screen(Default)"
+msgstr "管理画面のプロフィールページで注記（デフォルト）"
+
+#: templates/setting.php:100
+msgid "Show pop up for incomplete users(Aggressive)"
+msgstr "プロフィールが不完全なユーザーにポップアップを表示（積極的）"
+
+#: templates/setting.php:101
+msgid "Redirect users to fill profile(Forcible)"
+msgstr "プロフィールを入力させるためユーザーをリダイレクト（強制）"
+
+#: templates/setting.php:107
+msgid ""
+"Users who registered account via SNS have sometimes incomplete profile. You "
+"can choose how to treat them by this option."
+msgstr ""
+"SNSで登録したユーザーはプロフィールが不完全な場合があります。この設定でそうし"
+"たユーザーをどう扱うかを選択できます。"
+
+#: templates/setting.php:109
+msgid ""
+"This feature requires WordPress 5.0 and higher. Please consider upgrading."
+msgstr ""
+"この機能はWordPress 5.0 以上が必要です。アップグレードを検討してください。"
+
+#: templates/setting.php:114
+msgid "Profile URL"
+msgstr "プロフィールURL"
+
+#: templates/setting.php:117
+msgid "e.g. /my-profile/account"
+msgstr "例・ /my-profile/account"
+
+#: templates/setting.php:120
+msgid ""
+"If you want your users to complete their profiles, you can specify the path "
+"to profile completion page."
+msgstr ""
+"ユーザーにプロフィールを完成させて欲しい場合は、プロフィール入力を完了する"
+"ページへのパスを入力してください。"
+
+#: templates/setting.php:121
+msgid "Current Setting"
+msgstr "現在の設定"
+
+#: templates/setting.php:130
+msgid "Excluded Path"
+msgstr "除外するパス"
+
+#: templates/setting.php:134
+msgid ""
+"To avoid the redirect loop, enter paths excluded from redirection. 1 path in "
+"1 line. Asterisk(*) means wildcard."
+msgstr ""
+"リダレイクトループを避けるために、リダイレクトしないパスを入力してください。1"
+"行につき1つです。アスタリスク（*）は様々な文字にマッチします。"
 
 #: templates/setting/facebook.php:10
 msgid "Connect with Facebook"

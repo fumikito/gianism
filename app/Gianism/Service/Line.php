@@ -279,5 +279,7 @@ class Line extends NoMailService {
 		}
 	}
 
-
+	public function svg_path() {
+		return 'line.png';
+	}
 }

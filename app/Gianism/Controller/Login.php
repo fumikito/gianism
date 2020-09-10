@@ -42,7 +42,7 @@ class Login extends AbstractController {
 	protected function __construct( array $argument = [] ) {
 
 		if ( $this->option->is_enabled() ) {
-			// Only for acount holder
+			// Only for account holder
 			if ( $this->option->show_button_on_login( 'login' ) ) {
 				add_action( 'login_form', array( $this, 'login_form' ) );
 			}
@@ -78,8 +78,13 @@ class Login extends AbstractController {
 			if ( $register ) {
 				$class_name[] = 'register';
 			}
-			if ( $this->option->button_type ) {
-				$class_name[] = 'large';
+			switch ( $this->option->button_type ) {
+				case 1:
+					$class_name[] = 'large';
+					break;
+				default:
+					$class_name[] = 'public-style';
+					break;
 			}
 			$class_name = empty( $class_name ) ? '' : sprintf( ' class="%s"', implode( ' ', $class_name ) );
 			$before     = sprintf( '<div id="wpg-login"%s>', $class_name );
@@ -147,4 +152,4 @@ class Login extends AbstractController {
 		$this->login_form( '', '', false, $redirect, 'woo-account' );
 	}
 
-} 
+}

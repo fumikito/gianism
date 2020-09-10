@@ -592,7 +592,17 @@
   width: 10%;
 }
 
+// Toggle area
+.gianism-toggle {
+  display: none;
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+  margin-top: 1em !important;
 
+  &.toggle {
+    display: block;
+  }
+}
 
 // For RSD
 @media screen and (max-width: 799px) {

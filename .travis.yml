@@ -37,9 +37,9 @@ before_deploy:
   - export WP_PULUGIN_DEPLOY=1
 deploy:
   - provider: script
-    script: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | sed 's/svn co -q/svn co/' | bash
+    script: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | sed 's/svn co -q/svn co/' | sed 's/ 2>\/dev\/null//g' | bash
     on:
-      php: 7.2
+      php: 5.6
       tags: true
       condition: $WP_VERSION = latest
     skip_cleanup: true

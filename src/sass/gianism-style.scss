@@ -139,7 +139,7 @@
 	&:hover,
 	&:active{
 		box-shadow: 0 2px 4px #ccc;
-	}	
+	}
 }
 /* mixi */
 .wpg_mixi_btn{
@@ -213,4 +213,105 @@
 .wpg-message{
 	max-height: 500px;
 	overflow: auto;
+}
+
+.wpg-guideline-button {
+	display: block;
+	padding: 12px 12px 12px 44px;
+	font-size: 14px;
+	position: relative;
+	font-weight: bold;
+	border-radius: 4px;
+	transition: background-color .3s linear, box-shadow .3s linear, opacity .3s linear;
+	text-align: center;
+
+	&:link,
+	&:visited {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.wpg-icon,
+	.lsf {
+		position: absolute;
+		color: inherit;
+		fill: currentColor;
+		left: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.lsf {
+		font-size: 28px;
+	}
+
+	.wpg-icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	&:hover,
+	&:active {
+		text-decoration: none;
+		opacity: 0.8;
+		box-shadow: none;
+	}
+
+	& + & {
+		margin-top: 1em;
+	}
+
+	@each $brand, $color in $gianism-brands {
+		&.#{$brand} {
+			background-color: $color;
+		}
+	}
+
+	&.google {
+		border-radius: 0;
+
+		&:link,
+		&:visited {
+			color: #757575;
+			background-color: #fff;
+			box-shadow: 0 3px 3px rgba( 0, 0, 0, .2);
+		}
+
+		&:hover {
+			background-color: #eee;
+			opacity: 1;
+		}
+		&:active {
+			background-color: #eee;
+			box-shadow: 0 0 0 rgba( 0, 0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	&.instagram {
+		background-image: linear-gradient( 228deg,#1400c8 0%,#b900b4 51%,#f50000 100% );
+
+		.wpg-icon {
+		}
+	}
+
+	&.line {
+		border-radius: 12px;
+
+		&:hover {
+			opacity: 1;
+			background-color: $line-hover;
+		}
+
+		&:active {
+			opacity: 1;
+			background-color: $line-active;
+		}
+
+		.wpg-icon {
+			width: 32px;
+			height: 32px;
+			left: 8px;
+		}
+	}
 }

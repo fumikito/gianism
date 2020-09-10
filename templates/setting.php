@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) or die();
 
+global $wp_version;
+
 /** @var \Gianism\UI\SettingScreen $this */
 ?>
 
@@ -85,6 +87,52 @@ defined( 'ABSPATH' ) or die();
 					<?php esc_html_e(  'You can add prefix for all Gianism redirect URIs. Useful if you site is under CDN network which filters cookie strings.' , 'wp-gianism' ); ?>
 					<br />
 					<?php echo wp_kses_post( __(  '<strong>NOTICE: </strong>if you change URL prefix, you have to change all app setting in each SNS. It might cause error on live site.' , 'wp-gianism' ) ); ?>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="wpg-check-profile"><?php esc_html_e(  'Profile Completion' , 'wp-gianism' ); ?></label></th>
+			<td>
+				<?php $this->new_from( '4.1.0' ); ?>
+				<select name="check_profile" id="wpg-check-profile">
+					<?php foreach( [
+						''         => __( 'Notify on admin profile screen(Default)', 'wpg-gianism' ),
+						'popup'    => __( 'Show pop up for incomplete users(Aggressive)', 'wpg-gianism' ),
+						'redirect' => __( 'Redirect users to fill profile(Forcible)', 'wpg-gianism' ),
+					] as $value => $label ) {
+						printf( '<option value="%1$s"%3$s>%2$s</option>', esc_attr( $value ), esc_html( $label ), selected( $value, $this->option->check_profile, false ) );
+					} ?>
+				</select>
+				<p class="description">
+					<?php echo wp_kses_post( __(  'Users who registered account via SNS have sometimes incomplete profile. You can choose how to treat them by this option.' , 'wp-gianism' ) ); ?>
+					<?php if ( ! $this->profile_checker->is_over_5() ) : ?>
+						<br /><strong style="color: red"><?php esc_html_e( 'This feature requires WordPress 5.0 and higher. Please consider upgrading.', 'wp-gianism' ); ?></strong>
+					<?php endif; ?>
+				</p>
+
+				<p class="gianism-toggle" data-target="#wpg-check-profile" data-valid="popup,redirect">
+					<label for="profile-completion-path"><?php esc_html_e( 'Profile URL', 'wp-gianism' ) ?></label><br />
+					<input name="profile_completion_path" class="regular-text" type="text" id="profile-completion-path"
+						value="<?php echo esc_attr( $this->option->profile_completion_path ) ?>"
+						placeholder="<?php esc_attr_e( 'e.g. /my-profile/account', 'wp-gianism' ) ?>" />
+					<br />
+					<span class="description">
+						<?php esc_html_e( 'If you want your users to complete their profiles, you can specify the path to profile completion page.', 'wp-gianism' ); ?><br />
+						<strong><?php esc_html_e( 'Current Setting', 'wp-gianism' ) ?></strong>:
+						<?php printf(
+							'<%1$s>%2$s</%1$s>',
+							$this->option->check_profile ? 'code' : 'del',
+							esc_url( \Gianism\Controller\ProfileChecker::get_instance()->redirect_url() )
+						); ?>
+					</span>
+				</p>
+				<p class="gianism-toggle" data-target="#wpg-check-profile" data-valid="redirect">
+					<label for="exclude-from-redirect"><?php esc_html_e( 'Excluded Path', 'wp-gianism' ) ?></label><br />
+					<textarea name="exclude_from_redirect" id="exclude-from-redirect" style="width: 100%; box-sizing: border-box" placeholder="e.g. /my-account"><?php echo esc_textarea( $this->option->exclude_from_redirect ) ?></textarea>
+					<br />
+					<span class="description">
+						<?php esc_html_e( 'To avoid the redirect loop, enter paths excluded from redirection. 1 path in 1 line. Asterisk(*) means wildcard.', 'wp-gianism' ) ?>
+					</span>
 				</p>
 			</td>
 		</tr>

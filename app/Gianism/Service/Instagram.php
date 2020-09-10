@@ -322,5 +322,10 @@ class Instagram extends NoMailService {
 		}
 		return $response;
 	}
-
+	
+	protected function svg_path() {
+		return 'instagram.svg';
+	}
+	
+	
 }

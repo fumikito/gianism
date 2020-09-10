@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-25 15:20+0900\n"
-"PO-Revision-Date: 2020-08-25 15:23+0900\n"
+"POT-Creation-Date: 2020-09-08 15:14+0900\n"
+"PO-Revision-Date: 2020-09-08 15:33+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -27,15 +27,15 @@ msgstr "実行する許可がありません。"
 msgid "Wrong value is returned."
 msgstr "間違った値が戻ってきました。"
 
-#: app/Gianism/Bootstrap.php:143
+#: app/Gianism/Bootstrap.php:147
 msgid "Consent Required"
 msgstr "同意が必要です"
 
-#: app/Gianism/Bootstrap.php:144
+#: app/Gianism/Bootstrap.php:148
 msgid "Confirm"
 msgstr "確認"
 
-#: app/Gianism/Bootstrap.php:145
+#: app/Gianism/Bootstrap.php:149
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -152,21 +152,42 @@ msgstr ""
 msgid "Connection with SNS"
 msgstr "SNS接続"
 
-#: app/Gianism/Helper/Option.php:109
+#: app/Gianism/Controller/ProfileChecker.php:141
+msgid "Your password is automatically generated. Please change it to your own."
+msgstr "パスワードは自動生成されたものです。ご自身のものに変更してください。"
+
+#: app/Gianism/Controller/ProfileChecker.php:144
+msgid ""
+"Your email is pseudo one because your SNS has no permission to provide email "
+"to us. "
+msgstr ""
+
+#: app/Gianism/Controller/ProfileChecker.php:180
+#, php-format
+msgid ""
+"You have an incomplete profile. To access full features of this site, please "
+"fill your profile <a href=\"%s\">here</a>."
+msgstr ""
+
+#: app/Gianism/Helper/Option.php:115
 msgid "Option updated."
 msgstr "設定が更新されました。"
 
-#: app/Gianism/Helper/Option.php:113
+#: app/Gianism/Helper/Option.php:119
 msgid "Option failed to update."
 msgstr "設定を更新できませんでした。"
 
-#: app/Gianism/Helper/Option.php:224
+#: app/Gianism/Helper/Option.php:230
 msgid "Medium"
 msgstr "中"
 
-#: app/Gianism/Helper/Option.php:225
+#: app/Gianism/Helper/Option.php:231
 msgid "Large"
 msgstr "大"
+
+#: app/Gianism/Helper/Option.php:232
+msgid "Guide Line Style"
+msgstr "ガイドライン準拠"
 
 #: app/Gianism/Notices/SessionSetting.php:55
 #, php-format
@@ -391,35 +412,35 @@ msgstr ""
 "%1$sアカウントに接続すると、%2$sに%1$sアカウントでログインできるようになりま"
 "す。パスワードやメールアドレスは必要ありません。"
 
-#: app/Gianism/Service/AbstractService.php:578
+#: app/Gianism/Service/AbstractService.php:583
 msgid "Log in"
 msgstr "ログイン"
 
-#: app/Gianism/Service/AbstractService.php:620
+#: app/Gianism/Service/AbstractService.php:607
 #, php-format
 msgid "Log in with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:624
+#: app/Gianism/Service/AbstractService.php:642
 #, php-format
 msgid "Login with %s"
 msgstr "%sでログイン"
 
-#: app/Gianism/Service/AbstractService.php:661
+#: app/Gianism/Service/AbstractService.php:689
 #, php-format
 msgid "Connect %s"
 msgstr "%sと接続"
 
-#: app/Gianism/Service/AbstractService.php:664
+#: app/Gianism/Service/AbstractService.php:692
 msgid "Connect"
 msgstr "コネクト"
 
-#: app/Gianism/Service/AbstractService.php:684
+#: app/Gianism/Service/AbstractService.php:712
 #, php-format
 msgid "Disconnect %s"
 msgstr "%sを接続解除"
 
-#: app/Gianism/Service/AbstractService.php:685
+#: app/Gianism/Service/AbstractService.php:713
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
@@ -428,42 +449,42 @@ msgstr ""
 "ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
 "どの認証情報に注意してください。ログインできなくなるかもしれません。"
 
-#: app/Gianism/Service/AbstractService.php:688
+#: app/Gianism/Service/AbstractService.php:716
 msgid "Disconnect"
 msgstr "切断"
 
-#: app/Gianism/Service/AbstractService.php:760
+#: app/Gianism/Service/AbstractService.php:788
 msgid "Sorry, but cannot create valid user name."
 msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:769
+#: app/Gianism/Service/AbstractService.php:797
 #, php-format
 msgid "%s API returns error."
 msgstr "%s APIがエラーを返しました。"
 
-#: app/Gianism/Service/AbstractService.php:778
+#: app/Gianism/Service/AbstractService.php:806
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr "この%sアカウントはすでに別のアカウントに接続されています。"
 
-#: app/Gianism/Service/AbstractService.php:787
+#: app/Gianism/Service/AbstractService.php:815
 #, php-format
 msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
-#: app/Gianism/Service/AbstractService.php:796
+#: app/Gianism/Service/AbstractService.php:824
 msgid "Oops, Failed to Authenticate."
 msgstr "おや、認証できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:805
+#: app/Gianism/Service/AbstractService.php:833
 msgid "Cannot retrieve email address."
 msgstr "メールアドレスを取得できませんでした。"
 
-#: app/Gianism/Service/AbstractService.php:814
+#: app/Gianism/Service/AbstractService.php:842
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/Gianism/Service/AbstractService.php:821
+#: app/Gianism/Service/AbstractService.php:849
 #: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
 #: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:277
 #: app/Gianism/Service/Twitter.php:270
@@ -471,12 +492,12 @@ msgstr "登録できませんでした。時間をおいてからもう一度試
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
 
-#: app/Gianism/Service/AbstractService.php:832
+#: app/Gianism/Service/AbstractService.php:860
 #, php-format
 msgid "Sorry, but registration via %s is not allowed."
 msgstr "申し訳ありません、%sでの登録は許可されていません。"
 
-#: app/Gianism/Service/AbstractService.php:935
+#: app/Gianism/Service/AbstractService.php:963
 #, php-format
 msgid ""
 "%1$s get your information below from %2$s. Please proceed with your "
@@ -484,16 +505,16 @@ msgid ""
 msgstr ""
 "%1$s は %2$s より以下の情報を取得します。確認した上で先に進んでください。"
 
-#: app/Gianism/Service/AbstractService.php:958
+#: app/Gianism/Service/AbstractService.php:986
 #, php-format
 msgid "%s User ID"
 msgstr "%sのユーザーID"
 
-#: app/Gianism/Service/AbstractService.php:959 templates/analytics.php:83
+#: app/Gianism/Service/AbstractService.php:987 templates/analytics.php:83
 msgid "Profile"
 msgstr "プロパティ"
 
-#: app/Gianism/Service/AbstractService.php:960 templates/parts/sidebar.php:42
+#: app/Gianism/Service/AbstractService.php:988 templates/parts/sidebar.php:42
 msgid "Email"
 msgstr "メール"
 
@@ -533,6 +554,11 @@ msgstr "ページが設定されていません。"
 msgid "No page found. Do you have permission for that page?"
 msgstr ""
 "ページが見つかりませんでした。そのページのパーミッションはお持ちですか？"
+
+#: app/Gianism/Service/Google.php:300
+#, php-format
+msgid "Sign in with %s"
+msgstr "%sでログイン"
 
 #: app/Gianism/Service/Line.php:135
 msgid "Sorry, but wrong access. Please try again."
@@ -596,7 +622,7 @@ msgstr "設定"
 msgid "How to set up"
 msgstr "設定方法"
 
-#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:60
+#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:62
 msgid "Customize"
 msgstr "カスタマイズ"
 
@@ -1285,31 +1311,31 @@ msgstr "購読する"
 msgid "Our social Account"
 msgstr "ソーシャルアカウント"
 
-#: templates/setting.php:12
+#: templates/setting.php:14
 msgid "General Setting"
 msgstr "一般設定"
 
-#: templates/setting.php:15
+#: templates/setting.php:17
 msgid "Current registration setting"
 msgstr "現在の登録設定"
 
-#: templates/setting.php:20
+#: templates/setting.php:22
 msgid "User can register account."
 msgstr "ユーザーはアカウントを登録できます。"
 
-#: templates/setting.php:23
+#: templates/setting.php:25
 msgid "User can't register account."
 msgstr "ユーザーはアカウント登録できません。"
 
-#: templates/setting.php:30
+#: templates/setting.php:32
 msgid "Force register"
 msgstr "登録を強制する"
 
-#: templates/setting.php:35
+#: templates/setting.php:37
 msgid "Depends on WP setting"
 msgstr "WPの設定に従う"
 
-#: templates/setting.php:38
+#: templates/setting.php:40
 #, php-format
 msgid ""
 "Whether registration setting depends on <a href=\"%s\">General setting</a>. "
@@ -1321,7 +1347,7 @@ msgstr ""
 "される情報を元にアカウントが作成されます。そうでない場合、接続済みのユーザー"
 "だけがSNSアカウントでログインできます。"
 
-#: templates/setting.php:41
+#: templates/setting.php:43
 msgid ""
 "<strong>WooCommerce found!</strong> In spite of this setting, user can "
 "always register account."
@@ -1329,19 +1355,19 @@ msgstr ""
 "<strong>WooCommerce が見つかりました！</strong> この設定に関わらず、ユーザー"
 "は常に登録可能です。"
 
-#: templates/setting.php:47
+#: templates/setting.php:49
 msgid "Login screen"
 msgstr "ログイン画面"
 
-#: templates/setting.php:52
+#: templates/setting.php:54
 msgid "Show all button on Login screen."
 msgstr "すべてのボタンをログイン画面に表示する。"
 
-#: templates/setting.php:57
+#: templates/setting.php:59
 msgid "Do not show login button."
 msgstr "ログインボタンを表示しない。"
 
-#: templates/setting.php:60
+#: templates/setting.php:62
 #, php-format
 msgid ""
 "You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
@@ -1350,19 +1376,19 @@ msgstr ""
 "ログインボタンは手動で表示できます。詳しくは<a href=\"%2$s\">%1$s</a>を見てく"
 "ださい。"
 
-#: templates/setting.php:65
+#: templates/setting.php:67
 msgid "Button size"
 msgstr "ボタンサイズ"
 
-#: templates/setting.php:75
+#: templates/setting.php:77
 msgid "This setting is valid only if login button's display setting is on."
 msgstr "この設定はログインボタンの表示設定がONの場合だけ有効です。"
 
-#: templates/setting.php:80
+#: templates/setting.php:82
 msgid "URL Prefix"
 msgstr "URL接頭辞"
 
-#: templates/setting.php:85
+#: templates/setting.php:87
 msgid ""
 "You can add prefix for all Gianism redirect URIs. Useful if you site is "
 "under CDN network which filters cookie strings."
@@ -1370,7 +1396,7 @@ msgstr ""
 "GianismのリダイレクトURIに接頭辞をつけることができます。サイトがCookie文字列"
 "をフィルタリングするCDN配下にある環境などで役立ちます。"
 
-#: templates/setting.php:87
+#: templates/setting.php:89
 msgid ""
 "<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
 "app setting in each SNS. It might cause error on live site."
@@ -1378,6 +1404,68 @@ msgstr ""
 "<strong>注意：</strong>URL接頭辞を変更した場合、それぞれのSNSでアプリの設定を"
 "変更する必要があります。運用中のサイトでの変更はエラーを起こす可能性がありま"
 "す。"
+
+#: templates/setting.php:94
+msgid "Profile Completion"
+msgstr "プロフィール完成"
+
+#: templates/setting.php:99
+msgid "Notify on admin profile screen(Default)"
+msgstr "管理画面のプロフィールページで注記（デフォルト）"
+
+#: templates/setting.php:100
+msgid "Show pop up for incomplete users(Aggressive)"
+msgstr "プロフィールが不完全なユーザーにポップアップを表示（積極的）"
+
+#: templates/setting.php:101
+msgid "Redirect users to fill profile(Forcible)"
+msgstr "プロフィールを入力させるためユーザーをリダイレクト（強制）"
+
+#: templates/setting.php:107
+msgid ""
+"Users who registered account via SNS have sometimes incomplete profile. You "
+"can choose how to treat them by this option."
+msgstr ""
+"SNSで登録したユーザーはプロフィールが不完全な場合があります。この設定でそうし"
+"たユーザーをどう扱うかを選択できます。"
+
+#: templates/setting.php:109
+msgid ""
+"This feature requires WordPress 5.0 and higher. Please consider upgrading."
+msgstr ""
+"この機能はWordPress 5.0 以上が必要です。アップグレードを検討してください。"
+
+#: templates/setting.php:114
+msgid "Profile URL"
+msgstr "プロフィールURL"
+
+#: templates/setting.php:117
+msgid "e.g. /my-profile/account"
+msgstr "例・ /my-profile/account"
+
+#: templates/setting.php:120
+msgid ""
+"If you want your users to complete their profiles, you can specify the path "
+"to profile completion page."
+msgstr ""
+"ユーザーにプロフィールを完成させて欲しい場合は、プロフィール入力を完了する"
+"ページへのパスを入力してください。"
+
+#: templates/setting.php:121
+msgid "Current Setting"
+msgstr "現在の設定"
+
+#: templates/setting.php:130
+msgid "Excluded Path"
+msgstr "除外するパス"
+
+#: templates/setting.php:134
+msgid ""
+"To avoid the redirect loop, enter paths excluded from redirection. 1 path in "
+"1 line. Asterisk(*) means wildcard."
+msgstr ""
+"リダレイクトループを避けるために、リダイレクトしないパスを入力してください。1"
+"行につき1つです。アスタリスク（*）は様々な文字にマッチします。"
 
 #: templates/setting/facebook.php:10
 msgid "Connect with Facebook"

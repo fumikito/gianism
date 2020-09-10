@@ -12,8 +12,7 @@ use Gianism\Pattern\AbstractController;
  * @author Takahashi Fumiki
  */
 class Profile extends AbstractController {
-
-
+	
 	/**
 	 * Constructor
 	 *
@@ -36,14 +35,14 @@ class Profile extends AbstractController {
 	public function profile_updated( $user_id, $old_user_data ) {
 		$current_user = get_userdata( $user_id );
 		// Check if password is on your own.
-		if ( get_user_meta( $user_id, '_wpg_unknown_password', true ) && $current_user->user_pass != $old_user_data->user_pass ) {
+		if ( $this->profile_checker->is_password_unknown( $user_id ) && $current_user->user_pass !== $old_user_data->user_pass ) {
 			// Password changed
 			delete_user_meta( $user_id, '_wpg_unknown_password' );
-			$this->add_message( $this->_( 'Your password is now on your own!' ) );
+			$this->add_message( __( 'Your password is now on your own!', 'wp-gianism' ) );
 		}
 		// Check if email is proper and old one is pseudo
-		if ( $old_user_data->user_email != $current_user->user_email && $this->has_pseudo_segment( $old_user_data->user_email ) ) {
-			if ( $this->has_pseudo_segment( $current_user->user_email ) ) {
+		if ( $old_user_data->user_email !== $current_user->user_email && $this->profile_checker->is_pseudo_mail( $old_user_data->user_email ) ) {
+			if ( $this->profile_checker->is_pseudo_mail( $current_user->user_email ) ) {
 				// email isn't changed.
 				$this->add_message( $this->_( 'You mail address is still pseudo one! Please change it to valid one.' ), true );
 			} else {
@@ -62,7 +61,7 @@ class Profile extends AbstractController {
 		$message = [];
 		// show password notice
 		if ( get_user_meta( $user->ID, '_wpg_unknown_password', true ) ) {
-			$message[] = $this->_( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.' );
+			$message[] = __( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.', 'wp-gianism' );
 		}
 		// Check if mail address is pseudo
 		foreach ( $this->service->all_services() as $service ) {
@@ -96,6 +95,7 @@ class Profile extends AbstractController {
 	 * Detect if mail address contains @pseudo
 	 *
 	 * @param string $email
+	 * @deprecated 4.2.0
 	 *
 	 * @return bool
 	 */

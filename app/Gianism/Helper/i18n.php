@@ -5,6 +5,7 @@ namespace Gianism\Helper;
 /**
  * i18n helper
  * @package Gianism
+ * @deprecated
  */
 trait i18n {
 
@@ -24,7 +25,7 @@ trait i18n {
 	 * @return string
 	 */
 	public function _( $string ) {
-		return __( $string, $this->domain );
+		return __( $string, 'wp-gianism' );
 	}
 
 	/**
@@ -34,7 +35,7 @@ trait i18n {
 	 * @param string $string
 	 */
 	public function e( $string ) {
-		_e( $string, $this->domain );
+		_e( $string, 'wp-gianism' );
 	}
 
 }

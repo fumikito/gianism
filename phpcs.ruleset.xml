@@ -5,6 +5,7 @@
 	<rule ref="WordPress-Core">
 		<exclude name="Generic.Files.LowercasedFilename" />
 		<exclude name="Generic.Commenting.DocComment.ShortNotCapital" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
 		<exclude name="WordPress.Files.FileName" />
 		<exclude name="Squiz.Commenting.FileComment" />
@@ -14,6 +15,7 @@
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
 		<exclude name="WordPress.WP.I18n.SingleUnderscoreGetTextFunction" />
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+		<exclude name="WordPress.PHP.DisallowShortTernary" />
 	</rule>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>

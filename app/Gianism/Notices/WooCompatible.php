@@ -44,5 +44,4 @@ class WooCompatible extends AbstractNotice {
 			admin_url( 'options-general.php' )
 		);
 	}
-
 }

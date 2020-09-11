@@ -70,7 +70,7 @@ add_action( 'plugins_loaded', 'gianism_setup_after_plugins_loaded', 11 );
  */
 function gianism_setup_after_plugins_loaded() {
 	// Add i18n for here for other plugins.
-	load_plugin_textdomain( 'wp-gianism', false, 'gianism/language' );
+	load_plugin_textdomain( 'wp-gianism', false, basename( __DIR__ ) . '/language' );
 	// Check PHP version.
 	try {
 		if ( ! version_compare( phpversion(), GIANISM_PHP_VERSION, '>=' ) ) {

@@ -41,7 +41,6 @@ class Admin extends AbstractController {
 		// Register script
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
-
 		$admin_screens = [
 			'Gianism\\UI\\SettingScreen',
 		];
@@ -75,6 +74,8 @@ class Admin extends AbstractController {
 			$this->invalid_options[] = sprintf( $this->_( 'Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.' ), admin_url( 'options-general.php?page=gianism' ) );
 		}
 		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
+		// Add network notice
+		add_action( 'admin_notices', [ $this, 'network_notice' ] );
 	}
 
 
@@ -89,14 +90,44 @@ class Admin extends AbstractController {
 		// Other
 		wp_enqueue_style( $this->name . '-admin-panel' );
 	}
+	
+	/**
+	 * Detect shouldn't display notices.
+	 *
+	 * @return bool
+	 */
+	public function no_nag_notice() {
+		return defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES;
+	}
 
 	/**
 	 * Show message is options are invalid.
 	 */
 	public function invalid_option_notices() {
-		if ( ! empty( $this->invalid_options ) ) {
-			array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
-			printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
+		if ( $this->no_nag_notice() || empty( $this->invalid_options ) ) {
+			return;
+		}
+		array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
+		printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
+	}
+	
+	/**
+	 * Display notices
+	 */
+	public function network_notice() {
+		if ( ! $this->option->network_available() ) {
+			// This is not network available install.
+			return;
+		}
+		if ( $this->no_nag_notice() ) {
+			return;
+		}
+		try {
+			if ( current_user_can( 'manage_network' ) && ! $this->option->is_network_activated() ) {
+				throw new \Exception( __( 'Gianism provides network sites supports. Please consider network activation.', 'wp-gianism' ) );
+			}
+		} catch ( \Exception $e ) {
+			printf( '<div class="notice notice-info is-dismissible"><p>%s</p></div>', wp_kses_post( $e->getMessage() ) );
 		}
 	}
 
@@ -150,5 +181,14 @@ class Admin extends AbstractController {
 		}
 
 		return $plugin_meta;
+	}
+	
+	/**
+	 * Detect if this is Gianism admin settings.
+	 *
+	 * @return bool
+	 */
+	public function is_gianism_admin() {
+		return is_admin() && ( 'gianism' === filter_input( INPUT_GET, 'page' ) );
 	}
 }

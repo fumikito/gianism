@@ -2,6 +2,7 @@
 
 namespace Gianism\Pattern;
 
+use Gianism\Controller\Network;
 use Gianism\Controller\ProfileChecker;
 use Gianism\Helper\MessageHelper;
 use Gianism\Helper\i18n;
@@ -21,6 +22,7 @@ use Gianism\Helper\Session;
  * @property Input          $input           Input instance.
  * @property ServiceManager $service         ServiceManager instance
  * @property ProfileChecker $profile_checker Profile checker instance
+ * @property Network        $network         Network controller
  */
 trait AppBase {
 
@@ -61,6 +63,8 @@ trait AppBase {
 				return ServiceManager::get_instance();
 			case 'profile_checker':
 				return ProfileChecker::get_instance();
+			case 'network':
+				return Network::get_instance();
 			default:
 				return null;
 		}

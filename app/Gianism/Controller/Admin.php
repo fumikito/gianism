@@ -35,6 +35,9 @@ class Admin extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		if ( $this->network->is_network_activated() && ! is_main_site() ) {
+			return;
+		}
 		//Create plugin link
 		add_filter( 'plugin_action_links', [ $this, 'plugin_page_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 4 );
@@ -74,8 +77,6 @@ class Admin extends AbstractController {
 			$this->invalid_options[] = sprintf( $this->_( 'Google redirect URL is deprecated since version 2.0. <strong>You must change setting on Google API Console</strong>. Please <a href="%s">update option</a> and follow the instruction there.' ), admin_url( 'options-general.php?page=gianism' ) );
 		}
 		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
-		// Add network notice
-		add_action( 'admin_notices', [ $this, 'network_notice' ] );
 	}
 
 
@@ -109,26 +110,6 @@ class Admin extends AbstractController {
 		}
 		array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
 		printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
-	}
-	
-	/**
-	 * Display notices
-	 */
-	public function network_notice() {
-		if ( ! $this->option->network_available() ) {
-			// This is not network available install.
-			return;
-		}
-		if ( $this->no_nag_notice() ) {
-			return;
-		}
-		try {
-			if ( current_user_can( 'manage_network' ) && ! $this->option->is_network_activated() ) {
-				throw new \Exception( __( 'Gianism provides network sites supports. Please consider network activation.', 'wp-gianism' ) );
-			}
-		} catch ( \Exception $e ) {
-			printf( '<div class="notice notice-info is-dismissible"><p>%s</p></div>', wp_kses_post( $e->getMessage() ) );
-		}
 	}
 
 	/**

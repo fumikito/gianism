@@ -312,27 +312,6 @@ class Option extends Singleton {
 	}
 	
 	/**
-	 * Detect if Gianism can network available.
-	 *
-	 * @return bool
-	 */
-	public function network_available() {
-		return is_multisite() && ! is_subdomain_install();
-	}
-	
-	/**
-	 * Detect if Gianism is network activated.
-	 *
-	 * @return bool
-	 */
-	public function is_network_activated() {
-		if ( ! is_multisite() ) {
-			return false;
-		}
-		return in_array( Bootstrap::get_instance()->dir . 'wp-gianism.php', wp_get_active_network_plugins() );
-	}
-
-	/**
 	 * Getter
 	 *
 	 * @param string $name

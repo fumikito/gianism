@@ -39,7 +39,7 @@ function gianism_set_cookie( $cookie_name, $value, $expire, $domain = '', $http_
 			'samesite' => $same_site_policy,
 		] );
 	} else {
-		return setrawcookie( $this->name, $value, $expire, '/; SameSite=' . $same_site_policy, $domain, $is_ssl, $http_only );
+		return setrawcookie( $cookie_name, $value, $expire, '/; SameSite=' . $same_site_policy, $domain, $is_ssl, $http_only );
 	}
 }
 

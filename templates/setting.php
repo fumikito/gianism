@@ -96,9 +96,9 @@ global $wp_version;
 				<?php $this->new_from( '4.1.0' ); ?>
 				<select name="check_profile" id="wpg-check-profile">
 					<?php foreach( [
-						''         => __( 'Notify on admin profile screen(Default)', 'wpg-gianism' ),
-						'popup'    => __( 'Show pop up for incomplete users(Aggressive)', 'wpg-gianism' ),
-						'redirect' => __( 'Redirect users to fill profile(Forcible)', 'wpg-gianism' ),
+						''         => __( 'Notify on admin profile screen(Default)', 'wp-gianism' ),
+						'popup'    => __( 'Show pop up for incomplete users(Aggressive)', 'wp-gianism' ),
+						'redirect' => __( 'Redirect users to fill profile(Forcible)', 'wp-gianism' ),
 					] as $value => $label ) {
 						printf( '<option value="%1$s"%3$s>%2$s</option>', esc_attr( $value ), esc_html( $label ), selected( $value, $this->option->check_profile, false ) );
 					} ?>

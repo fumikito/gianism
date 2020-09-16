@@ -11,7 +11,7 @@
 /**
  * Set Cookie wrapper
  *
- * @since 4.1.1
+ * @since 4.2.1
  * @param string    $cookie_name
  * @param string    $value
  * @param string    $expire

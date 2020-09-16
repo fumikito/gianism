@@ -2,6 +2,7 @@
 
 namespace Gianism\Pattern;
 use Gianism\Helper\Input;
+use Gianism\Helper\Option;
 
 /**
  * Notice utility
@@ -98,7 +99,7 @@ abstract class AbstractNotice {
 	 * @return array
 	 */
 	protected function dismissed_notices() {
-		return (array) get_option( 'gianism_notice_log', [] );
+		return (array) Option::get_instance()->get( 'gianism_notice_log', [] );
 	}
 
 	/**

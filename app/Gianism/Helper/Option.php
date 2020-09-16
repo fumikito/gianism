@@ -3,6 +3,7 @@
 namespace Gianism\Helper;
 
 use Gianism\Bootstrap;
+use Gianism\Controller\Network;
 use Gianism\Pattern\Singleton;
 
 /**
@@ -75,7 +76,7 @@ class Option extends Singleton {
 	 * @param array $argument Settings array.
 	 */
 	protected function __construct( array $argument = [] ) {
-		$this->values = get_option( $this->key, [] );
+		$this->values = $this->get( $this->key, [] );
 		foreach ( $this->default_option as $key => $value ) {
 			if ( ! isset( $this->values[ $key ] ) ) {
 				$this->values[ $key ] = $value;
@@ -112,12 +113,32 @@ class Option extends Singleton {
 			}
 		}
 		// Save message.
-		if ( update_option( $this->key, $this->values ) ) {
-			$this->add_message( $this->_( 'Option updated.' ) );
+		if ( $this->save( $this->key, $this->values ) ) {
+			$this->add_message( __( 'Option updated.', 'wp-gianism' ) );
 			flush_rewrite_rules();
 			do_action( self::UPDATED_ACTION, $this->values );
 		} else {
-			$this->add_message( $this->_( 'Option failed to update.' ), true );
+			$this->add_message( __( 'Option failed to update.', 'wp-gianism' ), true );
+		}
+	}
+	
+	/**
+	 * Wrapper for update_option()
+	 *
+	 * @param string $key
+	 * @param mixed  $value
+	 *
+	 * @return bool
+	 */
+	public function save( $key, $value ) {
+		if ( is_multisite() ) {
+			if ( $this->is_network_activated() ) {
+				return update_blog_option( $this->get_parent_blog_id(), $key, $value );
+			} else {
+				return update_option( $key, $value );
+			}
+		} else {
+			return update_option( $key, $value );
 		}
 	}
 
@@ -135,6 +156,25 @@ class Option extends Singleton {
 			}
 		}
 		return $options;
+	}
+	
+	/**
+	 * Stab for get_option
+	 *
+	 * @param string $key
+	 * @param mixed  $default_value
+	 * @return mixed
+	 */
+	public function get( $key, $default_value = false ) {
+		if ( is_multisite() ) {
+			if ( $this->is_network_activated() ) {
+				return get_blog_option( $this->get_parent_blog_id(), $key, $default_value );
+			} else {
+				return get_option( $key, $default_value );
+			}
+		} else {
+			return get_option( $key, $default_value );
+		}
 	}
 
 	/**
@@ -244,7 +284,7 @@ class Option extends Singleton {
 	public function has_invalid_option( $name ) {
 		switch ( $name ) {
 			case 'google_redirect':
-				$option = get_option( $this->key, [] );
+				$option = $this->get( $this->key, [] );
 
 				return isset( $saved_option['ggl_redirect_uri'] ) && ! empty( $saved_option['ggl_redirect_uri'] );
 				break;
@@ -264,7 +304,7 @@ class Option extends Singleton {
 	public function is_ssl_required() {
 		$is_ssl = false;
 		foreach ( [ 'siteurl', 'home' ] as $key ) {
-			if ( 0 === strpos( get_option( $key, '' ), 'https://' ) ) {
+			if ( 0 === strpos( $this->get( $key, '' ), 'https://' ) ) {
 				$is_ssl = true;
 			}
 		}
@@ -294,7 +334,7 @@ class Option extends Singleton {
 	 */
 	public function user_can_register() {
 		// WordPress' default.
-		$can = $this->force_register ?: (bool) get_option( 'users_can_register' );
+		$can = $this->force_register ?: (bool) $this->get( 'users_can_register' );
 		// If WooCommerce is installed, change it.
 		if ( gianism_woocommerce_detected() ) {
 			$can = true;
@@ -309,6 +349,27 @@ class Option extends Singleton {
 	 */
 	public function get_formatted_prefix() {
 		return trim( trim( $this->prefix ), '/' );
+	}
+	
+	/**
+	 * Check if network activated.
+	 *
+	 * @return bool
+	 */
+	public function is_network_activated() {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins() );
+	}
+	
+	/**
+	 * Get network parent blog.
+	 *
+	 * @return int
+	 */
+	public function get_parent_blog_id() {
+		return (int) apply_filters( 'gianism_parent_blog_id', 1 );
 	}
 	
 	/**

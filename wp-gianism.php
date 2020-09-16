@@ -139,3 +139,13 @@ function gianism_internal_error( $message = '' ) {
 	}
 	return $store;
 }
+
+/**
+ * Get root directory.
+ *
+ * @since 4.2.0
+ * @return string
+ */
+function gianism_root_dir() {
+	return dirname( __FILE__ );
+}

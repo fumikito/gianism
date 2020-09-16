@@ -3,6 +3,7 @@
 namespace Gianism\Controller;
 
 use Gianism\Bootstrap;
+use Gianism\Helper\Option;
 use Gianism\Pattern\AbstractController;
 
 class Network extends AbstractController {
@@ -27,18 +28,6 @@ class Network extends AbstractController {
 	}
 	
 	/**
-	 * Detect if Gianism is network activated.
-	 *
-	 * @return bool
-	 */
-	public function is_network_activated() {
-		if ( ! is_multisite() ) {
-			return false;
-		}
-		return in_array( Bootstrap::get_instance()->dir . 'wp-gianism.php', wp_get_active_network_plugins() );
-	}
-	
-	/**
 	 * Display notices
 	 */
 	public function network_notice() {
@@ -50,12 +39,11 @@ class Network extends AbstractController {
 			return;
 		}
 		try {
-			if ( current_user_can( 'manage_network' ) && ! $this->is_network_activated() ) {
+			if ( current_user_can( 'manage_network' ) && ! $this->option->is_network_activated() ) {
 				throw new \Exception( __( 'Gianism provides network sites supports. Please consider network activation.', 'wp-gianism' ) );
 			}
 		} catch ( \Exception $e ) {
 			printf( '<div class="notice notice-info is-dismissible"><p>%s</p></div>', wp_kses_post( $e->getMessage() ) );
 		}
 	}
-	
 }

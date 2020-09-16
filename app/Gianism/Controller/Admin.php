@@ -35,7 +35,7 @@ class Admin extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
-		if ( $this->network->is_network_activated() && ! is_main_site() ) {
+		if ( $this->option->is_network_activated() && ! is_main_site() ) {
 			return;
 		}
 		//Create plugin link
@@ -69,7 +69,7 @@ class Admin extends AbstractController {
 			$this->invalid_options[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setting</a> and follow instructions there.' ), admin_url( 'options-general.php?page=gianism&view=setting' ) );
 		}
 		// Check permalink
-		if ( ! get_option( 'rewrite_rules', '' ) ) {
+		if ( ! $this->option->get( 'rewrite_rules', '' ) ) {
 			$this->invalid_options[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );
 		}
 		// Check old setting
@@ -78,7 +78,6 @@ class Admin extends AbstractController {
 		}
 		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
 	}
-
 
 	/**
 	 * Register assets

@@ -29,7 +29,8 @@ jQuery( document ).ready( function ( $ ) {
 					}
 					// Delete cookie
 					Cookies.remove( key_name, {
-						path: '/'
+						path: '/',
+						domain: location.host,
 					} );
 				}
 			}

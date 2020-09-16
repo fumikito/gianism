@@ -9,11 +9,13 @@ namespace Gianism\Helper;
  * @since 3.0.0
  */
 trait MessageHelper {
+
 	/**
 	 * Add message to show
 	 *
 	 * @param string $string
 	 * @param bool $error
+	 * @return bool
 	 */
 	protected function add_message( $string, $error = false ) {
 		$key = 'gianism_' . ( $error ? 'error' : 'updated' );
@@ -23,6 +25,6 @@ trait MessageHelper {
 		} else {
 			$messages = array( $string );
 		}
-		setrawcookie( $key, rawurlencode( json_encode( $messages ) ), current_time( 'timestamp', true ) + 180, '/; SameSite=Lax' );
+		return gianism_set_cookie( $key, rawurlencode( json_encode( $messages ) ), current_time( 'timestamp', true ) + 180, '', false );
 	}
 }

@@ -73,24 +73,8 @@ class Session extends Singleton  {
 	protected function save_cookie() {
 		$this->ensure_cookie();
 		$json = json_encode( $this->data );
-		$is_ssl = is_ssl();
-		$domain = '';
 		$expire = current_time( 'timestamp', true ) + 60 * 20;
-		if ( preg_match( '#^https?://([^/:]+)#u', home_url(), $matches ) ) {
-			$domain = $matches[1];
-		}
-		if ( version_compare( phpversion(), '7.3.0', '>=' ) ) {
-			return setrawcookie( $this->name, rawurlencode( $json ), [
-				'secure'   => $is_ssl,
-				'httponly' => true,
-				'expires'  => $expire,
-				'domain'   => $domain,
-				'path'     => '/',
-				'samesite' => 'Lax',
-			] );
-		} else {
-			return setrawcookie( $this->name, rawurlencode( $json ), $expire, '/; SameSite=Lax', $domain, $is_ssl, true );
-		}
+		return gianism_set_cookie( $this->name, rawurlencode( $json ), $expire );
 	}
 
 	/**

@@ -8,8 +8,40 @@
  */
 
 
-
-
+/**
+ * Set Cookie wrapper
+ *
+ * @since 4.1.1
+ * @param string    $cookie_name
+ * @param string    $value
+ * @param string    $expire
+ * @param string    $domain
+ * @param bool      $http_only
+ * @param string    $same_site_policy
+ * @param bool|null $is_ssl
+ * @return bool
+ */
+function gianism_set_cookie( $cookie_name, $value, $expire, $domain = '', $http_only = true, $same_site_policy = 'Lax', $is_ssl = null ) {
+	if ( preg_match( '#^https?://([^/:]+)#u', home_url(), $matches ) ) {
+		// TODO: Consider domain extraction method.
+		$domain = $matches[1];
+	}
+	if ( is_null( $is_ssl ) ) {
+		$is_ssl = is_ssl();
+	}
+	if ( version_compare( phpversion(), '7.3.0', '>=' ) ) {
+		return setrawcookie( $cookie_name, $value, [
+			'secure'   => $is_ssl,
+			'httponly' => $http_only,
+			'expires'  => $expire,
+			'domain'   => $domain,
+			'path'     => '/',
+			'samesite' => $same_site_policy,
+		] );
+	} else {
+		return setrawcookie( $this->name, $value, $expire, '/; SameSite=' . $same_site_policy, $domain, $is_ssl, $http_only );
+	}
+}
 
 /**
  * Returns if user is connected with particular web service.

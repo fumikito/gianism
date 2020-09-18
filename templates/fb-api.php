@@ -20,7 +20,7 @@ $facebook = $this->service->get( 'facebook' );
 	<p class="notice">
 		<?php printf(
 			$this->_( 'O.K. You have permission. If you want to renew token, please click link below. Token will be valid for %d days.' ),
-			( 60 - floor( ( current_time( 'timestamp' ) - get_option( 'gianism_facebook_admin_refreshed', 0 ) ) / 60 / 60 / 24 ) )
+			( 60 - floor( ( current_time( 'timestamp' ) - $this->option->get( 'gianism_facebook_admin_refreshed', 0 ) ) / 60 / 60 / 24 ) )
 		); ?>
 	</p>
 <?php endif; ?>

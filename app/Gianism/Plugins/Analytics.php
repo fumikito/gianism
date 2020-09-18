@@ -482,14 +482,14 @@ SQL;
 				return $this->db->prefix . 'wpg_ga_ranking';
 				break;
 			case 'ga_profile':
-				return get_option( 'wpg_analytics_profile', [
+				return $this->option->get( 'wpg_analytics_profile', [
 					'account' => 0,
 					'profile' => 0,
 					'view'    => 0,
 				] );
 				break;
 			case 'ga_token':
-				return get_option( 'wpg_analytics_token', '' );
+				return $this->option->get( 'wpg_analytics_token', '' );
 				break;
 			case 'ga':
 				if ( $this->ga_token && is_null( $this->_ga ) ) {

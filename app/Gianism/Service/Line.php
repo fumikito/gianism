@@ -232,7 +232,7 @@ class Line extends NoMailService {
 						$this->welcome( $profile_name );
 					}
 					// Make user logged in
-					wp_set_auth_cookie( $user_id, true );
+					$this->set_auth_cookie( $user_id );
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );

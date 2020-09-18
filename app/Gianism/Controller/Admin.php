@@ -35,12 +35,14 @@ class Admin extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		if ( $this->option->is_network_activated() && ! is_main_site() ) {
+			return;
+		}
 		//Create plugin link
 		add_filter( 'plugin_action_links', [ $this, 'plugin_page_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 4 );
 		// Register script
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
-
 
 		$admin_screens = [
 			'Gianism\\UI\\SettingScreen',
@@ -67,7 +69,7 @@ class Admin extends AbstractController {
 			$this->invalid_options[] = sprintf( $this->_( 'No service is enabled. Please go to <a href="%s">Gianism Setting</a> and follow instructions there.' ), admin_url( 'options-general.php?page=gianism&view=setting' ) );
 		}
 		// Check permalink
-		if ( ! get_option( 'rewrite_rules', '' ) ) {
+		if ( ! $this->option->get( 'rewrite_rules', '' ) ) {
 			$this->invalid_options[] = sprintf( $this->_( 'You should set rewrite rules. Go to <a href="%s">Permalink Setting</a> and enable it.' ), admin_url( 'options-permalink.php' ) );
 		}
 		// Check old setting
@@ -76,7 +78,6 @@ class Admin extends AbstractController {
 		}
 		add_action( 'admin_notices', [ $this, 'invalid_option_notices' ] );
 	}
-
 
 	/**
 	 * Register assets
@@ -89,15 +90,25 @@ class Admin extends AbstractController {
 		// Other
 		wp_enqueue_style( $this->name . '-admin-panel' );
 	}
+	
+	/**
+	 * Detect shouldn't display notices.
+	 *
+	 * @return bool
+	 */
+	public function no_nag_notice() {
+		return defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES;
+	}
 
 	/**
 	 * Show message is options are invalid.
 	 */
 	public function invalid_option_notices() {
-		if ( ! empty( $this->invalid_options ) ) {
-			array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
-			printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
+		if ( $this->no_nag_notice() || empty( $this->invalid_options ) ) {
+			return;
 		}
+		array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
+		printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
 	}
 
 	/**
@@ -150,5 +161,14 @@ class Admin extends AbstractController {
 		}
 
 		return $plugin_meta;
+	}
+	
+	/**
+	 * Detect if this is Gianism admin settings.
+	 *
+	 * @return bool
+	 */
+	public function is_gianism_admin() {
+		return is_admin() && ( 'gianism' === filter_input( INPUT_GET, 'page' ) );
 	}
 }

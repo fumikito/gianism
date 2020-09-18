@@ -19,11 +19,18 @@ class Profile extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
-		// Show connection button on admin screen
-		if ( $this->option->is_enabled() ) {
-			add_action( 'profile_update', array( $this, 'profile_updated' ), 10, 2 );
-			add_action( 'show_user_profile', array( $this, 'connect_buttons' ) );
+		// If not enabled, skip.
+		if ( ! $this->option->is_enabled() ) {
+			return;
 		}
+		// If this is network child, skip.
+		if ( $this->option->is_network_activated() && $this->network->is_child_site() ) {
+			add_action( 'show_user_profile', [ $this, 'parent_site_link' ] );
+			return;
+		}
+		// Show connection button on admin screen.
+		add_action( 'profile_update', [ $this, 'profile_updated' ], 10, 2 );
+		add_action( 'show_user_profile', [ $this, 'connect_buttons' ] );
 	}
 
 	/**
@@ -68,13 +75,14 @@ class Profile extends AbstractController {
 			$instance = $this->service->get( $service );
 			if ( method_exists( $instance, 'is_pseudo_mail' ) ) {
 				if ( $instance->is_pseudo_mail( $user->user_email ) ) {
-					$message[] = $this->_( 'Your mail address is automatically generated and is pseudo. <a href="#email">Changing it</a> to valid mail address is highly recommended, else <strong>you might be unable to log in</strong>.' );
+					$message[] = __( 'Your mail address is automatically generated and is pseudo. <a href="#email">Changing it</a> to valid mail address is highly recommended, else <strong>you might be unable to log in</strong>.', 'wp-gianism' );
 					break;
 				}
 			}
 		}
 		?>
-		<h3 class="wpg-connect-header"><i class="lsf lsf-link"></i> <?php $this->e( 'Connection with SNS' ); ?>
+		<h3 class="wpg-connect-header">
+			<i class="lsf lsf-link"></i> <?php $this->e( 'Connection with SNS' ); ?>
 		</h3>
 		<?php if ( ! empty( $message ) ) : ?>
 			<ul class="wpg-notice">
@@ -88,6 +96,22 @@ class Profile extends AbstractController {
 			<?php do_action( 'gianism_user_profile', $user ); ?>
 			</tbody>
 		</table>
+		<?php
+	}
+	
+	/**
+	 * Display parent site link.
+	 *
+	 * @param \WP_User $user
+	 */
+	public function parent_site_link( \WP_User $user ) {
+		?>
+		<h3 class="wpg-connect-header">
+			<?php $this->e( 'Connection with SNS' ); ?>
+		</h3>
+		<p>
+			<?php echo wp_kses_post( sprintf( __( 'Please setup SNS connection at <a href="%s">parent site\'s profile page</a>.', 'wp-gianism' ), get_admin_url( $this->option->get_parent_blog_id(), 'profile.php' ) ) ) ?>
+		</p>
 		<?php
 	}
 

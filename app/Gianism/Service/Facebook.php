@@ -314,7 +314,7 @@ class Facebook extends NoMailService {
 						$this->welcome( $user['name'] );
 					}
 					// Make user logged in
-					wp_set_auth_cookie( $user_id, true );
+					$this->set_auth_cookie( $user_id );
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
@@ -631,7 +631,7 @@ class Facebook extends NoMailService {
 				break;
 			case 'admin':
 				if ( is_null( $this->_admin_api ) ) {
-					if ( ! $this->fb_use_api || ! ( $token = get_option( 'gianism_facebook_admin_token', false ) ) ) {
+					if ( ! $this->fb_use_api || ! ( $token = $this->option->get( 'gianism_facebook_admin_token', false ) ) ) {
 						return new \WP_Error( 404, $this->_( 'Token is not set. Please get it.' ) );
 					}
 					try {
@@ -642,7 +642,7 @@ class Facebook extends NoMailService {
 							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
 						] );
 						// Check last updated
-						$updated = get_option( 'gianism_facebook_admin_refreshed', 0 );
+						$updated = $this->option->get( 'gianism_facebook_admin_refreshed', 0 );
 						if ( ! $updated || current_time( 'timestamp' ) > $updated + ( 60 * 60 * 24 * 60 ) ) {
 							return new \WP_Error( 410, $this->_( 'Token is outdated. Please update it.' ) );
 						}
@@ -685,7 +685,7 @@ class Facebook extends NoMailService {
 				}
 				break;
 			case 'admin_id':
-				return get_option( 'gianism_facebook_admin_id', 'me' );
+				return $this->option->get( 'gianism_facebook_admin_id', 'me' );
 				break;
 			default:
 				return parent::__get( $name );

@@ -128,7 +128,7 @@ class Rewrite extends AbstractController {
 	 *
 	 */
 	public function check_rewrite() {
-		$registered_rewrites = get_option( 'rewrite_rules' );
+		$registered_rewrites = $this->option->get( 'rewrite_rules' );
 		foreach ( $this->rewrites as $reg => $replaced ) {
 			if ( ! isset( $registered_rewrites[ $reg ] ) || $replaced != $registered_rewrites[ $reg ] ) {
 				flush_rewrite_rules();

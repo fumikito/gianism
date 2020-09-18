@@ -4,6 +4,7 @@ namespace Gianism;
 
 use Gianism\Controller\Admin;
 use Gianism\Controller\Login;
+use Gianism\Controller\Network;
 use Gianism\Controller\Profile;
 use Gianism\Controller\ProfileChecker;
 use Gianism\Controller\Rewrite;
@@ -84,6 +85,7 @@ class Bootstrap extends Singleton {
 		add_action( 'admin_enqueue_scripts', function () {
 			wp_dequeue_style( 'wpmp-admin-custom' );
 		}, 1000 );
+		
 		/**
 		 * Fires before gianism start.
 		 *
@@ -94,9 +96,12 @@ class Bootstrap extends Singleton {
 		// Initialize service manager.
 		$service = ServiceManager::get_instance();
 		$service->init();
+		
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
-		// Initialize profile checker.
+		
+		// Network controller.
+		Network::get_instance();
 		
 		// If enabled, create interface and rewrite rules.
 		if ( $this->option->is_enabled() ) {

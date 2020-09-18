@@ -39,7 +39,7 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $this->e( 'Contact mail address. It will be displayed on authentication screen on Facebook.' ); ?>
 			<br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), get_option( 'admin_email' ) ); ?>
+			<?php printf( __( '<strong>e.g.</strong> <code>%s</code>', 'wp-gianism' ), $this->option->get( 'admin_email' ) ); ?>
 		</td>
 	</tr>
 	<tr>

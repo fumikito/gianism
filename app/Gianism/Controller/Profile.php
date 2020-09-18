@@ -19,11 +19,17 @@ class Profile extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
-		// Show connection button on admin screen
-		if ( $this->option->is_enabled() ) {
-			add_action( 'profile_update', array( $this, 'profile_updated' ), 10, 2 );
-			add_action( 'show_user_profile', array( $this, 'connect_buttons' ) );
+		// If not enabled, skip.
+		if ( ! $this->option->is_enabled() ) {
+			return;
 		}
+		// If this is network child, skip.
+		if ( $this->option->is_network_activated() && $this->network->is_child_site() ) {
+			return;
+		}
+		// Show connection button on admin screen.
+		add_action( 'profile_update', array( $this, 'profile_updated' ), 10, 2 );
+		add_action( 'show_user_profile', array( $this, 'connect_buttons' ) );
 	}
 
 	/**

@@ -85,6 +85,7 @@ class Bootstrap extends Singleton {
 		add_action( 'admin_enqueue_scripts', function () {
 			wp_dequeue_style( 'wpmp-admin-custom' );
 		}, 1000 );
+		
 		/**
 		 * Fires before gianism start.
 		 *
@@ -95,8 +96,12 @@ class Bootstrap extends Singleton {
 		// Initialize service manager.
 		$service = ServiceManager::get_instance();
 		$service->init();
+		
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
+		
+		// Network controller.
+		Network::get_instance();
 		
 		// If enabled, create interface and rewrite rules.
 		if ( $this->option->is_enabled() ) {
@@ -110,9 +115,6 @@ class Bootstrap extends Singleton {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_assets' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		}
-		
-		// Network controller.
-		Network::get_instance();
 	}
 
 	/**

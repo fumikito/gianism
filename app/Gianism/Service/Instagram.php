@@ -174,7 +174,7 @@ class Instagram extends NoMailService {
 						$this->welcome( '@' . $user_name );
 					}
 					// Let user log in.
-					wp_set_auth_cookie( $user_id, true );
+					$this->set_auth_cookie( $user_id );
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );

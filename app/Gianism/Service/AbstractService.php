@@ -145,7 +145,6 @@ abstract class AbstractService extends Application {
 		}
 	}
 
-
 	/**
 	 * Detect if user is connected to this service
 	 *
@@ -193,7 +192,7 @@ abstract class AbstractService extends Application {
 		}
 		if ( 'default' != $action && ! $this->input->verify_nonce( $this->input->nonce_action( "{$this->service_name}_{$action}" ) ) ) {
 			// If not default, nonce required.
-			$this->input->wp_die( $this->_( 'Cheatin\'? Wrong access.' ), 403 );
+			$this->input->wp_die( __( 'This request seems to be a wrong access. Please try again.', 'wp-gianism' ), 403 );
 		}
 		if ( 'default' != $action && method_exists( get_called_class(), $method ) ) {
 			// Method found, just call
@@ -228,16 +227,16 @@ abstract class AbstractService extends Application {
 		try {
 			// Is user logged in?
 			if ( ! is_user_logged_in() ) {
-				throw new \Exception( $this->_( 'You must be logged in.' ) );
+				throw new \Exception( __( 'You must be logged in.', 'wp-gianism' ) );
 			}
 			// Is user connected already?
 			if ( $this->is_connected( get_current_user_id() ) ) {
-				throw new \Exception( sprintf( $this->_( 'You are already connected with %s' ), $this->verbose_service_name ) );
+				throw new \Exception( sprintf( __( 'You are already connected with %s', 'wp-gianism' ), $this->verbose_service_name ) );
 			}
 			// Set redirect URL
 			$url = $this->get_api_url( 'connect' );
 			if ( ! $url ) {
-				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
+				throw new \Exception( __( 'Sorry, but failed to connect with API.', 'wp-gianism' ) );
 			}
 			// Write session
 			$this->session->write( [
@@ -266,15 +265,15 @@ abstract class AbstractService extends Application {
 			$redirect_url = apply_filters( '', $redirect_url, $this->service_name, $wp_query );
 			// Is user logged in?
 			if ( ! is_user_logged_in() ) {
-				throw new \Exception( $this->_( 'You must be logged in.' ) );
+				throw new \Exception( __( 'You must be logged in.', 'wp-gianism' ) );
 			}
-			// Has connected
+			// Has connection?
 			if ( ! $this->is_connected( get_current_user_id() ) ) {
-				throw new \Exception( sprintf( $this->_( 'Your account is not connected with %s' ), $this->verbose_service_name ) );
+				throw new \Exception( sprintf( __( 'Your account is not connected with %s', 'wp-gianism' ), $this->verbose_service_name ) );
 			}
 			// O.K.
 			$this->disconnect( get_current_user_id() );
-			$this->add_message( sprintf( $this->_( 'Your account is now unlinked from %s.' ), $this->verbose_service_name ) );
+			$this->add_message( sprintf( __( 'Your account is now unlinked from %s.', 'wp-gianism' ), $this->verbose_service_name ) );
 			// Redirect
 			wp_redirect( $this->filter_redirect( $redirect_url, 'disconnect' ) );
 			exit;
@@ -292,18 +291,23 @@ abstract class AbstractService extends Application {
 		try {
 			// Is user logged in?
 			if ( is_user_logged_in() ) {
-				throw new \Exception( $this->_( 'You are logged in, ah?' ), 403 );
+				throw new \Exception( __( 'You are already logged in.', 'wp-gianism' ), 403 );
 			}
 			// Create URL
 			$url = $this->get_api_url( 'login' );
 			if ( ! $url ) {
-				throw new \Exception( $this->_( 'Sorry, but failed to connect with API.' ) );
+				throw new \Exception( __( 'Sorry, but failed to connect with API.', 'wp-gianism' ) );
 			}
 			// Write session
-			$this->session->write( [
+			$session = [
 				'redirect_to' => $this->input->get( 'redirect_to' ),
 				'action'      => 'login',
-			] );
+			];
+			if ( ( $blog_id = $this->input->get( 'blog_id' ) ) ) {
+				// Store blog id if blog id is specified.
+				$session['blog_id'] = (int) $blog_id;
+			}
+			$this->session->write( $session );
 			// O.K. let's redirect
 			wp_redirect( $url );
 			exit;
@@ -722,6 +726,24 @@ EOS;
 	}
 
 	/**
+	 * Set login cookie.
+	 *
+	 * @param int $user_id
+	 */
+	protected function set_auth_cookie( $user_id ) {
+		/**
+		 * Fires just before setting login cookie.
+		 *
+		 * @param int    $user_id
+		 * @param string $service_name
+		 */
+		do_action( 'gianism_before_set_login_cookie', $user_id, $this->service_name );
+		// Should remember?
+		$remember= apply_filters( 'gianism_should_remember_cookie', true, $user_id, $this->service_name );
+		wp_set_auth_cookie( $user_id, $remember );
+	}
+
+	/**
 	 * Fires connect hook
 	 *
 	 * @param int $user_id
@@ -730,9 +752,9 @@ EOS;
 	 */
 	protected function hook_connect( $user_id, $data, $on_creation = false ) {
 		/**
-		 * Fires when user account is disconnected from SNS account.
+		 * Fires when user account is connected from SNS account.
 		 *
-		 * @action wpg_disconnect
+		 * @action wpg_connect
 		 *
 		 * @param int $user_id
 		 * @param mixed $data

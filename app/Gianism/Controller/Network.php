@@ -28,6 +28,13 @@ class Network extends AbstractController {
 	}
 	
 	/**
+	 * Detect if this is child site.
+	 */
+	public function is_child_site() {
+		return is_multisite() && ( $this->option->get_parent_blog_id() !== get_current_blog_id() );
+	}
+	
+	/**
 	 * Display notices
 	 */
 	public function network_notice() {

@@ -510,7 +510,9 @@ EOS;
 		if ( $pre_prefix ) {
 			$prefix = $pre_prefix . '/' . $prefix;
 		}
-		$url    = untrailingslashit( home_url( $prefix, ( $this->option->is_ssl_required() ? 'https' : 'http' ) ) ) . '/';
+		$scheme   = $this->option->is_ssl_required() ? 'https' : 'http';
+		$base_url = $this->option->is_network_activated() ? get_site_url( $this->option->get_parent_blog_id(), '', $scheme ) : home_url( '', $scheme );
+		$url = trailingslashit( untrailingslashit( $base_url ) . '/' . ltrim( $prefix, '/' ) );
 		if ( ! empty( $action ) ) {
 			$url .= $action . '/';
 		}
@@ -520,7 +522,6 @@ EOS;
 		if ( ! empty( $nonce_key ) ) {
 			$url = wp_nonce_url( $url, $this->input->nonce_action( $nonce_key ) );
 		}
-
 		return $url;
 	}
 
@@ -631,9 +632,13 @@ EOS;
 			 */
 			$redirect = apply_filters( 'gianism_default_redirect_link', $redirect, $this->service_name, $register, $context );
 		}
-		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', array(
+		$url_args = [
 			'redirect_to' => $redirect,
-		) );
+		];
+		if ( $this->network->is_child_site() ) {
+			$url_args[ 'blog_id' ] = get_current_blog_id();
+		}
+		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', $url_args );
 		$text   = apply_filters( 'gianism_login_button_label', $this->login_label(), $register, $context );
 		
 		$args = [

@@ -812,7 +812,7 @@ EOS;
 		if ( ! username_exists( $original_domain ) ) {
 			return $original_domain;
 		}
-		throw new \Exception( __( 'Sorry, but cannot create valid user name.', 'wp-gianism' ) );
+		throw new \Exception( __( 'Cannot create valid user name.', 'wp-gianism' ) );
 	}
 
 	/**

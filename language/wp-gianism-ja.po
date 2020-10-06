@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 21:37+0900\n"
-"PO-Revision-Date: 2020-09-18 21:45+0900\n"
+"POT-Creation-Date: 2020-10-06 15:25+0900\n"
+"PO-Revision-Date: 2020-10-06 15:29+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
 "Language: ja_JP\n"
@@ -453,7 +453,7 @@ msgstr "%sと接続"
 
 #: app/Gianism/Service/AbstractService.php:701
 msgid "Connect"
-msgstr "コネクト"
+msgstr "接続"
 
 #: app/Gianism/Service/AbstractService.php:721
 #, php-format
@@ -464,18 +464,19 @@ msgstr "%sを接続解除"
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
-"credential(email, passowrd), or else you might not be able to login again."
+"credential(email, password), or else you might not be able to login again."
 msgstr ""
-"ほんとうに%sとの接続を解除しますか？　その場合、パスワードやメールアドレスな"
-"どの認証情報に注意してください。ログインできなくなるかもしれません。"
+"本当に%sとの接続を解除しますか？　その場合、パスワードやメールアドレスなどの"
+"認証情報がご自身の設定したものか確認してください。ログインできなくなる可能性"
+"があります。"
 
 #: app/Gianism/Service/AbstractService.php:725
 msgid "Disconnect"
-msgstr "切断"
+msgstr "接続解除"
 
 #: app/Gianism/Service/AbstractService.php:815
-msgid "Sorry, but cannot create valid user name."
-msgstr "申し訳ありませんが、ユーザー名を作成できませんでした。"
+msgid "Cannot create valid user name."
+msgstr "有効なユーザー名を作成できませんでした。"
 
 #: app/Gianism/Service/AbstractService.php:824
 #, php-format
@@ -493,8 +494,8 @@ msgid "Welcome, %s!"
 msgstr "ようこそ、%sさん！"
 
 #: app/Gianism/Service/AbstractService.php:851
-msgid "Oops, Failed to Authenticate."
-msgstr "おや、認証できませんでした。"
+msgid "Sorry, but failed to Authenticate. Please try again."
+msgstr "申し訳ございません、認証に失敗しました。もう一度やりなおしてください。"
 
 #: app/Gianism/Service/AbstractService.php:860
 msgid "Cannot retrieve email address."
@@ -504,37 +505,36 @@ msgstr "メールアドレスを取得できませんでした。"
 msgid "Cannot register. Please try again later."
 msgstr "登録できませんでした。時間をおいてからもう一度試してみてください。"
 
-#: app/Gianism/Service/AbstractService.php:876
-#: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
-#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:277
-#: app/Gianism/Service/Twitter.php:270
+#: app/Gianism/Service/AbstractService.php:877
 #, php-format
-msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
-msgstr "不正なアクセスです。<a href=\"%s\">%s</a>に戻ってください。"
+msgid "Sorry, but wrong access. Please go back to <a href=\"%1$s\">%2$s</a>."
+msgstr ""
+"申し訳ございません、不正なアクセスです。<a href=\"%1$s\">%2$s</a>に戻ってくだ"
+"さい。"
 
-#: app/Gianism/Service/AbstractService.php:887
+#: app/Gianism/Service/AbstractService.php:888
 #, php-format
-msgid "Sorry, but registration via %s is not allowed."
-msgstr "申し訳ありません、%sでの登録は許可されていません。"
+msgid "Registration via %s is not allowed."
+msgstr "%sでの登録は許可されていません。"
 
-#: app/Gianism/Service/AbstractService.php:990
+#: app/Gianism/Service/AbstractService.php:991
 #, php-format
 msgid ""
-"%1$s get your information below from %2$s. Please proceed with your "
+"%1$s gets your information below from %2$s. Please proceed with your "
 "agreement."
 msgstr ""
-"%1$s は %2$s より以下の情報を取得します。確認した上で先に進んでください。"
+"%1$s は %2$s より以下の情報を取得します。同意の上で先に進んでください。"
 
-#: app/Gianism/Service/AbstractService.php:1013
+#: app/Gianism/Service/AbstractService.php:1014
 #, php-format
 msgid "%s User ID"
 msgstr "%sのユーザーID"
 
-#: app/Gianism/Service/AbstractService.php:1014 templates/analytics.php:83
+#: app/Gianism/Service/AbstractService.php:1015 templates/analytics.php:83
 msgid "Profile"
-msgstr "プロパティ"
+msgstr "プロフィール"
 
-#: app/Gianism/Service/AbstractService.php:1015 templates/parts/sidebar.php:42
+#: app/Gianism/Service/AbstractService.php:1016 templates/parts/sidebar.php:42
 msgid "Email"
 msgstr "メール"
 
@@ -549,6 +549,15 @@ msgstr "すでにログインしています。"
 #: app/Gianism/Service/Facebook.php:391
 msgid "Access token is saved."
 msgstr "アクセストークンが保存されました。"
+
+#: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
+#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:277
+#: app/Gianism/Service/Twitter.php:270
+#, php-format
+msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
+msgstr ""
+"申し訳ございません、不正なアクセスです。<a href=\"%s\">%s</a>に戻ってくださ"
+"い。"
 
 #: app/Gianism/Service/Facebook.php:463
 msgid "Saved facebook account to use."
@@ -2125,6 +2134,9 @@ msgstr "[Gianism] Bootstrapファイルが見つかりません。"
 
 #~ msgid "Application Type"
 #~ msgstr "アプリケーションの種類"
+
+#~ msgid "Oops, Failed to Authenticate."
+#~ msgstr "おや、認証できませんでした。"
 
 #~ msgid "Cheatin'? Wrong access."
 #~ msgstr "なにかしましたか？　不正なアクセスです。"

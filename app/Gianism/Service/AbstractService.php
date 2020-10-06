@@ -695,10 +695,10 @@ EOS;
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'connect',
-			'gianism-ga-label'    => sprintf( $this->_( 'Connect %s' ), $this->verbose_service_name ),
+			'gianism-ga-label'    => sprintf( __( 'Connect %s', 'wp-gianism' ), $this->verbose_service_name ),
 		);
 
-		return $this->button( $this->_( 'Connect' ), $url, 'link', array( 'wpg-button', 'connect' ), $args );
+		return $this->button( __( 'Connect', 'wp-gianism' ), $url, 'link', array( 'wpg-button', 'connect' ), $args );
 	}
 
 	/**
@@ -718,11 +718,11 @@ EOS;
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'disconnect',
-			'gianism-ga-label'    => sprintf( $this->_( 'Disconnect %s' ), $this->verbose_service_name ),
-			'gianism-confirm'     => sprintf( $this->_( 'You really disconnect from %s? If so, please be sure about your credential(email, passowrd), or else you might not be able to login again.' ), $this->verbose_service_name ),
+			'gianism-ga-label'    => sprintf( __( 'Disconnect %s', 'wp-gianism' ), $this->verbose_service_name ),
+			'gianism-confirm'     => sprintf( __( 'You really disconnect from %s? If so, please be sure about your credential(email, password), or else you might not be able to login again.', 'wp-gianism' ), $this->verbose_service_name ),
 		);
 
-		return $this->button( $this->_( 'Disconnect' ), $url, 'logout', array( 'wpg-button', 'disconnect' ), $args );
+		return $this->button( __( 'Disconnect', 'wp-gianism' ), $url, 'logout', array( 'wpg-button', 'disconnect' ), $args );
 	}
 
 	/**
@@ -812,7 +812,7 @@ EOS;
 		if ( ! username_exists( $original_domain ) ) {
 			return $original_domain;
 		}
-		throw new \Exception( $this->_( 'Sorry, but cannot create valid user name.' ) );
+		throw new \Exception( __( 'Sorry, but cannot create valid user name.', 'wp-gianism' ) );
 	}
 
 	/**
@@ -821,7 +821,7 @@ EOS;
 	 * @return string
 	 */
 	protected function api_error_string() {
-		return sprintf( $this->_( '%s API returns error.' ), $this->verbose_service_name );
+		return sprintf( __( '%s API returns error.', 'wp-gianism' ), $this->verbose_service_name );
 	}
 
 	/**
@@ -830,7 +830,7 @@ EOS;
 	 * @return string
 	 */
 	protected function duplicate_account_string() {
-		return sprintf( $this->_( 'This %s account is already connected with others.' ), $this->verbose_service_name );
+		return sprintf( __( 'This %s account is already connected with others.', 'wp-gianism' ), $this->verbose_service_name );
 	}
 
 	/**
@@ -839,7 +839,7 @@ EOS;
 	 * @param string $who
 	 */
 	protected function welcome( $who ) {
-		$this->add_message( sprintf( $this->_( 'Welcome, %s!' ), $who ) );
+		$this->add_message( sprintf( __( 'Welcome, %s!', 'wp-gianism' ), $who ) );
 	}
 
 	/**
@@ -848,7 +848,7 @@ EOS;
 	 * @param string $message
 	 */
 	protected function auth_fail( $message ) {
-		$this->add_message( $this->_( 'Oops, Failed to Authenticate.' ) . ' ' . $message, true );
+		$this->add_message( __( 'Sorry, but failed to Authenticate. Please try again.', 'wp-gianism' ) . ' ' . $message, true );
 	}
 
 	/**
@@ -857,7 +857,7 @@ EOS;
 	 * @return string
 	 */
 	protected function mail_fail_string() {
-		return $this->_( 'Cannot retrieve email address.' );
+		return __( 'Cannot retrieve email address.', 'wp-gianism' );
 	}
 
 	/**
@@ -866,14 +866,15 @@ EOS;
 	 * @return string
 	 */
 	protected function registration_error_string() {
-		return $this->_( 'Cannot register. Please try again later.' );
+		return __( 'Cannot register. Please try again later.', 'wp-gianism' );
 	}
 
 	/**
 	 * Kill wrong access
 	 */
 	protected function kill_wrong_access() {
-		$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/', 'http' ), get_bloginfo( 'name' ) ), 500, false );
+		// translators: %1$s URL, %2$s Blog name.
+		$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%1$s">%2$s</a>.', 'wp-gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 	}
 
 	/**
@@ -884,7 +885,7 @@ EOS;
 	 */
 	protected function test_user_can_register() {
 		if ( ! $this->user_can_register() ) {
-			throw new \Exception( sprintf( $this->_( 'Sorry, but registration via %s is not allowed.' ), $this->verbose_service_name ) );
+			throw new \Exception( sprintf( __( 'Registration via %s is not allowed.', 'wp-gianism' ), $this->verbose_service_name ) );
 		}
 
 		return true;
@@ -987,7 +988,7 @@ EOS;
 	public function confirmation_message( $context = 'login' ) {
 		$message = sprintf(
 			// translators: %1$s blog name, %2$s is service name.
-			__( '%1$s get your information below from %2$s. Please proceed with your agreement.', 'wp-gianism' ),
+			__( '%1$s gets your information below from %2$s. Please proceed with your agreement.', 'wp-gianism' ),
 			get_bloginfo( 'name' ),
 			$this->verbose_service_name
 		);

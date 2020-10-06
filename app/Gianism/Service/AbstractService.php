@@ -372,10 +372,10 @@ EOS;
 	public function connection_message( $context = 'connected' ) {
 		switch ( $context ) {
 			case 'connected':
-				return sprintf( $this->_( 'Your account is already connected with %s account.' ), $this->verbose_service_name );
+				return sprintf( __( 'Your account is already connected with %s account.', 'wp-gianism' ), $this->verbose_service_name );
 				break;
 			default: // Disconnected
-				return sprintf( $this->_( 'Connecting with %1$s, you can login with %2$s via %1$s without password or email address.' ), $this->verbose_service_name, get_bloginfo( 'name' ) );
+				return sprintf( __( 'Connecting with %1$s, you can login with %2$s via %1$s without password or email address.', 'wp-gianism' ), $this->verbose_service_name, get_bloginfo( 'name' ) );
 				break;
 		}
 	}

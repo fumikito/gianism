@@ -9,7 +9,8 @@ use Gianism\Helper\Option;
  *
  * @package Gianism
  * @since 3.0.4
- * @property Input $input
+ * @property Input  $input
+ * @property Option $option
  */
 abstract class AbstractNotice {
 	
@@ -175,6 +176,8 @@ abstract class AbstractNotice {
 			case 'input':
 				return Input::get_instance();
 				break;
+			case 'option':
+				return Option::get_instance();
 			default:
 				return null;
 				break;

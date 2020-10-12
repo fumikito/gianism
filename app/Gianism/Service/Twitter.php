@@ -213,7 +213,7 @@ class Twitter extends NoMailService {
 					$redirect_url = $this->filter_redirect( $redirect_url, 'login' );
 				} catch ( \Exception $e ) {
 					$this->auth_fail( $e->getMessage() );
-					$redirect_url = $this->filter_redirect( wp_login_url( $redirect_url, true ), 'login-fail' );
+					$redirect_url = $this->filter_redirect( wp_login_url( $redirect_url, true ), 'login-failure' );
 				}
 				wp_redirect( $redirect_url );
 				exit;

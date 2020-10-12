@@ -4,8 +4,15 @@ namespace Gianism\Controller;
 
 use Gianism\Bootstrap;
 use Gianism\Helper\Option;
+use Gianism\Helper\ServiceManager;
 use Gianism\Pattern\AbstractController;
 
+/**
+ * Network controller
+ *
+ * @package gianism
+ * @since 4.3.0
+ */
 class Network extends AbstractController {
 	
 	/**
@@ -18,6 +25,8 @@ class Network extends AbstractController {
 		add_action( 'admin_notices', [ $this, 'network_notice' ] );
 		// Set role.
 		add_action( 'gianism_before_set_login_cookie', [ $this, 'set_role' ], 1, 2 );
+		// If failed to authenticate, redirect to original site.
+		add_filter( 'gianism_redirect_to', [ $this, 'redirect_to' ], 10, 3 );
 	}
 	
 	/**
@@ -59,6 +68,43 @@ class Network extends AbstractController {
 			$base_role = apply_filters( '', get_blog_option( $blog_id, 'default_role' ) );
 			$user->set_role( $base_role );
 		}
+	}
+	
+	/**
+	 * Filter redirect URI if this is from child site.
+	 *
+	 * @param string         $url
+	 * @param ServiceManager $service
+	 * @param string         $context
+	 * @return string
+	 */
+	public function redirect_to( $url, $service, $context ) {
+		if ( ( 'login-failure' !== $context ) || ! $this->option->is_network_activated() ) {
+			return $url;
+		}
+		$blog_id = (int) $this->session->get( 'blog_id' );
+		if ( ! $blog_id ) {
+			// Do nothing.
+			return $url;
+		}
+		// If this is from child site, change url.
+		switch_to_blog( $blog_id );
+		$redirect_to = '';
+		$url_segments = explode( '?', $url );
+		if ( 1 < count( $url_segments ) ) {
+			parse_str( $url_segments[ 1 ], $params );
+			foreach ( [ 'redirect_to', 'redirect' ] as $key ) {
+				if ( ! empty( $params[ $key ] ) ) {
+					$redirect_to = $params[ $key ];
+					break;
+				}
+			}
+		}
+		switch_to_blog( $blog_id );
+		$url = wp_login_url( $redirect_to, true );
+		$url = apply_filters( 'gianism_network_login_failed_redirect_to', $url, $service, $context, $blog_id );
+		restore_current_blog();
+		return $url;
 	}
 	
 	/**

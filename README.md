@@ -4,7 +4,7 @@ Contributors: Takahashi_Fumiki, hametuha
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.7  
 Tested up to: 5.5  
-Stable tag: 4.3.2  
+Stable tag: 4.3.3  
 Requires PHP: 5.6  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 4.3.3
+
+* Fix child site redirection on failuer under network site.
+* Fix redirect users to My Account if WooCommerce is activated.
 
 ### 4.3.2
 

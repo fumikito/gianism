@@ -44,6 +44,15 @@ abstract class AbstractNotice {
 		}
 		// Check notice and register them if exists.
 		add_action( 'admin_init', [ $this, 'register_notice' ] );
+		// Run constructor alternatives.
+		$this->init();
+	}
+	
+	/**
+	 * Init function
+	 */
+	protected function init() {
+		// Do something on constructor.
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace Gianism;
 
+use Gianism\Api\ShortCodes;
 use Gianism\Controller\Admin;
 use Gianism\Controller\Login;
 use Gianism\Controller\Network;
@@ -112,6 +113,8 @@ class Bootstrap extends Singleton {
 			add_action( 'login_enqueue_scripts', [ $this, 'enqueue_global_assets' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_global_assets' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+			// Add short codes.
+			ShortCodes::get_instance();
 		}
 	}
 

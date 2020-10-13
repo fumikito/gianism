@@ -120,6 +120,27 @@ function gianism_login( $before = '', $after = '', $redirect_to = '' ) {
 }
 
 /**
+ * If user is logged in, display SNS connect buttons.
+ *
+ * @since 4.3.4
+ * @param
+ */
+function gianism_connection( $user = null ) {
+	if ( is_null( $user ) ) {
+		$user = wp_get_current_user();
+	}
+	if ( $user ) {
+		$profile = \Gianism\Controller\Profile::get_instance();
+		$handler = apply_filters( 'gianism_connect_buttons_handler', $user );
+		if ( is_callable( $handler ) ) {
+			$handler( $user );
+		} else {
+			$profile->admin_connect_buttons( $user );
+		}
+	}
+}
+
+/**
  * Add UTM campaign link to WordPress admin
  *
  * @package Gianism

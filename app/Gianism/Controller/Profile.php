@@ -23,14 +23,14 @@ class Profile extends AbstractController {
 		if ( ! $this->option->is_enabled() ) {
 			return;
 		}
-		// If this is network child, skip.
 		if ( $this->option->is_network_activated() && $this->network->is_child_site() ) {
+			// If this is network child, display parent site link.
 			add_action( 'show_user_profile', [ $this, 'parent_site_link' ] );
-			return;
+		} else {
+			add_action( 'show_user_profile', [ $this, 'admin_connect_buttons' ] );
+			add_action( 'profile_update', [ $this, 'profile_updated' ], 10, 2 );
 		}
 		// Show connection button on admin screen.
-		add_action( 'profile_update', [ $this, 'profile_updated' ], 10, 2 );
-		add_action( 'show_user_profile', [ $this, 'connect_buttons' ] );
 	}
 
 	/**
@@ -64,30 +64,16 @@ class Profile extends AbstractController {
 	 *
 	 * @param \WP_User $user
 	 */
-	public function connect_buttons( \WP_User $user ) {
-		$message = [];
-		// show password notice
-		if ( get_user_meta( $user->ID, '_wpg_unknown_password', true ) ) {
-			$message[] = __( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.', 'wp-gianism' );
-		}
-		// Check if mail address is pseudo
-		foreach ( $this->service->all_services() as $service ) {
-			$instance = $this->service->get( $service );
-			if ( method_exists( $instance, 'is_pseudo_mail' ) ) {
-				if ( $instance->is_pseudo_mail( $user->user_email ) ) {
-					$message[] = __( 'Your mail address is automatically generated and is pseudo. <a href="#email">Changing it</a> to valid mail address is highly recommended, else <strong>you might be unable to log in</strong>.', 'wp-gianism' );
-					break;
-				}
-			}
-		}
+	public function admin_connect_buttons( \WP_User $user ) {
+		$notices = $this->profile_notices( $user );
 		?>
 		<h3 class="wpg-connect-header">
 			<i class="lsf lsf-link"></i> <?php $this->e( 'Connection with SNS' ); ?>
 		</h3>
-		<?php if ( ! empty( $message ) ) : ?>
+		<?php if ( ! empty( $notices->get_error_messages() ) ) : ?>
 			<ul class="wpg-notice">
-				<?php foreach ( $message as $msg ) : ?>
-					<li><?php echo $msg; ?></li>
+				<?php foreach ( $notices->get_error_messages() as $msg ) : ?>
+					<li><?php echo wp_kses_post( $msg ); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		<?php endif; ?>
@@ -97,6 +83,25 @@ class Profile extends AbstractController {
 			</tbody>
 		</table>
 		<?php
+	}
+	
+	/**
+	 * Get error message to display.
+	 *
+	 * @param \WP_User $user
+	 * @return \WP_Error
+	 */
+	public function profile_notices( $user ) {
+		$error = new \WP_Error();
+		// show password notice
+		if ( get_user_meta( $user->ID, '_wpg_unknown_password', true ) ) {
+			$error->add( 'unknown_password',  __( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.', 'wp-gianism' ) );
+		}
+		// Check if mail address is pseudo
+		if ( $this->profile_checker->is_pseudo_mail( $user->user_email ) ) {
+			$error->add( 'invalid_email', __( 'Your mail address is automatically generated and is pseudo. <a href="#email">Changing it</a> to valid mail address is highly recommended, else <strong>you might be unable to log in</strong>.', 'wp-gianism' ) );
+		}
+		return apply_filters( 'gianism_user_profile_notices', $error, $user );
 	}
 	
 	/**

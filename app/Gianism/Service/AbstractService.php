@@ -687,7 +687,7 @@ EOS;
 	 */
 	public function connect_button( $redirect_to = '' ) {
 		if ( empty( $redirect_to ) ) {
-			$redirect_to = admin_url( 'profile.php' );
+			$redirect_to = apply_filters( 'gianism_default_redirect_link', admin_url( 'profile.php' ), $this->service_name, false, 'connect' );
 		}
 		$url  = $this->get_redirect_endpoint( 'connect', $this->service_name . '_connect', array(
 			'redirect_to' => $redirect_to,
@@ -710,7 +710,7 @@ EOS;
 	 */
 	public function disconnect_button( $redirect_to = '' ) {
 		if ( empty( $redirect_to ) ) {
-			$redirect_to = admin_url( 'profile.php' );
+			$redirect_to = apply_filters( 'gianism_default_redirect_link', admin_url( 'profile.php' ), $this->service_name, false, 'disconnect' );
 		}
 		$url  = $this->get_redirect_endpoint( 'disconnect', $this->service_name . '_disconnect', array(
 			'redirect_to' => $redirect_to,

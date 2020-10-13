@@ -74,9 +74,11 @@ abstract class AbstractService extends Application {
 			// Initialize
 			$this->init_action();
 			// Show profile page
-			add_action( 'gianism_user_profile', array( $this, 'profile_connect' ) );
-			//Add Hook on Login Form page
-			add_action( 'gianism_login_form', array( $this, 'login_form' ), 10, 3 );
+			$connect_priority = apply_filters( 'gianism_service_priority', 10, $this->service_name, 'connect' );
+			add_action( 'gianism_user_profile', array( $this, 'profile_connect' ), $connect_priority );
+			// Add Hook on Login Form page
+			$login_priority = apply_filters( 'gianism_service_priority', 10, $this->service_name, 'login' );
+			add_action( 'gianism_login_form', array( $this, 'login_form' ), $login_priority, 3 );
 			if ( method_exists( $this, 'print_script' ) ) {
 				//Add Hook On footer
 				add_action( 'admin_print_footer_scripts', array( $this, 'print_script' ) );

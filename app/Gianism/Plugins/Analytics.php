@@ -90,7 +90,7 @@ class Analytics extends PluginBase {
 	 *
 	 * @param array $argument
 	 */
-	public function __construct( array $argument ) {
+	public function __construct( array $argument = [] ) {
 		if ( ! $this->plugin_enabled() ) {
 			// Do nothing if Google is not enabled.
 			return;

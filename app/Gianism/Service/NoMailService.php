@@ -1,6 +1,7 @@
 <?php
 
 namespace Gianism\Service;
+
 use Gianism\Helper\PseudoPhpMailer;
 
 
@@ -41,11 +42,11 @@ abstract class NoMailService extends AbstractService {
 	/**
 	 * Alternative wp_mail
 	 *
-	 * @param int $user_id
-	 * @param string $subject
-	 * @param string $message
+	 * @param int          $user_id
+	 * @param string       $subject
+	 * @param string       $message
 	 * @param array|string $headers
-	 * @param string $attachment
+	 * @param string       $attachment
 	 *
 	 * @return void
 	 */
@@ -53,13 +54,14 @@ abstract class NoMailService extends AbstractService {
 		/**
 		 * Fallback action for no mail
 		 *
-		 * @since 3.0.0
-		 * @action gianism_mail_fallback
 		 * @param int    $user_id
 		 * @param string $subject
 		 * @param string $message
 		 * @param string $headers
 		 * @param string $attachment
+		 *
+		 * @since 3.0.0
+		 * @action gianism_mail_fallback
 		 */
 		do_action( 'gianism_mail_fallback', $user_id, $subject, $message, $headers, $attachment );
 	}
@@ -73,15 +75,15 @@ abstract class NoMailService extends AbstractService {
 	 */
 	final public function mail_handler( $args ) {
 		$tos = [];
-		foreach (is_array($args['to']) ? $args['to'] : [$args['to']] as $to) {
+		foreach ( is_array( $args[ 'to' ] ) ? $args[ 'to' ] : [ $args[ 'to' ] ] as $to ) {
 			if ( $this->is_pseudo_mail( $to ) && ( $user_id = email_exists( $to ) ) ) {
 				// Send mail
-				$this->wp_mail( $user_id, $args['subject'], $args['message'], $args['headers'], $args['attachments'] );
+				$this->wp_mail( $user_id, $args[ 'subject' ], $args[ 'message' ], $args[ 'headers' ], $args[ 'attachments' ] );
 			} else {
 				$tos[] = $to;
 			}
 		}
-		if (empty($tos)) {
+		if ( empty( $tos ) ) {
 			add_action( 'phpmailer_init', [ $this, 'hijack_php_mailer' ] );
 		} else {
 			$args['to'] = $tos;
@@ -100,7 +102,9 @@ abstract class NoMailService extends AbstractService {
 		 * You can replace pseudo mail instance
 		 *
 		 * @filter gianism_pseudo_mailer_instance
+		 *
 		 * @param PseudoPhpMailer $instance
+		 *
 		 * @return \Gianism\Pattern\DummyPhpMailer
 		 */
 		$php_mailer = apply_filters( 'gianism_pseudo_mailer_instance', $instance );

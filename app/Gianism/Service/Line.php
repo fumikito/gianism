@@ -151,6 +151,7 @@ class Line extends NoMailService {
 		if ( ! $json || ! isset( $json->id_token ) ) {
 			throw new \Exception( __( 'Sorry, but failed to parse request.', 'wp-gianism' ), 500 );
 		}
+		JWT::$leeway = 5;
 		$jwt = JWT::decode( $json->id_token, $this->line_channel_secret, ['HS256'] );
 		$json->id_token = $jwt;
 		return $json;

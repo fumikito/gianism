@@ -18,12 +18,12 @@ abstract class PluginBase extends Application {
 	/**
 	 * Return plugin description.
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	abstract public function plugin_description();
 
 	/**
-	 *
+	 * Check plugin is active.
 	 *
 	 * @return bool
 	 */

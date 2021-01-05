@@ -601,7 +601,7 @@ EOS;
 				break;
 		}
 	}
-	
+
 	/**
 	 * Login label
 	 *
@@ -646,7 +646,7 @@ EOS;
 		}
 		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', $url_args );
 		$text   = apply_filters( 'gianism_login_button_label', $this->login_label(), $register, $context );
-		
+
 		$args = [
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'login',
@@ -741,8 +741,15 @@ EOS;
 		 */
 		do_action( 'gianism_before_set_login_cookie', $user_id, $this->service_name );
 		// Should remember?
-		$remember= apply_filters( 'gianism_should_remember_cookie', true, $user_id, $this->service_name );
+		$remember = apply_filters( 'gianism_should_remember_cookie', true, $user_id, $this->service_name );
 		wp_set_auth_cookie( $user_id, $remember );
+		/**
+		 * Fires just after setting login cookie.
+		 *
+		 * @param int    $user_id
+		 * @param string $service_name
+		 */
+		do_action( 'gianism_after_set_login_cookie', $user_id, $this->service_name );
 	}
 
 	/**
@@ -1018,7 +1025,7 @@ EOS;
 			'email'   => __( 'Email', 'wp-gianism' ),
 		];
 	}
-	
+
 	/**
 	 * Get SVG path
 	 *

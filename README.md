@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,instagram,account,oauth,community,social,sns  
 Requires at least: 4.7  
-Tested up to: 5.5  
-Stable tag: 4.3.4  
+Tested up to: 5.6  
+Stable tag: 4.4.0  
 Requires PHP: 5.6  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 4.4.0
+
+* Support [Simple Membership](https://wordpress.org/plugins/simple-membership/) plugin. You need to turn on **"Enable Auto Create Member Accounts"** and **"Force WP User Syncronization"**.
+* Supported multiple `to` in `wp_mail`. If `wp_mail` try to send email to multiple users with array of emails, Gianism filter psedudo email. Thanks [@yutaka12](https://github.com/fumikito/Gianism/pull/105)!
 
 ### 4.3.4
 

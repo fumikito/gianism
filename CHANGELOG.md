@@ -4,6 +4,63 @@ Here is a list of old change logs. Please refer [readme.md](https://github.com/f
 
 ## Old Change Logs
 
+### 4.4.0
+
+* Support [Simple Membership](https://wordpress.org/plugins/simple-membership/) plugin. You need to turn on **"Enable Auto Create Member Accounts"** and **"Force WP User Syncronization"**.
+* Supported multiple `to` in `wp_mail`. If `wp_mail` try to send email to multiple users with array of emails, Gianism filter psedudo email. Thanks [@yutaka12](https://github.com/fumikito/Gianism/pull/105)!
+
+### 4.3.4
+
+* Add filter to customize login button order.
+* Add 2 short codes `gianism_login` and `gianism_connection` to display SNS buttons in public pages.
+* Add new function `gianism_connection` to display SNS connection buttons for logged in users.
+
+### 4.3.3
+
+* Fix child site redirection on failuer under network site.
+* Fix redirect users to My Account if WooCommerce is activated.
+
+### 4.3.2
+
+* Fix fatal error caused if WooCommerce is activated.
+
+### 4.3.1
+
+* Fix informal message "Oops".
+
+### 4.3.0
+
+* Support network activation.
+
+### 4.2.2
+
+* Fix Cookie related bugs in PHP 7.3 and over.
+
+
+### 4.2.0
+
+* Add profile completion options. Now you can notify users or redirect users to profile page if they have incomplete information(e.g. Wrong email). For more details, see [our blog post](https://gianism.info/2020/09/08/complete-user-profile/).
+
+### 4.1.0
+
+* "Add friend" button for [LINE](https://developers.line.biz/en/docs/line-login/link-a-bot/#getting-the-friendship-status-of-the-user-and-the-line-official-account) if you have an official account.
+
+### 4.0.0
+
+4.0 is major update. Please check the changes.
+
+* **BREAKING CHANGE** Requires PHP 5.6 and higher.
+* **BREAKING CHANGE** PHP Session is not required anymore. Now Gianism uses Cookie instead. Therefore, please check Cookie's name below are passed to PHP. On environments under CDN like Amazon Cloudfront, Cookies are filtered with a whitelist.
+  * `gianism_session`
+  * `gianism_updated`
+  * `gianism_error`
+  * If possible, allow cookie prefixed `gianism_` for future updates.
+* All Cookie headers have now new property `SameSite=Lax`.
+* URL prefix for redirect URI is now available. Since previous version, Ginanism's endpoints are at root(e.g. `example.com/facebook`). Now you can add prefix as you like(e.g. `example.com/gianism/facebook`). Sorry for late update, but I was young.
+* Facebook API version update is very frequent, so Gianims ensure minimum API version. Gianism 4.0 igonres Facebook API version less than 6.0.
+* Remove unused libraries of Google PHP API Client from Gianism, because the library sizes are too huge. This may break your site if you use Google's library in your custom code. To check remaining libraries, refer `bin/composer-fixer.php`.
+* Some small fixes.
+
 ### 3.3.0
 
 * Add consent screen for LINE login. IF you need email, use this screen as screenshot.

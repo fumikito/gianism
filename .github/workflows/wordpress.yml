@@ -1,0 +1,131 @@
+name: Deploy Plugin
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
+        php: [ '7.2', '7.4', '8.0' ] # PHP versions to check.
+        wp: [ 'latest', '5.9' ]      # WordPress version to check.
+    services:
+      mysql:
+        image: mysql:5.7
+        options: --health-cmd "mysqladmin ping --host 127.0.0.1 --port 3306" --health-interval 20s --health-timeout 10s --health-retries 10
+        ports:
+          - 3306/tcp
+        env:
+          MYSQL_ROOT_PASSWORD: root
+    name: WordPress ${{ matrix.wp }} in PHP ${{ matrix.php }} UnitTest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Start MySQL
+        run: |
+            sudo systemctl start mysql
+            mysql -h 127.0.0.1 --port 3306 -u root --password=root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
+
+      - name: Install WordPress
+        run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
+
+      - name: Check PHP syntax
+        run: composer test
+
+      - name: Check PHP syntax
+        run: composer lint
+
+  assets:
+    name: Assets Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Install NPM Packages
+        run: npm install
+
+      - name: Check JS & CSS syntax
+        run: npm lint
+
+  release:
+    name: Deploy WordPress.org
+    needs: [ test, assets ]
+    if: contains(github.ref, 'tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Build Plugin
+        run: bash bin/build.sh ${{ github.ref }}
+
+      - name: Deploy to WordPress Directory
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.WPORG_FUMIKI_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WPORG_FUMIKI_PASSWORD }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/${{ github.event.repository.name }}.zip
+          asset_name: ${{ github.event.repository.name }}.zip
+          asset_content_type: application/zip

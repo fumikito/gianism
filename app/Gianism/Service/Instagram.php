@@ -66,8 +66,8 @@ class Instagram extends NoMailService {
 	 * @var array
 	 */
 	protected $option_keys = [
-		'instagram_enabled' => false,
-	    'instagram_client_id' => '',
+		'instagram_enabled'       => false,
+		'instagram_client_id'     => '',
 		'instagram_client_secret' => '',
 	];
 
@@ -78,12 +78,15 @@ class Instagram extends NoMailService {
 	 */
 	public function __construct( array $argument ) {
 		parent::__construct( $argument );
-		add_filter( 'gianism_filter_service_prefix', function( $service ) {
-			if ( $service == $this->url_prefix ) {
-				$service = 'instagram';
+		add_filter(
+			'gianism_filter_service_prefix',
+			function( $service ) {
+				if ( $service == $this->url_prefix ) {
+					$service = 'instagram';
+				}
+				return $service;
 			}
-			return $service;
-		} );
+		);
 	}
 
 
@@ -96,7 +99,7 @@ class Instagram extends NoMailService {
 	 * @return boolean
 	 */
 	public function is_connected( $user_id ) {
-		return (boolean) get_user_meta( $user_id, $this->umeta_id, true );
+		return (bool) get_user_meta( $user_id, $this->umeta_id, true );
 	}
 
 	/**
@@ -123,8 +126,8 @@ class Instagram extends NoMailService {
 		switch ( $action ) {
 			case 'login':
 				try {
-					$token = $this->validate_code();
-					$user = $this->request_api( $token, '/users/self' );
+					$token   = $this->validate_code();
+					$user    = $this->request_api( $token, '/users/self' );
 					$user_id = $this->get_meta_owner( $this->umeta_id, $user->data->id );
 					if ( ! $user_id ) {
 						$this->test_user_can_register();
@@ -166,10 +169,14 @@ class Instagram extends NoMailService {
 						);
 						// Password is unknown
 						$this->user_password_unknown( $user_id );
-						$this->hook_connect( $user_id, [
-							'data'  => $user->data,
-						    'token' => $token,
-						], true );
+						$this->hook_connect(
+							$user_id,
+							[
+								'data'  => $user->data,
+								'token' => $token,
+							],
+							true
+						);
 						// Let user follow me
 						$this->welcome( '@' . $user_name );
 					}
@@ -193,8 +200,8 @@ class Instagram extends NoMailService {
 					if ( ! is_user_logged_in() ) {
 						throw new \Exception( $this->_( 'You must be logged in.' ) );
 					}
-					$token = $this->validate_code();
-					$user = $this->request_api( $token, '/users/self' );
+					$token    = $this->validate_code();
+					$user     = $this->request_api( $token, '/users/self' );
 					$id_owner = $this->get_meta_owner( $this->umeta_id, $user->data->id );
 					if ( $id_owner && ( get_current_user_id() != $id_owner ) ) {
 						throw new \Exception( $this->duplicate_account_string() );
@@ -207,10 +214,14 @@ class Instagram extends NoMailService {
 					] as $key => $value ) {
 						update_user_meta( get_current_user_id(), $key, $value );
 					}
-					$this->hook_connect( get_current_user_id(), [
-						'data'  => $user->data,
-						'token' => $token,
-					], false );
+					$this->hook_connect(
+						get_current_user_id(),
+						[
+							'data'  => $user->data,
+							'token' => $token,
+						],
+						false
+					);
 					$this->welcome( $user->data->username );
 					$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
 				} catch ( \Exception $e ) {
@@ -224,9 +235,14 @@ class Instagram extends NoMailService {
 				/**
 				 * @see Facebook
 				 */
-				do_action( 'gianism_extra_action', $this->service_name, $action, [
-					'redirect_to' => $redirect_url,
-				] );
+				do_action(
+					'gianism_extra_action',
+					$this->service_name,
+					$action,
+					[
+						'redirect_to' => $redirect_url,
+					]
+				);
 				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
@@ -252,14 +268,16 @@ class Instagram extends NoMailService {
 		 * @param string $action 'login' or 'connect'
 		 * @return array
 		 */
-		$scopes = apply_filters( 'gianism_instagram_scopes', $scopes, $action );
-		$authorize_url = 'https://api.instagram.com/oauth/authorize/?';
-		$authorize_url .= http_build_query( [
-			'client_id'     => $this->instagram_client_id,
-		    'redirect_uri'  => $this->get_redirect_endpoint(),
-		    'scope'         => implode( '+', $scopes ),
-		    'response_type' => 'code',
-		] );
+		$scopes         = apply_filters( 'gianism_instagram_scopes', $scopes, $action );
+		$authorize_url  = 'https://api.instagram.com/oauth/authorize/?';
+		$authorize_url .= http_build_query(
+			[
+				'client_id'     => $this->instagram_client_id,
+				'redirect_uri'  => $this->get_redirect_endpoint(),
+				'scope'         => implode( '+', $scopes ),
+				'response_type' => 'code',
+			]
+		);
 		return $authorize_url;
 	}
 
@@ -279,13 +297,16 @@ class Instagram extends NoMailService {
 			}
 			throw new \Exception( $msg, $err );
 		}
-		$response = $this->get_response( 'https://api.instagram.com/oauth/access_token', [
-			'client_id' => $this->instagram_client_id,
-		    'client_secret' => $this->instagram_client_secret,
-		    'grant_type' => 'authorization_code',
-		    'redirect_uri' => $this->get_redirect_endpoint(),
-		    'code' => $code,
-		] );
+		$response = $this->get_response(
+			'https://api.instagram.com/oauth/access_token',
+			[
+				'client_id'     => $this->instagram_client_id,
+				'client_secret' => $this->instagram_client_secret,
+				'grant_type'    => 'authorization_code',
+				'redirect_uri'  => $this->get_redirect_endpoint(),
+				'code'          => $code,
+			]
+		);
 		if ( ! ( isset( $response->access_token ) && $response->access_token ) ) {
 			throw new \Exception( $this->api_error_string() );
 		}
@@ -305,27 +326,27 @@ class Instagram extends NoMailService {
 	 * @throws \Exception
 	 */
 	public function request_api( $token, $endpoint, $params = [], $method = 'GET', $headers = [] ) {
-		$headers = array_merge( [ 'Accept: application/json' ], $headers );
-		$endpoint = 'https://api.instagram.com/v1/' . trailingslashit( ltrim( $endpoint, '/' ) );
+		$headers                = array_merge( [ 'Accept: application/json' ], $headers );
+		$endpoint               = 'https://api.instagram.com/v1/' . trailingslashit( ltrim( $endpoint, '/' ) );
 		$params['access_token'] = $token;
-		$response = $this->get_response( $endpoint, $params, $method, false, $headers );
-		$code = 400;
+		$response               = $this->get_response( $endpoint, $params, $method, false, $headers );
+		$code                   = 400;
 		if ( isset( $response->meta->code ) ) {
 			$code = $response->meta->code;
 		}
 		if ( 200 != $response->meta->code ) {
-			$msg  = $this->api_error_string();
+			$msg = $this->api_error_string();
 			if ( isset( $response->meta->error_message ) ) {
-				$msg  = $response->meta->error_message;
+				$msg = $response->meta->error_message;
 			}
 			throw new \Exception( $msg, $code );
 		}
 		return $response;
 	}
-	
+
 	protected function svg_path() {
 		return 'instagram.svg';
 	}
-	
-	
+
+
 }

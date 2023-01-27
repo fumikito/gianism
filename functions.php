@@ -30,14 +30,18 @@ function gianism_set_cookie( $cookie_name, $value, $expire, $domain = '', $http_
 		$is_ssl = is_ssl();
 	}
 	if ( version_compare( phpversion(), '7.3.0', '>=' ) ) {
-		return setrawcookie( $cookie_name, $value, [
-			'secure'   => $is_ssl,
-			'httponly' => $http_only,
-			'expires'  => $expire,
-			'domain'   => $domain,
-			'path'     => '/',
-			'samesite' => $same_site_policy,
-		] );
+		return setrawcookie(
+			$cookie_name,
+			$value,
+			[
+				'secure'   => $is_ssl,
+				'httponly' => $http_only,
+				'expires'  => $expire,
+				'domain'   => $domain,
+				'path'     => '/',
+				'samesite' => $same_site_policy,
+			]
+		);
 	} else {
 		return setrawcookie( $cookie_name, $value, $expire, '/; SameSite=' . $same_site_policy, $domain, $is_ssl, $http_only );
 	}
@@ -152,11 +156,14 @@ function gianism_connection( $user = null ) {
  * @return string
  */
 function gianism_utm_link( $url, $args = [] ) {
-	$args = wp_parse_args( $args, [
-		'utm_source'   => 'wp-admin',
-	    'utm_medium'   => 'link',
-	    'utm_campaign' => 'Plugin User',
-	] );
+	$args = wp_parse_args(
+		$args,
+		[
+			'utm_source'   => 'wp-admin',
+			'utm_medium'   => 'link',
+			'utm_campaign' => 'Plugin User',
+		]
+	);
 	return add_query_arg( $args, $url );
 }
 

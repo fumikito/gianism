@@ -101,11 +101,11 @@ echo esc_html( $code );
 	<?php $this->e( 'You can display social login buttons anywhere.' ); ?>
 </p>
 <p>
-	<?php $this->e( 'Gianism displays social login button on login screen. But you may want to display in other situations.' ) ?>
+	<?php $this->e( 'Gianism displays social login button on login screen. But you may want to display in other situations.' ); ?>
 	<br/>
-	<?php $this->e( 'For example, you have some SNS oriented site and want to hide WordPress\'s login screen and want your user to log in only through social login buttons.' ) ?>
+	<?php $this->e( 'For example, you have some SNS oriented site and want to hide WordPress\'s login screen and want your user to log in only through social login buttons.' ); ?>
 	<br/>
-	<?php $this->e( 'In this case, you can display social login buttons wherever you like. The &quot;if&quot; statement is not necessary if you are brave.' ) ?>
+	<?php $this->e( 'In this case, you can display social login buttons wherever you like. The &quot;if&quot; statement is not necessary if you are brave.' ); ?>
 	<br/>
 </p>
 <pre class="brush: php">
@@ -120,7 +120,7 @@ echo esc_html( $code );
 </pre>
 
 <p>
-	<?php $this->e( 'Further more, you might think your user should be redirect to your single page. In this case, you can specify redirect URL.' ) ?>
+	<?php $this->e( 'Further more, you might think your user should be redirect to your single page. In this case, you can specify redirect URL.' ); ?>
 	<br/>
 </p>
 
@@ -134,15 +134,20 @@ echo esc_html( $code );
 </pre>
 
 <p>
-	<?php $this->e( 'First argument is starting tag(e.g. &lt;div id="some-id"&gt;). Second argument is closing tag(e.g. &lt;/div&gt;). And third argument is redirect URL where your user will be redirected after logging-in.' ) ?>
+	<?php $this->e( 'First argument is starting tag(e.g. &lt;div id="some-id"&gt;). Second argument is closing tag(e.g. &lt;/div&gt;). And third argument is redirect URL where your user will be redirected after logging-in.' ); ?>
 </p>
 
 <h3><?php $this->e( 'Data Source' ); ?></h3>
 <p>
-	<?php printf(
+	<?php
+	printf(
 		$this->_( 'For more detailed information, please visit our <a target="_blank" href="%s">support site</a>.' ),
-		gianism_utm_link( 'https://gianism.info/', [
-			'utm_medium' => 'customize',
-		] )
-	); ?>
+		gianism_utm_link(
+			'https://gianism.info/',
+			[
+				'utm_medium' => 'customize',
+			]
+		)
+	);
+	?>
 </p>

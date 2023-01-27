@@ -10,18 +10,22 @@ defined( 'ABSPATH' ) or die();
 	<tr>
 		<th><label><?php printf( $this->_( 'Connect with %s' ), 'Instagram' ); ?></label></th>
 		<td>
-			<?php $this->switch_button( 'instagram_enabled', $this->option->is_enabled( 'instagram' ), 1 ) ?>
+			<?php $this->switch_button( 'instagram_enabled', $this->option->is_enabled( 'instagram' ), 1 ); ?>
 			<p class="description">
-				<?php printf(
+				<?php
+				printf(
 					$this->_( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.' ),
 					'Instagram Developer',
 					'https://www.instagram.com/developer/'
-				); ?>
-				<?php printf(
+				);
+				?>
+				<?php
+				printf(
 					$this->_( 'See detail at <a href="%1$s">%2$s</a>.' ),
 					$this->setting_url( 'setup' ),
 					$this->_( 'How to set up' )
-				); ?>
+				);
+				?>
 			</p>
 		</td>
 	</tr>
@@ -29,12 +33,12 @@ defined( 'ABSPATH' ) or die();
 	<tr>
 		<th><label for="instagram_client_id"><?php $this->e( 'Client ID' ); ?></label></th>
 		<td><input class="regular-text" type="text" name="instagram_client_id" id="instagram_client_id"
-		           value="<?php echo esc_attr( $instance->instagram_client_id ) ?>"/></td>
+				   value="<?php echo esc_attr( $instance->instagram_client_id ); ?>"/></td>
 	</tr>
 	<tr>
 		<th><label for="instagram_client_secret"><?php $this->e( 'Client Secret' ); ?></label></th>
 		<td><input class="regular-text" type="text" name="instagram_client_secret" id="instagram_client_secret"
-		           value="<?php echo esc_attr( $instance->instagram_client_secret ) ?>"/></td>
+				   value="<?php echo esc_attr( $instance->instagram_client_secret ); ?>"/></td>
 	</tr>
 	<tr>
 		<th><label for="instagram_redirect_uri"><?php $this->e( 'Redirect URI' ); ?></label></th>
@@ -50,8 +54,8 @@ defined( 'ABSPATH' ) or die();
 					'https://www.instagram.com/developer/clients/manage/'
 				);
 				?>
-				<a class="button" href="<?php echo esc_attr( $end_point ) ?>"
-				   onclick="window.prompt('<?php $this->e( 'Please copy this URL.' ) ?>', this.href); return false;"><?php $this->e( 'Copy' ) ?></a>
+				<a class="button" href="<?php echo esc_attr( $end_point ); ?>"
+				   onclick="window.prompt('<?php $this->e( 'Please copy this URL.' ); ?>', this.href); return false;"><?php $this->e( 'Copy' ); ?></a>
 			</p>
 		</td>
 	</tr>

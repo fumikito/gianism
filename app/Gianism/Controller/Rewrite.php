@@ -53,14 +53,14 @@ class Rewrite extends AbstractController {
 		}
 		// Register rewrite rules
 		if ( ! empty( $this->prefixes ) ) {
-			$preg           = implode( '|', $this->prefixes );
+			$preg     = implode( '|', $this->prefixes );
 			$rewrites = [
 				"^({$preg})/?$"         => 'index.php?gianism_service=$matches[1]&gianism_action=default',
 				"^({$preg})/([^/]+)/?$" => 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]',
 			];
-			$prefix = $this->option->get_formatted_prefix();
+			$prefix   = $this->option->get_formatted_prefix();
 			if ( $prefix ) {
-				$rewrites[ "^{$prefix}/({$preg})/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=default';
+				$rewrites[ "^{$prefix}/({$preg})/?$" ]         = 'index.php?gianism_service=$matches[1]&gianism_action=default';
 				$rewrites[ "^{$prefix}/({$preg})/([^/]+)/?$" ] = 'index.php?gianism_service=$matches[1]&gianism_action=$matches[2]';
 			}
 			/**
@@ -113,9 +113,12 @@ class Rewrite extends AbstractController {
 		if ( ! empty( $this->rewrites ) ) {
 			foreach ( $this->rewrites as $rewrite => $regexp ) {
 				if ( ! isset( $rules[ $rewrite ] ) ) {
-					$rules = array_merge( [
-						$rewrite => $regexp,
-					], $rules );
+					$rules = array_merge(
+						[
+							$rewrite => $regexp,
+						],
+						$rules
+					);
 				}
 			}
 		}
@@ -143,8 +146,8 @@ class Rewrite extends AbstractController {
 	 */
 	public function hijack_query( \WP_Query &$wp_query ) {
 		if ( ! is_admin() && $wp_query->is_main_query()
-		     && ( $service = $wp_query->get( 'gianism_service' ) )
-		     && ( $action = $wp_query->get( 'gianism_action' ) )
+			 && ( $service = $wp_query->get( 'gianism_service' ) )
+			 && ( $action = $wp_query->get( 'gianism_action' ) )
 		) {
 			/**
 			 * Convert rewrite rule to service name

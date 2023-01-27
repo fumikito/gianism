@@ -157,15 +157,15 @@ function gianism_fb_instant_article_status( $url_or_post_id, $development = fals
 			return $api;
 		}
 		// Get article ID.
-		$args = [
+		$args     = [
 			'access_token' => $api->getDefaultAccessToken()->getValue(),
-			'id' => $url,
-			'fields' => $development ? 'development_instant_article' : 'instant_article',
+			'id'           => $url,
+			'fields'       => $development ? 'development_instant_article' : 'instant_article',
 		];
 		$response = $api->get( add_query_arg( $args, '/' ) )->getGraphNode()->getField( 'instant_article' );
 		return [
-			'url' => $url,
-			'id' => $response->getField( 'id' ),
+			'url'         => $url,
+			'id'          => $response->getField( 'id' ),
 			'html_source' => $response->getField( 'html_source' ),
 		];
 	} catch ( Exception $e ) {
@@ -192,7 +192,7 @@ function gianism_fb_update_instant_article( $html, $publish = true, $is_develop 
 		if ( is_wp_error( $api ) ) {
 			return $api;
 		}
-		$args = [
+		$args     = [
 			'access_token'     => $api->getDefaultAccessToken()->getValue(),
 			'html_source'      => $html,
 			'published'        => ! $is_develop && $publish,
@@ -224,9 +224,12 @@ function gianism_fb_delete_instant_article( $url_or_id, $development = false ) {
 		if ( is_wp_error( $status ) ) {
 			return $status;
 		}
-		$result = $api->delete( "/{$status['id']}", [
-			'access_token' => $api->getDefaultAccessToken()->getValue(),
-		] );
+		$result = $api->delete(
+			"/{$status['id']}",
+			[
+				'access_token' => $api->getDefaultAccessToken()->getValue(),
+			]
+		);
 		return $result->getGraphNode()->getField( 'success' );
 	} catch ( Exception $e ) {
 		return new WP_Error( $e->getCode(), $e->getMessage() );

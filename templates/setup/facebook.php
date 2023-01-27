@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) or die();
 		</td>
 	</tr>
 	<tr>
-		<th><?php $this->e( 'Contact mail address' ) ?></th>
+		<th><?php $this->e( 'Contact mail address' ); ?></th>
 		<td>
 			<?php $this->e( 'Contact mail address. It will be displayed on authentication screen on Facebook.' ); ?>
 			<br/>

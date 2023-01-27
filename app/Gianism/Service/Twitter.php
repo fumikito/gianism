@@ -112,12 +112,15 @@ class Twitter extends NoMailService {
 		parent::__construct( $argument );
 		// TODO: Change this process if PHP requirements changed.
 		if ( version_compare( phpversion(), '5.5.0', '<' ) && $this->enabled ) {
-			add_action( 'admin_notices', function() {
-				printf(
-					'<div class="error"><p>%s</p></div>',
-					sprintf( $this->_( 'Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login will be failed.' ), phpversion() )
-				);
-			} );
+			add_action(
+				'admin_notices',
+				function() {
+					printf(
+						'<div class="error"><p>%s</p></div>',
+						sprintf( $this->_( 'Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login will be failed.' ), phpversion() )
+					);
+				}
+			);
 		}
 	}
 
@@ -144,9 +147,12 @@ class Twitter extends NoMailService {
 						throw new \Exception( $this->api_error_string() );
 					}
 					$oauth        = $this->get_oauth( $token['oauth_token'], $token['oauth_token_secret'] );
-					$access_token = $oauth->oauth( 'oauth/access_token', [
-						'oauth_verifier' => $verifier,
-					] );
+					$access_token = $oauth->oauth(
+						'oauth/access_token',
+						[
+							'oauth_verifier' => $verifier,
+						]
+					);
 					if ( ! isset( $access_token['user_id'], $access_token['screen_name'] ) ) {
 						throw new \Exception( $this->api_error_string() );
 					}
@@ -155,24 +161,29 @@ class Twitter extends NoMailService {
 					$oauth_token  = $access_token['oauth_token'];
 					$oauth_secret = $access_token['oauth_token_secret'];
 					// Get exiting user ID
-					$user_id     = $this->get_meta_owner( $this->umeta_id, $twitter_id );
+					$user_id = $this->get_meta_owner( $this->umeta_id, $twitter_id );
 					if ( ! $user_id ) {
 						// Test
 						$this->test_user_can_register();
 						// Check if you can get email
 						$verified = $this->get_oauth( $oauth_token, $oauth_secret );
-						$profile  = $verified->get( 'account/verify_credentials', [
-							'skip_status'   => 'true',
-							'include_email' => 'true',
-						] );
+						$profile  = $verified->get(
+							'account/verify_credentials',
+							[
+								'skip_status'   => 'true',
+								'include_email' => 'true',
+							]
+						);
 						if ( $profile && isset( $profile->email ) && $profile->email ) {
 							// Yay! Email retrieved.
 							$email = $profile->email;
 						} else {
-							$email = $this->create_pseudo_email( [
-								'screen_name' => $screen_name,
-								'twitter_id'  => $twitter_id,
-							]);
+							$email = $this->create_pseudo_email(
+								[
+									'screen_name' => $screen_name,
+									'twitter_id'  => $twitter_id,
+								]
+							);
 						}
 						// Make username from screen name
 						$user_name = ( ! username_exists( '@' . $screen_name ) ) ? '@' . $screen_name : $email;
@@ -234,9 +245,12 @@ class Twitter extends NoMailService {
 					}
 					// Get user
 					$oauth        = $this->get_oauth( $token['oauth_token'], $token['oauth_token_secret'] );
-					$access_token = $oauth->oauth( 'oauth/access_token', [
-						'oauth_verifier' => $verifier,
-					] );
+					$access_token = $oauth->oauth(
+						'oauth/access_token',
+						[
+							'oauth_verifier' => $verifier,
+						]
+					);
 					if ( ! isset( $access_token['user_id'], $access_token['screen_name'] ) ) {
 						throw new \Exception( $this->api_error_string() );
 					}
@@ -264,9 +278,14 @@ class Twitter extends NoMailService {
 				/**
 				 * @see Facebook
 				 */
-				do_action( 'gianism_extra_action', $this->service_name, $action, [
-					'redirect_to' => $redirect_url,
-				] );
+				do_action(
+					'gianism_extra_action',
+					$this->service_name,
+					$action,
+					[
+						'redirect_to' => $redirect_url,
+					]
+				);
 				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
@@ -280,7 +299,7 @@ class Twitter extends NoMailService {
 	 * @return boolean
 	 */
 	public function is_connected( $user_id ) {
-		return (boolean) get_user_meta( $user_id, $this->umeta_id, true );
+		return (bool) get_user_meta( $user_id, $this->umeta_id, true );
 	}
 
 	/**
@@ -308,9 +327,12 @@ class Twitter extends NoMailService {
 			case 'connect':
 			case 'login':
 				$oauth = $this->get_oauth();
-				$token = $oauth->oauth( 'oauth/request_token',  [
-					'oauth_callback' => $this->get_redirect_endpoint(),
-				] );
+				$token = $oauth->oauth(
+					'oauth/request_token',
+					[
+						'oauth_callback' => $this->get_redirect_endpoint(),
+					]
+				);
 				if ( ! $this->validate_token( $token ) ) {
 					throw new \Exception( $this->api_error_string() );
 				}
@@ -385,10 +407,15 @@ class Twitter extends NoMailService {
 	public function send_dm( $user_id, $text, $oauth = null ) {
 		$twitter_id = get_user_meta( $user_id, $this->umeta_id, true );
 		if ( $twitter_id ) {
-			return $this->call_api( 'direct_messages/new', array(
-				'user_id' => $twitter_id,
-				'text'    => $text,
-			), 'POST', $oauth );
+			return $this->call_api(
+				'direct_messages/new',
+				array(
+					'user_id' => $twitter_id,
+					'text'    => $text,
+				),
+				'POST',
+				$oauth
+			);
 		}
 	}
 
@@ -401,9 +428,14 @@ class Twitter extends NoMailService {
 	 * @return object Json format object.
 	 */
 	public function tweet( $string, $oauth = null ) {
-		return $this->call_api( 'statuses/update', [
-			'status' => $string,
-		], 'POST', $oauth );
+		return $this->call_api(
+			'statuses/update',
+			[
+				'status' => $string,
+			],
+			'POST',
+			$oauth
+		);
 	}
 
 	/**
@@ -425,10 +457,15 @@ class Twitter extends NoMailService {
 		if ( ! $media_ids ) {
 			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
 		}
-		return $this->call_api( 'statuses/update', [
-			'status' => $string,
-			'media_ids' => implode( ',', $media_ids ),
-		], 'POST', $oauth );
+		return $this->call_api(
+			'statuses/update',
+			[
+				'status'    => $string,
+				'media_ids' => implode( ',', $media_ids ),
+			],
+			'POST',
+			$oauth
+		);
 	}
 
 	/**
@@ -468,9 +505,12 @@ class Twitter extends NoMailService {
 			}
 			$object = $path_or_id;
 		}
-		$media = $oauth->upload( 'media/upload', [
-			'media' => $object,
-		] );
+		$media = $oauth->upload(
+			'media/upload',
+			[
+				'media' => $object,
+			]
+		);
 		if ( ! $media ) {
 			return new \WP_Error( 500, __( 'Failed to upload media to twitter.', 'wp-gianism' ) );
 		}
@@ -490,10 +530,15 @@ class Twitter extends NoMailService {
 			if ( ! $screen_name ) {
 				$screen_name = $this->tw_screen_name;
 			}
-			return $this->call_api( 'friendships/create', [
-				'screen_name' => $screen_name,
-				'follow'      => true,
-			], 'POST', $oauth );
+			return $this->call_api(
+				'friendships/create',
+				[
+					'screen_name' => $screen_name,
+					'follow'      => true,
+				],
+				'POST',
+				$oauth
+			);
 		} else {
 			return null;
 		}
@@ -508,11 +553,14 @@ class Twitter extends NoMailService {
 	 * @return object
 	 */
 	public function get_mentions( $args = array(), $oauth = null ) {
-		$args          = wp_parse_args( $args, array(
-			'count'    => 20,
-			'since_id' => false,
-			'max_id'   => false,
-		) );
+		$args          = wp_parse_args(
+			$args,
+			array(
+				'count'    => 20,
+				'since_id' => false,
+				'max_id'   => false,
+			)
+		);
 		$args['count'] = max( 20, min( 200, $args['count'] ) );
 		foreach ( array( 'since_id', 'max_id' ) as $key ) {
 			if ( ! $args[ $key ] ) {

@@ -13,20 +13,27 @@ class ProfileChecker extends AbstractController {
 
 	public function __construct( array $argument = [] ) {
 		add_action( 'rest_api_init', [ $this, 'register_rest' ] );
-		add_action( 'init', function() {
-			if ( ! is_user_logged_in() ) {
-				return;
-			}
-			add_action( 'template_redirect', function() {
-				if ( $this->should_redirect() ) {
-					$this->redirect();
-				} elseif ( $this->should_show_popup() ) {
-					$this->show_popup();
+		add_action(
+			'init',
+			function() {
+				if ( ! is_user_logged_in() ) {
+					return;
 				}
-			}, 1 );
-		} );
+				add_action(
+					'template_redirect',
+					function() {
+						if ( $this->should_redirect() ) {
+							$this->redirect();
+						} elseif ( $this->should_show_popup() ) {
+							$this->show_popup();
+						}
+					},
+					1
+				);
+			}
+		);
 	}
-	
+
 	/**
 	 * Detect if WP is under WP 5.0
 	 *
@@ -36,7 +43,7 @@ class ProfileChecker extends AbstractController {
 		global $wp_version;
 		return version_compare( $wp_version, '5.0.0', '>' );
 	}
-	
+
 	/**
 	 * Detect if should show popup.
 	 *
@@ -45,7 +52,7 @@ class ProfileChecker extends AbstractController {
 	public function should_show_popup() {
 		return $this->is_over_5() && ( 'popup' === $this->option->check_profile );
 	}
-	
+
 	/**
 	 * Detect if should redirect users.
 	 *
@@ -54,7 +61,7 @@ class ProfileChecker extends AbstractController {
 	public function should_redirect() {
 		return $this->is_over_5() && ( 'redirect' === $this->option->check_profile );
 	}
-	
+
 	/**
 	 * Get default URL
 	 *
@@ -67,7 +74,7 @@ class ProfileChecker extends AbstractController {
 		}
 		return $url;
 	}
-	
+
 	/**
 	 * Get redirect URL
 	 *
@@ -81,7 +88,7 @@ class ProfileChecker extends AbstractController {
 		}
 		return apply_filters( 'gianism_profile_url', $url );
 	}
-	
+
 	/**
 	 * Detect if email is pseudo one.
 	 *
@@ -92,7 +99,7 @@ class ProfileChecker extends AbstractController {
 	public function is_pseudo_mail( $email ) {
 		return false !== strpos( $email, '@pseudo.' );
 	}
-	
+
 	/**
 	 * Detect if user's password is his/her own.
 	 *
@@ -103,29 +110,33 @@ class ProfileChecker extends AbstractController {
 	public function is_password_unknown( $user_id ) {
 		return (bool) get_user_meta( $user_id, '_wpg_unknown_password', true );
 	}
-	
+
 	/**
 	 * Register REST API endpoint.
 	 */
 	public function register_rest() {
-		register_rest_route( 'gianism/v1', 'profile/me', [
+		register_rest_route(
+			'gianism/v1',
+			'profile/me',
 			[
-				'methods' => 'GET',
-				'args' => [],
-				'permission_callback' => function() {
-					return is_user_logged_in();
-				},
-				'callback' => function( \WP_REST_Request $request ) {
-					$error = $this->get_error( get_current_user_id() );
-					$response = [
-						'errors' => $error->get_error_messages(),
-						'url'    => $this->redirect_url(),
-					];
-				},
-			],
-		] );
+				[
+					'methods'             => 'GET',
+					'args'                => [],
+					'permission_callback' => function() {
+						return is_user_logged_in();
+					},
+					'callback'            => function( \WP_REST_Request $request ) {
+						$error    = $this->get_error( get_current_user_id() );
+						$response = [
+							'errors' => $error->get_error_messages(),
+							'url'    => $this->redirect_url(),
+						];
+					},
+				],
+			]
+		);
 	}
-	
+
 	/**
 	 *
 	 *
@@ -136,7 +147,7 @@ class ProfileChecker extends AbstractController {
 		static $error = null;
 		if ( is_null( $error ) ) {
 			$error = new \WP_Error();
-			$user = get_userdata( $user_id );
+			$user  = get_userdata( $user_id );
 			if ( $this->is_password_unknown( $user->ID ) ) {
 				$error->add( 'password_unknown', __( 'Your password is automatically generated. Please change it to your own.', 'wp-gianism' ) );
 			}
@@ -147,7 +158,7 @@ class ProfileChecker extends AbstractController {
 		}
 		return $error;
 	}
-	
+
 	/**
 	 * Redirect incomplete users.
 	 */
@@ -156,7 +167,7 @@ class ProfileChecker extends AbstractController {
 		if ( ! $error->get_error_messages() ) {
 			return;
 		}
-		$path = empty( $_SERVER['REQUEST_URI'] ) ? '/' : $_SERVER['REQUEST_URI'];
+		$path          = empty( $_SERVER['REQUEST_URI'] ) ? '/' : $_SERVER['REQUEST_URI'];
 		$skip_redirect = false !== strpos( $path, $this->option->profile_completion_path );
 		if ( ! $skip_redirect && $this->is_excluded_paths( $path ) ) {
 			$skip_redirect = true;
@@ -172,7 +183,7 @@ class ProfileChecker extends AbstractController {
 		}
 		wp_redirect( $this->redirect_url() );
 	}
-	
+
 	/**
 	 * Display popup for
 	 */
@@ -198,9 +209,14 @@ class ProfileChecker extends AbstractController {
 		if ( is_null( $excluded ) ) {
 			$excluded = $this->option->exclude_from_redirect;
 		}
-		$patterns = array_filter( array_map( function( $line ) {
-			return trim( $line );
-		}, preg_split( '#[\r\n]#u', $excluded ) ) );
+		$patterns = array_filter(
+			array_map(
+				function( $line ) {
+					return trim( $line );
+				},
+				preg_split( '#[\r\n]#u', $excluded )
+			)
+		);
 		foreach ( $patterns as $pattern ) {
 			if ( fnmatch( $pattern, $path ) ) {
 				return true;

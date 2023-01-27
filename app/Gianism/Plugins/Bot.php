@@ -87,18 +87,21 @@ class Bot extends PluginBase {
 		 *
 		 * @param array $args
 		 */
-		$args = apply_filters( 'gianism_twitter_bot_post_type_args', [
-			'description'     => $this->_( 'Twitter Bot by Gianism. Never show on admin screen.' ),
-			'label'           => $this->_( 'Twitter Bots' ),
-			'labels'          => array(
-				'name' => $this->_( 'Twitter Bot' ),
-			),
-			'public'          => false,
-			'show_ui'         => true,
-			'capability_type' => 'page',
-			'supports'        => array( 'title', 'author' ),
-			'menu_icon'       => 'dashicons-twitter',
-		] );
+		$args = apply_filters(
+			'gianism_twitter_bot_post_type_args',
+			[
+				'description'     => $this->_( 'Twitter Bot by Gianism. Never show on admin screen.' ),
+				'label'           => $this->_( 'Twitter Bots' ),
+				'labels'          => array(
+					'name' => $this->_( 'Twitter Bot' ),
+				),
+				'public'          => false,
+				'show_ui'         => true,
+				'capability_type' => 'page',
+				'supports'        => array( 'title', 'author' ),
+				'menu_icon'       => 'dashicons-twitter',
+			]
+		);
 		register_post_type( $this->post_type, $args );
 	}
 
@@ -160,10 +163,14 @@ class Bot extends PluginBase {
 			$screen = get_current_screen();
 			if ( $this->post_type == $screen->post_type ) {
 				wp_enqueue_script( 'gianism-twitter-bot-helper', $this->url . 'assets/js/admin-twitter-bot-helper.js', array( 'jquery-effects-highlight' ), $this->version, true );
-				wp_localize_script( 'gianism-twitter-bot-helper', 'GianismBotLabel', array(
-					'delete'    => $this->_( 'Are you sure to delete this period? You can\'t undo this operation.' ),
-					'duplicate' => $this->_( 'This period is duplicated.' ),
-				) );
+				wp_localize_script(
+					'gianism-twitter-bot-helper',
+					'GianismBotLabel',
+					array(
+						'delete'    => $this->_( 'Are you sure to delete this period? You can\'t undo this operation.' ),
+						'duplicate' => $this->_( 'This period is duplicated.' ),
+					)
+				);
 			}
 		}
 	}
@@ -284,9 +291,16 @@ SQL;
 	 */
 	public function register_cron() {
 		if ( ! wp_next_scheduled( 'gianism_bot' ) ) {
-			$next_10_min = get_gmt_from_date( preg_replace_callback( '/([0-9])[0-9]:00$/u', function ( $matches ) {
-				return $matches[1] . '0:00';
-			}, date_i18n( 'Y-m-d H:i:00', current_time( 'timestamp' ) + 60 * 10 ) ), 'U' );
+			$next_10_min = get_gmt_from_date(
+				preg_replace_callback(
+					'/([0-9])[0-9]:00$/u',
+					function ( $matches ) {
+						return $matches[1] . '0:00';
+					},
+					date_i18n( 'Y-m-d H:i:00', current_time( 'timestamp' ) + 60 * 10 )
+				),
+				'U'
+			);
 			wp_schedule_event( $next_10_min, 'every_10_minutes', 'gianism_bot' );
 		}
 	}
@@ -307,10 +321,12 @@ SQL;
 SQL;
 		$post_to_private = $this->db->get_results( $this->db->prepare( $query, $this->post_type, $this->limit_key, date_i18n( 'Y-m-d' ) ) );
 		foreach ( $post_to_private as $pp ) {
-			wp_update_post( array(
-				'ID'          => $pp->ID,
-				'post_status' => 'private',
-			) );
+			wp_update_post(
+				array(
+					'ID'          => $pp->ID,
+					'post_status' => 'private',
+				)
+			);
 		}
 		// Get date
 		$date = date_i18n( 'w' );
@@ -430,21 +446,27 @@ SQL;
 	public function register_short_code() {
 		$gianism = $this;
 		// Time limit
-		add_shortcode( 'gianism_limit', function ( $args, $content = '' ) use ( $gianism ) {
-			$args = shortcode_atts( array(
-				'limit'       => '',
-				'placeholder' => $gianism->_( '%s left' ),
-			), $args );
-			$left = strtotime( $args['limit'] ) - current_time( 'timestamp' );
-			if ( $left / ( 60 * 60 * 24 * 30 ) > 1 ) {
-				return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s months' ), floor( $left / ( 60 * 60 * 24 * 30 ) ) ) );
-			} elseif ( $left / ( 60 * 60 * 24 ) > 1 ) {
-				return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s days' ), floor( $left / ( 60 * 60 * 24 ) ) ) );
-			} elseif ( $left / ( 60 * 60 ) > 1 ) {
-				return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s hours' ), floor( $left / ( 60 * 60 ) ) ) );
-			} else {
-				return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s minutes' ), floor( $left / 60 ) ) );
+		add_shortcode(
+			'gianism_limit',
+			function ( $args, $content = '' ) use ( $gianism ) {
+				$args = shortcode_atts(
+					array(
+						'limit'       => '',
+						'placeholder' => $gianism->_( '%s left' ),
+					),
+					$args
+				);
+				$left = strtotime( $args['limit'] ) - current_time( 'timestamp' );
+				if ( $left / ( 60 * 60 * 24 * 30 ) > 1 ) {
+					return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s months' ), floor( $left / ( 60 * 60 * 24 * 30 ) ) ) );
+				} elseif ( $left / ( 60 * 60 * 24 ) > 1 ) {
+					return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s days' ), floor( $left / ( 60 * 60 * 24 ) ) ) );
+				} elseif ( $left / ( 60 * 60 ) > 1 ) {
+					return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s hours' ), floor( $left / ( 60 * 60 ) ) ) );
+				} else {
+					return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s minutes' ), floor( $left / 60 ) ) );
+				}
 			}
-		} );
+		);
 	}
 }

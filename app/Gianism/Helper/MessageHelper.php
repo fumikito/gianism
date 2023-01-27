@@ -25,6 +25,6 @@ trait MessageHelper {
 		} else {
 			$messages = array( $string );
 		}
-		return gianism_set_cookie( $key, rawurlencode( json_encode( $messages ) ), current_time( 'timestamp', true ) + 180, '', false );
+		return gianism_set_cookie( $key, rawurlencode( json_encode( $messages ) ), time() + 180, '', false );
 	}
 }

@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) or die();
 $simple_membership = \Gianism\Plugins\SimpleMembership::get_instance();
 
 ?>
-<h3><i class="lsf lsf-users"></i> <?php esc_html_e( 'Simple Membership Integration', 'wp-gianism' ) ?></h3>
+<h3><i class="lsf lsf-users"></i> <?php esc_html_e( 'Simple Membership Integration', 'wp-gianism' ); ?></h3>
 
 <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
 	<?php

@@ -24,12 +24,14 @@ $code = <<<EOS
 ?>
 <a href="<?php echo esc_url(\$url); ?>" rel="nofollow">Publish to Facebook</a>
 EOS;
-echo esc_html( sprintf(
-	$code,
-	$this->_( 'URL which user will be redirected' ),
-	$this->_( 'Action name fired after authentication' ),
-	$this->_( 'Additional arguments passed to hook function' )
-) );
+echo esc_html(
+	sprintf(
+		$code,
+		$this->_( 'URL which user will be redirected' ),
+		$this->_( 'Action name fired after authentication' ),
+		$this->_( 'Additional arguments passed to hook function' )
+	)
+);
 ?>
 </pre>
 
@@ -68,13 +70,17 @@ function my_facebook_auth( $facebook, $args $token ) {
 	// %s
 }
 EOS;
-echo esc_html( sprintf( $code,
-	$this->_( 'Register action hook which you registered above.' ),
-	$this->_( 'This funciton will be executed after authentication' ),
-	$this->_( 'Check if argument is propery passed and if post exists.' ),
-	$this->_( 'Read an artcile.' ),
-	$this->_( 'Do error handling if you wish.' ),
-	$this->_( 'This funcion been executed, user will be redirected.' ) ) );
+echo esc_html(
+	sprintf(
+		$code,
+		$this->_( 'Register action hook which you registered above.' ),
+		$this->_( 'This funciton will be executed after authentication' ),
+		$this->_( 'Check if argument is propery passed and if post exists.' ),
+		$this->_( 'Read an artcile.' ),
+		$this->_( 'Do error handling if you wish.' ),
+		$this->_( 'This funcion been executed, user will be redirected.' )
+	)
+);
 ?>
 </pre>
 
@@ -135,10 +141,15 @@ echo esc_html( sprintf( $code, $this->_( '%1$s pulbished %2$s. Please visit %3$s
 
 <h3><?php $this->e( 'More Detailed Information' ); ?></h3>
 <p>
-	<?php printf(
+	<?php
+	printf(
 		$this->_( 'You can do many things with SNS API. But every solution is very specific and little bit difficult. If you need more, please visit our <a target="_blank" href="%s">support site</a>.' ),
-		gianism_utm_link( 'https://gianism.info/', [
-			'utm_medium' => 'advanced',
-		] )
-	); ?>
+		gianism_utm_link(
+			'https://gianism.info/',
+			[
+				'utm_medium' => 'advanced',
+			]
+		)
+	);
+	?>
 </p>

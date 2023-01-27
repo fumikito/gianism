@@ -17,21 +17,21 @@ defined( 'ABSPATH' ) or die();
 
 <table class="gianism-example-table">
 	<tr>
-		<th><?php esc_html_e( 'Provider Name', 'wp-gianism' ) ?></th>
+		<th><?php esc_html_e( 'Provider Name', 'wp-gianism' ); ?></th>
 		<td>
 			<?php printf( __( 'Your service or company name. e.g. <code>%s</code>', 'wp-gianism' ), get_bloginfo( 'name' ) ); ?>
 		</td>
 	</tr>
 	<tr>
-		<th><?php esc_html_e( 'Application Name', 'wp-gianism' ) ?></th>
+		<th><?php esc_html_e( 'Application Name', 'wp-gianism' ); ?></th>
 		<td>
 			<?php printf( __( 'Your application name. Site name <code>%s</code> is clear for your user.', 'wp-gianism' ), get_bloginfo( 'name' ) ); ?>
 		</td>
 	</tr>
 	<tr>
-		<th><?php esc_html_e( 'Redirect URI', 'wp-gianism' ) ?></th>
+		<th><?php esc_html_e( 'Redirect URI', 'wp-gianism' ); ?></th>
 		<td>
-			<code><?php echo esc_html( home_url( "/{$instance->url_prefix}/", $this->option->is_ssl_required() ? 'https' : 'http' ) ) ?></code>
+			<code><?php echo esc_html( home_url( "/{$instance->url_prefix}/", $this->option->is_ssl_required() ? 'https' : 'http' ) ); ?></code>
 		</td>
 	</tr>
 </table>

@@ -12,7 +12,7 @@ use Gianism\Pattern\AbstractController;
  * @author Takahashi Fumiki
  */
 class Profile extends AbstractController {
-	
+
 	/**
 	 * Constructor
 	 *
@@ -84,7 +84,7 @@ class Profile extends AbstractController {
 		</table>
 		<?php
 	}
-	
+
 	/**
 	 * Get error message to display.
 	 *
@@ -95,7 +95,7 @@ class Profile extends AbstractController {
 		$error = new \WP_Error();
 		// show password notice
 		if ( get_user_meta( $user->ID, '_wpg_unknown_password', true ) ) {
-			$error->add( 'unknown_password',  __( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.', 'wp-gianism' ) );
+			$error->add( 'unknown_password', __( 'Your password is automatically generated. Please <strong><a href="#pass1">update password</a> to your own</strong> before disconnecting your account.', 'wp-gianism' ) );
 		}
 		// Check if mail address is pseudo
 		if ( $this->profile_checker->is_pseudo_mail( $user->user_email ) ) {
@@ -103,7 +103,7 @@ class Profile extends AbstractController {
 		}
 		return apply_filters( 'gianism_user_profile_notices', $error, $user );
 	}
-	
+
 	/**
 	 * Display parent site link.
 	 *
@@ -115,7 +115,7 @@ class Profile extends AbstractController {
 			<?php $this->e( 'Connection with SNS' ); ?>
 		</h3>
 		<p>
-			<?php echo wp_kses_post( sprintf( __( 'Please setup SNS connection at <a href="%s">parent site\'s profile page</a>.', 'wp-gianism' ), get_admin_url( $this->option->get_parent_blog_id(), 'profile.php' ) ) ) ?>
+			<?php echo wp_kses_post( sprintf( __( 'Please setup SNS connection at <a href="%s">parent site\'s profile page</a>.', 'wp-gianism' ), get_admin_url( $this->option->get_parent_blog_id(), 'profile.php' ) ) ); ?>
 		</p>
 		<?php
 	}

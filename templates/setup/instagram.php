@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) or die();
 
 <h3><i class="lsf lsf-instagram"></i> Instagram</h3>
 
-<p class="description"><?php $this->e( 'First of all, Instagram account is required.' ) ?>
+<p class="description"><?php $this->e( 'First of all, Instagram account is required.' ); ?>
 
 <h4>Step1. <?php $this->e( 'Create new Project' ); ?></h4>
 
@@ -49,7 +49,7 @@ defined( 'ABSPATH' ) or die();
 	</tr>
 </table>
 
-<p><?php printf( $this->_( 'Now you can get client\'s credentials. Save it on <a href="%s">setting page</a>.' ), $this->setting_url( 'setting' ) ) ?></p>
+<p><?php printf( $this->_( 'Now you can get client\'s credentials. Save it on <a href="%s">setting page</a>.' ), $this->setting_url( 'setting' ) ); ?></p>
 
 <h4>Step2. <?php $this->e( 'Get out of sandbox' ); ?></h4>
 

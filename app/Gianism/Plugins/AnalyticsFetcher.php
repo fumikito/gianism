@@ -40,12 +40,16 @@ class AnalyticsFetcher extends Singleton {
 	 */
 	protected function save( $date, $id, $value ) {
 		global $wpdb;
-		$wpdb->insert( $this->table, array(
-			'category'     => static::CATEGORY,
-			'object_id'    => $id,
-			'object_value' => $value,
-			'calc_date'    => $date,
-		), array( '%s', '%d', '%d', '%s' ) );
+		$wpdb->insert(
+			$this->table,
+			array(
+				'category'     => static::CATEGORY,
+				'object_id'    => $id,
+				'object_value' => $value,
+				'calc_date'    => $date,
+			),
+			array( '%s', '%d', '%d', '%s' )
+		);
 	}
 
 	/**

@@ -241,10 +241,12 @@ abstract class AbstractService extends Application {
 				throw new \Exception( __( 'Sorry, but failed to connect with API.', 'wp-gianism' ) );
 			}
 			// Write session
-			$this->session->write( [
-				'redirect_to' => $this->input->get( 'redirect_to' ),
-				'action'      => 'connect',
-			] );
+			$this->session->write(
+				[
+					'redirect_to' => $this->input->get( 'redirect_to' ),
+					'action'      => 'connect',
+				]
+			);
 			// OK, let's redirect.
 			wp_redirect( $url );
 			exit;
@@ -410,7 +412,7 @@ EOS;
 				$redirect_to = $_REQUEST['redirect_to'];
 				if ( ! empty( $args ) ) {
 					$redirect_to .= ( false !== strpos( $redirect_to, '?' ) ) ? '&' : '?';
-					$counter = 0;
+					$counter      = 0;
 					foreach ( $args as $key => $val ) {
 						if ( 0 == $counter ) {
 							$redirect_to .= '&';
@@ -511,14 +513,14 @@ EOS;
 	 * @return string
 	 */
 	public function get_redirect_endpoint( $action = '', $nonce_key = '', $args = array() ) {
-		$prefix = empty( $this->url_prefix ) ? $this->service_name : $this->url_prefix;
+		$prefix     = empty( $this->url_prefix ) ? $this->service_name : $this->url_prefix;
 		$pre_prefix = $this->option->get_formatted_prefix();
 		if ( $pre_prefix ) {
 			$prefix = $pre_prefix . '/' . $prefix;
 		}
 		$scheme   = $this->option->is_ssl_required() ? 'https' : 'http';
 		$base_url = $this->option->is_network_activated() ? get_site_url( $this->option->get_parent_blog_id(), '', $scheme ) : home_url( '', $scheme );
-		$url = trailingslashit( untrailingslashit( $base_url ) . '/' . ltrim( $prefix, '/' ) );
+		$url      = trailingslashit( untrailingslashit( $base_url ) . '/' . ltrim( $prefix, '/' ) );
 		if ( ! empty( $action ) ) {
 			$url .= $action . '/';
 		}
@@ -538,7 +540,7 @@ EOS;
 	 * @return boolean
 	 */
 	protected function is_smartphone() {
-		return (boolean) preg_match( '/(iPhone|iPad|Android|MSIEMobile)/', $this->input->server( 'HTTP_USER_AGENT' ) );
+		return (bool) preg_match( '/(iPhone|iPad|Android|MSIEMobile)/', $this->input->server( 'HTTP_USER_AGENT' ) );
 	}
 
 	/**
@@ -564,12 +566,18 @@ EOS;
 		}
 		// If SVG exists, use it for public button style.
 		if ( in_array( 'wpg-guideline-button', $class_names ) && ( $file = $this->svg_path() ) ) {
-			$icon = $this->url . "/assets/img/brands/" . $file;
+			$icon = $this->url . '/assets/img/brands/' . $file;
 			$icon = sprintf( '<img src="%s" alt="" class="wpg-icon" />', esc_url( $icon ) );
 		}
-		$class_attr = implode( ' ', array_map( function ( $attr ) {
-			return esc_attr( $attr );
-		}, $class_names ) );
+		$class_attr = implode(
+			' ',
+			array_map(
+				function ( $attr ) {
+					return esc_attr( $attr );
+				},
+				$class_names
+			)
+		);
 		$atts       = [];
 		foreach ( $attributes as $key => $value ) {
 			switch ( $key ) {
@@ -642,10 +650,10 @@ EOS;
 			'redirect_to' => $redirect,
 		];
 		if ( $this->network->is_child_site() ) {
-			$url_args[ 'blog_id' ] = get_current_blog_id();
+			$url_args['blog_id'] = get_current_blog_id();
 		}
-		$url    = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', $url_args );
-		$text   = apply_filters( 'gianism_login_button_label', $this->login_label(), $register, $context );
+		$url  = $this->get_redirect_endpoint( 'login', $this->service_name . '_login', $url_args );
+		$text = apply_filters( 'gianism_login_button_label', $this->login_label(), $register, $context );
 
 		$args = [
 			'gianism-ga-category' => "gianism/{$this->service_name}",
@@ -661,8 +669,8 @@ EOS;
 			 * @param string $service
 			 * @return array
 			 */
-			$credentials = apply_filters( 'gianism_user_credentials', $this->target_credentials( $context ), $this->service_name );
-			$args['gianism-target']     = implode( ',', $credentials );
+			$credentials            = apply_filters( 'gianism_user_credentials', $this->target_credentials( $context ), $this->service_name );
+			$args['gianism-target'] = implode( ',', $credentials );
 		}
 		// Build class
 		switch ( $this->option->button_type ) {
@@ -674,7 +682,7 @@ EOS;
 				break;
 		}
 		$class_names[] = $this->service_name;
-		$button = $this->button( $text, $url, $this->service_name, $class_names, $args, $context );
+		$button        = $this->button( $text, $url, $this->service_name, $class_names, $args, $context );
 
 		return $this->filter_link( $button, $url, $text, $register, $context );
 	}
@@ -691,9 +699,13 @@ EOS;
 		if ( empty( $redirect_to ) ) {
 			$redirect_to = apply_filters( 'gianism_default_redirect_link', admin_url( 'profile.php' ), $this->service_name, false, 'connect' );
 		}
-		$url  = $this->get_redirect_endpoint( 'connect', $this->service_name . '_connect', array(
-			'redirect_to' => $redirect_to,
-		) );
+		$url  = $this->get_redirect_endpoint(
+			'connect',
+			$this->service_name . '_connect',
+			array(
+				'redirect_to' => $redirect_to,
+			)
+		);
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'connect',
@@ -714,9 +726,13 @@ EOS;
 		if ( empty( $redirect_to ) ) {
 			$redirect_to = apply_filters( 'gianism_default_redirect_link', admin_url( 'profile.php' ), $this->service_name, false, 'disconnect' );
 		}
-		$url  = $this->get_redirect_endpoint( 'disconnect', $this->service_name . '_disconnect', array(
-			'redirect_to' => $redirect_to,
-		) );
+		$url  = $this->get_redirect_endpoint(
+			'disconnect',
+			$this->service_name . '_disconnect',
+			array(
+				'redirect_to' => $redirect_to,
+			)
+		);
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'disconnect',
@@ -931,7 +947,7 @@ EOS;
 	 */
 	protected function get_response( $endpoint, $request = '', $method = 'POST', $json = false, array $additional_headers = array() ) {
 		$method = strtoupper( $method );
-		$ch = curl_init();
+		$ch     = curl_init();
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 20 );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );

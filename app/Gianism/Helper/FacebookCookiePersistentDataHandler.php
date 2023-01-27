@@ -5,18 +5,18 @@ namespace Gianism\Helper;
 use Facebook\PersistentData\PersistentDataInterface;
 
 class FacebookCookiePersistentDataHandler implements PersistentDataInterface {
-	
+
 	/**
 	 * Session handler
 	 *
 	 * @var Session
 	 */
 	private $cookie = null;
-	
+
 	protected $prefix = 'fb_';
-	
-	protected $store =[];
-	
+
+	protected $store = [];
+
 	/**
 	 * Cookie constructor.
 	 *
@@ -24,7 +24,7 @@ class FacebookCookiePersistentDataHandler implements PersistentDataInterface {
 	public function __construct() {
 		$this->cookie = Session::get_instance();
 	}
-	
+
 	public function get( $key ) {
 		$value = $this->cookie->get( $this->prefix . $key );
 		if ( $value ) {
@@ -36,7 +36,7 @@ class FacebookCookiePersistentDataHandler implements PersistentDataInterface {
 			return false;
 		}
 	}
-	
+
 	public function set( $key, $value ) {
 		$this->cookie->write( $this->prefix . $key, $value );
 	}

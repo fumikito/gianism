@@ -95,12 +95,15 @@ class Google extends AbstractService {
 	protected function __construct( array $argument = [] ) {
 		parent::__construct( $argument );
 		// Filter rewrite name
-		add_filter( 'gianism_filter_service_prefix', function( $prefix ) {
-			if ( 'google-auth' == $prefix ) {
-				$prefix = 'google';
+		add_filter(
+			'gianism_filter_service_prefix',
+			function( $prefix ) {
+				if ( 'google-auth' == $prefix ) {
+					$prefix = 'google';
+				}
+				return $prefix;
 			}
-			return $prefix;
-		} );
+		);
 	}
 
 	/**
@@ -225,10 +228,15 @@ class Google extends AbstractService {
 				/**
 				 * @see Facebook
 				 */
-				do_action( 'gianism_extra_action', $this->service_name, $action, [
-					'redirect_to' => $redirect_url,
-				    'code'        => $code,
-				] );
+				do_action(
+					'gianism_extra_action',
+					$this->service_name,
+					$action,
+					[
+						'redirect_to' => $redirect_url,
+						'code'        => $code,
+					]
+				);
 				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
@@ -253,7 +261,7 @@ class Google extends AbstractService {
 	 * @return bool
 	 */
 	public function is_connected( $user_id ) {
-		return (boolean) get_user_meta( $user_id, $this->umeta_account, true );
+		return (bool) get_user_meta( $user_id, $this->umeta_account, true );
 	}
 
 	/**
@@ -295,16 +303,16 @@ class Google extends AbstractService {
 				break;
 		}
 	}
-	
+
 	protected function login_label( $register = false, $context = '' ) {
-		return sprintf( _x( 'Sign in with %s',  'login label', 'wp-gianism' ), $this->verbose_service_name );
+		return sprintf( _x( 'Sign in with %s', 'login label', 'wp-gianism' ), $this->verbose_service_name );
 	}
-	
+
 	protected function svg_path() {
 		return 'google.png';
 	}
-	
-	
+
+
 	/**
 	 * Getter
 	 *
@@ -323,11 +331,13 @@ class Google extends AbstractService {
 					$this->_api->setRedirectUri( $this->get_redirect_endpoint() );
 					$this->_api->setApprovalPrompt( 'auto' );
 					$this->_api->setAccessType( 'online' );
-					$this->_api->setScopes( array(
-						'https://www.googleapis.com/auth/userinfo.profile',
-						'https://www.googleapis.com/auth/userinfo.email',
-						'https://www.googleapis.com/auth/plus.me',
-					) );
+					$this->_api->setScopes(
+						array(
+							'https://www.googleapis.com/auth/userinfo.profile',
+							'https://www.googleapis.com/auth/userinfo.email',
+							'https://www.googleapis.com/auth/plus.me',
+						)
+					);
 				}
 				return $this->_api;
 				break;

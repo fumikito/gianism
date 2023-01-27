@@ -32,11 +32,15 @@ class ShortCodes extends Application {
 		if ( is_user_logged_in() ) {
 			return $content;
 		}
-		$attrs = shortcode_atts( [
-			'before'      => '',
-			'after'       => '',
-			'redirect_to' => get_permalink(),
-		], $attrs, 'gianism_login' );
+		$attrs = shortcode_atts(
+			[
+				'before'      => '',
+				'after'       => '',
+				'redirect_to' => get_permalink(),
+			],
+			$attrs,
+			'gianism_login'
+		);
 		ob_start();
 		gianism_login( $attrs['before'], $attrs['after'], $attrs['redirect_to'] );
 		$form = ob_get_contents();

@@ -21,7 +21,7 @@ class Line extends NoMailService {
 
 	public $umeta_id = '_wpg_line_id';
 
-	public $umeta_profile_pic   = '_wpg_line_pic';
+	public $umeta_profile_pic = '_wpg_line_pic';
 
 	protected $pseudo_domain = 'pseudo.line.me';
 
@@ -42,12 +42,15 @@ class Line extends NoMailService {
 	protected function __construct( array $argument = [] ) {
 		parent::__construct( $argument );
 		// Filter rewrite name
-		add_filter( 'gianism_filter_service_prefix', function( $prefix ) {
-			if ( 'line-auth' == $prefix ) {
-				$prefix = 'line';
+		add_filter(
+			'gianism_filter_service_prefix',
+			function( $prefix ) {
+				if ( 'line-auth' == $prefix ) {
+					$prefix = 'line';
+				}
+				return $prefix;
 			}
-			return $prefix;
-		} );
+		);
 	}
 
 	/**
@@ -64,17 +67,17 @@ class Line extends NoMailService {
 			case 'login':
 				$auth_url = 'https://access.line.me/oauth2/v2.1/authorize';
 				if ( function_exists( 'random_int' ) ) {
-					$state = sha1( random_bytes(24) );
+					$state = sha1( random_bytes( 24 ) );
 				} else {
 					$state = sha1( uniqid() );
 				}
 				$this->session->write( 'line_state', $state );
 				$params = [
 					'response_type' => 'code',
-					'client_id' => $this->line_channel_id,
-					'redirect_uri' => home_url( "/{$this->url_prefix}/" ),
-					'scope' => rawurlencode( 'profile openid email' ),
-					'state' => $state,
+					'client_id'     => $this->line_channel_id,
+					'redirect_uri'  => home_url( "/{$this->url_prefix}/" ),
+					'scope'         => rawurlencode( 'profile openid email' ),
+					'state'         => $state,
 					// 'prompt' => 'consent', // For Debug by displaying consent screen always.
 				];
 				if ( ( $prompt = $this->line_add_friend_prompt ) ) {
@@ -125,7 +128,7 @@ class Line extends NoMailService {
 	protected function validate_callback() {
 		$code  = $this->input->request( 'code' );
 		$state = $this->input->request( 'state' );
-		$saved = $this->session->get(  'line_state' );
+		$saved = $this->session->get( 'line_state' );
 		$error = $this->input->request( 'error' );
 		$msg   = $this->input->request( 'error_description' );
 		if ( $error || $msg ) {
@@ -134,16 +137,19 @@ class Line extends NoMailService {
 		if ( $state !== $saved ) {
 			throw new \Exception( __( 'Sorry, but wrong access. Please try again.', 'wpg-gianism' ), 500 );
 		}
-		$data = [
-			'grant_type' => 'authorization_code',
-			'code' => $code,
-			'redirect_uri' => home_url( "/{$this->url_prefix}/" ),
-			'client_id' => $this->line_channel_id,
+		$data   = [
+			'grant_type'    => 'authorization_code',
+			'code'          => $code,
+			'redirect_uri'  => home_url( "/{$this->url_prefix}/" ),
+			'client_id'     => $this->line_channel_id,
 			'client_secret' => $this->line_channel_secret,
 		];
-		$result = wp_remote_post( 'https://api.line.me/oauth2/v2.1/token', [
-			'body' => $data,
-		] );
+		$result = wp_remote_post(
+			'https://api.line.me/oauth2/v2.1/token',
+			[
+				'body' => $data,
+			]
+		);
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception( $result->get_error_message(), 500 );
 		}
@@ -151,8 +157,8 @@ class Line extends NoMailService {
 		if ( ! $json || ! isset( $json->id_token ) ) {
 			throw new \Exception( __( 'Sorry, but failed to parse request.', 'wp-gianism' ), 500 );
 		}
-		JWT::$leeway = 5;
-		$jwt = JWT::decode( $json->id_token, $this->line_channel_secret, ['HS256'] );
+		JWT::$leeway    = 5;
+		$jwt            = JWT::decode( $json->id_token, $this->line_channel_secret, [ 'HS256' ] );
 		$json->id_token = $jwt;
 		return $json;
 	}
@@ -194,9 +200,10 @@ class Line extends NoMailService {
 			case 'login':
 				try {
 					$response = $this->validate_callback();
-					$id_token = $response->id_token;;
-					$line_id  = $id_token->sub;
-					$user_id  = $this->get_meta_owner( $this->umeta_id, $line_id );
+					$id_token = $response->id_token;
+
+					$line_id = $id_token->sub;
+					$user_id = $this->get_meta_owner( $this->umeta_id, $line_id );
 					if ( ! $user_id ) {
 						$this->test_user_can_register();
 						$email = $this->create_pseudo_email( $id_token );
@@ -208,7 +215,7 @@ class Line extends NoMailService {
 						 * @see Facebook
 						 */
 						$user_name = apply_filters( 'gianism_register_name', $user_name, $this->service, $response );
-						$user_id = wp_create_user( $user_name, wp_generate_password(), $email );
+						$user_id   = wp_create_user( $user_name, wp_generate_password(), $email );
 						if ( is_wp_error( $user_id ) ) {
 							throw new \Exception( $this->registration_error_string() );
 						}
@@ -246,7 +253,7 @@ class Line extends NoMailService {
 			case 'connect':
 				try {
 					$response = $this->validate_callback();
-					$line_id = $response->id_token->sub;
+					$line_id  = $response->id_token->sub;
 					if ( $this->get_meta_owner( $this->umeta_id, $line_id ) ) {
 						throw new \Exception( $this->duplicate_account_string() );
 					}
@@ -272,10 +279,15 @@ class Line extends NoMailService {
 				/**
 				 * @see Facebook
 				 */
-				do_action( 'gianism_extra_action', $this->service_name, $action, [
-					'redirect_to' => $redirect_url,
-				] );
-				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.', 'wp-gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
+				do_action(
+					'gianism_extra_action',
+					$this->service_name,
+					$action,
+					[
+						'redirect_to' => $redirect_url,
+					]
+				);
+				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%1$s">%2$s</a>.', 'wp-gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
 	}

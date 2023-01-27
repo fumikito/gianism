@@ -65,7 +65,7 @@ class Input extends Singleton {
 		if ( ! wp_verify_nonce( $this->request( $key ), $action ) ) {
 			return false;
 		}
-		if ( $referrer && $referrer == $this->request( '_wp_http_referer' ) ) {
+		if ( $referrer && $referrer === $this->request( '_wp_http_referer' ) ) {
 			return false;
 		}
 		return true;

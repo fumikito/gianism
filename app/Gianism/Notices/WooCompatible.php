@@ -42,8 +42,8 @@ class WooCompatible extends AbstractNotice {
 	 */
 	public function message() {
 		$role = get_role( $this->option->get( 'default_role' ) );
-		/* translators: %1$s: default role, %2$s: setting screen url */
 		return sprintf(
+			// translators: %1$s: default role, %2$s: setting screen url
 			__( '<strong>[Notice]</strong> WooCommerce detected but the default user role is <code>%1$s</code>. It is recommended to change default role to <strong>Customer</strong> on <a href="%2$s">Setting Page</a>.', 'wp-gianism' ),
 			$role->name,
 			admin_url( 'options-general.php' )

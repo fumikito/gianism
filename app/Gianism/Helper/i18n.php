@@ -6,6 +6,7 @@ namespace Gianism\Helper;
  * i18n helper
  * @package Gianism
  * @deprecated
+ * phpcs:ignoreFile
  */
 trait i18n {
 

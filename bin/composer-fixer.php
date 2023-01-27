@@ -48,7 +48,7 @@ if ( ! is_dir( $dir ) ) {
 $deleted = 0;
 
 foreach ( scandir( $dir ) as $file ) {
-	if ( in_array( $file, [ '.', '..' ] ) ) {
+	if ( in_array( $file, [ '.', '..' ], true ) ) {
 		continue;
 	}
 	// Check if files are in white list.

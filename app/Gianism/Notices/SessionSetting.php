@@ -11,6 +11,7 @@ use Gianism\Pattern\AbstractNotice;
  * @package Gianism
  * @deprecated
  * @since 4.0.0 This is not required anymore.
+ * phpcs:ignoreFile
  */
 class SessionSetting extends AbstractNotice {
 

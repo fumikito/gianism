@@ -10,9 +10,8 @@
 const REQUIRED_LIBS = [
 	// 'adsense',
 	// 'calendar',
-	'analytics',
-	'oauth2',
-	'plus',
+	'Analytics',
+	'Oauth2',
 	// 'youtube',
 ];
 
@@ -39,7 +38,7 @@ function rmdir_recursive( $path ) {
 	}
 }
 
-$dir = dirname( __DIR__ ) . '/vendor/google/apiclient-services/src/Google/Service';
+$dir = dirname( __DIR__ ) . '/vendor/google/apiclient-services/src';
 
 if ( ! is_dir( $dir ) ) {
 	throw new Exception( sprintf( 'Composer directory %s does not exist.', $dir ), 404 );

@@ -12,10 +12,15 @@ use Gianism\Cron\Daily;
  * @author Takahashi Fumiki
  *
  * @property-read \Google_Client $api
- * @property-read \Google_Service_Plus $plus
  *
  */
 class Google extends AbstractService {
+
+	/**
+	 * @depreacted  Google stop Google plus.
+	 * @var null Google Plus Client.
+	 */
+	public $plus = null;
 
 	/**
 	 * URL prefix to prepend
@@ -331,22 +336,12 @@ class Google extends AbstractService {
 					$this->_api->setRedirectUri( $this->get_redirect_endpoint() );
 					$this->_api->setApprovalPrompt( 'auto' );
 					$this->_api->setAccessType( 'online' );
-					$this->_api->setScopes(
-						array(
-							'https://www.googleapis.com/auth/userinfo.profile',
-							'https://www.googleapis.com/auth/userinfo.email',
-							'https://www.googleapis.com/auth/plus.me',
-						)
-					);
+					$this->_api->setScopes( [
+						'https://www.googleapis.com/auth/userinfo.profile',
+						'https://www.googleapis.com/auth/userinfo.email',
+					] );
 				}
 				return $this->_api;
-				break;
-			case 'plus':
-				if ( ! $this->_plus ) {
-					$this->_plus = new \Google_Service_Plus( $this->api );
-				}
-
-				return $this->_plus;
 				break;
 			default:
 				return parent::__get( $name );

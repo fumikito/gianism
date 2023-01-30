@@ -221,7 +221,9 @@ class Line extends NoMailService {
 						}
 						// Update user meta
 						update_user_meta( $user_id, $this->umeta_id, $line_id );
-						update_user_meta( $user_id, $this->umeta_profile_pic, $response->id_token->picture );
+						if ( ! empty( $response->id_token->picture ) ) {
+							update_user_meta( $user_id, $this->umeta_profile_pic, $response->id_token->picture );
+						}
 						$profile_name = $response->id_token->name;
 						update_user_meta( $user_id, 'nickname', $profile_name );
 						$this->db->update(

@@ -92,9 +92,9 @@ abstract class Screen {
 	public function switch_button( $name, $current_value, $value = 1 ) {
 		?>
 		<div class="onoffswitch">
-			<input type="checkbox" name="<?php echo esc_attr( $name ) ?>" class="onoffswitch-checkbox" id="<?php echo esc_attr( $name ) ?>"
-			       value="<?php echo esc_attr( $value ) ?>"<?php checked( $current_value == $value ) ?>>
-			<label class="onoffswitch-label" for="<?php echo esc_attr( $name ) ?>">
+			<input type="checkbox" name="<?php echo esc_attr( $name ); ?>" class="onoffswitch-checkbox" id="<?php echo esc_attr( $name ); ?>"
+				   value="<?php echo esc_attr( $value ); ?>"<?php checked( $current_value == $value ); ?>>
+			<label class="onoffswitch-label" for="<?php echo esc_attr( $name ); ?>">
 				<span class="onoffswitch-inner"></span>
 				<span class="onoffswitch-switch"></span>
 			</label>
@@ -199,7 +199,7 @@ abstract class Screen {
 	 * @param string $version
 	 */
 	public function new_from( $version ) {
-		$version = $this->major_version( $version );
+		$version         = $this->major_version( $version );
 		$current_version = $this->major_version( $this->version );
 		if ( version_compare( $version, $current_version, '>=' ) ) {
 			printf( '<span class="gianism-new">%s</span>', esc_html( sprintf( __( 'New Since %s', 'wp-gianism' ), $version ) ) );

@@ -8,7 +8,8 @@
     "start": "gulp build && gulp watch",
     "watch": "gulp watch",
     "package": "gulp build",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "lint": "gulp jshint"
   },
   "author": "Hametuha inc.",
   "license": "GPL-2.0",

@@ -1,7 +1,7 @@
 <?php
 /*
  * Delete all data for Literally WordPress
- * 
+ *
  * @package gianism
  * @since 1.0
  */
@@ -38,6 +38,7 @@ $query = <<<EOS
     DELETE FROM {$wpdb->usermeta}
     WHERE meta_key LIKE '_wpg_%'
 EOS;
+// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 $wpdb->query( $query );
 
 // Delete messages

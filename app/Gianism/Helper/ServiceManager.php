@@ -10,7 +10,7 @@ use Gianism\Pattern\Singleton;
  * Class ServiceManager
  * @package Gianism
  */
-class ServiceManager extends Singleton  {
+class ServiceManager extends Singleton {
 
 	use i18n, ExtensionManager;
 
@@ -49,9 +49,8 @@ class ServiceManager extends Singleton  {
 	public function init() {
 		$default_services = [
 			'facebook'  => 'Facebook',
-		    'twitter'   => 'Twitter',
-		    'google'    => 'Google',
-		    'instagram' => 'Instagram',
+			'twitter'   => 'Twitter',
+			'google'    => 'Google',
 			'line'      => 'Line',
 		];
 		foreach ( $default_services as $key => $class_name ) {
@@ -76,10 +75,10 @@ class ServiceManager extends Singleton  {
 		$plugins = [];
 		foreach ( [
 			'analytics' => 'Gianism\\Plugins\\Analytics',
-		    'bot'       => 'Gianism\\Plugins\\Bot',
+			'bot'       => 'Gianism\\Plugins\\Bot',
 		] as $name => $class_name ) {
 			$this->default_plugins[] = $name;
-			$plugins[ $name ] = $class_name;
+			$plugins[ $name ]        = $class_name;
 		}
 		/**
 		 * Hook to register plugin files.
@@ -114,12 +113,12 @@ class ServiceManager extends Singleton  {
 	public function service_list() {
 		$services = [];
 		foreach ( $this->all_services() as $service ) {
-			$instance = $this->get( $service );
+			$instance   = $this->get( $service );
 			$services[] = [
 				'name'    => $service,
 				'label'   => $instance->verbose_service_name,
-			    'enabled' => $instance->enabled,
-			    'default' => array_key_exists( $service, $this->default_services ),
+				'enabled' => $instance->enabled,
+				'default' => array_key_exists( $service, $this->default_services ),
 			];
 		}
 		return $services;

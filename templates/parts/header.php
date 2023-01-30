@@ -18,21 +18,22 @@ defined( 'ABSPATH' ) or die();
 
 	<header class="gianism-header">
 		<p class="gianism-header-text">Gianism</p>
-		<p class="gianism-header-lead"><?php $this->e( 'Make your WordPress more social. Simple but Extensible.' ) ?></p>
+		<p class="gianism-header-lead"><?php $this->e( 'Make your WordPress more social. Simple but Extensible.' ); ?></p>
 	</header>
 
 	<?php if ( $this->views ) : ?>
 		<?php if ( 1 == count( $this->views ) ) : ?>
 			<?php foreach ( $this->views as $view ) : ?>
-				<h2><?= $view ?></h2>
+				<h2><?php echo $view; ?></h2>
 			<?php endforeach; ?>
 		<?php else : ?>
 			<h2 class="nav-tab-wrapper">
-				<?php foreach ( $this->views as $key => $label ) :
+				<?php
+				foreach ( $this->views as $key => $label ) :
 					?>
-					<a class="nav-tab<?php echo ( $this->is_view( $key ) ) ? ' nav-tab-active' : '' ?>"
+					<a class="nav-tab<?php echo ( $this->is_view( $key ) ) ? ' nav-tab-active' : ''; ?>"
 					   href="<?php echo $this->setting_url( $key ); ?>">
-						<?php echo $label ?>
+						<?php echo $label; ?>
 					</a>
 				<?php endforeach; ?>
 			</h2>

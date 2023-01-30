@@ -17,10 +17,10 @@ defined( 'ABSPATH' ) or die();
 <p><?php $this->e( 'Now, On project page, clicking <code>API &amp; OAuth</code> menu in sidebar, then you are on <code>APIs</code> page which will enable various APIs one by one. Turn Google+ API <code>ON</code>.' ); ?></p>
 
 <p class="notice">
-	<?php $this->e( 'Google API Console is too simple but values to be set are not simple, so you will be easily loose yourself. Be care of where you are.' ) ?>
+	<?php $this->e( 'Google API Console is too simple but values to be set are not simple, so you will be easily loose yourself. Be care of where you are.' ); ?>
 </p>
 
-<p><?php $this->_( 'Then, go to <code>Credentials</code> below <code>API &amp; auth</code> and click <code>CREATE NEW  CLIENT ID</code>.  Enter below:' ) ?></p>
+<p><?php $this->_( 'Then, go to <code>Credentials</code> below <code>API &amp; auth</code> and click <code>CREATE NEW  CLIENT ID</code>.  Enter below:' ); ?></p>
 
 <table class="gianism-example-table">
 	<tr>
@@ -32,21 +32,21 @@ defined( 'ABSPATH' ) or die();
 	<tr>
 		<th>Authorized Javascript origin</th>
 		<td>
-			<code><?php echo home_url( '/', 'http' ) ?></code><br/>
-			<code><?php echo home_url( '/', 'https' ) ?></code>
+			<code><?php echo home_url( '/', 'http' ); ?></code><br/>
+			<code><?php echo home_url( '/', 'https' ); ?></code>
 		</td>
 	</tr>
 	<tr>
 		<th>Authorized redirect URI</th>
 		<td>
-			<code><?php echo home_url( '/google-auth/', $this->option->is_ssl_required() ? 'https' : 'http' ) ?></code>
+			<code><?php echo home_url( '/google-auth/', $this->option->is_ssl_required() ? 'https' : 'http' ); ?></code>
 		</td>
 	</tr>
 </table>
 
-<p><?php $this->e( 'There you get <code>Client ID for web application</code> section, which provides <code>Client ID</code> and <code>Client secret</code>.' ) ?></p>
+<p><?php $this->e( 'There you get <code>Client ID for web application</code> section, which provides <code>Client ID</code> and <code>Client secret</code>.' ); ?></p>
 
-<p><?php printf( $this->_( 'Finally, you must set up your application. Go to <code>Consent screen</code> below <code>APIs &amp; oauth</code>, and change Product name to your own. <code>%s</code> is recommended.' ), get_bloginfo( 'name' ) ) ?></p>
+<p><?php printf( $this->_( 'Finally, you must set up your application. Go to <code>Consent screen</code> below <code>APIs &amp; oauth</code>, and change Product name to your own. <code>%s</code> is recommended.' ), get_bloginfo( 'name' ) ); ?></p>
 
 <h4>Step2. <?php $this->e( 'Enter API Information' ); ?></h4>
 

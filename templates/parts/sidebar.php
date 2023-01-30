@@ -7,15 +7,20 @@ defined( 'ABSPATH' ) or die();
 		<ol id="index-list">
 		</ol>
 
-		<h4><?php $this->e( 'Support' ) ?></h4>
+		<h4><?php $this->e( 'Support' ); ?></h4>
 
 		<p class="forum-link">
-			<?php printf(
+			<?php
+			printf(
 				$this->_( 'Have some questions? Go to our support site <a href="%s" target="_blank">gianism.info</a>!' ),
-				gianism_utm_link( 'https://gianism.info/', [
-					'utm_medium' => 'sidebar',
-				] )
-			); ?>
+				gianism_utm_link(
+					'https://gianism.info/',
+					[
+						'utm_medium' => 'sidebar',
+					]
+				)
+			);
+			?>
 		</p>
 
 		<p class="github-link">
@@ -24,7 +29,7 @@ defined( 'ABSPATH' ) or die();
 
 		<?php
 		$locale = get_locale();
-		$user = get_userdata( get_current_user_id() );
+		$user   = get_userdata( get_current_user_id() );
 		?>
 
 		<!-- Begin MailChimp Signup Form -->
@@ -36,25 +41,25 @@ defined( 'ABSPATH' ) or die();
 					method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
 					target="_blank" novalidate>
 					<div id="mc_embed_signup_scroll">
-						<h4><?php $this->e( 'Join our News Letter!' ) ?></h4>
+						<h4><?php $this->e( 'Join our News Letter!' ); ?></h4>
 						<div class="mc-field-group">
 							<label for="mce-EMAIL">
-								<?php $this->e( 'Email' ) ?>
+								<?php $this->e( 'Email' ); ?>
 								<span class="asterisk">*</span>
 							</label>
-							<input type="email" name="EMAIL" class="required email" id="mce-EMAIL" value="<?php echo esc_attr( $user->user_email ) ?>">
+							<input type="email" name="EMAIL" class="required email" id="mce-EMAIL" value="<?php echo esc_attr( $user->user_email ); ?>">
 						</div>
-						<div class="mc-field-2col mc-field-name-<?php echo esc_attr( get_locale() ) ?>">
+						<div class="mc-field-2col mc-field-name-<?php echo esc_attr( get_locale() ); ?>">
 							<div>
 								<div class="mc-field-group first-name">
-									<label for="mce-FNAME"><?php $this->e( 'First Name' ) ?></label>
-									<input type="text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'first_name', true ) ) ?>" name="FNAME" class="" id="mce-FNAME">
+									<label for="mce-FNAME"><?php $this->e( 'First Name' ); ?></label>
+									<input type="text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'first_name', true ) ); ?>" name="FNAME" class="" id="mce-FNAME">
 								</div>
 							</div>
 							<div>
 								<div class="mc-field-group last-name">
-									<label for="mce-LNAME"><?php $this->e( 'Last Name' ) ?></label>
-									<input type="text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'last_name', true ) ) ?>" name="LNAME" class="" id="mce-LNAME">
+									<label for="mce-LNAME"><?php $this->e( 'Last Name' ); ?></label>
+									<input type="text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'last_name', true ) ); ?>" name="LNAME" class="" id="mce-LNAME">
 								</div>
 							</div>
 							<div style="clear:both;"></div>
@@ -62,31 +67,31 @@ defined( 'ABSPATH' ) or die();
 						<p>
 									<label class="inline" for="mce-group[1111]-1111-0">
 										<input type="checkbox" value="1" name="group[1111][1]"
-										       id="mce-group[1111]-1111-0" <?php checked( 'ja' != $locale ) ?>>
-										<?php $this->e( 'English' ) ?>
+											   id="mce-group[1111]-1111-0" <?php checked( 'ja' != $locale ); ?>>
+										<?php $this->e( 'English' ); ?>
 									</label>
 									<label class="inline" for="mce-group[1111]-1111-1">
 										<input type="checkbox" value="2" name="group[1111][2]"
-										       id="mce-group[1111]-1111-1" <?php checked( 'ja' == $locale ) ?>>
-										<?php $this->e( 'Japanese' ) ?>
+											   id="mce-group[1111]-1111-1" <?php checked( 'ja' == $locale ); ?>>
+										<?php $this->e( 'Japanese' ); ?>
 									</label>
 						</p>
 						<input type="hidden" name="group[1115]" value="16"/>
 						<input type="hidden" name="b_9b5777bb4451fb83373411d34_1e82da4148" value="">
 					</div>
 					<p class="submit">
-						<input type="submit" value="<?php $this->e( 'Subscribe' ) ?>" name="subscribe"
-						       id="mc-embedded-subscribe" class="button-primary">
+						<input type="submit" value="<?php $this->e( 'Subscribe' ); ?>" name="subscribe"
+							   id="mc-embedded-subscribe" class="button-primary">
 					</p>
 				</form>
 			</div>
 		</div>
 
-		<h4><?php $this->e( 'Our social Account' ) ?></h4>
+		<h4><?php $this->e( 'Our social Account' ); ?></h4>
 
 		<div class="fb-page" data-href="https://www.facebook.com/gianism.info" data-small-header="true"
-		     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
-		     data-show-posts="false">
+			 data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
+			 data-show-posts="false">
 			<div class="fb-xfbml-parse-ignore">
 				<blockquote cite="https://www.facebook.com/gianism.info"><a
 						href="https://www.facebook.com/gianism.info">Gianism</a></blockquote>
@@ -108,9 +113,9 @@ defined( 'ABSPATH' ) or die();
 
 		<p class="hametuha-link">
 			<small>Powered by</small>
-			<a href="<?php echo gianism_utm_link( 'https://hametuha.co.jp/', [ 'utm_medium' => 'sidebar' ] ) ?>"
+			<a href="<?php echo gianism_utm_link( 'https://hametuha.co.jp/', [ 'utm_medium' => 'sidebar' ] ); ?>"
 			   target="_blank">
-				<img src="<?php echo $this->url ?>assets/img/hametuha-logo.png">
+				<img src="<?php echo $this->url; ?>assets/img/hametuha-logo.png">
 			</a>
 		</p>
 

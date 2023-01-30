@@ -13,14 +13,14 @@ use Gianism\Helper\Option;
  * @property Option $option
  */
 abstract class AbstractNotice {
-	
+
 	const DEPRECATED = false;
-	
+
 	/**
 	 * @var bool If duplicated, never executed.
 	 */
 	public static $deprecated = false;
-	
+
 	/**
 	 * @var bool
 	 */
@@ -47,7 +47,7 @@ abstract class AbstractNotice {
 		// Run constructor alternatives.
 		$this->init();
 	}
-	
+
 	/**
 	 * Init function
 	 */
@@ -118,7 +118,7 @@ abstract class AbstractNotice {
 	 * @return bool
 	 */
 	protected function notice_dismissed() {
-		$key = $this->get_key();
+		$key    = $this->get_key();
 		$option = $this->dismissed_notices();
 		return isset( $option[ $key ] ) && $option[ $key ];
 	}
@@ -127,7 +127,7 @@ abstract class AbstractNotice {
 	 * Update notice
 	 */
 	protected function update_notice() {
-		$option = $this->dismissed_notices();
+		$option                     = $this->dismissed_notices();
 		$option[ $this->get_key() ] = 1;
 		update_option( 'gianism_notice_log', $option );
 	}
@@ -140,8 +140,8 @@ abstract class AbstractNotice {
 		?>
 		<div class="error" style="position: relative;">
 			<p>
-			<button data-endpoint="<?php echo esc_url( $endpoint ) ?>" class="gianism-admin-notice notice-dismiss"></button>
-				<?php echo $this->message() ?>
+			<button data-endpoint="<?php echo esc_url( $endpoint ); ?>" class="gianism-admin-notice notice-dismiss"></button>
+				<?php echo $this->message(); ?>
 			</p>
 		</div>
 		<?php

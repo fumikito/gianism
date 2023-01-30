@@ -4,8 +4,8 @@
  * Plugin URI: https://wordpress.org/extend/plugins/gianism/
  * Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
  * Author: Takahashi_Fumiki
- * Version: 4.4.0
- * PHP Version: 5.6.0
+ * Version: 5.0.0
+ * PHP Version: 7.2.0
  * Author URI: https://gianism.info
  * Text Domain: wp-gianism
  * Domain Path: /language/
@@ -13,31 +13,34 @@
  */
 
 /*
-    Copyright 2010 Takahashi Fumiki (email : takahashi.fumiki@hametuha.co.jp)
+	Copyright 2010 Takahashi Fumiki (email : takahashi.fumiki@hametuha.co.jp)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as
 	published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 // Don't allow plugin to be loaded directory.
 defined( 'ABSPATH' ) || die( 'Do not load directly.' );
 
 // Get data from header.
-$info = get_file_data( __FILE__, array(
-	'version'     => 'Version',
-	'php_version' => 'PHP Version',
-	'text_domain' => 'Text Domain',
-) );
+$info = get_file_data(
+	__FILE__,
+	array(
+		'version'     => 'Version',
+		'php_version' => 'PHP Version',
+		'text_domain' => 'Text Domain',
+	)
+);
 
 /**
  * Plugin version
@@ -93,7 +96,7 @@ function gianism_setup_after_plugins_loaded() {
 		require __DIR__ . '/functions.php';
 		// Load all functions and hooks.
 		foreach ( array( 'functions', 'hooks' ) as $dir ) {
-			$dir_path = __DIR__ . '/' . $dir ;
+			$dir_path = __DIR__ . '/' . $dir;
 			if ( ! is_dir( $dir_path ) ) {
 				continue;
 			}

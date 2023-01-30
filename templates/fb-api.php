@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
 $facebook = $this->service->get( 'facebook' );
 
 ?>
-<h3><i class="lsf lsf-facebook"></i> <?php $this->e( 'Token setting' ) ?></h3>
+<h3><i class="lsf lsf-facebook"></i> <?php $this->e( 'Token setting' ); ?></h3>
 <?php if ( is_wp_error( ( $error = $facebook->admin ) ) ) : ?>
 	<p class="danger">
 		<?php if ( $error->get_error_code() == 410 ) : ?>
@@ -18,40 +18,42 @@ $facebook = $this->service->get( 'facebook' );
 	</p>
 <?php else : ?>
 	<p class="notice">
-		<?php printf(
+		<?php
+		printf(
 			$this->_( 'O.K. You have permission. If you want to renew token, please click link below. Token will be valid for %d days.' ),
 			( 60 - floor( ( current_time( 'timestamp' ) - $this->option->get( 'gianism_facebook_admin_refreshed', 0 ) ) / 60 / 60 / 24 ) )
-		); ?>
+		);
+		?>
 	</p>
 <?php endif; ?>
-<a class="button" href="<?php echo esc_url( $facebook->get_admin_connect_link() ) ?>"><?php $this->e( 'Get Token' ) ?>
-	<small><?php $this->e( 'Read Only' ) ?></small>
+<a class="button" href="<?php echo esc_url( $facebook->get_admin_connect_link() ); ?>"><?php $this->e( 'Get Token' ); ?>
+	<small><?php $this->e( 'Read Only' ); ?></small>
 </a>
 <a class="button"
-   href="<?php echo esc_url( $facebook->get_admin_connect_link( true ) ) ?>"><?php $this->e( 'Get Token' ) ?>
-	<small><?php $this->e( 'Publish' ) ?></small>
+   href="<?php echo esc_url( $facebook->get_admin_connect_link( true ) ); ?>"><?php $this->e( 'Get Token' ); ?>
+	<small><?php $this->e( 'Publish' ); ?></small>
 </a>
 
-<h3><i class="lsf lsf-friend"></i> <?php $this->e( 'Account to use' ) ?></h3>
+<h3><i class="lsf lsf-friend"></i> <?php $this->e( 'Account to use' ); ?></h3>
 <?php if ( is_wp_error( $facebook->admin ) ) : ?>
-	<p class="description"><?php $this->e( 'You need access token to manage accounts. Click links above and you can get Facebook API token.' ) ?></p>
+	<p class="description"><?php $this->e( 'You need access token to manage accounts. Click links above and you can get Facebook API token.' ); ?></p>
 <?php elseif ( ! ( $me = $facebook->admin_account ) ) : ?>
-	<p class="danger"><?php $this->e( 'Failed to get your account. Please renew token.' ) ?></p>
+	<p class="danger"><?php $this->e( 'Failed to get your account. Please renew token.' ); ?></p>
 <?php else : ?>
-	<p class="description"><?php $this->e( 'Please select account to use.' ) ?></p>
-	<form method="post" action="<?php echo $this->setting_url( 'fb-api' ) ?>">
-		<?php wp_nonce_field( 'gianism_fb_account' ) ?>
+	<p class="description"><?php $this->e( 'Please select account to use.' ); ?></p>
+	<form method="post" action="<?php echo $this->setting_url( 'fb-api' ); ?>">
+		<?php wp_nonce_field( 'gianism_fb_account' ); ?>
 		<table class="form-table">
 			<tr>
-				<th><?php $this->e( 'You' ) ?></th>
+				<th><?php $this->e( 'You' ); ?></th>
 				<td>
 					<label><input type="radio" name="fb_account_id"
-					              value="me"<?php checked( 'me' == $facebook->admin_id ) ?> /> <?php echo esc_html( $me['name'] ) ?>
+								  value="me"<?php checked( 'me' == $facebook->admin_id ); ?> /> <?php echo esc_html( $me['name'] ); ?>
 					</label>
 				</td>
 			</tr>
 			<tr>
-				<th><?php $this->e( 'Your Page' ) ?></th>
+				<th><?php $this->e( 'Your Page' ); ?></th>
 				<td>
 					<?php
 					$out = [];
@@ -67,18 +69,19 @@ $facebook = $this->service->get( 'facebook' );
 						echo implode( '<br />', $out );
 					else :
 						?>
-						<p class="description"><?php $this->e( 'You have no Facebook page.' ) ?></p>
+						<p class="description"><?php $this->e( 'You have no Facebook page.' ); ?></p>
 					<?php endif; ?>
 				</td>
 			</tr>
 		</table>
-		<?php submit_button() ?>
+		<?php submit_button(); ?>
 	</form>
 <?php endif; ?>
 
-<h3><i class="lsf lsf-help"></i> <?php $this->e( 'How to use' ) ?></h3>
+<h3><i class="lsf lsf-help"></i> <?php $this->e( 'How to use' ); ?></h3>
 <p>
-	<?php printf(
+	<?php
+	printf(
 		$this->_( 'You can get token-ready <a href="%s">Facebook PHP SDK\'s API client</a>. For example, get latest news feed and show it on footer.' ),
 		'https://developers.facebook.com/docs/reference/php'
 	)
@@ -86,7 +89,7 @@ $facebook = $this->service->get( 'facebook' );
 </p>
 <pre class="brush: php">
 <?php
-$string =  <<<'PHP'
+$string = <<<'PHP'
 // Add action hook.
 add_action('wp_footer', function(){
     $status = esc_html( my_fb_status() );
@@ -125,17 +128,22 @@ PHP;
 echo esc_html( $string );
 ?>
 </pre>
-<p><?php $this->e( 'You should know about Facebook Graph API. Useful resources are below.' ) ?></p>
+<p><?php $this->e( 'You should know about Facebook Graph API. Useful resources are below.' ); ?></p>
 <ol>
 	<li><a href="https://developers.facebook.com/docs/graph-api">Graph API Reference</a></li>
 	<li><a href="https://developers.facebook.com/tools/explorer/">Graph API Explorer</a></li>
 	<li><a href="https://developers.facebook.com/docs/reference/php/3.2.3">PHP SDK's documentation</a></li>
 </ol>
 <p>
-	<?php printf(
+	<?php
+	printf(
 		$this->_( 'For more detailed information, please visit our <a target="_blank" href="%s">support site</a>.' ),
-		gianism_utm_link( 'https://gianism.info/', [
-			'utm_medium' => 'fb-api',
-		] )
-	); ?>
+		gianism_utm_link(
+			'https://gianism.info/',
+			[
+				'utm_medium' => 'fb-api',
+			]
+		)
+	);
+	?>
 </p>

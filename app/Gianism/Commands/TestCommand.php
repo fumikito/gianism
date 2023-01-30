@@ -22,8 +22,8 @@ class TestCommand extends \WP_CLI_Command {
 	 */
 	public function tweet( $args ) {
 		list( $message ) = $args;
-		$twitter = Twitter::get_instance();
-		$tweet = $twitter->tweet( $message );
+		$twitter         = Twitter::get_instance();
+		$tweet           = $twitter->tweet( $message );
 		print_r( $tweet );
 		\WP_CLI::success( printf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
 	}
@@ -37,7 +37,7 @@ class TestCommand extends \WP_CLI_Command {
 	 */
 	public function twitter_upload_media( $args ) {
 		list( $path_or_id, $status ) = $args;
-		$result = Twitter::get_instance()->tweet_with_media( $status, [ $path_or_id ] );
+		$result                      = Twitter::get_instance()->tweet_with_media( $status, [ $path_or_id ] );
 		if ( is_wp_error( $result ) ) {
 			\WP_CLI::error( $result->get_error_message() );
 		} else {
@@ -59,8 +59,8 @@ class TestCommand extends \WP_CLI_Command {
 	 * @param array $assoc
 	 */
 	public function mentions( $args, $assoc ) {
-		$raw = isset( $assoc['raw'] ) && $assoc['raw'];
-		$twitter = Twitter::get_instance();
+		$raw      = isset( $assoc['raw'] ) && $assoc['raw'];
+		$twitter  = Twitter::get_instance();
 		$response = $twitter->get_mentions();
 		foreach ( $response as $res ) {
 			if ( $raw ) {
@@ -92,11 +92,18 @@ class TestCommand extends \WP_CLI_Command {
 			\WP_CLI::line( sprintf( __( 'Get popular pages from %1$s to %2$s.', 'wp-gianism' ), $from, $to ) );
 			$table = new Table();
 			$table->setHeaders( [ 'Page Path', 'PV' ] );
-			$table->setRows( $fetch->fetch( $from, $to, 'ga:pageviews', [
-				'dimensions'  => 'ga:PagePath',
-				'sort'        => '-ga:pageviews',
-				'max-results' => 10,
-			] ) );
+			$table->setRows(
+				$fetch->fetch(
+					$from,
+					$to,
+					'ga:pageviews',
+					[
+						'dimensions'  => 'ga:PagePath',
+						'sort'        => '-ga:pageviews',
+						'max-results' => 10,
+					]
+				)
+			);
 			$table->display();
 		} catch ( \Exception $e ) {
 			\WP_CLI::error( $e->getMessage() );
@@ -112,12 +119,15 @@ class TestCommand extends \WP_CLI_Command {
 			\WP_CLI::error( $api->get_error_message() );
 		}
 		try {
-			$page = $api->get( '/me' )->getGraphPage();
-			$table = new Table( [ 'Key', 'Value' ], [
-				[ 'Name', $page->getName() ],
-				[ 'ID', $page->getId() ],
-				[ 'Category', $page->getCategory() ?: '---' ],
-			] );
+			$page  = $api->get( '/me' )->getGraphPage();
+			$table = new Table(
+				[ 'Key', 'Value' ],
+				[
+					[ 'Name', $page->getName() ],
+					[ 'ID', $page->getId() ],
+					[ 'Category', $page->getCategory() ?: '---' ],
+				]
+			);
 			$table->display();
 		} catch ( \Exception $e ) {
 			\WP_CLI::error( sprintf( '%s: %s', $e->getCode(), $e->getMessage() ) );
@@ -142,33 +152,35 @@ class TestCommand extends \WP_CLI_Command {
 	public function fb_instant_articles( $args, $assoc ) {
 		try {
 			$is_develop = isset( $assoc['develop'] ) && $assoc['develop'];
-			$offset  = isset( $assoc['offset'] ) ? $assoc['offset'] : 0;
-			$api = gianism_fb_page_api();
-			$arguments = [
-				'access_token' => $api->getDefaultAccessToken()->getValue(),
+			$offset     = isset( $assoc['offset'] ) ? $assoc['offset'] : 0;
+			$api        = gianism_fb_page_api();
+			$arguments  = [
+				'access_token'     => $api->getDefaultAccessToken()->getValue(),
 				'development_mode' => $is_develop,
 			];
 			if ( $offset ) {
 				$arguments['after'] = $offset;
 			}
-			$edge = $api->get( add_query_arg( $args, 'me/instant_articles' ) )->getGraphEdge();
+			$edge  = $api->get( add_query_arg( $args, 'me/instant_articles' ) )->getGraphEdge();
 			$table = new Table();
 			$table->setHeaders( [ 'Facebook ID', __( 'Post ID', 'wp-gianism' ), __( 'Post Title', 'wp-gianism' ), 'URL' ] );
 			foreach ( $edge->getIterator() as $node ) {
 				/* @var GraphNode $node */
-				$url = $node->getField( 'canonical_url', '---' );
+				$url     = $node->getField( 'canonical_url', '---' );
 				$post_id = url_to_postid( $url );
-				$table->addRow( [
-					$node->getField( 'id' ),
-					$post_id,
-					get_the_title( $post_id ),
-					$url,
-				] );
+				$table->addRow(
+					[
+						$node->getField( 'id' ),
+						$post_id,
+						get_the_title( $post_id ),
+						$url,
+					]
+				);
 			}
 			$table->display();
 			// Show paging information.
 			$next_page = $edge->getCursor( 'after' );
-			$line = __( 'Successfully retrieved instant articles!', 'wp-gianism' );
+			$line      = __( 'Successfully retrieved instant articles!', 'wp-gianism' );
 			if ( $next_page ) {
 				\WP_CLI::success( $line . ' ' . sprintf( __( 'If you need more instant articles, set --after=%s', 'wp-gianism' ), $next_page ) );
 			} else {
@@ -196,8 +208,8 @@ class TestCommand extends \WP_CLI_Command {
 	 */
 	public function fb_instant_article_status( $args, $assoc ) {
 		list( $url_or_id ) = $args;
-		$is_develop = isset( $assoc['develop'] ) && $assoc['develop'];
-		$result = gianism_fb_instant_article_status( $url_or_id, $is_develop );
+		$is_develop        = isset( $assoc['develop'] ) && $assoc['develop'];
+		$result            = gianism_fb_instant_article_status( $url_or_id, $is_develop );
 		if ( is_wp_error( $result ) ) {
 			\WP_CLI::error( $result->get_error_message() );
 		}
@@ -208,6 +220,6 @@ class TestCommand extends \WP_CLI_Command {
 		\WP_CLI::line( '' );
 		\WP_CLI::line( '=====HTML====' );
 		\WP_CLI::line( '' );
-		\WP_CLI::success( sprintf( '%s: %s',  $result['id'], $result['url'] ) );
+		\WP_CLI::success( sprintf( '%s: %s', $result['id'], $result['url'] ) );
 	}
 }

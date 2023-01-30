@@ -65,7 +65,7 @@ class Input extends Singleton {
 		if ( ! wp_verify_nonce( $this->request( $key ), $action ) ) {
 			return false;
 		}
-		if ( $referrer && $referrer == $this->request( '_wp_http_referer' ) ) {
+		if ( $referrer && $referrer === $this->request( '_wp_http_referer' ) ) {
 			return false;
 		}
 		return true;
@@ -101,9 +101,13 @@ class Input extends Singleton {
 	 * @param bool $return
 	 */
 	public function wp_die( $message, $status_code = 500, $return = true ) {
-		wp_die( $message, get_status_header_desc( $status_code ) . ' | ' . get_bloginfo( 'name' ), [
-			'response'  => (int) $status_code,
-			'back_link' => (boolean) $return,
-		] );
+		wp_die(
+			$message,
+			get_status_header_desc( $status_code ) . ' | ' . get_bloginfo( 'name' ),
+			[
+				'response'  => (int) $status_code,
+				'back_link' => (bool) $return,
+			]
+		);
 	}
 }

@@ -26,7 +26,7 @@ const REQUIRED_LIBS = [
 function rmdir_recursive( $path ) {
 	if ( is_dir( $path ) ) {
 		$deleted = 0;
-		$files = array_diff( scandir( $path ), [ '.', '..' ] );
+		$files   = array_diff( scandir( $path ), [ '.', '..' ] );
 		foreach ( $files as $file ) {
 			$deleted += rmdir_recursive( $path . '/' . $file );
 		}
@@ -48,13 +48,13 @@ if ( ! is_dir( $dir ) ) {
 $deleted = 0;
 
 foreach ( scandir( $dir ) as $file ) {
-	if ( in_array( $file, [ '.', '..' ] ) ) {
+	if ( in_array( $file, [ '.', '..' ], true ) ) {
 		continue;
 	}
 	// Check if files are in white list.
 	foreach ( REQUIRED_LIBS as $lib ) {
 		if ( preg_match( "/{$lib}/ui", $file ) ) {
-			printf( "%s saved." . PHP_EOL, $file );
+			printf( '%s saved.' . PHP_EOL, $file );
 			continue 2;
 		}
 	}

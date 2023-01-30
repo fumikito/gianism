@@ -77,9 +77,13 @@ abstract class Ajax extends AnalyticsFetcher {
 			wp_send_json( $result );
 		} catch ( \Exception $e ) {
 			$code = $e->getCode() ?: 500;
-			wp_die( $e->getMessage(), get_bloginfo( 'name' ), array(
-				'response' => $code,
-			) );
+			wp_die(
+				$e->getMessage(),
+				get_bloginfo( 'name' ),
+				array(
+					'response' => $code,
+				)
+			);
 		}
 	}
 
@@ -91,9 +95,12 @@ abstract class Ajax extends AnalyticsFetcher {
 	 * @return string
 	 */
 	public static function endpoint( array $query_params = array() ) {
-		$query_params = array_merge( array(
-			'action' => static::ACTION,
-		), $query_params );
+		$query_params = array_merge(
+			array(
+				'action' => static::ACTION,
+			),
+			$query_params
+		);
 		$endpoint     = add_query_arg( $query_params, admin_url( 'admin-ajax.php' ) );
 		if ( static::NONCE_ACTION ) {
 			$endpoint = wp_nonce_url( $endpoint, static::NONCE_ACTION );

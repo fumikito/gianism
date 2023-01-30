@@ -37,7 +37,7 @@ function gianism_get_twitter_screen_name( $user_id ) {
  */
 function gianism_update_twitter_status( $string ) {
 	/** @var \Gianism\Service\Twitter $twitter */
-	$twitter = \Gianism\Service\Twitter::get_instance();
+	$twitter  = \Gianism\Service\Twitter::get_instance();
 	$response = $twitter->tweet( $string );
 	return ! $response->errors;
 }
@@ -94,8 +94,11 @@ function gianism_twitter_get_timeline( $screen_name = null, array $additional_da
 		$screen_name = $twitter->tw_screen_name;
 	}
 
-	return $twitter->call_api( 'statuses/user_timeline', array_merge(
-		array( 'screen_name' => $screen_name ),
-		$additional_data
-	) );
+	return $twitter->call_api(
+		'statuses/user_timeline',
+		array_merge(
+			array( 'screen_name' => $screen_name ),
+			$additional_data
+		)
+	);
 }

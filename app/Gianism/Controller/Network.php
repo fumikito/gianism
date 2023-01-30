@@ -14,7 +14,7 @@ use Gianism\Pattern\AbstractController;
  * @since 4.3.0
  */
 class Network extends AbstractController {
-	
+
 	/**
 	 * Network constructor.
 	 *
@@ -28,7 +28,7 @@ class Network extends AbstractController {
 		// If failed to authenticate, redirect to original site.
 		add_filter( 'gianism_redirect_to', [ $this, 'redirect_to' ], 10, 3 );
 	}
-	
+
 	/**
 	 * Detect if Gianism can network available.
 	 *
@@ -37,14 +37,14 @@ class Network extends AbstractController {
 	public function network_available() {
 		return is_multisite() && ! is_subdomain_install();
 	}
-	
+
 	/**
 	 * Detect if this is child site.
 	 */
 	public function is_child_site() {
 		return is_multisite() && ( $this->option->get_parent_blog_id() !== get_current_blog_id() );
 	}
-	
+
 	/**
 	 * Set user role for child blog.
 	 *
@@ -69,7 +69,7 @@ class Network extends AbstractController {
 			$user->set_role( $base_role );
 		}
 	}
-	
+
 	/**
 	 * Filter redirect URI if this is from child site.
 	 *
@@ -89,10 +89,10 @@ class Network extends AbstractController {
 		}
 		// If this is from child site, change url.
 		switch_to_blog( $blog_id );
-		$redirect_to = '';
+		$redirect_to  = '';
 		$url_segments = explode( '?', $url );
 		if ( 1 < count( $url_segments ) ) {
-			parse_str( $url_segments[ 1 ], $params );
+			parse_str( $url_segments[1], $params );
 			foreach ( [ 'redirect_to', 'redirect' ] as $key ) {
 				if ( ! empty( $params[ $key ] ) ) {
 					$redirect_to = $params[ $key ];
@@ -106,7 +106,7 @@ class Network extends AbstractController {
 		restore_current_blog();
 		return $url;
 	}
-	
+
 	/**
 	 * Display notices
 	 */

@@ -17,10 +17,10 @@ use Gianism\Pattern\Singleton;
  * @since 4.0.0 Drop PHP Session usage.
  * @property string $path
  */
-class Session extends Singleton  {
+class Session extends Singleton {
 
 	protected $name = 'gianism_session';
-	
+
 	protected $data = null;
 
 	/**
@@ -41,7 +41,7 @@ class Session extends Singleton  {
 	public function is_available() {
 		return isset( $_COOKIE );
 	}
-	
+
 	/**
 	 * Get cookie data as JSON.
 	 *
@@ -55,7 +55,7 @@ class Session extends Singleton  {
 		$cookie = json_decode( stripslashes( $cookie ), true );
 		return is_array( $cookie ) ? $cookie : [];
 	}
-	
+
 	/**
 	 * Ensure cookie data.
 	 */
@@ -64,7 +64,7 @@ class Session extends Singleton  {
 			$this->data = $this->get_data();
 		}
 	}
-	
+
 	/**
 	 * Save cookie data.
 	 *
@@ -72,8 +72,8 @@ class Session extends Singleton  {
 	 */
 	protected function save_cookie() {
 		$this->ensure_cookie();
-		$json = json_encode( $this->data );
-		$expire = current_time( 'timestamp', true ) + 60 * 20;
+		$json   = json_encode( $this->data );
+		$expire = time() + 60 * 20;
 		return gianism_set_cookie( $this->name, rawurlencode( $json ), $expire );
 	}
 

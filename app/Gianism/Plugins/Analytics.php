@@ -102,12 +102,17 @@ class Analytics extends PluginBase {
 		add_action( 'wp_ajax_' . self::AJAX_ACTION, array( $this, 'ga_ajax' ) );
 		add_action( 'wp_ajax_' . self::AJAX_CRON, array( $this, 'ga_cron' ) );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_filter( 'gianism_setting_screen_views', function( $views, $slug ) {
-			if ( 'gianism' == $slug ) {
-				$views['analytics'] = sprintf( '<i class="lsf lsf-graph"></i> %s', $this->_( 'Google Analytics' ) );
-			}
-			return $views;
-		}, 10, 2 );
+		add_filter(
+			'gianism_setting_screen_views',
+			function( $views, $slug ) {
+				if ( 'gianism' == $slug ) {
+					$views['analytics'] = sprintf( '<i class="lsf lsf-graph"></i> %s', $this->_( 'Google Analytics' ) );
+				}
+				return $views;
+			},
+			10,
+			2
+		);
 	}
 
 	/**
@@ -168,11 +173,14 @@ class Analytics extends PluginBase {
 					if ( ! current_user_can( 'manage_options' ) ) {
 						throw new \Exception( $this->_( 'You have no permission.' ), 403 );
 					}
-					if ( update_option( 'wpg_analytics_profile', array(
-						'account' => $this->input->post( 'ga-account' ),
-						'profile' => $this->input->post( 'ga-profile' ),
-						'view'    => $this->input->post( 'ga-view' ),
-					) ) ) {
+					if ( update_option(
+						'wpg_analytics_profile',
+						array(
+							'account' => $this->input->post( 'ga-account' ),
+							'profile' => $this->input->post( 'ga-profile' ),
+							'view'    => $this->input->post( 'ga-view' ),
+						)
+					) ) {
 						$this->add_message( $this->_( 'Options updated.' ) );
 						wp_redirect( $this->input->post( 'redirect_to' ) );
 						exit;
@@ -278,10 +286,14 @@ SQL;
 	 * @return string
 	 */
 	public function token_url( $redirect, $delete = false ) {
-		return $this->google->get_redirect_endpoint( 'analytics', 'google_analytics', array(
-			'redirect_to' => $redirect,
-			'delete'      => $delete,
-		) );
+		return $this->google->get_redirect_endpoint(
+			'analytics',
+			'google_analytics',
+			array(
+				'redirect_to' => $redirect,
+				'delete'      => $delete,
+			)
+		);
 	}
 
 	/**
@@ -301,9 +313,13 @@ SQL;
 	 * @return string
 	 */
 	public function table_create_url( $redirect ) {
-		return $this->google->get_redirect_endpoint( 'create-table', '', array(
-			'redirect_to' => $redirect,
-		) );
+		return $this->google->get_redirect_endpoint(
+			'create-table',
+			'',
+			array(
+				'redirect_to' => $redirect,
+			)
+		);
 	}
 
 	/**
@@ -315,11 +331,15 @@ SQL;
 		if ( 'settings_page_gianism' == $hook_suffix ) {
 			// Script
 			wp_enqueue_script( 'gianism-analytics-helper', $this->url . 'assets/js/admin-analytics-helper.js', [ 'jquery-form' ], $this->version, true );
-			wp_localize_script( 'gianism-analytics-helper', 'Gianalytics', array(
-				'endpoint' => admin_url( 'admin-ajax.php' ),
-				'action'   => self::AJAX_ACTION,
-				'nonce'    => wp_create_nonce( self::AJAX_ACTION ),
-			) );
+			wp_localize_script(
+				'gianism-analytics-helper',
+				'Gianalytics',
+				array(
+					'endpoint' => admin_url( 'admin-ajax.php' ),
+					'action'   => self::AJAX_ACTION,
+					'nonce'    => wp_create_nonce( self::AJAX_ACTION ),
+				)
+			);
 		}
 	}
 
@@ -375,7 +395,7 @@ SQL;
 	public function boot_auto_cron() {
 		$template_dir   = get_template_directory() . '/app/gianism';
 		$stylesheet_dir = get_stylesheet_directory() . '/app/gianism';
-		$scan = function ( $dir ) {
+		$scan           = function ( $dir ) {
 			$files = [];
 			if ( is_dir( $dir ) ) {
 				foreach ( scandir( $dir ) as $file ) {
@@ -396,9 +416,9 @@ SQL;
 		 * @param string $scope ajax or cron
 		 */
 		$ajax_classes = apply_filters( 'gianism_analytics_auto_loader_class', [], 'ajax' );
-		$this->crons = apply_filters( 'gianism_analytics_auto_loader_class', [], 'cron' );
+		$this->crons  = apply_filters( 'gianism_analytics_auto_loader_class', [], 'cron' );
 		// Parse directory
-		$classes        = $scan( $template_dir );
+		$classes = $scan( $template_dir );
 		if ( $template_dir != $stylesheet_dir ) {
 			$classes = array_merge( $classes, $scan( $stylesheet_dir ) );
 		}
@@ -426,13 +446,16 @@ SQL;
 		}
 		if ( ! empty( $ajax_classes ) ) {
 			$this->ajaxes = $ajax_classes;
-			add_action( 'admin_init', function () use ( $ajax_classes ) {
-				if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-					foreach ( $ajax_classes as $ajax_class ) {
-						$ajax_class::get_instance();
+			add_action(
+				'admin_init',
+				function () use ( $ajax_classes ) {
+					if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+						foreach ( $ajax_classes as $ajax_class ) {
+							$ajax_class::get_instance();
+						}
 					}
 				}
-			} );
+			);
 		}
 	}
 
@@ -482,11 +505,14 @@ SQL;
 				return $this->db->prefix . 'wpg_ga_ranking';
 				break;
 			case 'ga_profile':
-				return $this->option->get( 'wpg_analytics_profile', [
-					'account' => 0,
-					'profile' => 0,
-					'view'    => 0,
-				] );
+				return $this->option->get(
+					'wpg_analytics_profile',
+					[
+						'account' => 0,
+						'profile' => 0,
+						'view'    => 0,
+					]
+				);
 				break;
 			case 'ga_token':
 				return $this->option->get( 'wpg_analytics_token', '' );
@@ -496,8 +522,8 @@ SQL;
 					$this->ga_client->setAccessToken( $this->ga_token );
 					if ( $this->ga_client->isAccessTokenExpired() ) {
 						// Refresh token if expired.
-						$refresh_token = $this->ga_client->getRefreshToken();
-						$token = $this->ga_client->fetchAccessTokenWithRefreshToken( $refresh_token );
+						$refresh_token           = $this->ga_client->getRefreshToken();
+						$token                   = $this->ga_client->fetchAccessTokenWithRefreshToken( $refresh_token );
 						$token ['refresh_token'] = $refresh_token;
 						$this->save_token( $token );
 					}
@@ -513,9 +539,11 @@ SQL;
 					$this->_ga_client->setClientSecret( $this->google->ggl_consumer_secret );
 					$this->_ga_client->setRedirectUri( $this->google->get_redirect_endpoint() );
 					$this->_ga_client->setApplicationName( 'Gianism Analytics' );
-					$this->_ga_client->setScopes( array(
-						'https://www.googleapis.com/auth/analytics.readonly'
-					) );
+					$this->_ga_client->setScopes(
+						array(
+							'https://www.googleapis.com/auth/analytics.readonly',
+						)
+					);
 					$this->_ga_client->setAccessType( 'offline' );
 				}
 

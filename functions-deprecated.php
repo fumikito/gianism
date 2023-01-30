@@ -153,7 +153,7 @@ function is_guest_on_fangate() {
 
 
 /**
- * Returns if current user has wordpress account.
+ * Returns if current user has WordPress account.
  *
  * You can this function only on Facebook fan page tab.
  *

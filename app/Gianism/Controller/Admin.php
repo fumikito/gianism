@@ -90,7 +90,7 @@ class Admin extends AbstractController {
 		// Other
 		wp_enqueue_style( $this->name . '-admin-panel' );
 	}
-	
+
 	/**
 	 * Detect shouldn't display notices.
 	 *
@@ -146,23 +146,44 @@ class Admin extends AbstractController {
 		if ( false !== strpos( $plugin_file, 'wp-gianism' ) ) {
 			foreach ( $plugin_meta as $index => $value ) {
 				if ( preg_match( '#href="https://gianism.info"#', $value ) ) {
-					$plugin_meta[ $index ] = preg_replace_callback( '#href="https://gianism.info"#', function( $matches ) {
-						return sprintf( 'href="%s"', esc_url( gianism_utm_link( 'https://gianism.info/', [
-							'utm_medium' => 'plugin_list_author',
-						] ) ) );
-					}, $value );
+					$plugin_meta[ $index ] = preg_replace_callback(
+						'#href="https://gianism.info"#',
+						function( $matches ) {
+							return sprintf(
+								'href="%s"',
+								esc_url(
+									gianism_utm_link(
+										'https://gianism.info/',
+										[
+											'utm_medium' => 'plugin_list_author',
+										]
+									)
+								)
+							);
+						},
+						$value
+					);
 					break;
 				}
 			}
-			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', esc_url( gianism_utm_link( 'https://gianism.info/', [
-				'utm_medium' => 'plugin_list_support',
-			] ) ), $this->_( 'Support' ) );
+			$plugin_meta[] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url(
+					gianism_utm_link(
+						'https://gianism.info/',
+						[
+							'utm_medium' => 'plugin_list_support',
+						]
+					)
+				),
+				$this->_( 'Support' )
+			);
 			$plugin_meta[] = '<a href="https://github.com/fumikito/Gianism">Github</a>';
 		}
 
 		return $plugin_meta;
 	}
-	
+
 	/**
 	 * Detect if this is Gianism admin settings.
 	 *

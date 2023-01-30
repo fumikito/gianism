@@ -5,8 +5,8 @@ namespace Gianism\Helper;
 
 use Gianism\Pattern\Singleton;
 
-class Monitor extends Singleton
-{
+class Monitor extends Singleton {
+
 
 	/**
 	 * Interval Second
@@ -21,8 +21,8 @@ class Monitor extends Singleton
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
-		add_filter('cron_schedules', array($this, 'cron_schedules'));
+		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
 	}
 
 
-} 
+}

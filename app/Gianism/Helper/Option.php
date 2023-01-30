@@ -121,7 +121,7 @@ class Option extends Singleton {
 			$this->add_message( __( 'Option failed to update.', 'wp-gianism' ), true );
 		}
 	}
-	
+
 	/**
 	 * Wrapper for update_option()
 	 *
@@ -157,7 +157,7 @@ class Option extends Singleton {
 		}
 		return $options;
 	}
-	
+
 	/**
 	 * Stab for get_option
 	 *
@@ -185,7 +185,7 @@ class Option extends Singleton {
 	 * @return bool
 	 */
 	public function is_enabled( $service = '' ) {
-		
+
 		if ( ! empty( $service ) ) {
 			// Service is specified, use it
 			switch ( $service ) { // Backward compatibility
@@ -341,7 +341,7 @@ class Option extends Singleton {
 		}
 		return $can;
 	}
-	
+
 	/**
 	 * Get prefix
 	 *
@@ -350,7 +350,7 @@ class Option extends Singleton {
 	public function get_formatted_prefix() {
 		return trim( trim( $this->prefix ), '/' );
 	}
-	
+
 	/**
 	 * Check if network activated.
 	 *
@@ -362,7 +362,7 @@ class Option extends Singleton {
 		}
 		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins() );
 	}
-	
+
 	/**
 	 * Get network parent blog.
 	 *
@@ -371,7 +371,7 @@ class Option extends Singleton {
 	public function get_parent_blog_id() {
 		return (int) apply_filters( 'gianism_parent_blog_id', 1 );
 	}
-	
+
 	/**
 	 * Getter
 	 *

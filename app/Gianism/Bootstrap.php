@@ -52,9 +52,12 @@ class Bootstrap extends Singleton {
 		// Register assets
 		add_action( 'init', array( $this, 'register_assets' ) );
 		// Admin page
-		add_action( 'admin_menu', function () {
-			Admin::get_instance();
-		} );
+		add_action(
+			'admin_menu',
+			function () {
+				Admin::get_instance();
+			}
+		);
 		// Register notices
 		$notices = [];
 		foreach ( scandir( __DIR__ . '/Notices' ) as $file ) {
@@ -81,10 +84,14 @@ class Bootstrap extends Singleton {
 
 		// Remove WP Multi-byte Patch's CSS
 		// Because it breaks icon font
-		add_action( 'admin_enqueue_scripts', function () {
-			wp_dequeue_style( 'wpmp-admin-custom' );
-		}, 1000 );
-		
+		add_action(
+			'admin_enqueue_scripts',
+			function () {
+				wp_dequeue_style( 'wpmp-admin-custom' );
+			},
+			1000
+		);
+
 		/**
 		 * Fires before gianism start.
 		 *
@@ -95,13 +102,13 @@ class Bootstrap extends Singleton {
 		// Initialize service manager.
 		$service = ServiceManager::get_instance();
 		$service->init();
-		
+
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
-		
+
 		// Network controller.
 		Network::get_instance();
-		
+
 		// If enabled, create interface and rewrite rules.
 		if ( $this->option->is_enabled() ) {
 			// Init profile manager
@@ -130,14 +137,26 @@ class Bootstrap extends Singleton {
 		// JS Cookie
 		wp_register_script( 'js-cookie', $this->url . 'assets/js/js.cookie.js', [], '2.1.3', true );
 		// Gianism Notice
-		wp_register_script( $this->name . '-notice-helper', $this->url . 'assets/js/public-notice.js', [
-			'jquery-effects-highlight',
-			'js-cookie',
-		], $this->version, true );
+		wp_register_script(
+			$this->name . '-notice-helper',
+			$this->url . 'assets/js/public-notice.js',
+			[
+				'jquery-effects-highlight',
+				'js-cookie',
+			],
+			$this->version,
+			true
+		);
 		// Admin helper script
-		wp_register_script( $this->name . '-admin-helper', $this->url . 'assets/js/admin-helper.js', [
-			'jquery-effects-highlight',
-		], $this->version, true );
+		wp_register_script(
+			$this->name . '-admin-helper',
+			$this->url . 'assets/js/admin-helper.js',
+			[
+				'jquery-effects-highlight',
+			],
+			$this->version,
+			true
+		);
 		// Mail chimp CSS
 		// Admin panel style
 		wp_register_style( $this->name . '-admin-panel', $this->url . 'assets/css/gianism-admin.css', [ 'ligature-symbols' ], $this->version );
@@ -149,14 +168,22 @@ class Bootstrap extends Singleton {
 	public function enqueue_global_assets() {
 		wp_enqueue_style( $this->name );
 		wp_enqueue_script( $this->name . '-notice-helper' );
-		wp_localize_script( $this->name . '-notice-helper', 'GianismHelper', [
-			'confirmLabel' => __( 'Consent Required', 'wp-gianism' ),
-			'btnConfirm'   => __( 'Confirm', 'wp-gianism' ),
-			'btnCancel'    => __( 'Cancel', 'wp-gianism' ),
-		] );
-		wp_localize_script( $this->name . '-notice-helper', 'Gianism', array(
-			'admin' => false,
-		) );
+		wp_localize_script(
+			$this->name . '-notice-helper',
+			'GianismHelper',
+			[
+				'confirmLabel' => __( 'Consent Required', 'wp-gianism' ),
+				'btnConfirm'   => __( 'Confirm', 'wp-gianism' ),
+				'btnCancel'    => __( 'Cancel', 'wp-gianism' ),
+			]
+		);
+		wp_localize_script(
+			$this->name . '-notice-helper',
+			'Gianism',
+			array(
+				'admin' => false,
+			)
+		);
 	}
 
 	/**
@@ -164,8 +191,12 @@ class Bootstrap extends Singleton {
 	 */
 	public function enqueue_admin_assets() {
 		wp_enqueue_script( $this->name . '-notice-helper' );
-		wp_localize_script( $this->name . '-notice-helper', 'Gianism', array(
-			'admin' => true,
-		) );
+		wp_localize_script(
+			$this->name . '-notice-helper',
+			'Gianism',
+			array(
+				'admin' => true,
+			)
+		);
 	}
 }

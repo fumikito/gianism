@@ -1,5 +1,6 @@
 .svn
 *.sass-cache*
+*.cache
 node_modules/
 vendor/
 assets/

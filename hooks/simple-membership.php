@@ -26,10 +26,15 @@ if ( ! gianism_simple_membership_is_active() ) {
  * @param int    $user_id
  * @param string $service_name
  */
-add_action( 'gianism_after_set_login_cookie', function( $user_id, $service_name ) {
-	global $simple_membership;
-	$user = get_userdata( $user_id );
-	if ( $user && is_a( $simple_membership, 'SimpleWpMembership' ) ) {
-		$simple_membership->wp_login_hook_handler( $user->user_login, $user );
-	}
-}, 10, 2 );
+add_action(
+	'gianism_after_set_login_cookie',
+	function( $user_id, $service_name ) {
+		global $simple_membership;
+		$user = get_userdata( $user_id );
+		if ( $user && is_a( $simple_membership, 'SimpleWpMembership' ) ) {
+			$simple_membership->wp_login_hook_handler( $user->user_login, $user );
+		}
+	},
+	10,
+	2
+);

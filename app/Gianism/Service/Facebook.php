@@ -19,19 +19,19 @@ use Gianism\Helper\FacebookCookiePersistentDataHandler;
  * @property-read array $admin_pages
  */
 class Facebook extends NoMailService {
-	
+
 	/**
 	 * Service name to display
 	 *
 	 * @var string
 	 */
 	public $verbose_service_name = 'Facebook';
-	
+
 	/**
 	 * @var string Minimum graph api version
 	 */
 	public $minimum_api_version = 'v6.0';
-	
+
 	/**
 	 * Facebook app version
 	 *
@@ -117,7 +117,7 @@ class Facebook extends NoMailService {
 		'fb_app_id'     => '',
 		'fb_app_secret' => '',
 		'fb_use_api'    => false,
-	    'fb_version'    => '',
+		'fb_version'    => '',
 	];
 
 	/**
@@ -129,12 +129,17 @@ class Facebook extends NoMailService {
 			// Save action
 			add_action( 'admin_init', array( $this, 'update_facebook_admin' ) );
 			// Add view for API
-			add_filter( 'gianism_setting_screen_views', function( $views, $slug ) {
-				if ( 'gianism' == $slug ) {
-					$views['fb-api'] = sprintf( '<i class="lsf lsf-facebook"></i> %s', $this->_( 'Facebook API' ) );
-				}
-				return $views;
-			}, 10, 2 );
+			add_filter(
+				'gianism_setting_screen_views',
+				function( $views, $slug ) {
+					if ( 'gianism' == $slug ) {
+						$views['fb-api'] = sprintf( '<i class="lsf lsf-facebook"></i> %s', $this->_( 'Facebook API' ) );
+					}
+					return $views;
+				},
+				10,
+				2
+			);
 		}
 	}
 
@@ -217,12 +222,17 @@ class Facebook extends NoMailService {
 	public function handle_admin( \WP_Query $wp_query ) {
 		try {
 			if ( $this->input->request( 'publish' ) ) {
-				add_filter( 'gianism_facebook_permissions', function( $permission, $action ) {
-					if ( 'admin' == $action ) {
-						$permission[] = 'publish_actions';
-					}
-					return $permission;
-				}, 9, 2 );
+				add_filter(
+					'gianism_facebook_permissions',
+					function( $permission, $action ) {
+						if ( 'admin' == $action ) {
+							$permission[] = 'publish_actions';
+						}
+						return $permission;
+					},
+					9,
+					2
+				);
 			}
 			$url = $this->get_api_url( 'admin' );
 			$this->session->write( 'redirect_to', $this->input->get( 'redirect_to' ) );
@@ -292,7 +302,7 @@ class Facebook extends NoMailService {
 							$wpdb->users,
 							[
 								'display_name' => $user['name'],
-//								'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
+							//                              'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
 							],
 							[
 								'ID' => $user_id,
@@ -302,10 +312,10 @@ class Facebook extends NoMailService {
 						);
 						foreach ( [
 							$this->umeta_id   => $user['id'],
-						    $this->umeta_mail => $email,
-						    'nickname'        => $user['name'],
-						    'first_name'      => $user['first_name'],
-						    'last_name'       => $user['last_name'],
+							$this->umeta_mail => $email,
+							'nickname'        => $user['name'],
+							'first_name'      => $user['first_name'],
+							'last_name'       => $user['last_name'],
 						] as $key => $value ) {
 							update_user_meta( $user_id, $key, $value );
 						}
@@ -381,9 +391,9 @@ class Facebook extends NoMailService {
 				break;
 			case 'admin':
 				try {
-					$helper = $this->api->getRedirectLoginHelper();
-					$token  = $helper->getAccessToken( $this->get_redirect_endpoint() );
-					$oauth  = $this->api->getOAuth2Client();
+					$helper     = $this->api->getRedirectLoginHelper();
+					$token      = $helper->getAccessToken( $this->get_redirect_endpoint() );
+					$oauth      = $this->api->getOAuth2Client();
 					$long_token = $oauth->getLongLivedAccessToken( $token );
 					// O.K. Token ready and save it.
 					update_option( 'gianism_facebook_admin_token', $long_token );
@@ -404,9 +414,14 @@ class Facebook extends NoMailService {
 				 * @param string $action
 				 * @param string $args
 				 */
-				do_action( 'gianism_extra_action', $this->service_name, $action, [
-					'redirect_to' => $redirect_url,
-				] );
+				do_action(
+					'gianism_extra_action',
+					$this->service_name,
+					$action,
+					[
+						'redirect_to' => $redirect_url,
+					]
+				);
 				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
@@ -574,14 +589,18 @@ class Facebook extends NoMailService {
 		 * @param array $fields Default array('id', 'name', 'email', 'first_name', 'last_name')
 		 * @param string $context 'login' or 'connect'
 		 */
-		$fields = apply_filters( 'gianism_user_profile_fields', [
-			'id',
-			'name',
-			'email',
-//			'link',
-			'first_name',
-			'last_name',
-		], $context );
+		$fields = apply_filters(
+			'gianism_user_profile_fields',
+			[
+				'id',
+				'name',
+				'email',
+				//          'link',
+									'first_name',
+				'last_name',
+			],
+			$context
+		);
 
 		return $this->api->get( "/{$user_id}?fields=" . implode( ',', $fields ), $token )->getGraphUser();
 	}
@@ -620,12 +639,14 @@ class Facebook extends NoMailService {
 		switch ( $name ) {
 			case 'api':
 				if ( is_null( $this->_api ) ) {
-					$this->_api = new \Facebook\Facebook( [
-						'app_id'                  => $this->fb_app_id,
-						'app_secret'              => $this->fb_app_secret,
-						'default_graph_version'   => $this->get_graph_version(),
-						'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-					] );
+					$this->_api = new \Facebook\Facebook(
+						[
+							'app_id'                  => $this->fb_app_id,
+							'app_secret'              => $this->fb_app_secret,
+							'default_graph_version'   => $this->get_graph_version(),
+							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+						]
+					);
 				}
 				return $this->_api;
 				break;
@@ -635,12 +656,14 @@ class Facebook extends NoMailService {
 						return new \WP_Error( 404, $this->_( 'Token is not set. Please get it.' ) );
 					}
 					try {
-						$this->_admin_api = new \Facebook\Facebook( [
-							'app_id'  => $this->fb_app_id,
-							'app_secret' => $this->fb_app_secret,
-							'default_graph_version' => $this->get_graph_version(),
-							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-						] );
+						$this->_admin_api = new \Facebook\Facebook(
+							[
+								'app_id'                  => $this->fb_app_id,
+								'app_secret'              => $this->fb_app_secret,
+								'default_graph_version'   => $this->get_graph_version(),
+								'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+							]
+						);
 						// Check last updated
 						$updated = $this->option->get( 'gianism_facebook_admin_refreshed', 0 );
 						if ( ! $updated || current_time( 'timestamp' ) > $updated + ( 60 * 60 * 24 * 60 ) ) {
@@ -669,11 +692,11 @@ class Facebook extends NoMailService {
 				} else {
 					try {
 						$response = $this->admin->get( '/me/accounts' )->getGraphEdge();
-						$pages = [];
+						$pages    = [];
 						foreach ( $response as $node ) {
 							$pages[] = [
-								'id'   => $node->getProperty( 'id' ),
-							    'name' => $node->getProperty( 'name' ),
+								'id'    => $node->getProperty( 'id' ),
+								'name'  => $node->getProperty( 'name' ),
 								'token' => $node->getProperty( 'access_token' ),
 							];
 						}
@@ -692,7 +715,7 @@ class Facebook extends NoMailService {
 				break;
 		}
 	}
-	
+
 	/**
 	 * Get graph api version.
 	 *
@@ -703,7 +726,7 @@ class Facebook extends NoMailService {
 		$version = $this->fb_version;
 		if ( ! preg_match( '/^v\d+\.\d+$/u', $version ) ) {
 			return $this->minimum_api_version;
-		} elseif ( version_compare( $version, $this->minimum_api_version,'<' ) ) {
+		} elseif ( version_compare( $version, $this->minimum_api_version, '<' ) ) {
 			return $this->minimum_api_version;
 		} else {
 			return $version;
@@ -733,12 +756,14 @@ class Facebook extends NoMailService {
 			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'wp-gianism' ) );
 		}
 		try {
-			$api = new \Facebook\Facebook( [
-				'app_id'  => $this->fb_app_id,
-				'app_secret' => $this->fb_app_secret,
-				'default_graph_version' => $this->get_graph_version(),
-				'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-			] );
+			$api = new \Facebook\Facebook(
+				[
+					'app_id'                  => $this->fb_app_id,
+					'app_secret'              => $this->fb_app_secret,
+					'default_graph_version'   => $this->get_graph_version(),
+					'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+				]
+			);
 			$api->setDefaultAccessToken( $token );
 			return $api;
 		} catch ( \Exception $e ) {
@@ -758,7 +783,7 @@ class Facebook extends NoMailService {
 	}
 
 	/**
-	 * Returns if current facebook user is wordpress registered user.
+	 * Returns if current facebook user is WordPress registered user.
 	 *
 	 * If current Facebook user is registerd on your WordPress, returns user ID on WordPress.
 	 *

@@ -11,11 +11,12 @@ use Gianism\Pattern\AbstractNotice;
  * @package Gianism
  * @deprecated
  * @since 4.0.0 This is not required anymore.
+ * phpcs:ignoreFile
  */
 class SessionSetting extends AbstractNotice {
 
 	const DEPRECATED = true;
-	
+
 	/**
 	 * Get key
 	 *
@@ -52,8 +53,8 @@ class SessionSetting extends AbstractNotice {
 	 * @return string
 	 */
 	public function message() {
-		$message = sprintf( __( 'Maybe session is not working. Please check permission of <code>session.save_path</code>( current value is <code>%s</code>).', 'wp-gianism' ), Session::get_instance()->path );
-		$url = 'ja' == get_locale()
+		$message  = sprintf( __( 'Maybe session is not working. Please check permission of <code>session.save_path</code>( current value is <code>%s</code>).', 'wp-gianism' ), Session::get_instance()->path );
+		$url      = 'ja' == get_locale()
 			? 'https://gianism.info/ja/2016/11/06/gianism-requires-session-and-some-server-doesnt-provide-it/'
 			: 'https://gianism.info/2016/11/05/gianism-requires-session-and-some-server-doesnt-provide-it/';
 		$message .= ' ' . sprintf( __( 'For more details, please see our <a href="%s" target="_blank">blog post</a> about session.', 'wp-gianism' ), $url );

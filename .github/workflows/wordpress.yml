@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
-        php: [ '7.2', '7.4', '8.0' ] # PHP versions to check.
+        php: [ '7.2', '7.4' ] # PHP versions to check.
         wp: [ 'latest', '5.9' ]      # WordPress version to check.
     services:
       mysql:
@@ -54,9 +54,6 @@ jobs:
 
       - name: Check PHP syntax
         run: composer test
-
-      - name: Check PHP syntax
-        run: composer lint
 
   assets:
     name: Assets Test

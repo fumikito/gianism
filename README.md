@@ -3,7 +3,7 @@
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,account,oauth,community,social,sns  
 Tested up to: 6.1  
-Stable Tag: nightly  
+Stable Tag: 5.0.0  
 Requires at least: 5.6  
 Requires PHP: 7.2  
 License: GPL 2.0 or later  
@@ -79,7 +79,7 @@ Here is a list of change logs.
 ### 5.0
 
 * Drop support for Instagram because META denies using Instagram API as login credentials.
-* Requires PHP 7.2 and over. Supports PHP 8.0.
+* Requires PHP 7.2 and over. Partially supports PHP 8.0.
 
 ----
 

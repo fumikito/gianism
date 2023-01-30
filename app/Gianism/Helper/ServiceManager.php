@@ -51,7 +51,6 @@ class ServiceManager extends Singleton {
 			'facebook'  => 'Facebook',
 			'twitter'   => 'Twitter',
 			'google'    => 'Google',
-			'instagram' => 'Instagram',
 			'line'      => 'Line',
 		];
 		foreach ( $default_services as $key => $class_name ) {

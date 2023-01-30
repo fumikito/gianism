@@ -85,7 +85,7 @@ function gianism_twitter_reply_to( $user_id, $string ) {
  * @param string $screen_name If not specified, admin user's screen name will be used.
  * @param array $additional_data
  *
- * @return object JSON format object.
+ * @return object|WP_Error JSON format object.
  */
 function gianism_twitter_get_timeline( $screen_name = null, array $additional_data = [] ) {
 	/** @var \Gianism\Service\Twitter $twitter */
@@ -93,12 +93,17 @@ function gianism_twitter_get_timeline( $screen_name = null, array $additional_da
 	if ( is_null( $screen_name ) ) {
 		$screen_name = $twitter->tw_screen_name;
 	}
-
-	return $twitter->call_api(
-		'statuses/user_timeline',
-		array_merge(
-			array( 'screen_name' => $screen_name ),
-			$additional_data
-		)
-	);
+	try {
+		return $twitter->call_api(
+			'statuses/user_timeline',
+			array_merge(
+				array( 'screen_name' => $screen_name ),
+				$additional_data
+			)
+		);
+	} catch ( \Exception $e ) {
+		return new WP_Error( 'twitter_api_error', $e->getMessage(), [
+			'code' => $e->getCode(),
+		] );
+	}
 }

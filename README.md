@@ -13,9 +13,9 @@ Connect user accounts with major web services like Facebook, twitter, etc. Stand
 
 ##  Description 
 
-This plugin enables your users to login/register with major Web service accounts. Below are supported services.
+This plugin enables users to login/register with major Web service accounts. Below are supported services.
 
-If your site needs a user's login action, **signing up is the most difficult step**. With this plugin, users can sign up without inputting their email nor password.
+If your site needs a user's login action, **signing up is the most difficult step**. With this plugin, users can sign up without inputting their email or password.
 
 ### Log in Flow Video
 
@@ -76,7 +76,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
-### 5.0
+### 5.0.1
+
+* Bugfix for LINE login. Thanks [Makoto Nakao](https://free-leaf.org/)!
+
+### 5.0.0
 
 * Drop support for Instagram because META denies using Instagram API as login credentials.
 * Requires PHP 7.2 and over. Partially supports PHP 8.0.

@@ -76,6 +76,10 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
+### 5.0.2
+
+* Fix build script to deploy properly.
+
 ### 5.0.1
 
 * Bugfix for LINE login. Thanks [Makoto Nakao](https://free-leaf.org/)!

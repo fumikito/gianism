@@ -27,7 +27,7 @@
     "gulp-sass-glob": "^1.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.0",
-    "imagemin-pngquant": "^8.0.0",
+    "imagemin-pngquant": "^9.0.2",
     "js-cookie": "^2.2.1",
     "jshint": "^2.11.0",
     "jshint-stylish": "^2.2.1",

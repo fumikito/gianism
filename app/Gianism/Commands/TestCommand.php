@@ -17,15 +17,47 @@ class TestCommand extends \WP_CLI_Command {
 	/**
 	 * Try tweet as twitter app's account
 	 *
-	 * @synopsis <message>
+	 * @synopsis <message> [--file=<file>]
 	 * @param array $args
+	 * @param array $assoc
 	 */
-	public function tweet( $args ) {
+	public function tweet( $args, $assoc ) {
 		list( $message ) = $args;
+		$file            = $assoc['file'] ?? '';
+		$options         = [];
 		$twitter         = Twitter::get_instance();
-		$tweet           = $twitter->tweet( $message );
+		if ( $file ) {
+			$media_id = $twitter->upload( $file );
+			if ( is_wp_error( $media_id ) ) {
+				\WP_CLI::error( $media_id->get_error_message() );
+			}
+			$options['media'] = [
+				'media_ids' => [ $media_id ],
+			];
+		}
+		$tweet = $twitter->tweet( $message, null, $options );
+		if ( is_wp_error( $tweet ) ) {
+			\WP_CLI::error( sprintf( '%s: %s', $tweet->get_error_code(), $tweet->get_error_message() ) );
+		}
 		print_r( $tweet );
-		\WP_CLI::success( printf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
+		\WP_CLI::success( sprintf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
+	}
+
+	/**
+	 * Get twitter timeline.
+	 *
+	 * @synopsis [<screen_name>]
+	 * @param array $args
+	 *
+	 * @return void
+	 */
+	public function timeline( $args ) {
+		$screen_name = $args[0] ?? null;
+		$timeline    = gianism_twitter_get_timeline( $screen_name );
+		if ( is_wp_error( $timeline ) ) {
+			\WP_CLI::error( $timeline->get_error_message() );
+		}
+		var_dump( $timeline );
 	}
 
 	/**

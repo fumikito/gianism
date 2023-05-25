@@ -438,9 +438,12 @@ class Twitter extends NoMailService {
 	public function tweet( $string, $deprecated = null, array $options = [], $token = '', $secret = '' ) {
 		return $this->call_api(
 			'tweets',
-			array_merge( [
-				'text' => $string,
-			], $options ),
+			array_merge(
+				[
+					'text' => $string,
+				],
+				$options
+			),
 			'POST',
 			$deprecated,
 			$token,
@@ -469,11 +472,17 @@ class Twitter extends NoMailService {
 		if ( ! $media_ids ) {
 			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
 		}
-		return $this->tweet( $string, $oauth, [
-			'media' => [
-				'media_ids' => $media_ids
+		return $this->tweet(
+			$string,
+			$oauth,
+			[
+				'media' => [
+					'media_ids' => $media_ids,
+				],
 			],
-		], $token, $secret );
+			$token,
+			$secret
+		);
 	}
 
 	/**
@@ -597,9 +606,9 @@ class Twitter extends NoMailService {
 	 * @return object|\WP_Error Maybe JSON object.
 	 */
 	public function call_api( $endpoint, array $data, $method = 'GET', $deprecated = null, $access_token = '', $token_secret = '' ) {
-		$method = strtoupper( $method );
+		$method   = strtoupper( $method );
 		$consumer = new Consumer( $this->tw_consumer_key, $this->tw_consumer_secret );
-		$token  = new Token(
+		$token    = new Token(
 			$access_token ?: $this->tw_access_token,
 			$token_secret ?: $this->tw_access_token_secret
 		);
@@ -609,12 +618,12 @@ class Twitter extends NoMailService {
 		// Create request object.
 		$request = Request::fromConsumerAndToken( $consumer, $token, $method, $url, $data, $json );
 		if ( array_key_exists( 'oauth_callback', $data ) ) {
-			unset( $data[ 'oauth_callback' ] );
+			unset( $data['oauth_callback'] );
 		}
 		// Create request.
-		$request->signRequest(new HmacSha1(), $consumer, $token);
+		$request->signRequest( new HmacSha1(), $consumer, $token );
 		$authorization = $request->toHeader();
-		if ( array_key_exists('oauth_verifier', $data ) ) {
+		if ( array_key_exists( 'oauth_verifier', $data ) ) {
 			unset( $data['oauth_verifier'] );
 		}
 		$arguments = [
@@ -626,7 +635,7 @@ class Twitter extends NoMailService {
 		];
 		if ( 'POST' === $method ) {
 			$headers['Content-Type'] = 'application/json';
-			$arguments['body'] = json_encode( $data );
+			$arguments['body']       = json_encode( $data );
 		} elseif ( ! empty( $data ) ) {
 			foreach ( $data as $key => $value ) {
 				$data[ $key ] = rawurlencode( $value );
@@ -634,12 +643,12 @@ class Twitter extends NoMailService {
 			$url = add_query_arg( $data, $url );
 		}
 		$arguments['headers'] = $headers;
-		$response = wp_remote_request( $url, $arguments );
+		$response             = wp_remote_request( $url, $arguments );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
 		$status = $response['response']['code'];
-		if ( preg_match(  '/[45]\d{2}/u', $status ) ) {
+		if ( preg_match( '/[45]\d{2}/u', $status ) ) {
 			return new \WP_Error(
 				'twitter_api_error',
 				sprintf( '%s: %s', $response['response']['code'], $response['response']['message'] ),
@@ -653,11 +662,15 @@ class Twitter extends NoMailService {
 		$errors = new \WP_Error();
 		if ( ! empty( $body->errors ) ) {
 			foreach ( $body->errors as $error ) {
-				$errors->add( 'twitter_api_error', $error->message, [
-					'code' => $error->code,
-				] );
+				$errors->add(
+					'twitter_api_error',
+					$error->message,
+					[
+						'code' => $error->code,
+					]
+				);
 			}
 		}
-		return ! $errors->get_error_codes() ? $body: $errors;
+		return ! $errors->get_error_codes() ? $body : $errors;
 	}
 }

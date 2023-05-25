@@ -52,7 +52,10 @@ jobs:
       - name: Install WordPress
         run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
 
-      - name: Check PHP syntax
+      #- name: Check PHP syntax
+      #  run: composer lint
+
+      - name: Run Unit test
         run: composer test
 
   assets:

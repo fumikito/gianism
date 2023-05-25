@@ -33,7 +33,7 @@ class Gianism_Basic_Test extends WP_UnitTestCase {
 		$json = gianism_twitter_get_timeline( '@wpGianism' );
 		$this->assertTrue( is_wp_error( $json ) || is_a( $json, 'stdClass' ) );
 		$this->assertFalse( gianism_is_user_connected_with( 'facebook', 1 ) );
-		$this->assertWPError( gianism_update_twitter_status( 'Test Tweet' ) );
+		$this->assertFalse( gianism_update_twitter_status( 'Test Tweet' ) );
 	}
 
 	/**

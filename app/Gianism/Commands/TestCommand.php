@@ -23,9 +23,9 @@ class TestCommand extends \WP_CLI_Command {
 	 */
 	public function tweet( $args, $assoc ) {
 		list( $message ) = $args;
-		$file = $assoc['file'] ?? '';
-		$options = [];
-		$twitter = Twitter::get_instance();
+		$file            = $assoc['file'] ?? '';
+		$options         = [];
+		$twitter         = Twitter::get_instance();
 		if ( $file ) {
 			$media_id = $twitter->upload( $file );
 			if ( is_wp_error( $media_id ) ) {
@@ -53,7 +53,7 @@ class TestCommand extends \WP_CLI_Command {
 	 */
 	public function timeline( $args ) {
 		$screen_name = $args[0] ?? null;
-		$timeline = gianism_twitter_get_timeline( $screen_name );
+		$timeline    = gianism_twitter_get_timeline( $screen_name );
 		if ( is_wp_error( $timeline ) ) {
 			\WP_CLI::error( $timeline->get_error_message() );
 		}

@@ -40,7 +40,7 @@ function gianism_get_twitter_screen_name( $user_id ) {
  */
 function gianism_update_twitter_status( $string, $media = null, $options = [] ) {
 	/** @var \Gianism\Service\Twitter $twitter */
-	$twitter  = \Gianism\Service\Twitter::get_instance();
+	$twitter = \Gianism\Service\Twitter::get_instance();
 	if ( $media ) {
 		$media_id = $twitter->upload( $media );
 		if ( is_wp_error( $media_id ) ) {
@@ -111,9 +111,13 @@ function gianism_twitter_get_timeline( $screen_name = '', array $additional_data
 	try {
 		return $twitter->call_api( "users/{$user_id}/tweets", [] );
 	} catch ( \Exception $e ) {
-		return new WP_Error( 'twitter_api_error', $e->getMessage(), [
-			'code' => $e->getCode(),
-		] );
+		return new WP_Error(
+			'twitter_api_error',
+			$e->getMessage(),
+			[
+				'code' => $e->getCode(),
+			]
+		);
 	}
 }
 
@@ -138,8 +142,12 @@ function gianism_get_twitter_user_id( $screen_name = '' ) {
 		}
 		return $response->data->id;
 	} catch ( \Exception $e ) {
-		return new WP_Error( 'twitter_api_error', $e->getMessage(), [
-			'code' => $e->getCode(),
-		] );
+		return new WP_Error(
+			'twitter_api_error',
+			$e->getMessage(),
+			[
+				'code' => $e->getCode(),
+			]
+		);
 	}
 }

@@ -2,18 +2,18 @@
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,account,oauth,community,social,sns  
-Tested up to: 6.1  
+Tested up to: 6.2  
 Stable Tag: 5.0.0  
 Requires at least: 5.6  
 Requires PHP: 7.2  
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
+Connect user accounts with significant web services like Facebook, Twitter, etc. Stand on the shoulders of giants!
 
 ##  Description 
 
-This plugin enables users to login/register with major Web service accounts. Below are supported services.
+This plugin enables users to log in/register with major Web service accounts. Below are supported services.
 
 If your site needs a user's login action, **signing up is the most difficult step**. With this plugin, users can sign up without inputting their email or password.
 
@@ -76,9 +76,14 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
+### 5.1.0
+
+* Supporting twitter API v2.
+* Drop some functions like "Follow me", "Sending DM", "Get user's timeline", and so on. The free plan only can post tweet.
+
 ### 5.0.2
 
-* Fix build script to deploy properly.
+* Fix the build script to deploy properly.
 
 ### 5.0.1
 

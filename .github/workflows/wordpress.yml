@@ -62,7 +62,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Install Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
 
@@ -72,9 +72,18 @@ jobs:
       - name: Check JS & CSS syntax
         run: npm run lint
 
+  status-check:
+    name: Status Check
+    needs: [ test, assets ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Status
+        run: echo "All Green!"
+
+
   release:
     name: Deploy WordPress.org
-    needs: [ test, assets ]
+    needs: [ status-check ]
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
@@ -90,7 +99,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
 

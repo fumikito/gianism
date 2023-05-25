@@ -2,6 +2,10 @@
 
 namespace Gianism\Service;
 
+use Abraham\TwitterOAuth\Consumer;
+use Abraham\TwitterOAuth\HmacSha1;
+use Abraham\TwitterOAuth\Request;
+use Abraham\TwitterOAuth\Token;
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 /**
@@ -216,7 +220,6 @@ class Twitter extends NoMailService {
 						$this->user_password_unknown( $user_id );
 						$this->hook_connect( $user_id, $oauth, true );
 						// Let user follow me
-						$this->follow_me( $oauth );
 						$this->welcome( '@' . $screen_name );
 					}
 					// Let user log in.
@@ -264,7 +267,6 @@ class Twitter extends NoMailService {
 					// O.K.
 					update_user_meta( get_current_user_id(), $this->umeta_id, $twitter_id );
 					update_user_meta( get_current_user_id(), $this->umeta_screen_name, $screen_name );
-					$this->follow_me( $oauth );
 					$this->hook_connect( get_current_user_id(), $oauth, false );
 					$this->welcome( '@' . $screen_name );
 					$redirect_url = $this->filter_redirect( $redirect_url, 'connect' );
@@ -292,7 +294,7 @@ class Twitter extends NoMailService {
 	}
 
 	/**
-	 * Returns whether user has twitter account
+	 * Returns whether the user has a twitter account.
 	 *
 	 * @param int $user_id
 	 *
@@ -351,26 +353,29 @@ class Twitter extends NoMailService {
 	}
 
 	/**
-	 * Get API wrapper
+	 * Get pseudo email
 	 *
-	 * @param string $oauth_token
-	 * @param string $oauth_token_secret
+	 * @param mixed $prefix
 	 *
-	 * @return TwitterOAuth
+	 * @return string
 	 */
-	public function get_oauth( $oauth_token = null, $oauth_token_secret = null ) {
-		$oauth = new TwitterOAuth( $this->tw_consumer_key, $this->tw_consumer_secret, $oauth_token, $oauth_token_secret );
-		/**
-		 * Twitter OAuth Client
-		 *
-		 * @filter gianism_twitter_oauth_client
-		 * @param TwitterOauth $oauth
-		 * @param string       $oauth_token
-		 * @param string       $oauth_token_secret
-		 * @return TwitterOAuth
-		 */
-		$oauth = apply_filters( 'gianism_twitter_oauth_client', $oauth, $oauth_token, $oauth_token_secret );
-		return $oauth;
+	protected function create_pseudo_email( $prefix ) {
+		// No mail, let's make pseudo mail address.
+		$email = $prefix['screen_name'] . '@' . $this->pseudo_domain;
+		if ( email_exists( $email ) ) {
+			$email = 'tw-' . $prefix['twitter_id'] . '@' . $this->pseudo_domain;
+		}
+		return $email;
+	}
+
+	/**
+	 * Authorize URL
+	 *
+	 * @param array $token
+	 * @return string
+	 */
+	private function authorize_url( $token ) {
+		return 'https://api.twitter.com/oauth/authorize?oauth_token=' . $token['oauth_token'];
 	}
 
 	/**
@@ -396,45 +401,50 @@ class Twitter extends NoMailService {
 	}
 
 	/**
-	 * Send direct message on twitter.
+	 * Get API wrapper
 	 *
-	 * @param int          $user_id
-	 * @param string       $text
-	 * @param TwitterOAuth $oauth
+	 * @param string $oauth_token
+	 * @param string $oauth_token_secret
 	 *
-	 * @return object
+	 * @return TwitterOAuth
 	 */
-	public function send_dm( $user_id, $text, $oauth = null ) {
-		$twitter_id = get_user_meta( $user_id, $this->umeta_id, true );
-		if ( $twitter_id ) {
-			return $this->call_api(
-				'direct_messages/new',
-				array(
-					'user_id' => $twitter_id,
-					'text'    => $text,
-				),
-				'POST',
-				$oauth
-			);
-		}
+	public function get_oauth( $oauth_token = null, $oauth_token_secret = null ) {
+		$oauth = new TwitterOAuth( $this->tw_consumer_key, $this->tw_consumer_secret, $oauth_token, $oauth_token_secret );
+		/**
+		 * Twitter OAuth Client
+		 *
+		 * @filter gianism_twitter_oauth_client
+		 * @param TwitterOauth $oauth
+		 * @param string       $oauth_token
+		 * @param string       $oauth_token_secret
+		 * @return TwitterOAuth
+		 */
+		$oauth = apply_filters( 'gianism_twitter_oauth_client', $oauth, $oauth_token, $oauth_token_secret );
+		return $oauth;
 	}
 
 	/**
 	 * Tweet with Owner ID
 	 *
-	 * @param string       $string
-	 * @param TwitterOAuth $oauth
+	 * @see https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
+	 * @param string $string
+	 * @param null   $deprecated Since 5.1.0
+	 * @param array  $options
+	 * @param string $token
+	 * @param string $secret
 	 *
-	 * @return object Json format object.
+	 * @return object|\WP_Error Json format object.
 	 */
-	public function tweet( $string, $oauth = null ) {
+	public function tweet( $string, $deprecated = null, array $options = [], $token = '', $secret = '' ) {
 		return $this->call_api(
-			'statuses/update',
-			[
-				'status' => $string,
-			],
+			'tweets',
+			array_merge( [
+				'text' => $string,
+			], $options ),
 			'POST',
-			$oauth
+			$deprecated,
+			$token,
+			$secret
 		);
 	}
 
@@ -444,9 +454,11 @@ class Twitter extends NoMailService {
 	 * @param string       $string
 	 * @param array        $medias
 	 * @param TwitterOAuth $oauth
-	 * @return object JSON format object
+	 * @param string       $token
+	 * @param string       $secret
+	 * @return object|\WP_Error JSON format object
 	 */
-	public function tweet_with_media( $string, array $medias, $oauth = null ) {
+	public function tweet_with_media( $string, array $medias, $oauth = null, $token = '', $secret = '' ) {
 		$media_ids = [];
 		foreach ( $medias as $media ) {
 			$media_id = $this->upload( $media, $oauth );
@@ -457,15 +469,11 @@ class Twitter extends NoMailService {
 		if ( ! $media_ids ) {
 			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
 		}
-		return $this->call_api(
-			'statuses/update',
-			[
-				'status'    => $string,
-				'media_ids' => implode( ',', $media_ids ),
+		return $this->tweet( $string, $oauth, [
+			'media' => [
+				'media_ids' => $media_ids
 			],
-			'POST',
-			$oauth
-		);
+		], $token, $secret );
 	}
 
 	/**
@@ -499,7 +507,7 @@ class Twitter extends NoMailService {
 			}
 			$object = $path;
 		} else {
-			// This is file
+			// This is file.
 			if ( ! file_exists( $path_or_id ) ) {
 				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
 			}
@@ -518,30 +526,30 @@ class Twitter extends NoMailService {
 	}
 
 	/**
+	 * Send direct message on twitter.
+	 *
+	 * @param int          $user_id
+	 * @param string       $text
+	 * @param TwitterOAuth $oauth
+	 * @deprecated 5.1.0
+	 *
+	 * @return object|\WP_Error
+	 */
+	public function send_dm( $user_id, $text, $oauth = null ) {
+		return new \WP_Error( 'twitter_api_error', __( 'twitter DM is deprecated.', 'wp-gianism' ) );
+	}
+
+	/**
 	 * Force authenticated user to follow me
 	 *
 	 * @param TwitterOAuth $oauth
 	 * @param string       $screen_name
+	 * @deprecated 5.1.0
 	 *
-	 * @return object Json format object.
+	 * @return object|\WP_Error Json format object.
 	 */
 	private function follow_me( TwitterOAuth $oauth = null, $screen_name = false ) {
-		if ( ! empty( $this->tw_screen_name ) ) {
-			if ( ! $screen_name ) {
-				$screen_name = $this->tw_screen_name;
-			}
-			return $this->call_api(
-				'friendships/create',
-				[
-					'screen_name' => $screen_name,
-					'follow'      => true,
-				],
-				'POST',
-				$oauth
-			);
-		} else {
-			return null;
-		}
+		return new \WP_Error( 'twitter_api_error', __( 'Follow API is deprecated.', 'wp-gianism' ) );
 	}
 
 	/**
@@ -550,7 +558,7 @@ class Twitter extends NoMailService {
 	 * @param array        $args
 	 * @param TwitterOAuth $oauth
 	 *
-	 * @return object
+	 * @return object|\WP_Error
 	 */
 	public function get_mentions( $args = array(), $oauth = null ) {
 		$args          = wp_parse_args(
@@ -572,64 +580,84 @@ class Twitter extends NoMailService {
 	}
 
 	/**
-	 * Authorize URL
-	 *
-	 * @param array $token
-	 * @return string
-	 */
-	private function authorize_url( $token ) {
-		return 'https://api.twitter.com/oauth/authorize?oauth_token=' . $token['oauth_token'];
-	}
-
-	/**
-	 * Get pseudo email
-	 *
-	 * @param mixed $prefix
-	 *
-	 * @return string
-	 */
-	protected function create_pseudo_email( $prefix ) {
-		// No mail, let's make pseudo mail address.
-		$email = $prefix['screen_name'] . '@' . $this->pseudo_domain;
-		if ( email_exists( $email ) ) {
-			$email = 'tw-' . $prefix['twitter_id'] . '@' . $this->pseudo_domain;
-		}
-		return $email;
-	}
-
-
-	/**
 	 * Returns GET api request.
 	 *
 	 * You should know what kind of APIs are available.
 	 *
 	 * @see https://dev.twitter.com/docs/api/1.1
+	 * @since 5.2.0 Change twitter api v1.1 to v2
 	 *
-	 * @param string $endpoint API URL. Must not be started with slash. i.e. 'statuses/user_timeline'
-	 * @param array $data
-	 * @param string $method GET or POST. Default GET
-	 * @param TwitterOAuth $oauth If not set, create own.
+	 * @param string $endpoint     API URL. Must not be started with slash. i.e. 'statuses/user_timeline'
+	 * @param array  $data         Data to send to API.
+	 * @param string $method       GET, POST, PUT, or DELETE. Default GET
+	 * @param null   $deprecated   Formerly used for $token. No longer used.
+	 * @param string $access_token If set, use this token.
+	 * @param string $token_secret If set, use this token secret.
 	 *
-	 * @return object Maybe JSON object.
+	 * @return object|\WP_Error Maybe JSON object.
 	 */
-	public function call_api( $endpoint, array $data, $method = 'GET', TwitterOAuth $oauth = null ) {
-		if ( is_null( $oauth ) ) {
-			$oauth = $this->get_oauth( $this->tw_access_token, $this->tw_access_token_secret );
+	public function call_api( $endpoint, array $data, $method = 'GET', $deprecated = null, $access_token = '', $token_secret = '' ) {
+		$method = strtoupper( $method );
+		$consumer = new Consumer( $this->tw_consumer_key, $this->tw_consumer_secret );
+		$token  = new Token(
+			$access_token ?: $this->tw_access_token,
+			$token_secret ?: $this->tw_access_token_secret
+		);
+		// Only post allow json payload.
+		$json = 'POST' === $method;
+		$url  = sprintf( 'https://api.twitter.com/2/%s', ltrim( $endpoint, '/' ) );
+		// Create request object.
+		$request = Request::fromConsumerAndToken( $consumer, $token, $method, $url, $data, $json );
+		if ( array_key_exists( 'oauth_callback', $data ) ) {
+			unset( $data[ 'oauth_callback' ] );
 		}
-		switch ( strtolower( $method ) ) {
-			case 'post':
-				return $oauth->post( $endpoint, $data );
-				break;
-			case 'delete':
-				return $oauth->delete( $endpoint, $data );
-				break;
-			case 'put':
-				return $oauth->put( $endpoint, $data );
-				break;
-			case 'get':
-			default:
-				return $oauth->get( $endpoint, $data );
-				break;
+		// Create request.
+		$request->signRequest(new HmacSha1(), $consumer, $token);
+		$authorization = $request->toHeader();
+		if ( array_key_exists('oauth_verifier', $data ) ) {
+			unset( $data['oauth_verifier'] );
 		}
+		$arguments = [
+			'method' => $method,
+		];
+		$headers   = [
+			'Accept'        => 'application/json',
+			'Authorization' => str_replace( 'Authorization: ', '', $authorization ),
+		];
+		if ( 'POST' === $method ) {
+			$headers['Content-Type'] = 'application/json';
+			$arguments['body'] = json_encode( $data );
+		} elseif ( ! empty( $data ) ) {
+			foreach ( $data as $key => $value ) {
+				$data[ $key ] = rawurlencode( $value );
+			}
+			$url = add_query_arg( $data, $url );
+		}
+		$arguments['headers'] = $headers;
+		$response = wp_remote_request( $url, $arguments );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+		$status = $response['response']['code'];
+		if ( preg_match(  '/[45]\d{2}/u', $status ) ) {
+			return new \WP_Error(
+				'twitter_api_error',
+				sprintf( '%s: %s', $response['response']['code'], $response['response']['message'] ),
+				$response
+			);
+		}
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( is_null( $body ) ) {
+			return new \WP_Error( 'twitter_api_error', __( 'Failed to parse API response.', 'wp-gianism' ) );
+		}
+		$errors = new \WP_Error();
+		if ( ! empty( $body->errors ) ) {
+			foreach ( $body->errors as $error ) {
+				$errors->add( 'twitter_api_error', $error->message, [
+					'code' => $error->code,
+				] );
+			}
+		}
+		return ! $errors->get_error_codes() ? $body: $errors;
 	}
 }

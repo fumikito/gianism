@@ -31,15 +31,28 @@ function gianism_get_twitter_screen_name( $user_id ) {
  *
  * @package Gianism
  * @since 3.0.0
+ * @see https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
  *
- * @param string $string
+ * @param string          $string  Tweet string.
+ * @param int|null|string $media   If set, tweet with media.
+ * @param array           $options Options.
  * @return bool
  */
-function gianism_update_twitter_status( $string ) {
+function gianism_update_twitter_status( $string, $media = null, $options = [] ) {
 	/** @var \Gianism\Service\Twitter $twitter */
 	$twitter  = \Gianism\Service\Twitter::get_instance();
-	$response = $twitter->tweet( $string );
-	return ! $response->errors;
+	if ( $media ) {
+		$media_id = $twitter->upload( $media );
+		if ( is_wp_error( $media_id ) ) {
+			return false;
+		}
+		if ( ! isset( $options['media'] ) ) {
+			$options['media'] = [];
+		}
+		$options['media']['media_ids'] = [ $media_id ];
+	}
+	$response = $twitter->tweet( $string, null, $options );
+	return ! is_wp_error( $response );
 }
 
 /**
@@ -80,27 +93,50 @@ function gianism_twitter_reply_to( $user_id, $string ) {
  * </pre>
  *
  * @package Gianism
- * @since 3.0.0
+ * @since 5.1.0
  *
+ * @todo Requires basic plan of Twitter API.
  * @param string $screen_name If not specified, admin user's screen name will be used.
  * @param array $additional_data
  *
  * @return object|WP_Error JSON format object.
  */
-function gianism_twitter_get_timeline( $screen_name = null, array $additional_data = [] ) {
+function gianism_twitter_get_timeline( $screen_name = '', array $additional_data = [] ) {
 	/** @var \Gianism\Service\Twitter $twitter */
 	$twitter = \Gianism\Service\Twitter::get_instance();
-	if ( is_null( $screen_name ) ) {
-		$screen_name = $twitter->tw_screen_name;
+	$user_id = gianism_get_twitter_user_id( $screen_name );
+	if ( is_wp_error( $user_id ) ) {
+		return $user_id;
 	}
 	try {
-		return $twitter->call_api(
-			'statuses/user_timeline',
-			array_merge(
-				array( 'screen_name' => $screen_name ),
-				$additional_data
-			)
-		);
+		return $twitter->call_api( "users/{$user_id}/tweets", [] );
+	} catch ( \Exception $e ) {
+		return new WP_Error( 'twitter_api_error', $e->getMessage(), [
+			'code' => $e->getCode(),
+		] );
+	}
+}
+
+/**
+ * Convert screen name to user id.
+ *
+ * @param string $screen_name twitter screen name.
+ * @return WP_Error|string
+ */
+function gianism_get_twitter_user_id( $screen_name = '' ) {
+	/** @var \Gianism\Service\Twitter $twitter */
+	$twitter = \Gianism\Service\Twitter::get_instance();
+	if ( ! $screen_name ) {
+		$endpoint = 'users/me';
+	} else {
+		$endpoint = 'users/by/username/' . rawurlencode( $screen_name );
+	}
+	try {
+		$response = $twitter->call_api( $endpoint, [] );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+		return $response->data->id;
 	} catch ( \Exception $e ) {
 		return new WP_Error( 'twitter_api_error', $e->getMessage(), [
 			'code' => $e->getCode(),

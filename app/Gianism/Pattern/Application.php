@@ -32,7 +32,7 @@ abstract class Application extends Singleton {
             SELECT user_id FROM {$wpdb->usermeta}
             WHERE meta_key = %s AND meta_value = %s
 EOS;
-
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		return (int) $wpdb->get_var( $wpdb->prepare( $sql, $key, $value ) );
 	}
 

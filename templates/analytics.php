@@ -38,11 +38,13 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 	?>
 <?php endif; ?>
 <p class="submit">
-	<a class="button-primary"
-	   href="<?php echo $analytics->token_url( $this->setting_url( 'analytics' ) ); ?>"><?php echo $label; ?></a>
+	<a class="button-primary" href="<?php echo $analytics->token_url( $this->setting_url( 'analytics' ) ); ?>">
+		<?php echo $label; ?>
+	</a>
 	<?php if ( $analytics->ga_token ) : ?>
-		<a class="button"
-		   href="<?php echo $analytics->token_url( $this->setting_url( 'analytics' ), true ); ?>"><?php $this->e( 'Delete' ); ?></a>
+		<a class="button" href="<?php echo $analytics->token_url( $this->setting_url( 'analytics' ), true ); ?>">
+			<?php $this->e( 'Delete' ); ?>
+		</a>
 	<?php endif; ?>
 </p>
 

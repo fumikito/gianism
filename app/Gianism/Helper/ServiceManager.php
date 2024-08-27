@@ -48,10 +48,10 @@ class ServiceManager extends Singleton {
 	 */
 	public function init() {
 		$default_services = [
-			'facebook'  => 'Facebook',
-			'twitter'   => 'Twitter',
-			'google'    => 'Google',
-			'line'      => 'Line',
+			'facebook' => 'Facebook',
+			'twitter'  => 'Twitter',
+			'google'   => 'Google',
+			'line'     => 'Line',
 		];
 		foreach ( $default_services as $key => $class_name ) {
 			$this->default_services[ $key ] = 'Gianism\\Service\\' . $class_name;

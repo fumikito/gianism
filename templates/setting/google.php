@@ -20,13 +20,17 @@ defined( 'ABSPATH' ) or die();
 
 	<tr>
 		<th><label for="ggl_consumer_key"><?php $this->e( 'Client ID' ); ?></label></th>
-		<td><input class="regular-text" type="text" name="ggl_consumer_key" id="ggl_consumer_key"
-				   value="<?php echo esc_attr( $instance->ggl_consumer_key ); ?>"/></td>
+		<td>
+			<input class="regular-text" type="text" name="ggl_consumer_key" id="ggl_consumer_key"
+				value="<?php echo esc_attr( $instance->ggl_consumer_key ); ?>"/>
+		</td>
 	</tr>
 	<tr>
 		<th><label for="ggl_consumer_secret"><?php $this->e( 'Client Secret' ); ?></label></th>
-		<td><input class="regular-text" type="text" name="ggl_consumer_secret" id="ggl_consumer_secret"
-				   value="<?php echo esc_attr( $instance->ggl_consumer_secret ); ?>"/></td>
+		<td>
+			<input class="regular-text" type="text" name="ggl_consumer_secret" id="ggl_consumer_secret"
+				value="<?php echo esc_attr( $instance->ggl_consumer_secret ); ?>"/>
+		</td>
 	</tr>
 	<tr>
 		<th><label for="ggl_redirect_uri"><?php $this->e( 'Redirect URI' ); ?></label></th>
@@ -35,6 +39,7 @@ defined( 'ABSPATH' ) or die();
 				<?php
 				$end_point = $instance->get_redirect_endpoint();
 				printf(
+					// translators: %1$s is redirect URI, %2$s is Google API Console, %3$s is link to Google API Console.
 					__( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.', 'wp-gianism' ),
 					__( 'Redirect URI', 'wp-gianism' ),
 					'<code>' . $end_point . '</code>',
@@ -43,7 +48,9 @@ defined( 'ABSPATH' ) or die();
 				);
 				?>
 				<a class="button" href="<?php echo esc_attr( $end_point ); ?>"
-				   onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ); ?>', this.href); return false;"><?php esc_html_e( 'Copy', 'wp-gianism' ); ?></a>
+					onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ); ?>', this.href); return false;">
+					<?php esc_html_e( 'Copy', 'wp-gianism' ); ?>
+				</a>
 				<br/>
 				<?php
 				$this->new_from( '2.0' );

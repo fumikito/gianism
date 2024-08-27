@@ -28,16 +28,21 @@ global $wp_version;
 				<p>
 					<label>
 						<input type="radio" name="force_register"
-							   value="1"<?php checked( $this->option->force_register ); ?> />
+							value="1"<?php checked( $this->option->force_register ); ?> />
 						<?php esc_html_e( 'Force register', 'wp-gianism' ); ?>
 					</label><br/>
 					<label>
 						<input type="radio" name="force_register"
-							   value="0"<?php checked( ! $this->option->force_register ); ?> />
+							value="0"<?php checked( ! $this->option->force_register ); ?> />
 						<?php esc_html_e( 'Depends on WP setting', 'wp-gianism' ); ?>
 					</label>
 				</p>
-				<p class="description"><?php echo wp_kses_post( sprintf( __( 'Whether registration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.', 'wp-gianism' ), admin_url( 'options-general.php' ) ) ); ?></p>
+				<p class="description">
+					<?php
+					// translators: %s is link to general setting.
+					echo wp_kses_post( sprintf( __( 'Whether registration setting depends on <a href="%s">General setting</a>. If users are allowed to register, account will be created with information provided from Web service, or else only connected users can login via SNS account.', 'wp-gianism' ), admin_url( 'options-general.php' ) ) );
+					?>
+				</p>
 				<?php if ( gianism_woocommerce_detected() ) : ?>
 				<p class="description" style="color: #f34357;">
 					<?php echo wp_kses( __( '<strong>WooCommerce found!</strong> In spite of this setting, user can always register account.', 'wp-gianism' ), [ 'strong' => [] ] ); ?>
@@ -50,16 +55,19 @@ global $wp_version;
 			<td>
 				<label>
 					<input type="radio" name="show_button_on_login"
-						   value="1"<?php checked( $this->option->show_button_on_login ); ?> />
+						value="1"<?php checked( $this->option->show_button_on_login ); ?> />
 					<?php esc_html_e( 'Show all button on Login screen.', 'wp-gianism' ); ?>
 				</label><br/>
 				<label>
 					<input type="radio" name="show_button_on_login"
-						   value="0"<?php checked( ! $this->option->show_button_on_login ); ?> />
+						value="0"<?php checked( ! $this->option->show_button_on_login ); ?> />
 					<?php esc_html_e( 'Do not show login button.', 'wp-gianism' ); ?>
 				</label>
 				<p class="description">
-					<?php echo wp_kses_post( sprintf( __( 'You can output login button manually. See detail at <a href="%2$s">%1$s</a>.', 'wp-gianism' ), esc_html__( 'Customize', 'wp-gianism' ), $this->setting_url( 'customize' ) ) ); ?>
+					<?php
+					// translators: %1$s is link title, %2$s is link to document.
+					echo wp_kses_post( sprintf( __( 'You can output login button manually. See detail at <a href="%2$s">%1$s</a>.', 'wp-gianism' ), esc_html__( 'Customize', 'wp-gianism' ), $this->setting_url( 'customize' ) ) );
+					?>
 				</p>
 			</td>
 		</tr>
@@ -68,7 +76,7 @@ global $wp_version;
 			<td>
 				<select name="button_type" id="button_type">
 					<?php foreach ( $this->option->button_types() as $index => $value ) : ?>
-						<option value="<?php echo $index; ?>"<?php selected( $index == $this->option->button_type ); ?>>
+						<option value="<?php echo $index; ?>"<?php selected( $this->option->button_type, $index ); ?>>
 							<?php echo esc_html( $value ); ?>
 						</option>
 					<?php endforeach; ?>
@@ -150,7 +158,7 @@ foreach ( $this->service->all_services() as $service ) {
 	$instance = $this->service->get( $service );
 	$path     = $instance->get_admin_template( 'setting' );
 	if ( $path && file_exists( $path ) ) {
-		 include $path;
+		include $path;
 	}
 }
 ?>

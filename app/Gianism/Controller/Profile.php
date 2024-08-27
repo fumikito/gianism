@@ -116,11 +116,13 @@ class Profile extends AbstractController {
 		</h3>
 		<p>
 			<?php
-			echo wp_kses_post( sprintf(
+			echo wp_kses_post(
+				sprintf(
 				// translators: %s is admin url.
-				__( 'Please setup SNS connection at <a href="%s">parent site\'s profile page</a>.', 'wp-gianism' ),
-				get_admin_url( $this->option->get_parent_blog_id(), 'profile.php' )
-			) );
+					__( 'Please setup SNS connection at <a href="%s">parent site\'s profile page</a>.', 'wp-gianism' ),
+					get_admin_url( $this->option->get_parent_blog_id(), 'profile.php' )
+				)
+			);
 			?>
 		</p>
 		<?php

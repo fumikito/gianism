@@ -17,6 +17,7 @@ use Gianism\Controller\Login;
  * @property-read string $service_name
  * @property-read bool $enabled
  */
+#[\AllowDynamicProperties]
 abstract class AbstractService extends Application {
 
 	/**

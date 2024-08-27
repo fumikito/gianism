@@ -336,10 +336,12 @@ class Google extends AbstractService {
 					$this->_api->setRedirectUri( $this->get_redirect_endpoint() );
 					$this->_api->setApprovalPrompt( 'auto' );
 					$this->_api->setAccessType( 'online' );
-					$this->_api->setScopes( [
-						'https://www.googleapis.com/auth/userinfo.profile',
-						'https://www.googleapis.com/auth/userinfo.email',
-					] );
+					$this->_api->setScopes(
+						[
+							'https://www.googleapis.com/auth/userinfo.profile',
+							'https://www.googleapis.com/auth/userinfo.email',
+						]
+					);
 				}
 				return $this->_api;
 				break;

@@ -109,7 +109,7 @@ class Admin extends AbstractController {
 			return;
 		}
 		array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
-		printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
+		printf( '<div class="error"><p>%s</p></div>', wp_kses_post( implode( '<br />', $this->invalid_options ) ) );
 	}
 
 	/**

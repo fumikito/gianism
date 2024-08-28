@@ -140,8 +140,8 @@ abstract class AbstractNotice {
 		?>
 		<div class="error" style="position: relative;">
 			<p>
-			<button data-endpoint="<?php echo esc_url( $endpoint ); ?>" class="gianism-admin-notice notice-dismiss"></button>
-				<?php echo $this->message(); ?>
+				<button data-endpoint="<?php echo esc_url( $endpoint ); ?>" class="gianism-admin-notice notice-dismiss"></button>
+				<?php echo wp_kses_post( $this->message() ); ?>
 			</p>
 		</div>
 		<?php

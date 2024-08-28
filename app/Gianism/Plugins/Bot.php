@@ -408,7 +408,7 @@ SQL;
 			case 'end_date':
 				$limit = $this->cron_limit( $post_id );
 				if ( preg_match( '/[0-9]{4}-[0-9]{2}-[0-9]{2}/u', $limit ) ) {
-					echo mysql2date( $this->option->get( 'date_format' ), $limit . ' 00:00:00' );
+					echo esc_html( mysql2date( $this->option->get( 'date_format' ), $limit . ' 00:00:00' ) );
 				} else {
 					echo '---';
 				}

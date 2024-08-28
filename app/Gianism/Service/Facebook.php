@@ -302,7 +302,7 @@ class Facebook extends NoMailService {
 							$wpdb->users,
 							[
 								'display_name' => $user['name'],
-							//                              'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
+								// 'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
 							],
 							[
 								'ID' => $user_id,

@@ -19,10 +19,10 @@ global $wp_version;
 				<p>
 					<?php if ( $this->option->user_can_register() ) : ?>
 						<i class="lsf lsf-check" style="color: green; font-size: 1.4em;"></i>
-						<strong><?php _e( 'User can register account.', 'wp-gianism' ); ?></strong>
+						<strong><?php esc_html_e( 'User can register account.', 'wp-gianism' ); ?></strong>
 					<?php else : ?>
 						<i class="lsf lsf-ban" style="color: lightgrey; font-size: 1.4em;"></i>
-						<strong><?php _e( 'User can\'t register account.', 'wp-gianism' ); ?></strong>
+						<strong><?php esc_html_e( 'User can\'t register account.', 'wp-gianism' ); ?></strong>
 					<?php endif; ?>
 				</p>
 				<p>
@@ -76,7 +76,7 @@ global $wp_version;
 			<td>
 				<select name="button_type" id="button_type">
 					<?php foreach ( $this->option->button_types() as $index => $value ) : ?>
-						<option value="<?php echo $index; ?>"<?php selected( $this->option->button_type, $index ); ?>>
+						<option value="<?php echo esc_attr( $index ); ?>"<?php selected( $this->option->button_type, $index ); ?>>
 							<?php echo esc_html( $value ); ?>
 						</option>
 					<?php endforeach; ?>

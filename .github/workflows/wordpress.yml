@@ -93,7 +93,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run PHP Stan
-        run: composer analyze -- --error-format=github
+        run: composer analyze:github
 
   assets:
     name: Assets Test

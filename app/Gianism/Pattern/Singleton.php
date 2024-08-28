@@ -22,9 +22,9 @@ abstract class Singleton {
 	 * Constructor
 	 *
 	 * @param array $argument
+	 * @phpstan-ignore constructor.unusedParameter
 	 */
 	protected function __construct( array $argument = [] ) {
-		// @phpstan-ignore constructor.unusedParameter
 		// Override something.
 	}
 

@@ -14,7 +14,8 @@
         "lint": "phpcs --standard=phpcs.ruleset.xml .",
         "fix": "phpcbf --standard=phpcs.ruleset.xml .",
         "test": "phpunit",
-        "analyze": "phpstan analyze --memory-limit=2G"
+        "analyze": "phpstan analyze --memory-limit=2G",
+        "analyze:github": "phpstan analyze --memory-limit=2G --error-format=github"
     },
     "require": {
         "php": ">=7.2",

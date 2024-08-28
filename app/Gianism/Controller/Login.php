@@ -40,6 +40,7 @@ class Login extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 
 		if ( $this->option->is_enabled() ) {
 			// Only for account holder
@@ -86,14 +87,17 @@ class Login extends AbstractController {
 					$class_name[] = 'public-style';
 					break;
 			}
-			$class_name = empty( $class_name ) ? '' : sprintf( ' class="%s"', implode( ' ', $class_name ) );
+			$class_name = $class_name ? '' : sprintf( ' class="%s"', esc_attr( implode( ' ', $class_name ) ) );
 			$before     = sprintf( '<div id="wpg-login"%s>', $class_name );
 		}
 		if ( empty( $after ) ) {
 			$after = '</div>';
 		}
-		if ( '' === $redirect_to && ( $redirect_query = $this->input->get( 'redirect_to' ) ) ) {
-			$redirect_to = $redirect_query;
+		if ( '' === $redirect_to ) {
+			$redirect_query = $this->input->get( 'redirect_to' );
+			if ( $redirect_query ) {
+				$redirect_to = $redirect_query;
+			}
 		}
 		echo $before;
 		/**
@@ -151,5 +155,4 @@ class Login extends AbstractController {
 		}
 		$this->login_form( '', '', false, $redirect, 'woo-account' );
 	}
-
 }

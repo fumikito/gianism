@@ -12,15 +12,6 @@ use Gianism\Pattern\Singleton;
 class Input extends Singleton {
 
 	/**
-	 * Constructor
-	 *
-	 * @param array $argument
-	 */
-	public function __construct( array $argument = array() ) {
-		// Do nothing because it's empty singleton
-	}
-
-	/**
 	 * Short hand for $_GET
 	 *
 	 * @param string $key
@@ -94,19 +85,19 @@ class Input extends Singleton {
 	}
 
 	/**
-	 * Short hand for wp_die
+	 * Shorthand for wp_die
 	 *
 	 * @param string $message
-	 * @param int $status_code
-	 * @param bool $return
+	 * @param int    $status_code
+	 * @param bool   $return_link
 	 */
-	public function wp_die( $message, $status_code = 500, $return = true ) {
+	public function wp_die( $message, $status_code = 500, $return_link = true ) {
 		wp_die(
 			$message,
 			get_status_header_desc( $status_code ) . ' | ' . get_bloginfo( 'name' ),
 			[
 				'response'  => (int) $status_code,
-				'back_link' => (bool) $return,
+				'back_link' => (bool) $return_link,
 			]
 		);
 	}

@@ -45,8 +45,8 @@ class Line extends NoMailService {
 		// Filter rewrite name
 		add_filter(
 			'gianism_filter_service_prefix',
-			function( $prefix ) {
-				if ( 'line-auth' == $prefix ) {
+			function ( $prefix ) {
+				if ( 'line-auth' === $prefix ) {
 					$prefix = 'line';
 				}
 				return $prefix;
@@ -81,7 +81,8 @@ class Line extends NoMailService {
 					'state'         => $state,
 					// 'prompt' => 'consent', // For Debug by displaying consent screen always.
 				];
-				if ( ( $prompt = $this->line_add_friend_prompt ) ) {
+				$prompt = $this->line_add_friend_prompt;
+				if ( $prompt ) {
 					$params['bot_prompt'] = $prompt;
 				}
 				/**
@@ -290,7 +291,8 @@ class Line extends NoMailService {
 						'redirect_to' => $redirect_url,
 					]
 				);
-				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%1$s">%2$s</a>.', 'wp-gianism' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
+				// translators: %1$s is URL, %2$s is a site name.
+				$this->input->wp_die( sprintf( __( 'Sorry, but wrong access. Please go back to <a href="%1$s">%2$s</a>.', 'wp-gianism' ), esc_url( home_url( '/' ) ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
 	}

@@ -18,15 +18,19 @@
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
 		<exclude name="WordPress.WP.I18n.SingleUnderscoreGetTextFunction" />
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
-		<exclude name="WordPress.PHP.DisallowShortTernary" />
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="Universal.Operators.DisallowShortTernary.Found" />
 	</rule>
 
 	<rule ref="PHPCompatibility">
 		<config name="testVersion" value="7.2-"/>
 	</rule>
 
+	<exclude-pattern>*/.github/*</exclude-pattern>
+	<exclude-pattern>*/.git/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/bin/*</exclude-pattern>
 	<exclude-pattern>*.js</exclude-pattern>
 	<exclude-pattern>*.css</exclude-pattern>
 	<exclude-pattern>*/tests/*</exclude-pattern>

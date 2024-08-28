@@ -200,11 +200,11 @@ function get_twitter_screen_name( $user_id ) {
  *
  * @since 1.3
  * @deprecated 3.0.0
- * @param string $string
+ * @param string $text
  */
-function update_twitter_status( $string ) {
+function update_twitter_status( $text ) {
 	_deprecated_function( __FILE__, '3.0.0', 'gianism_update_twitter_status' );
-	gianism_update_twitter_status( $string );
+	gianism_update_twitter_status( $text );
 }
 
 
@@ -214,13 +214,13 @@ function update_twitter_status( $string ) {
  * @since 1.0
  * @deprecated 3.0.0
  * @param int $user_id
- * @param string $string
+ * @param string $text
  *
  * @return boolean
  */
-function twitter_reply_to( $user_id, $string ) {
+function twitter_reply_to( $user_id, $text ) {
 	_deprecated_function( __FILE__, '3.0.0', 'gianism_twitter_reply_to' );
-	return gianism_twitter_reply_to( $user_id, $string );
+	return gianism_twitter_reply_to( $user_id, $text );
 }
 
 /**

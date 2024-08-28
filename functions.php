@@ -92,7 +92,7 @@ function gianism_get_user_by_service( $service, $credential ) {
 	}
 	switch ( $service ) {
 		case 'facebook':
-			$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = '{$instance->umeta_id}' AND meta_value = %s", $credential ) );
+			$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value = %s", $instance->umeta_id, $credential ) );
 			if ( $user_id ) {
 				return new WP_User( $user_id );
 			} else {

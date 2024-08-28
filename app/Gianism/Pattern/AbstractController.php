@@ -10,5 +10,4 @@ namespace Gianism\Pattern;
 abstract class AbstractController extends Singleton {
 
 	use AppBase;
-
 }

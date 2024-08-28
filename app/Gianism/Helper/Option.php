@@ -25,7 +25,8 @@ use Gianism\Pattern\Singleton;
  */
 class Option extends Singleton {
 
-	use i18n, MessageHelper;
+	use i18n;
+	use MessageHelper;
 
 	/**
 	 * Action name which fires on updating option
@@ -76,6 +77,7 @@ class Option extends Singleton {
 	 * @param array $argument Settings array.
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		$this->values = $this->get( $this->key, [] );
 		foreach ( $this->default_option as $key => $value ) {
 			if ( ! isset( $this->values[ $key ] ) ) {
@@ -88,11 +90,11 @@ class Option extends Singleton {
 	 * Set default option
 	 *
 	 * @param string $key
-	 * @param mixed  $default
+	 * @param mixed  $default_value
 	 */
-	public function set_default( $key, $default ) {
+	public function set_default( $key, $default_value ) {
 		if ( ! isset( $this->values[ $key ] ) ) {
-			$this->values[ $key ] = $default;
+			$this->values[ $key ] = $default_value;
 		}
 	}
 
@@ -284,13 +286,10 @@ class Option extends Singleton {
 	public function has_invalid_option( $name ) {
 		switch ( $name ) {
 			case 'google_redirect':
-				$option = $this->get( $this->key, [] );
-
+				$saved_option = $this->get( $this->key, [] );
 				return isset( $saved_option['ggl_redirect_uri'] ) && ! empty( $saved_option['ggl_redirect_uri'] );
-				break;
 			default:
 				return false;
-				break;
 		}
 	}
 
@@ -360,7 +359,7 @@ class Option extends Singleton {
 		if ( ! is_multisite() ) {
 			return false;
 		}
-		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins() );
+		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins(), true );
 	}
 
 	/**

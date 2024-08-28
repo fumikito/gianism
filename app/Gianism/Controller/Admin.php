@@ -35,6 +35,7 @@ class Admin extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		if ( $this->option->is_network_activated() && ! is_main_site() ) {
 			return;
 		}
@@ -108,7 +109,7 @@ class Admin extends AbstractController {
 			return;
 		}
 		array_unshift( $this->invalid_options, '<strong>[Gianism]</strong>' );
-		printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $this->invalid_options ) );
+		printf( '<div class="error"><p>%s</p></div>', wp_kses_post( implode( '<br />', $this->invalid_options ) ) );
 	}
 
 	/**
@@ -148,7 +149,7 @@ class Admin extends AbstractController {
 				if ( preg_match( '#href="https://gianism.info"#', $value ) ) {
 					$plugin_meta[ $index ] = preg_replace_callback(
 						'#href="https://gianism.info"#',
-						function( $matches ) {
+						function ( $matches ) {
 							return sprintf(
 								'href="%s"',
 								esc_url(

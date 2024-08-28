@@ -1,8 +1,10 @@
 <?php
+/** @var $this \Gianism\UI\SettingScreen */
 
 defined( 'ABSPATH' ) or die();
-
-/** @var \Gianism\UI\SettingScreen $this */
+if ( ! isset( $this ) ) {
+	return;
+}
 
 foreach ( $this->service->all_services() as $service ) {
 	/** @var \Gianism\Service\AbstractService $instance */

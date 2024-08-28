@@ -12,7 +12,8 @@ use Gianism\Pattern\Singleton;
  */
 class ServiceManager extends Singleton {
 
-	use i18n, ExtensionManager;
+	use i18n;
+	use ExtensionManager;
 
 	/**
 	 * @var array
@@ -41,6 +42,7 @@ class ServiceManager extends Singleton {
 	 */
 	final protected function __construct( array $argument ) {
 		// Do nothing
+		parent::__construct( $argument );
 	}
 
 	/**
@@ -165,5 +167,4 @@ class ServiceManager extends Singleton {
 		}
 		return $plugins;
 	}
-
 }

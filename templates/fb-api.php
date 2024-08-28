@@ -8,9 +8,12 @@ $facebook = $this->service->get( 'facebook' );
 
 ?>
 <h3><i class="lsf lsf-facebook"></i> <?php $this->e( 'Token setting' ); ?></h3>
-<?php if ( is_wp_error( ( $error = $facebook->admin ) ) ) : ?>
+<?php
+$error = $facebook->admin;
+if ( is_wp_error( $error ) ) :
+	?>
 	<p class="danger">
-		<?php if ( $error->get_error_code() == 410 ) : ?>
+		<?php if ( (int) $error->get_error_code() === 410 ) : ?>
 			<?php $this->e( 'Token is outdated. Click link and get new one.' ); ?>
 		<?php else : ?>
 			<?php $this->e( 'Token is not set. Please click link below and get one.' ); ?>
@@ -21,7 +24,7 @@ $facebook = $this->service->get( 'facebook' );
 		<?php
 		printf(
 			$this->_( 'O.K. You have permission. If you want to renew token, please click link below. Token will be valid for %d days.' ),
-			( 60 - floor( ( current_time( 'timestamp' ) - $this->option->get( 'gianism_facebook_admin_refreshed', 0 ) ) / 60 / 60 / 24 ) )
+			( 60 - floor( ( time() - $this->option->get( 'gianism_facebook_admin_refreshed', 0 ) ) / 60 / 60 / 24 ) )
 		);
 		?>
 	</p>
@@ -30,25 +33,25 @@ $facebook = $this->service->get( 'facebook' );
 	<small><?php $this->e( 'Read Only' ); ?></small>
 </a>
 <a class="button"
-   href="<?php echo esc_url( $facebook->get_admin_connect_link( true ) ); ?>"><?php $this->e( 'Get Token' ); ?>
+	href="<?php echo esc_url( $facebook->get_admin_connect_link( true ) ); ?>"><?php $this->e( 'Get Token' ); ?>
 	<small><?php $this->e( 'Publish' ); ?></small>
 </a>
 
 <h3><i class="lsf lsf-friend"></i> <?php $this->e( 'Account to use' ); ?></h3>
 <?php if ( is_wp_error( $facebook->admin ) ) : ?>
 	<p class="description"><?php $this->e( 'You need access token to manage accounts. Click links above and you can get Facebook API token.' ); ?></p>
-<?php elseif ( ! ( $me = $facebook->admin_account ) ) : ?>
+<?php elseif ( ! $facebook->admin_account ) : ?>
 	<p class="danger"><?php $this->e( 'Failed to get your account. Please renew token.' ); ?></p>
 <?php else : ?>
 	<p class="description"><?php $this->e( 'Please select account to use.' ); ?></p>
-	<form method="post" action="<?php echo $this->setting_url( 'fb-api' ); ?>">
+	<form method="post" action="<?php echo esc_url( $this->setting_url( 'fb-api' ) ); ?>">
 		<?php wp_nonce_field( 'gianism_fb_account' ); ?>
 		<table class="form-table">
 			<tr>
-				<th><?php $this->e( 'You' ); ?></th>
+				<th><?php esc_html_e( 'You', 'wp-gianism' ); ?></th>
 				<td>
 					<label><input type="radio" name="fb_account_id"
-								  value="me"<?php checked( 'me' == $facebook->admin_id ); ?> /> <?php echo esc_html( $me['name'] ); ?>
+									value="me"<?php checked( 'me', $facebook->admin_id ); ?> /> <?php echo esc_html( $facebook->admin_account['name'] ); ?>
 					</label>
 				</td>
 			</tr>
@@ -61,7 +64,7 @@ $facebook = $this->service->get( 'facebook' );
 						$out[] = sprintf(
 							'<label><input type="radio" name="fb_account_id" value="%s"%s /> %s</label>',
 							$account['id'],
-							checked( $account['id'] == $facebook->admin_id, true, false ),
+							checked( $account['id'], $facebook->admin_id, false ),
 							esc_html( $account['name'] )
 						);
 					}
@@ -69,7 +72,7 @@ $facebook = $this->service->get( 'facebook' );
 						echo implode( '<br />', $out );
 					else :
 						?>
-						<p class="description"><?php $this->e( 'You have no Facebook page.' ); ?></p>
+						<p class="description"><?php esc_html_e( 'You have no Facebook page.', 'wp-gianism' ); ?></p>
 					<?php endif; ?>
 				</td>
 			</tr>
@@ -78,7 +81,7 @@ $facebook = $this->service->get( 'facebook' );
 	</form>
 <?php endif; ?>
 
-<h3><i class="lsf lsf-help"></i> <?php $this->e( 'How to use' ); ?></h3>
+<h3><i class="lsf lsf-help"></i> <?php esc_html_e( 'How to use', 'wp-gianism' ); ?></h3>
 <p>
 	<?php
 	printf(

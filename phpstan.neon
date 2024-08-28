@@ -1,0 +1,20 @@
+parameters:
+    level: 1
+    paths:
+        - app
+        - functions
+        - hooks
+        - templates
+        - functions.php
+        - wp-gianism.php
+        - uninstall.php
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+        - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+        - vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
+        - vendor/php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+
+    bootstrapFiles:
+        - vendor/autoload.php

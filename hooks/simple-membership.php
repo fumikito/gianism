@@ -28,7 +28,7 @@ if ( ! gianism_simple_membership_is_active() ) {
  */
 add_action(
 	'gianism_after_set_login_cookie',
-	function( $user_id, $service_name ) {
+	function ( $user_id, $service_name ) {
 		global $simple_membership;
 		$user = get_userdata( $user_id );
 		if ( $user && is_a( $simple_membership, 'SimpleWpMembership' ) ) {

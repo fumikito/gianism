@@ -52,7 +52,7 @@ abstract class Ga extends Ajax {
 		if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->input->get( 'from' ) ) ) {
 			return $this->input->get( 'from' );
 		} else {
-			return date_i18n( 'Y-m-d', strtotime( '1 month ago', current_time( 'timestamp' ) ) );
+			return date_i18n( 'Y-m-d', strtotime( '1 month ago', time() ) );
 		}
 	}
 

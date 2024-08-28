@@ -12,16 +12,17 @@ use Gianism\Pattern\AbstractController;
 class ProfileChecker extends AbstractController {
 
 	public function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		add_action( 'rest_api_init', [ $this, 'register_rest' ] );
 		add_action(
 			'init',
-			function() {
+			function () {
 				if ( ! is_user_logged_in() ) {
 					return;
 				}
 				add_action(
 					'template_redirect',
-					function() {
+					function () {
 						if ( $this->should_redirect() ) {
 							$this->redirect();
 						} elseif ( $this->should_show_popup() ) {
@@ -69,8 +70,11 @@ class ProfileChecker extends AbstractController {
 	 */
 	public function default_url() {
 		$url = get_edit_profile_url();
-		if ( gianism_woocommerce_detected() && ( $page = wc_get_page_permalink( 'myaccount' ) ) ) {
-			$url = get_permalink( $page );
+		if ( gianism_woocommerce_detected() ) {
+			$page = wc_get_page_permalink( 'myaccount' );
+			if ( $page ) {
+				$url = get_permalink( $page );
+			}
 		}
 		return $url;
 	}
@@ -122,10 +126,10 @@ class ProfileChecker extends AbstractController {
 				[
 					'methods'             => 'GET',
 					'args'                => [],
-					'permission_callback' => function() {
+					'permission_callback' => function () {
 						return is_user_logged_in();
 					},
-					'callback'            => function( \WP_REST_Request $request ) {
+					'callback'            => function ( \WP_REST_Request $request ) {
 						$error    = $this->get_error( get_current_user_id() );
 						$response = [
 							'errors' => $error->get_error_messages(),
@@ -192,6 +196,7 @@ class ProfileChecker extends AbstractController {
 		if ( ! $error->get_error_messages() ) {
 			return;
 		}
+		// translators: %s is URL
 		$message = sprintf( __( 'You have an incomplete profile. To access full features of this site, please fill your profile <a href="%s">here</a>.', 'wp-gianism' ), $this->redirect_url() );
 		$message = apply_filters( 'gianism_profile_error_popup', $message, $this->redirect_url(), $error );
 		$this->add_message( $message, true );
@@ -211,7 +216,7 @@ class ProfileChecker extends AbstractController {
 		}
 		$patterns = array_filter(
 			array_map(
-				function( $line ) {
+				function ( $line ) {
 					return trim( $line );
 				},
 				preg_split( '#[\r\n]#u', $excluded )

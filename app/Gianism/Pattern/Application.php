@@ -35,5 +35,4 @@ EOS;
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		return (int) $wpdb->get_var( $wpdb->prepare( $sql, $key, $value ) );
 	}
-
 }

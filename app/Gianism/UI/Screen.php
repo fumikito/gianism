@@ -93,7 +93,7 @@ abstract class Screen {
 		?>
 		<div class="onoffswitch">
 			<input type="checkbox" name="<?php echo esc_attr( $name ); ?>" class="onoffswitch-checkbox" id="<?php echo esc_attr( $name ); ?>"
-				   value="<?php echo esc_attr( $value ); ?>"<?php checked( $current_value == $value ); ?>>
+					value="<?php echo esc_attr( $value ); ?>"<?php checked( $current_value, $value ); ?>>
 			<label class="onoffswitch-label" for="<?php echo esc_attr( $name ); ?>">
 				<span class="onoffswitch-inner"></span>
 				<span class="onoffswitch-switch"></span>
@@ -115,7 +115,13 @@ abstract class Screen {
 		} else {
 			printf(
 				'<div class="gianism-load-error">%s</div>',
-				sprintf( $this->_( 'Template file <code>%s</code> is missing.' ), esc_html( $name ) )
+				wp_kses_post(
+					sprintf(
+						// translators: %s is template name.
+						__( 'Template file <code>%s</code> is missing.', 'wp-gianism' ),
+						esc_html( $name )
+					)
+				)
 			);
 		}
 		/**
@@ -144,7 +150,7 @@ abstract class Screen {
 	 * @return string
 	 */
 	protected function get_dir() {
-		return dirname( dirname( dirname( __DIR__ ) ) ) . '/templates';
+		return dirname( __DIR__, 3 ) . '/templates';
 	}
 
 	/**
@@ -165,13 +171,13 @@ abstract class Screen {
 	 * @return bool
 	 */
 	protected function is_view( $view = '' ) {
-		$requested_view = $this->input->request( 'view' );
+		$requested_view = (string) $this->input->request( 'view' );
 		if ( ! $view ) {
-			return $this->input->request( 'page' ) == $this->slug;
-		} elseif ( $this->default_view == $view ) {
-			return ( empty( $requested_view ) || $this->default_view == $requested_view );
+			return (string) $this->input->request( 'page' ) === $this->slug;
+		} elseif ( $this->default_view === $view ) {
+			return ( empty( $requested_view ) || $this->default_view === $requested_view );
 		} else {
-			return $view == $requested_view;
+			return $view === $requested_view;
 		}
 	}
 
@@ -186,7 +192,7 @@ abstract class Screen {
 		$query = array(
 			'page' => $this->slug,
 		);
-		if ( $view && $this->default_view != $view ) {
+		if ( $view && $this->default_view !== $view ) {
 			$query['view'] = $view;
 		}
 
@@ -202,6 +208,7 @@ abstract class Screen {
 		$version         = $this->major_version( $version );
 		$current_version = $this->major_version( $this->version );
 		if ( version_compare( $version, $current_version, '>=' ) ) {
+			// translators: %s is version string.
 			printf( '<span class="gianism-new">%s</span>', esc_html( sprintf( __( 'New Since %s', 'wp-gianism' ), $version ) ) );
 		}
 	}

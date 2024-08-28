@@ -22,9 +22,10 @@ abstract class Singleton {
 	 * Constructor
 	 *
 	 * @param array $argument
+	 * @phpstan-ignore constructor.unusedParameter
 	 */
 	protected function __construct( array $argument = [] ) {
-		// Do nothing.
+		// Override something.
 	}
 
 	/**
@@ -42,5 +43,4 @@ abstract class Singleton {
 
 		return self::$instances[ $class_name ];
 	}
-
 }

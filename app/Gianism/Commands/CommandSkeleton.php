@@ -13,5 +13,4 @@ use Gianism\Pattern\AppBase;
 class CommandSkeleton extends \WP_CLI_Command {
 
 	use AppBase;
-
 }

@@ -84,7 +84,17 @@ echo esc_html(
 ?>
 </pre>
 
-<p class="notice"><?php printf( $this->_( '<strong>Note:</strong> <code>$facebook</code> object is instance of Facebook class which is part of Facebook PHP SDK. To know what you can do with it, read the <a href="%s">documentation</a>.' ), 'https://developers.facebook.com/docs/reference/php/' ); ?></p>
+<p class="notice">
+	<?php
+	echo wp_kses_post(
+		sprintf(
+		// translators: %s is URL.
+			__( '<strong>Note:</strong> <code>$facebook</code> object is instance of Facebook class which is part of Facebook PHP SDK. To know what you can do with it, read the <a href="%s">documentation</a>.', 'wp-gianism' ),
+			'https://developers.facebook.com/docs/reference/php/'
+		)
+	);
+	?>
+</p>
 
 
 <h3><?php $this->e( 'Make tweet with your account' ); ?></h3>

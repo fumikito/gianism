@@ -49,6 +49,7 @@ abstract class Daily extends AnalyticsFetcher {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		parent::__construct( $argument );
 		if ( ! wp_next_scheduled( $this->get_action() ) ) {
 			wp_schedule_event( $this->build_timestamp(), static::INTERVAL, $this->get_action() );
 		}

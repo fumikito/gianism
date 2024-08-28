@@ -1,7 +1,6 @@
 <?php
 
 namespace Gianism\Service;
-use Facebook\FacebookRequest;
 use Facebook\GraphNodes\GraphUser;
 use Facebook\SignedRequest;
 use Gianism\Helper\FacebookCookiePersistentDataHandler;
@@ -14,7 +13,7 @@ use Gianism\Helper\FacebookCookiePersistentDataHandler;
  * @author Takahashi Fumiki
  * @property-read \Facebook\Facebook|\WP_Error $api Facebook object
  * @property-read \Facebook\Facebook|\WP_Error $admin Facebook object for Admin Use
- * @property-read int $admin_id
+ * @property-read int|string $admin_id
  * @property-read array|false $admin_account
  * @property-read array $admin_pages
  */
@@ -131,8 +130,8 @@ class Facebook extends NoMailService {
 			// Add view for API
 			add_filter(
 				'gianism_setting_screen_views',
-				function( $views, $slug ) {
-					if ( 'gianism' == $slug ) {
+				function ( $views, $slug ) {
+					if ( 'gianism' === $slug ) {
 						$views['fb-api'] = sprintf( '<i class="lsf lsf-facebook"></i> %s', $this->_( 'Facebook API' ) );
 					}
 					return $views;
@@ -224,8 +223,8 @@ class Facebook extends NoMailService {
 			if ( $this->input->request( 'publish' ) ) {
 				add_filter(
 					'gianism_facebook_permissions',
-					function( $permission, $action ) {
-						if ( 'admin' == $action ) {
+					function ( $permission, $action ) {
+						if ( 'admin' === $action ) {
 							$permission[] = 'publish_actions';
 						}
 						return $permission;
@@ -256,7 +255,7 @@ class Facebook extends NoMailService {
 	protected function handle_default( $action ) {
 		global $wpdb;
 		// Get common values
-		$redirect_url = $this->session->get( 'redirect_to' );
+		$redirect_url = (string) $this->session->get( 'redirect_to' );
 		// Process actions
 		switch ( $action ) {
 			case 'login': // Make user login
@@ -267,8 +266,9 @@ class Facebook extends NoMailService {
 					}
 					// Get user ID
 					$user = $this->get_returned_user();
-					// If user doesn't exists, try to register.
-					if ( ! ( $user_id = $this->get_meta_owner( $this->umeta_id, $user['id'] ) ) ) {
+					// If user doesn't exist, try to register.
+					$user_id = $this->get_meta_owner( $this->umeta_id, $user['id'] );
+					if ( ! $user_id ) {
 						// Test
 						$this->test_user_can_register();
 						// Check email
@@ -287,11 +287,11 @@ class Facebook extends NoMailService {
 						 * There might be no available string for login name, so use Facebook id for login.
 						 *
 						 * @filter gianism_register_name
-						 * @param string $user_login
-						 * @param string $service
-						 * @param mixed  $data User data or something. It varies by service.
+						 * @param string $user_login user login name.
+						 * @param string $service    Service name.
+						 * @param mixed  $user       User data or something. It varies by service.
 						 */
-						$user_name = apply_filters( 'gianism_register_name', 'fb-' . $user['id'], $this->service, $user );
+						$user_name = apply_filters( 'gianism_register_name', 'fb-' . $user['id'], $this->service_name, $user );
 						// Check if username exists
 						$user_id = wp_create_user( $user_name, wp_generate_password(), $email );
 						if ( is_wp_error( $user_id ) ) {
@@ -302,7 +302,7 @@ class Facebook extends NoMailService {
 							$wpdb->users,
 							[
 								'display_name' => $user['name'],
-							//                              'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
+								// 'user_url'     => $user['link'], // Deprecated because of REST API 3 udpdate: https://developers.facebook.com/blog/post/2018/05/01/enhanced-developer-app-review-and-graph-api-3.0-now-live/
 							],
 							[
 								'ID' => $user_id,
@@ -346,9 +346,10 @@ class Facebook extends NoMailService {
 					if ( ! isset( $user['email'] ) || ! is_email( $user['email'] ) ) {
 						throw new \Exception( $this->mail_fail_string() );
 					}
-					$email = $user['email'];
+					$email       = $user['email'];
+					$email_owner = $this->mail_owner( $email );
 					// Check if other user has these as meta_value
-					if ( ( $email_owner = $this->mail_owner( $email ) ) && get_current_user_id() != $email_owner ) {
+					if ( $email_owner && get_current_user_id() !== $email_owner ) {
 						throw new \Exception( $this->duplicate_account_string() );
 					}
 					// Now let's save user_data
@@ -397,6 +398,7 @@ class Facebook extends NoMailService {
 					$long_token = $oauth->getLongLivedAccessToken( $token );
 					// O.K. Token ready and save it.
 					update_option( 'gianism_facebook_admin_token', $long_token );
+					// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 					update_option( 'gianism_facebook_admin_refreshed', current_time( 'timestamp' ) );
 					$this->add_message( $this->_( 'Access token is saved.' ) );
 				} catch ( \Exception $e ) {
@@ -412,7 +414,7 @@ class Facebook extends NoMailService {
 				 * @action gianism_extra_action
 				 * @param string $service_name facebook, google, etc.
 				 * @param string $action
-				 * @param string $args
+				 * @param array{redirect_to:string} $args
 				 */
 				do_action(
 					'gianism_extra_action',
@@ -425,7 +427,6 @@ class Facebook extends NoMailService {
 				$this->input->wp_die( sprintf( $this->_( 'Sorry, but wrong access. Please go back to <a href="%s">%s</a>.' ), home_url( '/' ), get_bloginfo( 'name' ) ), 500, false );
 				break;
 		}
-
 	}
 
 	/**
@@ -473,7 +474,7 @@ class Facebook extends NoMailService {
 	 * Update admin account id.
 	 */
 	public function update_facebook_admin() {
-		if ( 'gianism' == $this->input->get( 'page' ) && wp_verify_nonce( $this->input->post( '_wpnonce' ), 'gianism_fb_account' ) ) {
+		if ( 'gianism' === $this->input->get( 'page' ) && wp_verify_nonce( $this->input->post( '_wpnonce' ), 'gianism_fb_account' ) ) {
 			update_option( 'gianism_facebook_admin_id', $this->input->post( 'fb_account_id' ) );
 			$this->add_message( $this->_( 'Saved facebook account to use.' ) );
 			wp_redirect( admin_url( 'options-general.php?page=gianism&view=fb-api' ) );
@@ -489,7 +490,8 @@ class Facebook extends NoMailService {
 	 */
 	public function get_returned_user() {
 		$redirect_helper = $this->api->getRedirectLoginHelper();
-		if ( ! ( $access_token = $redirect_helper->getAccessToken( $this->get_redirect_endpoint() ) ) ) {
+		$access_token    = $redirect_helper->getAccessToken( $this->get_redirect_endpoint() );
+		if ( ! $access_token ) {
 			throw new \Exception( $redirect_helper->getError(), $redirect_helper->getErrorCode() );
 		}
 		$user = $this->get_user_profile( 'login', $access_token );
@@ -507,7 +509,8 @@ class Facebook extends NoMailService {
 	 * @return int
 	 */
 	public function mail_owner( $email ) {
-		if ( $owner = email_exists( $email ) ) {
+		$owner = email_exists( $email );
+		if ( $owner ) {
 			return $owner;
 		}
 		return $this->get_meta_owner( $this->umeta_mail, $email );
@@ -652,7 +655,8 @@ class Facebook extends NoMailService {
 				break;
 			case 'admin':
 				if ( is_null( $this->_admin_api ) ) {
-					if ( ! $this->fb_use_api || ! ( $token = $this->option->get( 'gianism_facebook_admin_token', false ) ) ) {
+					$token = $this->option->get( 'gianism_facebook_admin_token', false );
+					if ( ! $this->fb_use_api || ! $token ) {
 						return new \WP_Error( 404, $this->_( 'Token is not set. Please get it.' ) );
 					}
 					try {
@@ -666,6 +670,7 @@ class Facebook extends NoMailService {
 						);
 						// Check last updated
 						$updated = $this->option->get( 'gianism_facebook_admin_refreshed', 0 );
+						// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 						if ( ! $updated || current_time( 'timestamp' ) > $updated + ( 60 * 60 * 24 * 60 ) ) {
 							return new \WP_Error( 410, $this->_( 'Token is outdated. Please update it.' ) );
 						}
@@ -742,12 +747,12 @@ class Facebook extends NoMailService {
 	 */
 	public function get_current_page_api() {
 		$page_id = $this->admin_id;
-		if ( 'me' == $page_id ) {
+		if ( 'me' === $page_id ) {
 			return new \WP_Error( 500, __( 'Page is not set.', 'wp-gianism' ) );
 		}
 		$token = '';
 		foreach ( $this->admin_pages as $page ) {
-			if ( $page_id == $page['id'] ) {
+			if ( $page_id === $page['id'] ) {
 				$token = $page['token'];
 				break;
 			}
@@ -826,5 +831,4 @@ class Facebook extends NoMailService {
 		// Do nothing
 		_deprecated_function( __METHOD__, 'Gianism 3.0.0', null );
 	}
-
 }

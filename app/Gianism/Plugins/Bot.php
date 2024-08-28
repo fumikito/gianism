@@ -58,6 +58,7 @@ class Bot extends PluginBase {
 		if ( ! $this->plugin_enabled() ) {
 			return;
 		}
+		parent::__construct( $argument );
 		// Post type
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'custom_columns' ), 10, 2 );
@@ -114,7 +115,7 @@ class Bot extends PluginBase {
 	 * @return string
 	 */
 	public function enter_title_here( $title, $post ) {
-		if ( $post->post_type == $this->post_type ) {
+		if ( $post->post_type === $this->post_type ) {
 			$title = $this->_( 'Enter this bots name. Ex: Promotion Campaign 2014 mid' );
 		}
 
@@ -128,7 +129,7 @@ class Bot extends PluginBase {
 	 * @param \WP_Post $post
 	 */
 	public function save_post( $post_id, $post ) {
-		if ( wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) || $this->post_type != $post->post_type ) {
+		if ( wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) || $this->post_type !== $post->post_type ) {
 			return;
 		}
 		if ( ! wp_verify_nonce( $this->input->post( '_gianismnonce' ), 'gianism_twitter_bot' ) ) {
@@ -159,9 +160,9 @@ class Bot extends PluginBase {
 	 * @param string $suffix
 	 */
 	public function admin_enqueue_scripts( $suffix ) {
-		if ( false !== array_search( $suffix, array( 'post.php', 'post-new.php' ) ) ) {
+		if ( in_array( $suffix, array( 'post.php', 'post-new.php' ), true ) ) {
 			$screen = get_current_screen();
-			if ( $this->post_type == $screen->post_type ) {
+			if ( $this->post_type === $screen->post_type ) {
 				wp_enqueue_script( 'gianism-twitter-bot-helper', $this->url . 'assets/js/admin-twitter-bot-helper.js', array( 'jquery-effects-highlight' ), $this->version, true );
 				wp_localize_script(
 					'gianism-twitter-bot-helper',
@@ -181,7 +182,7 @@ class Bot extends PluginBase {
 	 * @param \WP_Post $post
 	 */
 	public function edit_form_after_title( $post ) {
-		if ( $this->post_type == $post->post_type ) {
+		if ( $this->post_type === $post->post_type ) {
 			wp_nonce_field( 'gianism_twitter_bot', '_gianismnonce', false );
 			include $this->dir . '/templates/edit/bot.php';
 		}
@@ -204,7 +205,7 @@ class Bot extends PluginBase {
 SQL;
 			$results = $this->db->get_results( $this->db->prepare( $query, $post->ID, $this->time_key . '_%' ) );
 			$times   = array();
-			for ( $i = 1; $i <= 7; $i ++ ) {
+			for ( $i = 1; $i <= 7; $i++ ) {
 				$times[ $this->time_key . '_' . $i ] = array();
 			}
 			foreach ( $results as $result ) {
@@ -297,7 +298,7 @@ SQL;
 					function ( $matches ) {
 						return $matches[1] . '0:00';
 					},
-					date_i18n( 'Y-m-d H:i:00', current_time( 'timestamp' ) + 60 * 10 )
+					date_i18n( 'Y-m-d H:i:00', time() + 60 * 10 )
 				),
 				'U'
 			);
@@ -335,7 +336,7 @@ SQL;
 		}
 		$meta_key = $this->time_key . '_' . $date;
 		// Get posts
-		$now    = current_time( 'timestamp' );
+		$now    = time();
 		$before = $now - 60 * 9;
 		$now    = date_i18n( 'H:i:00', $now );
 		$before = date_i18n( 'H:i:00', $before );
@@ -388,7 +389,7 @@ SQL;
 		$new_columns = array();
 		foreach ( $columns as $key => $column ) {
 			$new_columns[ $key ] = $column;
-			if ( 'date' == $key ) {
+			if ( 'date' === $key ) {
 				$new_columns['end_date'] = $this->_( 'End Date' );
 			}
 		}
@@ -407,7 +408,7 @@ SQL;
 			case 'end_date':
 				$limit = $this->cron_limit( $post_id );
 				if ( preg_match( '/[0-9]{4}-[0-9]{2}-[0-9]{2}/u', $limit ) ) {
-					echo mysql2date( $this->option->get( 'date_format' ), $limit . ' 00:00:00' );
+					echo esc_html( mysql2date( $this->option->get( 'date_format' ), $limit . ' 00:00:00' ) );
 				} else {
 					echo '---';
 				}
@@ -456,7 +457,7 @@ SQL;
 					),
 					$args
 				);
-				$left = strtotime( $args['limit'] ) - current_time( 'timestamp' );
+				$left = strtotime( $args['limit'] ) - time();
 				if ( $left / ( 60 * 60 * 24 * 30 ) > 1 ) {
 					return sprintf( $args['placeholder'], sprintf( $gianism->_( '%s months' ), floor( $left / ( 60 * 60 * 24 * 30 ) ) ) );
 				} elseif ( $left / ( 60 * 60 * 24 ) > 1 ) {

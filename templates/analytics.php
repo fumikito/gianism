@@ -53,8 +53,8 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 <?php if ( $analytics->ga_token ) : ?>
 	<h3><i class="lsf lsf-dashboard"></i> <?php $this->e( 'Account, Profile, View' ); ?></h3>
 	<form id="ga-connection"
-		  action="<?php echo $analytics->token_save_url(); ?>" method="post"
-		  data-endpoint="<?php echo admin_url( 'admin-ajax.php?action=wpg_ga_account' ); ?>">
+			action="<?php echo $analytics->token_save_url(); ?>" method="post"
+			data-endpoint="<?php echo admin_url( 'admin-ajax.php?action=wpg_ga_account' ); ?>">
 		<?php wp_nonce_field( 'wp_gianism_google_save-analytics' ); ?>
 		<input type="hidden" name="redirect_to" value="<?php echo esc_url( $this->setting_url( 'analytics' ) ); ?>" />
 		<table class="form-table">
@@ -69,7 +69,7 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 							value="0"<?php selected( ! $analytics->ga_profile['account'] ); ?>><?php $this->e( 'Please select' ); ?></option>
 						<?php foreach ( $analytics->ga_accounts as $account ) : ?>
 							<option
-								value="<?php echo esc_attr( $account->id ); ?>"<?php selected( $account->id == $analytics->ga_profile['account'] ); ?>><?php echo esc_html( $account->name ); ?></option>
+								value="<?php echo esc_attr( $account->id ); ?>"<?php selected( $account->id, $analytics->ga_profile['account'] ); ?>><?php echo esc_html( $account->name ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<i class="dashicons dashicons-yes"></i>
@@ -174,8 +174,8 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 	</p>
 <?php else : ?>
 	<form id="ga-table-create"
-		  action="<?php echo $analytics->table_create_url( $this->setting_url( 'analytics' ) ); ?>"
-		  method="post">
+			action="<?php echo $analytics->table_create_url( $this->setting_url( 'analytics' ) ); ?>"
+			method="post">
 		<?php wp_nonce_field( 'wp_gianism_google_create-table' ); ?>
 
 		<?php submit_button( $this->_( 'Create Table' ) ); ?>
@@ -194,7 +194,7 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 	<p><?php $this->e( 'Nothing is installed.' ); ?></p>
 <?php else : ?>
 	<form class="gianism-admin-form" id="cron-checker" method="post"
-		  action="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+			action="<?php echo admin_url( 'admin-ajax.php' ); ?>">
 		<input type="hidden" name="action" value="<?php echo $analytics::AJAX_CRON; ?>"/>
 		<?php wp_nonce_field( $analytics::AJAX_CRON ); ?>
 		<table class="mysql-table">
@@ -229,7 +229,7 @@ $analytics = \Gianism\Plugins\Analytics::get_instance();
 					</td>
 				</tr>
 				<?php
-				$counter ++;
+				++$counter;
 endforeach;
 			?>
 			</tbody>
@@ -256,7 +256,7 @@ endforeach;
 	<p><?php $this->e( 'Nothing is installed.' ); ?></p>
 <?php else : ?>
 	<form class="gianism-admin-form" id="ajax-checker" method="get"
-		  action="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+			action="<?php echo admin_url( 'admin-ajax.php' ); ?>">
 		<input type="hidden" name="_wpnonce" value=""/>
 		<table class="mysql-table">
 			<thead>
@@ -271,7 +271,7 @@ endforeach;
 					<td>
 						<label>
 							<input type="radio" name="action" value="<?php echo esc_attr( $ajax::ACTION ); ?>"
-								   data-nonce="<?php echo esc_attr( $ajax::get_nonce() ); ?>" data-action=""/>
+									data-nonce="<?php echo esc_attr( $ajax::get_nonce() ); ?>" data-action=""/>
 							<?php echo esc_html( $ajax ); ?>
 						</label>
 					</td>
@@ -284,13 +284,13 @@ endforeach;
 			<tr>
 				<th><label for="from"><?php $this->e( 'From' ); ?></label></th>
 				<td><input type="text" class="datepicker" id="from" name="from"
-						   value="<?php echo date_i18n( 'Y-m-d', strtotime( '1 month ago', current_time( 'timestamp' ) ) ); ?>"
-						   placeholder="YYYY-MM-DD"/></td>
+							value="<?php echo date_i18n( 'Y-m-d', strtotime( '1 month ago', time() ) ); ?>"
+							placeholder="YYYY-MM-DD"/></td>
 			</tr>
 			<tr>
 				<th><label for="to"><?php $this->e( 'To' ); ?></label></th>
 				<td><input type="text" class="datepicker" id="to" name="to"
-						   value="<?php echo date_i18n( 'Y-m-d' ); ?>" placeholder="YYYY-MM-DD"/></td>
+							value="<?php echo date_i18n( 'Y-m-d' ); ?>" placeholder="YYYY-MM-DD"/></td>
 			</tr>
 		</table>
 		<p class="descritpion"></p>

@@ -40,6 +40,7 @@ class TestCommand extends \WP_CLI_Command {
 			\WP_CLI::error( sprintf( '%s: %s', $tweet->get_error_code(), $tweet->get_error_message() ) );
 		}
 		print_r( $tweet );
+		// translators: %s is screen name.
 		\WP_CLI::success( sprintf( __( 'Tweet has been sent as %s. Response message is above.', 'wp-gianism' ), $twitter->tw_screen_name ) );
 	}
 
@@ -102,6 +103,7 @@ class TestCommand extends \WP_CLI_Command {
 				\WP_CLI::line( '' );
 			}
 		}
+		// translators: %d is number of response.
 		\WP_CLI::success( sprintf( _x( 'Got %d response.', 'CLI', 'wp-gianism' ), count( $response ) ) );
 	}
 
@@ -121,6 +123,7 @@ class TestCommand extends \WP_CLI_Command {
 		$from = isset( $assoc['from'] ) ? $assoc['from'] : date_i18n( 'Y-m-d', strtotime( '7 days ago' ) );
 		$to   = isset( $assoc['to'] ) ? $assoc['to'] : date_i18n( 'Y-m-d', strtotime( 'Yesterday' ) );
 		try {
+			// translators: %1$s and %2$s are date string.
 			\WP_CLI::line( sprintf( __( 'Get popular pages from %1$s to %2$s.', 'wp-gianism' ), $from, $to ) );
 			$table = new Table();
 			$table->setHeaders( [ 'Page Path', 'PV' ] );
@@ -214,6 +217,7 @@ class TestCommand extends \WP_CLI_Command {
 			$next_page = $edge->getCursor( 'after' );
 			$line      = __( 'Successfully retrieved instant articles!', 'wp-gianism' );
 			if ( $next_page ) {
+				// translators: %s is next page id.
 				\WP_CLI::success( $line . ' ' . sprintf( __( 'If you need more instant articles, set --after=%s', 'wp-gianism' ), $next_page ) );
 			} else {
 				\WP_CLI::success( $line );

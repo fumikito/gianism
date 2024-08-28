@@ -1,7 +1,10 @@
 <?php
-defined( 'ABSPATH' ) or die();
+/** @var $this \Gianism\UI\Screen */
 
-/** @var \Gianism\UI\Screen $this */
+defined( 'ABSPATH' ) or die();
+if ( ! isset( $this ) ) {
+	return;
+}
 ?>
 
 <div class="wrap gianism-wrap">
@@ -22,7 +25,7 @@ defined( 'ABSPATH' ) or die();
 	</header>
 
 	<?php if ( $this->views ) : ?>
-		<?php if ( 1 == count( $this->views ) ) : ?>
+		<?php if ( 1 === count( $this->views ) ) : ?>
 			<?php foreach ( $this->views as $view ) : ?>
 				<h2><?php echo $view; ?></h2>
 			<?php endforeach; ?>
@@ -32,7 +35,7 @@ defined( 'ABSPATH' ) or die();
 				foreach ( $this->views as $key => $label ) :
 					?>
 					<a class="nav-tab<?php echo ( $this->is_view( $key ) ) ? ' nav-tab-active' : ''; ?>"
-					   href="<?php echo $this->setting_url( $key ); ?>">
+						href="<?php echo esc_url( $this->setting_url( $key ) ); ?>">
 						<?php echo $label; ?>
 					</a>
 				<?php endforeach; ?>

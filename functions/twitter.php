@@ -29,16 +29,17 @@ function gianism_get_twitter_screen_name( $user_id ) {
 /**
  * Update Twitter time line
  *
- * @package Gianism
+ * @param string          $text    Tweet string.
+ * @param int|null|string $media   If set, tweet with media.
+ * @param array           $options Options.
+ *
+ * @return bool
  * @since 3.0.0
  * @see https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
  *
- * @param string          $string  Tweet string.
- * @param int|null|string $media   If set, tweet with media.
- * @param array           $options Options.
- * @return bool
+ * @package Gianism
  */
-function gianism_update_twitter_status( $string, $media = null, $options = [] ) {
+function gianism_update_twitter_status( $text, $media = null, $options = [] ) {
 	/** @var \Gianism\Service\Twitter $twitter */
 	$twitter = \Gianism\Service\Twitter::get_instance();
 	if ( $media ) {
@@ -51,25 +52,25 @@ function gianism_update_twitter_status( $string, $media = null, $options = [] ) 
 		}
 		$options['media']['media_ids'] = [ $media_id ];
 	}
-	$response = $twitter->tweet( $string, null, $options );
+	$response = $twitter->tweet( $text, null, $options );
 	return ! is_wp_error( $response );
 }
 
 /**
  * Reply to specified user by Owner Account
  *
- * @package Gianism
- * @since 3.0.0
- *
- * @param int $user_id
- * @param string $string
+ * @param int    $user_id
+ * @param string $text
  *
  * @return boolean
+ * @since 3.0.0
+ *
+ * @package Gianism
  */
-function gianism_twitter_reply_to( $user_id, $string ) {
+function gianism_twitter_reply_to( $user_id, $text ) {
 	$screen_name = gianism_get_twitter_screen_name( $user_id );
 	if ( $screen_name ) {
-		gianism_update_twitter_status( "@{$screen_name} " . $string );
+		gianism_update_twitter_status( "@{$screen_name} " . $text );
 		return true;
 	} else {
 		return false;

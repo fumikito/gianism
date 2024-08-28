@@ -44,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/fumikito/Gianism/issues"
   },
-  "homepage": "https://github.com/fumikito/Gianism#readme"
+  "homepage": "https://github.com/fumikito/Gianism#readme",
+  "volta": {
+    "node": "14.21.3"
+  }
 }

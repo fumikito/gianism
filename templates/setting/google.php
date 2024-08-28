@@ -1,7 +1,10 @@
 <?php
 defined( 'ABSPATH' ) or die();
-/** @var \Gianism\UI\Screen $this *
-/** @var \Gianism\Service\Google $instance */
+/** @var $this \Gianism\UI\Screen */
+/** @var $instance \Gianism\Service\Google */
+if ( ! isset( $this, $instance ) ) {
+	return;
+}
 ?>
 
 <h3><i class="lsf lsf-google"></i> Google</h3>
@@ -37,7 +40,7 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<p class="description">
 				<?php
-				$end_point = $instance->get_redirect_endpoint();
+				$end_point = esc_url( $instance->get_redirect_endpoint() );
 				printf(
 					// translators: %1$s is redirect URI, %2$s is Google API Console, %3$s is link to Google API Console.
 					__( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.', 'wp-gianism' ),

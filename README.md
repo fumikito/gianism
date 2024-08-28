@@ -2,11 +2,11 @@
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,account,oauth,community,social,sns  
-Tested up to: 6.2  
-Stable Tag: 5.0.0  
-Requires at least: 5.6  
+Tested up to: 6.6  
+Stable Tag: 5.2.0  
+Requires at least: 5.9  
 Requires PHP: 7.2  
-License: GPL 2.0 or later  
+License:  GPL2 or Later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Connect user accounts with significant web services like Facebook, Twitter, etc. Stand on the shoulders of giants!

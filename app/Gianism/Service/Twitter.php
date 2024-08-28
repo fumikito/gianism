@@ -118,7 +118,7 @@ class Twitter extends NoMailService {
 		if ( version_compare( phpversion(), '5.5.0', '<' ) && $this->enabled ) {
 			add_action(
 				'admin_notices',
-				function() {
+				function () {
 					printf(
 						'<div class="error"><p>%s</p></div>',
 						sprintf( $this->_( 'Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login will be failed.' ), phpversion() )
@@ -261,7 +261,7 @@ class Twitter extends NoMailService {
 					$screen_name = $access_token['screen_name'];
 					// Check if other user has registered
 					$id_owner = $this->get_meta_owner( $this->umeta_id, $twitter_id );
-					if ( $id_owner && ( get_current_user_id() != $id_owner ) ) {
+					if ( $id_owner && ( get_current_user_id() !== $id_owner ) ) {
 						throw new \Exception( $this->duplicate_account_string() );
 					}
 					// O.K.
@@ -427,7 +427,8 @@ class Twitter extends NoMailService {
 	 * Tweet with Owner ID
 	 *
 	 * @see https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
-	 * @param string $string
+	 *
+	 * @param string $text
 	 * @param null   $deprecated Since 5.1.0
 	 * @param array  $options
 	 * @param string $token
@@ -435,12 +436,12 @@ class Twitter extends NoMailService {
 	 *
 	 * @return object|\WP_Error Json format object.
 	 */
-	public function tweet( $string, $deprecated = null, array $options = [], $token = '', $secret = '' ) {
+	public function tweet( $text, $deprecated = null, array $options = [], $token = '', $secret = '' ) {
 		return $this->call_api(
 			'tweets',
 			array_merge(
 				[
-					'text' => $string,
+					'text' => $text,
 				],
 				$options
 			),
@@ -454,14 +455,15 @@ class Twitter extends NoMailService {
 	/**
 	 * Tweet with media
 	 *
-	 * @param string       $string
+	 * @param string       $text
 	 * @param array        $medias
 	 * @param TwitterOAuth $oauth
 	 * @param string       $token
 	 * @param string       $secret
+	 *
 	 * @return object|\WP_Error JSON format object
 	 */
-	public function tweet_with_media( $string, array $medias, $oauth = null, $token = '', $secret = '' ) {
+	public function tweet_with_media( $text, array $medias, $oauth = null, $token = '', $secret = '' ) {
 		$media_ids = [];
 		foreach ( $medias as $media ) {
 			$media_id = $this->upload( $media, $oauth );
@@ -473,7 +475,7 @@ class Twitter extends NoMailService {
 			return new \WP_Error( 500, __( 'Failed to upload media', 'wp-gianism' ) );
 		}
 		return $this->tweet(
-			$string,
+			$text,
 			$oauth,
 			[
 				'media' => [
@@ -511,7 +513,7 @@ class Twitter extends NoMailService {
 				return new \WP_Error( 404, __( 'File not found.', 'wp-gianism' ) );
 			}
 			$path = sys_get_temp_dir() . '/' . tmpfile() . '-' . basename( $path_or_id );
-			if ( ! @file_put_contents( $path, $file ) ) {
+			if ( ! file_put_contents( $path, $file ) ) {
 				return new \WP_Error( 500, __( 'Failed to download media', 'wp-gianism' ) );
 			}
 			$object = $path;

@@ -2,6 +2,7 @@
 .git
 .gitignore
 .github
+.wordpress-org
 tests
 bin
 node_modules

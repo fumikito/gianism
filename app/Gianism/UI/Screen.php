@@ -115,10 +115,13 @@ abstract class Screen {
 		} else {
 			printf(
 				'<div class="gianism-load-error">%s</div>',
-				wp_kses_post( sprintf(
-					__( 'Template file <code>%s</code> is missing.', 'wp-gianism' ),
-					esc_html( $name )
-				) )
+				wp_kses_post(
+					sprintf(
+						// translators: %s is template name.
+						__( 'Template file <code>%s</code> is missing.', 'wp-gianism' ),
+						esc_html( $name )
+					)
+				)
 			);
 		}
 		/**

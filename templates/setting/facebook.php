@@ -12,18 +12,22 @@ defined( 'ABSPATH' ) or die();
 			<?php $this->switch_button( 'fb_enabled', $this->option->is_enabled( 'facebook' ), 1 ); ?>
 			<p class="description">
 				<?php
-				echo wp_kses_post( sprintf(
+				echo wp_kses_post(
+					sprintf(
 					// translators: %1$s is service name, %2$s is URL.
-					__( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.', 'wp-gianism' ),
-					'Facebook',
-					'https://developers.facebook.com/apps'
-				) );
-				echo wp_kses_post( sprintf(
+						__( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.', 'wp-gianism' ),
+						'Facebook',
+						'https://developers.facebook.com/apps'
+					)
+				);
+				echo wp_kses_post(
+					sprintf(
 					// translators: %1$s is URL, %2$s is label.
-					__( 'See detail at <a href="%1$s">%2$s</a>.', 'wp-gianism' ),
-					esc_url( $this->setting_url( 'setup' ) ),
-					esc_html__( 'How to set up', 'wp-gianism' )
-				) );
+						__( 'See detail at <a href="%1$s">%2$s</a>.', 'wp-gianism' ),
+						esc_url( $this->setting_url( 'setup' ) ),
+						esc_html__( 'How to set up', 'wp-gianism' )
+					)
+				);
 				?>
 			</p>
 		</td>
@@ -94,10 +98,13 @@ defined( 'ABSPATH' ) or die();
 			<?php if ( $instance->fb_use_api ) : ?>
 				<p class="notice">
 					<?php
-					echo wp_kses_post( sprintf(
-						__( 'You must set up token on <a href="%s">Facebook API page</a>.', 'wp-gianism' ),
-						$this->setting_url( 'fb-api' )
-					) );
+					echo wp_kses_post(
+						sprintf(
+							// translators: %s is URL.
+							__( 'You must set up token on <a href="%s">Facebook API page</a>.', 'wp-gianism' ),
+							$this->setting_url( 'fb-api' )
+						)
+					);
 					?>
 				</p>
 			<?php endif; ?>

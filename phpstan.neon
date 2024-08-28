@@ -18,5 +18,3 @@ parameters:
 
     bootstrapFiles:
         - vendor/autoload.php
-
-    editorUrlTitle: '%%relFile%%:%%line%%'

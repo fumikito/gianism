@@ -28,7 +28,7 @@ class AnalyticsFetcher extends Singleton {
 	 * @return string
 	 */
 	protected function today() {
-		return date_i18n( 'Y-m-d', current_time( 'timestamp' ) );
+		return date_i18n( 'Y-m-d' );
 	}
 
 	/**
@@ -55,11 +55,11 @@ class AnalyticsFetcher extends Singleton {
 	/**
 	 * Fetch data from Google Analytics API
 	 *
-	 * @param string $start_date Date string
-	 * @param string $end_date Date string
-	 * @param string $metrics CSV of metrics E.g., 'ga:visits,ga:pageviews'
-	 * @param array  $params Option params below
-	 * @param bool   $throw If set to true, throws exception
+	 * @param string $start_date      Date string
+	 * @param string $end_date        Date string
+	 * @param string $metrics         CSV of metrics E.g., 'ga:visits,ga:pageviews'
+	 * @param array  $params          Option params below
+	 * @param bool   $throw_exception If set to true, throws exception
 	 *
 	 * @opt_param string dimensions A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'.
 	 * @opt_param string filters A comma-separated list of dimension or metric filters to be applied to Analytics data.
@@ -71,7 +71,7 @@ class AnalyticsFetcher extends Singleton {
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function fetch( $start_date, $end_date, $metrics, $params = [], $throw = false ) {
+	public function fetch( $start_date, $end_date, $metrics, $params = [], $throw_exception = false ) {
 		try {
 			if ( ! $this->ga || ! $this->view_id ) {
 				throw new \Exception( 'Google Analytics is not connected.', 500 );
@@ -83,7 +83,7 @@ class AnalyticsFetcher extends Singleton {
 				return [];
 			}
 		} catch ( \Exception $e ) {
-			if ( $throw ) {
+			if ( $throw_exception ) {
 				throw $e;
 			} else {
 				error_log( sprintf( '[Gianism GA Error %s] %s', $e->getCode(), $e->getMessage() ) );
@@ -130,5 +130,4 @@ class AnalyticsFetcher extends Singleton {
 				break;
 		}
 	}
-
 }

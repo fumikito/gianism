@@ -25,7 +25,8 @@ use Gianism\Pattern\Singleton;
  */
 class Option extends Singleton {
 
-	use i18n, MessageHelper;
+	use i18n;
+	use MessageHelper;
 
 	/**
 	 * Action name which fires on updating option
@@ -88,11 +89,11 @@ class Option extends Singleton {
 	 * Set default option
 	 *
 	 * @param string $key
-	 * @param mixed  $default
+	 * @param mixed  $default_value
 	 */
-	public function set_default( $key, $default ) {
+	public function set_default( $key, $default_value ) {
 		if ( ! isset( $this->values[ $key ] ) ) {
-			$this->values[ $key ] = $default;
+			$this->values[ $key ] = $default_value;
 		}
 	}
 
@@ -360,7 +361,7 @@ class Option extends Singleton {
 		if ( ! is_multisite() ) {
 			return false;
 		}
-		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins() );
+		return in_array( gianism_root_dir() . '/wp-gianism.php', wp_get_active_network_plugins(), true );
 	}
 
 	/**

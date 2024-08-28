@@ -24,14 +24,14 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $this->e( 'App name. Blog name is recommended. User will see this name on authentication screen.' ); ?>
 			<br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), get_bloginfo( 'name' ) ); ?>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), esc_html( get_bloginfo( 'name' ) ) ); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>Namespace</th>
 		<td>
 			<?php $this->e( 'Unique string which identifies your app.' ); ?><br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), $_SERVER['HTTP_HOST'] ); ?>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), esc_html( $_SERVER['HTTP_HOST'] ) ); ?>
 		</td>
 	</tr>
 	<tr>
@@ -39,21 +39,24 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $this->e( 'Contact mail address. It will be displayed on authentication screen on Facebook.' ); ?>
 			<br/>
-			<?php printf( __( '<strong>e.g.</strong> <code>%s</code>', 'wp-gianism' ), $this->option->get( 'admin_email' ) ); ?>
+			<?php
+			// translators: %s is email
+			printf( __( '<strong>e.g.</strong> <code>%s</code>', 'wp-gianism' ), esc_html( $this->option->get( 'admin_email' ) ) );
+			?>
 		</td>
 	</tr>
 	<tr>
 		<th>App Domains</th>
 		<td>
 			<?php $this->e( 'Your domain.' ); ?><br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), $_SERVER['HTTP_HOST'] ); ?>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), esc_html( $_SERVER['HTTP_HOST'] ) ); ?>
 		</td>
 	</tr>
 	<tr>
 		<th>Sandbox Mode</th>
 		<td>
 			<?php $this->e( 'On development environment or test flight, turn sandbox ON.' ); ?><br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), $this->_( 'OFF' ) ); ?>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), esc_html__( 'OFF', 'wp-gianism' ) ); ?>
 		</td>
 	</tr>
 	<tr>
@@ -68,7 +71,7 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $this->e( 'The URL where user will be redirected after authentication.' ); ?>
 			<br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), home_url( "/{$instance->url_prefix}/", $this->option->is_ssl_required() ? 'https' : 'http' ) ); ?>
+			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), esc_url( home_url( "/{$instance->url_prefix}/", $this->option->is_ssl_required() ? 'https' : 'http' ) ) ); ?>
 		</td>
 	</tr>
 </table>

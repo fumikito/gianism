@@ -23,6 +23,4 @@ class Monitor extends Singleton {
 	protected function __construct( array $argument = array() ) {
 		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
 	}
-
-
 }

@@ -67,12 +67,12 @@ defined( 'ABSPATH' ) or die();
 						<p>
 									<label class="inline" for="mce-group[1111]-1111-0">
 										<input type="checkbox" value="1" name="group[1111][1]"
-											   id="mce-group[1111]-1111-0" <?php checked( 'ja' != $locale ); ?>>
+												id="mce-group[1111]-1111-0" <?php checked( str_contains( $locale, 'en_' ) ); ?>>
 										<?php $this->e( 'English' ); ?>
 									</label>
 									<label class="inline" for="mce-group[1111]-1111-1">
 										<input type="checkbox" value="2" name="group[1111][2]"
-											   id="mce-group[1111]-1111-1" <?php checked( 'ja' == $locale ); ?>>
+												id="mce-group[1111]-1111-1" <?php checked( 'ja', $locale ); ?>>
 										<?php $this->e( 'Japanese' ); ?>
 									</label>
 						</p>
@@ -81,7 +81,7 @@ defined( 'ABSPATH' ) or die();
 					</div>
 					<p class="submit">
 						<input type="submit" value="<?php $this->e( 'Subscribe' ); ?>" name="subscribe"
-							   id="mc-embedded-subscribe" class="button-primary">
+								id="mc-embedded-subscribe" class="button-primary">
 					</p>
 				</form>
 			</div>
@@ -90,8 +90,8 @@ defined( 'ABSPATH' ) or die();
 		<h4><?php $this->e( 'Our social Account' ); ?></h4>
 
 		<div class="fb-page" data-href="https://www.facebook.com/gianism.info" data-small-header="true"
-			 data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
-			 data-show-posts="false">
+			data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"
+			data-show-posts="false">
 			<div class="fb-xfbml-parse-ignore">
 				<blockquote cite="https://www.facebook.com/gianism.info"><a
 						href="https://www.facebook.com/gianism.info">Gianism</a></blockquote>
@@ -99,7 +99,7 @@ defined( 'ABSPATH' ) or die();
 		</div>
 		<p class="social-link">
 			<a href="https://twitter.com/intent/tweet?screen_name=wpGianism" class="twitter-mention-button"
-			   data-lang="ja" data-related="takahashifumiki">Tweet to @wpGianism</a>
+				data-lang="ja" data-related="takahashifumiki">Tweet to @wpGianism</a>
 			<script>!function (d, s, id) {
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (!d.getElementById(id)) {
@@ -114,7 +114,7 @@ defined( 'ABSPATH' ) or die();
 		<p class="hametuha-link">
 			<small>Powered by</small>
 			<a href="<?php echo gianism_utm_link( 'https://hametuha.co.jp/', [ 'utm_medium' => 'sidebar' ] ); ?>"
-			   target="_blank">
+				target="_blank">
 				<img src="<?php echo $this->url; ?>assets/img/hametuha-logo.png">
 			</a>
 		</p>

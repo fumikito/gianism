@@ -193,16 +193,17 @@ abstract class AbstractService extends Application {
 			$wp_query->set_404();
 			return;
 		}
-		if ( 'default' != $action && ! $this->input->verify_nonce( $this->input->nonce_action( "{$this->service_name}_{$action}" ) ) ) {
+		if ( 'default' !== $action && ! $this->input->verify_nonce( $this->input->nonce_action( "{$this->service_name}_{$action}" ) ) ) {
 			// If not default, nonce required.
 			$this->input->wp_die( __( 'This request seems to be a wrong access. Please try again.', 'wp-gianism' ), 403 );
 		}
-		if ( 'default' != $action && method_exists( get_called_class(), $method ) ) {
+		if ( 'default' !== $action && method_exists( get_called_class(), $method ) ) {
 			// Method found, just call
 			$this->{$method}( $wp_query );
 		} else {
 			// Else, call default.
-			if ( $specified_action = $this->session->get( 'action' ) ) {
+			$specified_action = $this->session->get( 'action' );
+			if ( $specified_action ) {
 				// If session is set, override with it.
 				$action = $specified_action;
 			}
@@ -234,6 +235,7 @@ abstract class AbstractService extends Application {
 			}
 			// Is user connected already?
 			if ( $this->is_connected( get_current_user_id() ) ) {
+				// translators: %s is service name.
 				throw new \Exception( sprintf( __( 'You are already connected with %s', 'wp-gianism' ), $this->verbose_service_name ) );
 			}
 			// Set redirect URL
@@ -274,10 +276,12 @@ abstract class AbstractService extends Application {
 			}
 			// Has connection?
 			if ( ! $this->is_connected( get_current_user_id() ) ) {
+				// translators: %s is service name.
 				throw new \Exception( sprintf( __( 'Your account is not connected with %s', 'wp-gianism' ), $this->verbose_service_name ) );
 			}
 			// O.K.
 			$this->disconnect( get_current_user_id() );
+			// translators: %s is service name.
 			$this->add_message( sprintf( __( 'Your account is now unlinked from %s.', 'wp-gianism' ), $this->verbose_service_name ) );
 			// Redirect
 			wp_redirect( $this->filter_redirect( $redirect_url, 'disconnect' ) );
@@ -308,7 +312,8 @@ abstract class AbstractService extends Application {
 				'redirect_to' => $this->input->get( 'redirect_to' ),
 				'action'      => 'login',
 			];
-			if ( ( $blog_id = $this->input->get( 'blog_id' ) ) ) {
+			$blog_id = $this->input->get( 'blog_id' );
+			if ( $blog_id ) {
 				// Store blog id if blog id is specified.
 				$session['blog_id'] = (int) $blog_id;
 			}
@@ -377,9 +382,11 @@ EOS;
 	public function connection_message( $context = 'connected' ) {
 		switch ( $context ) {
 			case 'connected':
+				// translators: %s is service name.
 				return sprintf( __( 'Your account is already connected with %s account.', 'wp-gianism' ), $this->verbose_service_name );
 				break;
 			default: // Disconnected
+				// translators: %1$s is service name, %2$s is site name.
 				return sprintf( __( 'Connecting with %1$s, you can login with %2$s via %1$s without password or email address.', 'wp-gianism' ), $this->verbose_service_name, get_bloginfo( 'name' ) );
 				break;
 		}
@@ -401,32 +408,21 @@ EOS;
 	/**
 	 * Returns redirect to url if set.
 	 *
-	 * @param string $default
+	 * @param string $default_url
 	 * @param array $args
 	 *
 	 * @return string
 	 */
-	protected function get_redirect_to( $default, $args = array() ) {
+	protected function get_redirect_to( $default_url, $args = array() ) {
+		$redirect_to = $default_url;
 		if ( isset( $_REQUEST['redirect_to'] ) ) {
 			$domain = $_SERVER['SERVER_NAME'];
 			if ( preg_match( "/^(https?:\/\/{$domain}|\/)/", $_REQUEST['redirect_to'] ) ) {
 				$redirect_to = $_REQUEST['redirect_to'];
 				if ( ! empty( $args ) ) {
-					$redirect_to .= ( false !== strpos( $redirect_to, '?' ) ) ? '&' : '?';
-					$counter      = 0;
-					foreach ( $args as $key => $val ) {
-						if ( 0 == $counter ) {
-							$redirect_to .= '&';
-						}
-						$redirect_to .= $key . '=' . rawurlencode( $val );
-						$counter ++;
-					}
+					$redirect_to = add_query_arg( $args, $redirect_to );
 				}
-			} else {
-				$redirect_to = $default;
 			}
-		} else {
-			$redirect_to = $default;
 		}
 		return $this->filter_redirect( $redirect_to, 'default' );
 	}
@@ -566,9 +562,12 @@ EOS;
 			$icon = '';
 		}
 		// If SVG exists, use it for public button style.
-		if ( in_array( 'wpg-guideline-button', $class_names ) && ( $file = $this->svg_path() ) ) {
-			$icon = $this->url . '/assets/img/brands/' . $file;
-			$icon = sprintf( '<img src="%s" alt="" class="wpg-icon" />', esc_url( $icon ) );
+		if ( in_array( 'wpg-guideline-button', $class_names, true ) ) {
+			$file = $this->svg_path();
+			if ( $file ) {
+				$icon = $this->url . '/assets/img/brands/' . $file;
+				$icon = sprintf( '<img src="%s" alt="" class="wpg-icon" />', esc_url( $icon ) );
+			}
 		}
 		$class_attr = implode(
 			' ',
@@ -620,6 +619,7 @@ EOS;
 	 * @return string
 	 */
 	protected function login_label( $register = false, $context = '' ) {
+		// translators: %s is service name.
 		return sprintf( __( 'Log in with %s', 'wp-gianism' ), $this->verbose_service_name );
 	}
 
@@ -710,6 +710,7 @@ EOS;
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'connect',
+			// translators: %s is service name.
 			'gianism-ga-label'    => sprintf( __( 'Connect %s', 'wp-gianism' ), $this->verbose_service_name ),
 		);
 
@@ -737,7 +738,9 @@ EOS;
 		$args = array(
 			'gianism-ga-category' => "gianism/{$this->service_name}",
 			'gianism-ga-action'   => 'disconnect',
+			// translators: %s is service name.
 			'gianism-ga-label'    => sprintf( __( 'Disconnect %s', 'wp-gianism' ), $this->verbose_service_name ),
+			// translators: %s is service name.
 			'gianism-confirm'     => sprintf( __( 'You really disconnect from %s? If so, please be sure about your credential(email, password), or else you might not be able to login again.', 'wp-gianism' ), $this->verbose_service_name ),
 		);
 
@@ -847,6 +850,7 @@ EOS;
 	 * @return string
 	 */
 	protected function api_error_string() {
+		// translators: %s is service name.
 		return sprintf( __( '%s API returns error.', 'wp-gianism' ), $this->verbose_service_name );
 	}
 
@@ -856,6 +860,7 @@ EOS;
 	 * @return string
 	 */
 	protected function duplicate_account_string() {
+		// translators: %s is service name.
 		return sprintf( __( 'This %s account is already connected with others.', 'wp-gianism' ), $this->verbose_service_name );
 	}
 
@@ -865,6 +870,7 @@ EOS;
 	 * @param string $who
 	 */
 	protected function welcome( $who ) {
+		// translators: %s is user name.
 		$this->add_message( sprintf( __( 'Welcome, %s!', 'wp-gianism' ), $who ) );
 	}
 
@@ -911,6 +917,7 @@ EOS;
 	 */
 	protected function test_user_can_register() {
 		if ( ! $this->user_can_register() ) {
+			// translators: %s is service name.
 			throw new \Exception( sprintf( __( 'Registration via %s is not allowed.', 'wp-gianism' ), $this->verbose_service_name ) );
 		}
 
@@ -960,6 +967,7 @@ EOS;
 			case 'PUT':
 			case 'PATCH':
 				curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
+				// Other, same as POST.
 			case 'POST':
 				curl_setopt( $ch, CURLOPT_POST, true );
 				if ( is_array( $request ) ) {
@@ -971,6 +979,7 @@ EOS;
 				break;
 			case 'DELETE':
 				curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'DELETE' );
+				// Other, same as GET.
 			case 'GET':
 				$args = array();
 				if ( is_array( $request ) ) {
@@ -982,7 +991,6 @@ EOS;
 				break;
 			default:
 				return array();
-				break;
 		}
 		curl_setopt( $ch, CURLOPT_URL, $endpoint );
 		if ( ! empty( $additional_headers ) ) {
@@ -992,7 +1000,6 @@ EOS;
 		curl_close( $ch );
 
 		return json_decode( $response );
-
 	}
 
 	/**
@@ -1037,6 +1044,7 @@ EOS;
 	 */
 	public function target_credentials( $context = 'login' ) {
 		return [
+			// translators: %s is serfice name.
 			'id'      => sprintf( __( '%s User ID', 'wp-gianism' ), $this->verbose_service_name ),
 			'profile' => __( 'Profile', 'wp-gianism' ),
 			'email'   => __( 'Email', 'wp-gianism' ),
@@ -1065,13 +1073,10 @@ EOS;
 				$segments = explode( '\\', get_called_class() );
 
 				return strtolower( $segments[ count( $segments ) - 1 ] );
-				break;
 			case 'enabled':
 				return $this->option->is_enabled( $this->service_name );
-				break;
 			default:
 				return parent::__get( $name );
-				break;
 		}
 	}
 }

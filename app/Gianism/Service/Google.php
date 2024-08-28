@@ -102,8 +102,8 @@ class Google extends AbstractService {
 		// Filter rewrite name
 		add_filter(
 			'gianism_filter_service_prefix',
-			function( $prefix ) {
-				if ( 'google-auth' == $prefix ) {
+			function ( $prefix ) {
+				if ( 'google-auth' === $prefix ) {
 					$prefix = 'google';
 				}
 				return $prefix;
@@ -203,7 +203,7 @@ class Google extends AbstractService {
 					// Check if other user has these as meta_value
 					$email       = $profile['email'];
 					$email_owner = $this->get_meta_owner( $this->umeta_account, $email );
-					if ( $email_owner && ( get_current_user_id() != $email_owner ) ) {
+					if ( $email_owner && ( get_current_user_id() !== $email_owner ) ) {
 						throw new \Exception( $this->duplicate_account_string() );
 					}
 					// Now let's save user data
@@ -310,6 +310,7 @@ class Google extends AbstractService {
 	}
 
 	protected function login_label( $register = false, $context = '' ) {
+		// translators: %s is service name.
 		return sprintf( _x( 'Sign in with %s', 'login label', 'wp-gianism' ), $this->verbose_service_name );
 	}
 

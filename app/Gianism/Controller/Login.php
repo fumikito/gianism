@@ -92,8 +92,11 @@ class Login extends AbstractController {
 		if ( empty( $after ) ) {
 			$after = '</div>';
 		}
-		if ( '' === $redirect_to && ( $redirect_query = $this->input->get( 'redirect_to' ) ) ) {
-			$redirect_to = $redirect_query;
+		if ( '' === $redirect_to ) {
+			$redirect_query = $this->input->get( 'redirect_to' );
+			if ( $redirect_query ) {
+				$redirect_to = $redirect_query;
+			}
 		}
 		echo $before;
 		/**
@@ -151,5 +154,4 @@ class Login extends AbstractController {
 		}
 		$this->login_form( '', '', false, $redirect, 'woo-account' );
 	}
-
 }

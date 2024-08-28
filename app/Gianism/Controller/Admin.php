@@ -148,7 +148,7 @@ class Admin extends AbstractController {
 				if ( preg_match( '#href="https://gianism.info"#', $value ) ) {
 					$plugin_meta[ $index ] = preg_replace_callback(
 						'#href="https://gianism.info"#',
-						function( $matches ) {
+						function ( $matches ) {
 							return sprintf(
 								'href="%s"',
 								esc_url(

@@ -81,10 +81,10 @@ function gianism_setup_after_plugins_loaded() {
 			throw new Exception( sprintf( __( '[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</code>. So this plugin is still in silence. Please contact server administrator.', 'wp-gianism' ), GIANISM_PHP_VERSION, phpversion() ) );
 		}
 		// Load composer.
-		$auto_loader = dirname( __FILE__ ) . '/vendor/autoload.php';
+		$auto_loader = __DIR__ . '/vendor/autoload.php';
 		if ( ! file_exists( $auto_loader ) ) {
 			// translators: %s is file path, %2$s is composer command.
-			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %1$s. Did you run %2$s?', 'wp-gianism' ) ), dirname( __FILE__ ) . '/vendor/autoload.php', '<code>composer install</code>' ) );
+			throw new Exception( sprintf( esc_html( __( '[Gianism] missing composer\'s auto loader at %1$s. Did you run %2$s?', 'wp-gianism' ) ), __DIR__ . '/vendor/autoload.php', '<code>composer install</code>' ) );
 		}
 		// Load auto loader.
 		require $auto_loader;
@@ -150,5 +150,5 @@ function gianism_internal_error( $message = '' ) {
  * @return string
  */
 function gianism_root_dir() {
-	return dirname( __FILE__ );
+	return __DIR__;
 }

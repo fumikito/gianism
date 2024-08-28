@@ -192,5 +192,4 @@ abstract class AbstractNotice {
 				break;
 		}
 	}
-
 }

@@ -30,24 +30,25 @@ defined( 'ABSPATH' ) or die();
 		<th><label for="fb_app_id"><?php $this->e( 'App ID' ); ?></label></th>
 		<td>
 			<input type="text" class="regular-text" name="fb_app_id" id="fb_app_id"
-				   value="<?php echo esc_attr( $instance->fb_app_id ); ?>"/>
+					value="<?php echo esc_attr( $instance->fb_app_id ); ?>"/>
 		</td>
 	</tr>
 	<tr>
 		<th><label for="fb_app_secret"><?php $this->e( 'App Secret' ); ?></label></th>
 		<td>
 			<input type="text" class="regular-text" name="fb_app_secret" id="fb_app_secret"
-				   value="<?php echo esc_attr( $instance->fb_app_secret ); ?>"/>
+					value="<?php echo esc_attr( $instance->fb_app_secret ); ?>"/>
 		</td>
 	</tr>
 	<tr>
 		<th><label for="fb_version"><?php $this->e( 'API Version' ); ?></label></th>
 		<td>
 			<input type="text" class="regular-text" name="fb_version" id="fb_version" placeholder="<?php echo esc_attr( $instance->minimum_api_version ); ?>"
-				   value="<?php echo esc_attr( $instance->fb_version ); ?>"/>
+					value="<?php echo esc_attr( $instance->fb_version ); ?>"/>
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.0' );
+				// translators: %s is version string.
 				echo wp_kses_post( sprintf( __( 'Enter Facebook API version for your app. Facebook API\'s life cycle is 2 years. Format should be <code>v0.0</code>. Less than minimum version <code>%s</code> will be ignored.', 'wp-gianism' ), $instance->minimum_api_version ) );
 				?>
 			</p>
@@ -58,9 +59,9 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $end_point = $instance->get_redirect_endpoint(); ?>
 			<input type="text" class="regular-text" name="fb_redirect_uri" id="fb_redirect_uri" readonly
-				   value="<?php echo esc_attr( $end_point ); ?>"/>
+					value="<?php echo esc_attr( $end_point ); ?>"/>
 			<a class="button" href="<?php echo esc_attr( $end_point ); ?>"
-			   onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ); ?>', this.href); return false;"><?php $this->e( 'Copy' ); ?></a>
+				onclick="window.prompt('<?php esc_attr_e( 'Please copy this URL.', 'wp-gianism' ); ?>', this.href); return false;"><?php $this->e( 'Copy' ); ?></a>
 			<p class="description">
 				<?php
 				$this->new_from( '3.0.9' );

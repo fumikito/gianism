@@ -26,7 +26,8 @@ use Gianism\Helper\Session;
  */
 trait AppBase {
 
-	use i18n, MessageHelper;
+	use i18n;
+	use MessageHelper;
 
 	protected $name = 'gianism';
 
@@ -50,9 +51,9 @@ trait AppBase {
 				global $wpdb;
 				return $wpdb;
 			case 'url':
-				return plugin_dir_url( dirname( dirname( dirname( __FILE__ ) ) ) );
+				return plugin_dir_url( dirname( __DIR__, 2 ) );
 			case 'dir':
-				return plugin_dir_path( dirname( dirname( dirname( __FILE__ ) ) ) );
+				return plugin_dir_path( dirname( __DIR__, 2 ) );
 			case 'option':
 				return Option::get_instance();
 			case 'input':

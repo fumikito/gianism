@@ -146,6 +146,4 @@ class Session extends Singleton {
 				break;
 		}
 	}
-
-
 }

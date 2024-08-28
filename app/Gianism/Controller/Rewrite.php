@@ -133,7 +133,7 @@ class Rewrite extends AbstractController {
 	public function check_rewrite() {
 		$registered_rewrites = $this->option->get( 'rewrite_rules' );
 		foreach ( $this->rewrites as $reg => $replaced ) {
-			if ( ! isset( $registered_rewrites[ $reg ] ) || $replaced != $registered_rewrites[ $reg ] ) {
+			if ( ! isset( $registered_rewrites[ $reg ] ) || $replaced !== $registered_rewrites[ $reg ] ) {
 				flush_rewrite_rules();
 			}
 		}
@@ -145,10 +145,9 @@ class Rewrite extends AbstractController {
 	 * @param \WP_Query $wp_query
 	 */
 	public function hijack_query( \WP_Query &$wp_query ) {
-		if ( ! is_admin() && $wp_query->is_main_query()
-			 && ( $service = $wp_query->get( 'gianism_service' ) )
-			 && ( $action = $wp_query->get( 'gianism_action' ) )
-		) {
+		$service = $wp_query->get( 'gianism_service' );
+		$action  = $wp_query->get( 'gianism_action' );
+		if ( ! is_admin() && $wp_query->is_main_query() && $service && $action ) {
 			/**
 			 * Convert rewrite rule to service name
 			 *
@@ -158,17 +157,14 @@ class Rewrite extends AbstractController {
 			 * @return string
 			 */
 			$filtered_service = apply_filters( 'gianism_filter_service_prefix', $service );
-			if ( false !== array_search( $service, $this->prefixes ) && ( $instance = $this->service->get( $filtered_service ) ) ) {
+			if ( in_array( $service, $this->prefixes, true ) && ( $this->service->get( $filtered_service ) ) ) {
 				nocache_headers();
 				/** @var AbstractService $instance */
 				// Parse Request
-				$instance->parse_request( $action, $wp_query );
+				$this->service->get( $filtered_service )->parse_request( $action, $wp_query );
 			} else {
 				$wp_query->set_404();
 			}
 		}
 	}
-
-
-
 }

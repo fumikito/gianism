@@ -67,7 +67,7 @@ abstract class NoMailService extends AbstractService {
 	}
 
 	/**
-	 * Override default wp_mai
+	 * Override default wp_mail
 	 *
 	 * @param array $args
 	 *
@@ -76,7 +76,8 @@ abstract class NoMailService extends AbstractService {
 	final public function mail_handler( $args ) {
 		$tos = [];
 		foreach ( is_array( $args['to'] ) ? $args['to'] : [ $args['to'] ] as $to ) {
-			if ( $this->is_pseudo_mail( $to ) && ( $user_id = email_exists( $to ) ) ) {
+			$user_id = email_exists( $to );
+			if ( $this->is_pseudo_mail( $to ) && $user_id ) {
 				// Send mail
 				$this->wp_mail( $user_id, $args['subject'], $args['message'], $args['headers'], $args['attachments'] );
 			} else {

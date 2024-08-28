@@ -2,7 +2,7 @@
 
 namespace Gianism\Api;
 
-use \Gianism\Pattern\Application;
+use Gianism\Pattern\Application;
 
 /**
  * Short code API

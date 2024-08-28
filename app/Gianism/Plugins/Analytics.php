@@ -104,8 +104,8 @@ class Analytics extends PluginBase {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter(
 			'gianism_setting_screen_views',
-			function( $views, $slug ) {
-				if ( 'gianism' == $slug ) {
+			function ( $views, $slug ) {
+				if ( 'gianism' === $slug ) {
 					$views['analytics'] = sprintf( '<i class="lsf lsf-graph"></i> %s', $this->_( 'Google Analytics' ) );
 				}
 				return $views;
@@ -328,7 +328,7 @@ SQL;
 	 * @param $hook_suffix
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
-		if ( 'settings_page_gianism' == $hook_suffix ) {
+		if ( 'settings_page_gianism' === $hook_suffix ) {
 			// Script
 			wp_enqueue_script( 'gianism-analytics-helper', $this->url . 'assets/js/admin-analytics-helper.js', [ 'jquery-form' ], $this->version, true );
 			wp_localize_script(
@@ -355,7 +355,7 @@ SQL;
 			}
 			// Check data to retrieve
 			$result = null;
-			switch ( $target = $this->input->get( 'target' ) ) {
+			switch ( $this->input->get( 'target' ) ) {
 				case 'account':
 					$properties = $this->ga
 						->management_webproperties
@@ -376,7 +376,6 @@ SQL;
 					break;
 				default:
 					throw new \Exception( $this->_( 'Invalid action.' ), 500 );
-					break;
 			}
 		} catch ( \Exception $e ) {
 			$json = array(
@@ -385,7 +384,7 @@ SQL;
 				'message'    => $e->getMessage(),
 			);
 		}
-		echo json_encode( $json );
+		wp_send_json( $json );
 		exit;
 	}
 
@@ -419,7 +418,7 @@ SQL;
 		$this->crons  = apply_filters( 'gianism_analytics_auto_loader_class', [], 'cron' );
 		// Parse directory
 		$classes = $scan( $template_dir );
-		if ( $template_dir != $stylesheet_dir ) {
+		if ( $template_dir !== $stylesheet_dir ) {
 			$classes = array_merge( $classes, $scan( $stylesheet_dir ) );
 		}
 		if ( ! empty( $classes ) ) {
@@ -574,6 +573,4 @@ SQL;
 				break;
 		}
 	}
-
-
 }

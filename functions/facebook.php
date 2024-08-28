@@ -234,5 +234,4 @@ function gianism_fb_delete_instant_article( $url_or_id, $development = false ) {
 	} catch ( Exception $e ) {
 		return new WP_Error( $e->getCode(), $e->getMessage() );
 	}
-
 }

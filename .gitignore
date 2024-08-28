@@ -7,5 +7,4 @@ assets/
 doc/
 readme.txt
 language/wp-gianism.mo
-package-lock.json
 composer.lock

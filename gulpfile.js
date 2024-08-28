@@ -58,7 +58,7 @@ gulp.task('copylib', function () {
       .pipe(gulp.dest('./assets/fonts/')),
     // Copy JS Cookie
     gulp.src([
-      './node_modules/js-cookie/src/js.cookie.js'
+      './node_modules/js-cookie/dist/js.cookie.min.js'
     ])
       .pipe($.uglify())
       .pipe(gulp.dest('./assets/js/'))

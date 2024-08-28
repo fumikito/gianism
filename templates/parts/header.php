@@ -1,7 +1,8 @@
 <?php
+/** @var $this \Gianism\UI\Screen */
+
 defined( 'ABSPATH' ) or die();
 
-/** @var \Gianism\UI\Screen $this */
 ?>
 
 <div class="wrap gianism-wrap">

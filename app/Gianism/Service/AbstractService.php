@@ -496,8 +496,9 @@ EOS;
 		 * @filter gianism_redirect_to
 		 * @param string $url     The URL user will be redirect to.
 		 * @param string $service 'facebook', 'twitter', and so on.
+		 * @param string $context The context of this redirect.
 		 */
-		return apply_filters( 'gianism_redirect_to', $url, $this->service, $context );
+		return apply_filters( 'gianism_redirect_to', $url, $this->service_name, $context );
 	}
 
 	/**

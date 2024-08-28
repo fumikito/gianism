@@ -52,11 +52,28 @@ jobs:
       - name: Install WordPress
         run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
 
-      #- name: Check PHP syntax
-      #  run: composer lint
-
       - name: Run Unit test
         run: composer test
+
+  lint:
+    name: PHP Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Check PHP syntax
+        run: composer lint
 
   assets:
     name: Assets Test
@@ -77,7 +94,7 @@ jobs:
 
   status-check:
     name: Status Check
-    needs: [ test, assets ]
+    needs: [ test, assets, lint ]
     runs-on: ubuntu-latest
     steps:
       - name: Display Status

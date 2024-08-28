@@ -73,7 +73,7 @@ class Rewrite extends AbstractController {
 			 */
 			$this->rewrites = apply_filters( 'gianism_rewrite_rules', $rewrites );
 			// Hook for rewrite rules
-			add_action( 'rewrite_rules_array', [ $this, 'rewrite_rules_array' ] );
+			add_filter( 'rewrite_rules_array', [ $this, 'rewrite_rules_array' ] );
 			// Check if rewrite rules are satisfied
 			add_action( 'admin_init', [ $this, 'check_rewrite' ] );
 			// WP_Query
@@ -152,9 +152,7 @@ class Rewrite extends AbstractController {
 			 * Convert rewrite rule to service name
 			 *
 			 * @since 3.0.0
-			 * @filter gianism_filter_service_prefix
-			 * @param $prefix
-			 * @return string
+			 * @param string $service
 			 */
 			$filtered_service = apply_filters( 'gianism_filter_service_prefix', $service );
 			if ( in_array( $service, $this->prefixes, true ) && ( $this->service->get( $filtered_service ) ) ) {

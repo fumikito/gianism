@@ -2,7 +2,6 @@
 
 namespace Gianism\Api;
 
-use Gianism\Pattern\Singleton;
 use Gianism\Plugins\AnalyticsFetcher;
 
 /**
@@ -65,12 +64,12 @@ abstract class Ajax extends AnalyticsFetcher {
 	 */
 	public function ajax() {
 		try {
-			if ( static::NONCE_ACTION && ! wp_verify_nonce( $this->get( '_wpnonce' ), static::NONCE_ACTION ) ) {
-				throw new \Exception( $this->_( 'You have no permission.' ), 403 );
+			if ( static::NONCE_ACTION && ! wp_verify_nonce( $this->input->get( '_wpnonce' ), static::NONCE_ACTION ) ) {
+				throw new \Exception( __( 'You have no permission.', 'wp-gianism' ), 403 );
 			}
 			$result = $this->get_result();
 			if ( ! is_array( $result ) ) {
-				throw new \Exception( $this->_( 'Wrong value is returned.' ), 500 );
+				throw new \Exception( __( 'Wrong value is returned.', 'wp-gianism' ), 500 );
 			}
 			$result = $this->parse_result( $result );
 			nocache_headers();

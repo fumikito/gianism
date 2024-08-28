@@ -1,7 +1,6 @@
 <?php
 
 namespace Gianism\Service;
-use Facebook\FacebookRequest;
 use Facebook\GraphNodes\GraphUser;
 use Facebook\SignedRequest;
 use Gianism\Helper\FacebookCookiePersistentDataHandler;
@@ -256,7 +255,7 @@ class Facebook extends NoMailService {
 	protected function handle_default( $action ) {
 		global $wpdb;
 		// Get common values
-		$redirect_url = $this->session->get( 'redirect_to' );
+		$redirect_url = (string) $this->session->get( 'redirect_to' );
 		// Process actions
 		switch ( $action ) {
 			case 'login': // Make user login
@@ -268,7 +267,7 @@ class Facebook extends NoMailService {
 					// Get user ID
 					$user = $this->get_returned_user();
 					// If user doesn't exist, try to register.
-					$user_id = $this->get_meta_owner( $this->umeta_id, $user['id'] )
+					$user_id = $this->get_meta_owner( $this->umeta_id, $user['id'] );
 					if ( ! $user_id ) {
 						// Test
 						$this->test_user_can_register();
@@ -288,11 +287,11 @@ class Facebook extends NoMailService {
 						 * There might be no available string for login name, so use Facebook id for login.
 						 *
 						 * @filter gianism_register_name
-						 * @param string $user_login
-						 * @param string $service
-						 * @param mixed  $data User data or something. It varies by service.
+						 * @param string $user_login user login name.
+						 * @param string $service    Service name.
+						 * @param mixed  $user       User data or something. It varies by service.
 						 */
-						$user_name = apply_filters( 'gianism_register_name', 'fb-' . $user['id'], $this->service, $user );
+						$user_name = apply_filters( 'gianism_register_name', 'fb-' . $user['id'], $this->service_name, $user );
 						// Check if username exists
 						$user_id = wp_create_user( $user_name, wp_generate_password(), $email );
 						if ( is_wp_error( $user_id ) ) {
@@ -415,7 +414,7 @@ class Facebook extends NoMailService {
 				 * @action gianism_extra_action
 				 * @param string $service_name facebook, google, etc.
 				 * @param string $action
-				 * @param string $args
+				 * @param array{redirect_to:string} $args
 				 */
 				do_action(
 					'gianism_extra_action',

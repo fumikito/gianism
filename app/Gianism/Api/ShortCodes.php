@@ -17,6 +17,7 @@ class ShortCodes extends Application {
 	 * @param array $argument
 	 */
 	public function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		add_shortcode( 'gianism_login', [ $this, 'login_short_code' ] );
 		add_shortcode( 'gianism_connection', [ $this, 'profile_connection_short_code' ] );
 	}

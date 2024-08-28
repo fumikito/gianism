@@ -58,6 +58,7 @@ class Bot extends PluginBase {
 		if ( ! $this->plugin_enabled() ) {
 			return;
 		}
+		parent::__construct( $argument );
 		// Post type
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'custom_columns' ), 10, 2 );

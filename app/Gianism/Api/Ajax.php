@@ -39,6 +39,7 @@ abstract class Ajax extends AnalyticsFetcher {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		parent::__construct( $argument );
 		add_action( 'wp_ajax_' . static::ACTION, array( $this, 'ajax' ) );
 		if ( ! static::ONLY_MEMBER ) {
 			add_action( 'wp_ajax_nopriv_' . static::ACTION, array( $this, 'ajax' ) );
@@ -64,7 +65,7 @@ abstract class Ajax extends AnalyticsFetcher {
 	 */
 	public function ajax() {
 		try {
-			if ( static::NONCE_ACTION && ! wp_verify_nonce( $this->input->get( '_wpnonce' ), static::NONCE_ACTION ) ) {
+			if ( static::NONCE_ACTION && ! wp_verify_nonce( filter_input( INPUT_GET, '_wpnonce' ), static::NONCE_ACTION ) ) {
 				throw new \Exception( __( 'You have no permission.', 'wp-gianism' ), 403 );
 			}
 			$result = $this->get_result();

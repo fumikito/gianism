@@ -95,6 +95,7 @@ class Analytics extends PluginBase {
 			// Do nothing if Google is not enabled.
 			return;
 		}
+		parent::__construct( $argument );
 		// Add request handler
 		add_action( 'gianism_extra_action', [ $this, 'handle_default' ], 10, 3 );
 		// Register Ajax

@@ -49,6 +49,7 @@ class Bootstrap extends Singleton {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		// Register assets
 		add_action( 'init', array( $this, 'register_assets' ) );
 		// Admin page

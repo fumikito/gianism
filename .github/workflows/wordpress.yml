@@ -75,6 +75,26 @@ jobs:
       - name: Check PHP syntax
         run: composer lint
 
+  analyze:
+    name: Check PHP code quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHP Stan
+        run: composer analyze -- --error-format=github
+
   assets:
     name: Assets Test
     runs-on: ubuntu-latest
@@ -94,7 +114,7 @@ jobs:
 
   status-check:
     name: Status Check
-    needs: [ test, assets, lint ]
+    needs: [ test, assets, lint, analyze ]
     runs-on: ubuntu-latest
     steps:
       - name: Display Status

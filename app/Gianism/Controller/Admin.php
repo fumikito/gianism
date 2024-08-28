@@ -35,6 +35,7 @@ class Admin extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		if ( $this->option->is_network_activated() && ! is_main_site() ) {
 			return;
 		}

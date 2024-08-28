@@ -40,6 +40,7 @@ class Login extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 
 		if ( $this->option->is_enabled() ) {
 			// Only for account holder
@@ -86,7 +87,7 @@ class Login extends AbstractController {
 					$class_name[] = 'public-style';
 					break;
 			}
-			$class_name = empty( $class_name ) ? '' : sprintf( ' class="%s"', implode( ' ', $class_name ) );
+			$class_name = $class_name ? '' : sprintf( ' class="%s"', esc_attr( implode( ' ', $class_name ) ) );
 			$before     = sprintf( '<div id="wpg-login"%s>', $class_name );
 		}
 		if ( empty( $after ) ) {

@@ -1,7 +1,10 @@
 <?php
 defined( 'ABSPATH' ) or die();
-/** @var \Gianism\UI\Screen $this *
-/** @var \Gianism\Service\Google $instance */
+/** @var $this \Gianism\UI\Screen */
+/** @var $instance \Gianism\Service\Google */
+if ( ! isset( $this, $instance ) ) {
+	return;
+}
 ?>
 
 <h3><i class="lsf lsf-google"></i> Google</h3>

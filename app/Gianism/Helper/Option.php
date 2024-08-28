@@ -77,6 +77,7 @@ class Option extends Singleton {
 	 * @param array $argument Settings array.
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		$this->values = $this->get( $this->key, [] );
 		foreach ( $this->default_option as $key => $value ) {
 			if ( ! isset( $this->values[ $key ] ) ) {
@@ -285,13 +286,10 @@ class Option extends Singleton {
 	public function has_invalid_option( $name ) {
 		switch ( $name ) {
 			case 'google_redirect':
-				$option = $this->get( $this->key, [] );
-
+				$saved_option = $this->get( $this->key, [] );
 				return isset( $saved_option['ggl_redirect_uri'] ) && ! empty( $saved_option['ggl_redirect_uri'] );
-				break;
 			default:
 				return false;
-				break;
 		}
 	}
 

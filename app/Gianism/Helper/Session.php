@@ -39,6 +39,7 @@ class Session extends Singleton {
 	 * @return bool
 	 */
 	public function is_available() {
+		// @phpstan-ignore  isset.variable
 		return isset( $_COOKIE );
 	}
 

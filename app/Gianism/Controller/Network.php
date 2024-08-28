@@ -21,6 +21,7 @@ class Network extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		// Add network notice
 		add_action( 'admin_notices', [ $this, 'network_notice' ] );
 		// Set role.

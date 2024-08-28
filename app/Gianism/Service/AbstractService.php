@@ -59,6 +59,7 @@ abstract class AbstractService extends Application {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		parent::__construct( $argument );
 		// Setup name
 		if ( empty( $this->verbose_service_name ) ) {
 			$this->verbose_service_name = $this->service_name;

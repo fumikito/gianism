@@ -12,15 +12,6 @@ use Gianism\Pattern\Singleton;
 class Input extends Singleton {
 
 	/**
-	 * Constructor
-	 *
-	 * @param array $argument
-	 */
-	public function __construct( array $argument = array() ) {
-		// Do nothing because it's empty singleton
-	}
-
-	/**
 	 * Short hand for $_GET
 	 *
 	 * @param string $key

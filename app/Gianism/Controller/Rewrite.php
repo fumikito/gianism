@@ -40,6 +40,7 @@ class Rewrite extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		// Add query vars
 		add_filter( 'query_vars', [ $this, 'filter_vars' ] );
 		// Instance all instances

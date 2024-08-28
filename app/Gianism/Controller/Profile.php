@@ -19,6 +19,7 @@ class Profile extends AbstractController {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		// If not enabled, skip.
 		if ( ! $this->option->is_enabled() ) {
 			return;

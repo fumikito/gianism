@@ -5,6 +5,11 @@ namespace Gianism\Helper;
 
 use Gianism\Pattern\Singleton;
 
+/**
+ * Class for monitor social network
+ *
+ * @todo Implement this class
+ */
 class Monitor extends Singleton {
 
 
@@ -21,6 +26,7 @@ class Monitor extends Singleton {
 	 * @param array $argument
 	 */
 	protected function __construct( array $argument = array() ) {
+		parent::__construct( $argument );
 		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
 	}
 }

@@ -12,6 +12,7 @@ use Gianism\Pattern\AbstractController;
 class ProfileChecker extends AbstractController {
 
 	public function __construct( array $argument = [] ) {
+		parent::__construct( $argument );
 		add_action( 'rest_api_init', [ $this, 'register_rest' ] );
 		add_action(
 			'init',

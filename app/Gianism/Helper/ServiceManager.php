@@ -42,6 +42,7 @@ class ServiceManager extends Singleton {
 	 */
 	final protected function __construct( array $argument ) {
 		// Do nothing
+		parent::__construct( $argument );
 	}
 
 	/**

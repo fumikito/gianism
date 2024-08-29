@@ -76,6 +76,15 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
+### 5.2.1
+
+* Fix JS bug.
+* Add SNS icon on user list screen in favor of users' connections.
+
+### 5.2.0
+
+* Fix XSS vulnerability.
+
 ### 5.1.0
 
 * Supporting twitter API v2.

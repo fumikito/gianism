@@ -131,12 +131,13 @@ class Bootstrap extends Singleton {
 	 *
 	 */
 	public function register_assets() {
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		// LigatureSymbols
 		wp_register_style( 'ligature-symbols', $this->url . 'assets/css/lsf.css', [], '2.11' );
 		// Gianism style
 		wp_register_style( $this->name, $this->url . 'assets/css/gianism-style.css', [ 'ligature-symbols' ], $this->version );
 		// JS Cookie
-		wp_register_script( 'js-cookie', $this->url . 'assets/js/js.cookie.js', [], '2.1.3', true );
+		wp_register_script( 'js-cookie', $this->url . 'assets/js/js.cookie' . $min . '.js', [], '3.0.4', true );
 		// Gianism Notice
 		wp_register_script(
 			$this->name . '-notice-helper',

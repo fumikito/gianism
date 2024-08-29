@@ -9,6 +9,7 @@ use Gianism\Controller\Network;
 use Gianism\Controller\Profile;
 use Gianism\Controller\ProfileChecker;
 use Gianism\Controller\Rewrite;
+use Gianism\Controller\UserList;
 use Gianism\Helper\ServiceManager;
 use Gianism\Pattern\AppBase;
 use Gianism\Pattern\Singleton;
@@ -106,9 +107,10 @@ class Bootstrap extends Singleton {
 
 		// Initialize Rewrite rules.
 		Rewrite::get_instance();
-
 		// Network controller.
 		Network::get_instance();
+		// User list
+		UserList::get_instance();
 
 		// If enabled, create interface and rewrite rules.
 		if ( $this->option->is_enabled() ) {

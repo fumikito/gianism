@@ -38,8 +38,10 @@ class UserList extends AbstractController {
 	}
 
 	/**
-	 * @param $column
-	 * @param $user_id
+	 * Render column of User list table..
+	 *
+	 * @param string $column  Column name.
+	 * @param int    $user_id User ID.
 	 *
 	 * @return string
 	 */
@@ -58,6 +60,7 @@ class UserList extends AbstractController {
 							'<i class="lsf lsf-%s" title="%s"></i>',
 							esc_attr( $service['name'] ),
 							sprintf(
+								// translators: %s is service name
 								esc_attr__( 'Connected with %s', 'wp-gianism' ),
 								esc_attr( $controller->verbose_service_name )
 							)
@@ -66,6 +69,8 @@ class UserList extends AbstractController {
 					}
 				}
 				return empty( $connected ) ? '<span style="color:lightgray;">---</span>' : implode( ' ', $connected );
+			default:
+				return $content;
 		}
 	}
 }

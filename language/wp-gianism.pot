@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gianism\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 15:25+0900\n"
+"POT-Creation-Date: 2024-08-30 01:27+0900\n"
 "PO-Revision-Date: 2016-12-20 17:41+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Hametuha inc. <info@hametuha.co.jp>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_attr_e;esc_attr__;esc_html__\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-SearchPath-0: wp-gianism.php\n"
 "X-Poedit-SearchPath-1: templates\n"
 "X-Poedit-SearchPath-2: app\n"
@@ -29,9 +29,9 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: tests\n"
 "X-Poedit-SearchPathExcluded-4: assets\n"
 
-#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:147
-#: app/Gianism/Plugins/Analytics.php:169 app/Gianism/Plugins/Analytics.php:191
-#: app/Gianism/Plugins/Analytics.php:334 app/Gianism/Plugins/Analytics.php:446
+#: app/Gianism/Api/Ajax.php:69 app/Gianism/Pattern/AbstractNotice.php:157
+#: app/Gianism/Plugins/Analytics.php:175 app/Gianism/Plugins/Analytics.php:200
+#: app/Gianism/Plugins/Analytics.php:355 app/Gianism/Plugins/Analytics.php:469
 msgid "You have no permission."
 msgstr ""
 
@@ -39,73 +39,73 @@ msgstr ""
 msgid "Wrong value is returned."
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:152
+#: app/Gianism/Bootstrap.php:179
 msgid "Consent Required"
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:153
+#: app/Gianism/Bootstrap.php:180
 msgid "Confirm"
 msgstr ""
 
-#: app/Gianism/Bootstrap.php:154
+#: app/Gianism/Bootstrap.php:181
 msgid "Cancel"
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:28
+#: app/Gianism/Commands/TestCommand.php:44
 #, php-format
 msgid "Tweet has been sent as %s. Response message is above."
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:45
+#: app/Gianism/Commands/TestCommand.php:78
 msgid "Media is successfully uploaded."
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:73
+#: app/Gianism/Commands/TestCommand.php:107
 #, php-format
 msgid "Got %d response."
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:87
+#: app/Gianism/Commands/TestCommand.php:121
 msgid "Google Analytics is not connected."
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:92
+#: app/Gianism/Commands/TestCommand.php:127
 #, php-format
 msgid "Get popular pages from %1$s to %2$s."
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:156
+#: app/Gianism/Commands/TestCommand.php:201
 msgid "Post ID"
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:156
+#: app/Gianism/Commands/TestCommand.php:201
 msgid "Post Title"
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:171
+#: app/Gianism/Commands/TestCommand.php:218
 msgid "Successfully retrieved instant articles!"
 msgstr ""
 
-#: app/Gianism/Commands/TestCommand.php:173
+#: app/Gianism/Commands/TestCommand.php:221
 #, php-format
 msgid "If you need more instant articles, set --after=%s"
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:69
+#: app/Gianism/Controller/Admin.php:70
 #, php-format
 msgid ""
 "No service is enabled. Please go to <a href=\"%s\">Gianism Setting</a> and "
 "follow instructions there."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:73
+#: app/Gianism/Controller/Admin.php:74
 #, php-format
 msgid ""
 "You should set rewrite rules. Go to <a href=\"%s\">Permalink Setting</a> and "
 "enable it."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:77
+#: app/Gianism/Controller/Admin.php:78
 #, php-format
 msgid ""
 "Google redirect URL is deprecated since version 2.0. <strong>You must change "
@@ -113,107 +113,116 @@ msgid ""
 "a> and follow the instruction there."
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:125
+#: app/Gianism/Controller/Admin.php:126
 msgid "Settings"
 msgstr ""
 
-#: app/Gianism/Controller/Admin.php:159 templates/parts/sidebar.php:10
+#: app/Gianism/Controller/Admin.php:180 templates/parts/sidebar.php:15
 msgid "Support"
 msgstr ""
 
-#: app/Gianism/Controller/Network.php:77
+#: app/Gianism/Controller/Network.php:124
 msgid ""
 "Gianism provides network sites supports. Please consider network activation."
 msgstr ""
 
-#: app/Gianism/Controller/Profile.php:48
+#: app/Gianism/Controller/Profile.php:49
 msgid "Your password is now on your own!"
 msgstr ""
 
-#: app/Gianism/Controller/Profile.php:54
+#: app/Gianism/Controller/Profile.php:55
 msgid "You mail address is still pseudo one! Please change it to valid one."
 msgstr ""
 
-#: app/Gianism/Controller/Profile.php:57
+#: app/Gianism/Controller/Profile.php:58
 msgid "Your email seems to be valid now."
 msgstr ""
 
-#: app/Gianism/Controller/Profile.php:71
-msgid ""
-"Your password is automatically generated. Please <strong><a href="
-"\"#pass1\">update password</a> to your own</strong> before disconnecting "
-"your account."
-msgstr ""
-
-#: app/Gianism/Controller/Profile.php:78
-msgid ""
-"Your mail address is automatically generated and is pseudo. <a href=\"#email"
-"\">Changing it</a> to valid mail address is highly recommended, else "
-"<strong>you might be unable to log in</strong>."
-msgstr ""
-
-#: app/Gianism/Controller/Profile.php:85 app/Gianism/Controller/Profile.php:110
+#: app/Gianism/Controller/Profile.php:72 app/Gianism/Controller/Profile.php:116
 msgid "Connection with SNS"
 msgstr ""
 
-#: app/Gianism/Controller/Profile.php:113
+#: app/Gianism/Controller/Profile.php:99
+msgid ""
+"Your password is automatically generated. Please <strong><a "
+"href=\"#pass1\">update password</a> to your own</strong> before "
+"disconnecting your account."
+msgstr ""
+
+#: app/Gianism/Controller/Profile.php:103
+msgid ""
+"Your mail address is automatically generated and is pseudo. <a "
+"href=\"#email\">Changing it</a> to valid mail address is highly recommended, "
+"else <strong>you might be unable to log in</strong>."
+msgstr ""
+
+#: app/Gianism/Controller/Profile.php:123
 #, php-format
 msgid ""
 "Please setup SNS connection at <a href=\"%s\">parent site's profile page</a>."
 msgstr ""
 
-#: app/Gianism/Controller/ProfileChecker.php:141
+#: app/Gianism/Controller/ProfileChecker.php:156
 msgid "Your password is automatically generated. Please change it to your own."
 msgstr ""
 
-#: app/Gianism/Controller/ProfileChecker.php:144
+#: app/Gianism/Controller/ProfileChecker.php:159
 msgid ""
 "Your email is pseudo one because your SNS has no permission to provide email "
 "to us. "
 msgstr ""
 
-#: app/Gianism/Controller/ProfileChecker.php:184
+#: app/Gianism/Controller/ProfileChecker.php:200
 #, php-format
 msgid ""
 "You have an incomplete profile. To access full features of this site, please "
 "fill your profile <a href=\"%s\">here</a>."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:117
+#: app/Gianism/Controller/UserList.php:33
+msgid "SNS"
+msgstr ""
+
+#: app/Gianism/Controller/UserList.php:64
+#, php-format
+msgid "Connected with %s"
+msgstr ""
+
+#: app/Gianism/Helper/Option.php:119
 msgid "Option updated."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:121
+#: app/Gianism/Helper/Option.php:123
 msgid "Option failed to update."
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:271
+#: app/Gianism/Helper/Option.php:273
 msgid "Medium"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:272
+#: app/Gianism/Helper/Option.php:274
 msgid "Large"
 msgstr ""
 
-#: app/Gianism/Helper/Option.php:273
+#: app/Gianism/Helper/Option.php:275
 msgid "Guide Line Style"
 msgstr ""
 
-#: app/Gianism/Notices/SessionSetting.php:55
+#: app/Gianism/Notices/SessionSetting.php:56
 #, php-format
 msgid ""
 "Maybe session is not working. Please check permission of <code>session."
 "save_path</code>( current value is <code>%s</code>)."
 msgstr ""
 
-#: app/Gianism/Notices/SessionSetting.php:59
+#: app/Gianism/Notices/SessionSetting.php:60
 #, php-format
 msgid ""
 "For more details, please see our <a href=\"%s\" target=\"_blank\">blog post</"
 "a> about session."
 msgstr ""
 
-#: app/Gianism/Notices/WooCompatible.php:42
+#: app/Gianism/Notices/WooCompatible.php:47
 #, php-format
 msgid ""
 "<strong>[Notice]</strong> WooCommerce detected but the default user role is "
@@ -221,11 +230,11 @@ msgid ""
 "<strong>Customer</strong> on <a href=\"%2$s\">Setting Page</a>."
 msgstr ""
 
-#: app/Gianism/Pattern/AbstractNotice.php:151
+#: app/Gianism/Pattern/AbstractNotice.php:161
 msgid "This request type is not allowed."
 msgstr ""
 
-#: app/Gianism/Pattern/AbstractNotice.php:156
+#: app/Gianism/Pattern/AbstractNotice.php:166
 msgid "This notice is already dismissed."
 msgstr ""
 
@@ -233,47 +242,47 @@ msgstr ""
 msgid "Interact with Google Analytics data."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:107
+#: app/Gianism/Plugins/Analytics.php:110
 msgid "Google Analytics"
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:130
+#: app/Gianism/Plugins/Analytics.php:136
 msgid "Token deleted."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:155
+#: app/Gianism/Plugins/Analytics.php:161
 msgid "Now you got token!"
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:160
+#: app/Gianism/Plugins/Analytics.php:166
 msgid "Failed to authenticate with Google API."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:176
+#: app/Gianism/Plugins/Analytics.php:185
 msgid "Options updated."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:180
+#: app/Gianism/Plugins/Analytics.php:189
 msgid "Nothing changed."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:194
+#: app/Gianism/Plugins/Analytics.php:203
 msgid "Table is already exists."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:215
+#: app/Gianism/Plugins/Analytics.php:224
 msgid "Sorry, but failed to create table."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:217
+#: app/Gianism/Plugins/Analytics.php:226
 msgid "Table created."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:358
+#: app/Gianism/Plugins/Analytics.php:379
 msgid "Invalid action."
 msgstr ""
 
-#: app/Gianism/Plugins/Analytics.php:449
+#: app/Gianism/Plugins/Analytics.php:472
 msgid "Such action does not exist."
 msgstr ""
 
@@ -281,324 +290,335 @@ msgstr ""
 msgid "Enables you to create twitter bot."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:91
+#: app/Gianism/Plugins/Bot.php:94
 msgid "Twitter Bot by Gianism. Never show on admin screen."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:92
+#: app/Gianism/Plugins/Bot.php:95
 msgid "Twitter Bots"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:94
+#: app/Gianism/Plugins/Bot.php:97
 msgid "Twitter Bot"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:115
+#: app/Gianism/Plugins/Bot.php:119
 msgid "Enter this bots name. Ex: Promotion Campaign 2014 mid"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:164
+#: app/Gianism/Plugins/Bot.php:171
 msgid "Are you sure to delete this period? You can't undo this operation."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:165
+#: app/Gianism/Plugins/Bot.php:172
 msgid "This period is duplicated."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:276
+#: app/Gianism/Plugins/Bot.php:284
 msgid "Every 10 minutes check for Gianism twitter bot."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:376
+#: app/Gianism/Plugins/Bot.php:393
 msgid "End Date"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:415 app/Gianism/Plugins/Bot.php:416
+#: app/Gianism/Plugins/Bot.php:432 app/Gianism/Plugins/Bot.php:433
 msgid "Tweet updated."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:417
+#: app/Gianism/Plugins/Bot.php:434
 msgid "Tweet published, thus bot is enabled."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:418
+#: app/Gianism/Plugins/Bot.php:435
 msgid "Tweet saved."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:419
+#: app/Gianism/Plugins/Bot.php:436
 msgid "Tweet submitted."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:420
+#: app/Gianism/Plugins/Bot.php:437
 #, php-format
 msgid "Tweet scheduled for: <strong>%1$s</strong>. "
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:420
+#: app/Gianism/Plugins/Bot.php:437
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:421
+#: app/Gianism/Plugins/Bot.php:438
 msgid "Tweet draft updated."
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:436 templates/edit/bot.php:28
+#: app/Gianism/Plugins/Bot.php:456 templates/edit/bot.php:28
 #, php-format
 msgid "%s left"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:440
+#: app/Gianism/Plugins/Bot.php:462
 #, php-format
 msgid "%s months"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:442
+#: app/Gianism/Plugins/Bot.php:464
 #, php-format
 msgid "%s days"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:444
+#: app/Gianism/Plugins/Bot.php:466
 #, php-format
 msgid "%s hours"
 msgstr ""
 
-#: app/Gianism/Plugins/Bot.php:446
+#: app/Gianism/Plugins/Bot.php:468
 #, php-format
 msgid "%s minutes"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:195
+#: app/Gianism/Service/AbstractService.php:199
 msgid "This request seems to be a wrong access. Please try again."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:230
-#: app/Gianism/Service/AbstractService.php:268
-#: app/Gianism/Service/Instagram.php:194 app/Gianism/Service/Twitter.php:229
+#: app/Gianism/Service/AbstractService.php:235
+#: app/Gianism/Service/AbstractService.php:276
+#: app/Gianism/Service/Twitter.php:243
 msgid "You must be logged in."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:234
+#: app/Gianism/Service/AbstractService.php:240
 #, php-format
 msgid "You are already connected with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:239
-#: app/Gianism/Service/AbstractService.php:299
+#: app/Gianism/Service/AbstractService.php:245
+#: app/Gianism/Service/AbstractService.php:309
 msgid "Sorry, but failed to connect with API."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:272
+#: app/Gianism/Service/AbstractService.php:281
 #, php-format
 msgid "Your account is not connected with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:276
+#: app/Gianism/Service/AbstractService.php:286
 #, php-format
 msgid "Your account is now unlinked from %s."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:294
+#: app/Gianism/Service/AbstractService.php:304
 msgid "You are already logged in."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:375
+#: app/Gianism/Service/AbstractService.php:387
 #, php-format
 msgid "Your account is already connected with %s account."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:378
+#: app/Gianism/Service/AbstractService.php:391
 #, php-format
 msgid ""
 "Connecting with %1$s, you can login with %2$s via %1$s without password or "
 "email address."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:588
+#: app/Gianism/Service/AbstractService.php:600
 msgid "Log in"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:612
+#: app/Gianism/Service/AbstractService.php:625
 #, php-format
 msgid "Log in with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:651
+#: app/Gianism/Service/AbstractService.php:664
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:698
+#: app/Gianism/Service/AbstractService.php:716
 #, php-format
 msgid "Connect %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:701
+#: app/Gianism/Service/AbstractService.php:719
 msgid "Connect"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:721
+#: app/Gianism/Service/AbstractService.php:744
 #, php-format
 msgid "Disconnect %s"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:722
+#: app/Gianism/Service/AbstractService.php:746
 #, php-format
 msgid ""
 "You really disconnect from %s? If so, please be sure about your "
 "credential(email, password), or else you might not be able to login again."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:725
+#: app/Gianism/Service/AbstractService.php:749
 msgid "Disconnect"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:815
+#: app/Gianism/Service/AbstractService.php:846
 msgid "Cannot create valid user name."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:824
+#: app/Gianism/Service/AbstractService.php:856
 #, php-format
 msgid "%s API returns error."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:833
+#: app/Gianism/Service/AbstractService.php:866
 #, php-format
 msgid "This %s account is already connected with others."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:842
+#: app/Gianism/Service/AbstractService.php:876
 #, php-format
 msgid "Welcome, %s!"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:851
+#: app/Gianism/Service/AbstractService.php:885
 msgid "Sorry, but failed to Authenticate. Please try again."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:860
+#: app/Gianism/Service/AbstractService.php:894
 msgid "Cannot retrieve email address."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:869
+#: app/Gianism/Service/AbstractService.php:903
 msgid "Cannot register. Please try again later."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:877
+#: app/Gianism/Service/AbstractService.php:911 app/Gianism/Service/Line.php:295
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%1$s\">%2$s</a>."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:888
+#: app/Gianism/Service/AbstractService.php:923
 #, php-format
 msgid "Registration via %s is not allowed."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:991
+#: app/Gianism/Service/AbstractService.php:1026
 #, php-format
 msgid ""
 "%1$s gets your information below from %2$s. Please proceed with your "
 "agreement."
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:1014
+#: app/Gianism/Service/AbstractService.php:1050
 #, php-format
 msgid "%s User ID"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:1015 templates/analytics.php:83
+#: app/Gianism/Service/AbstractService.php:1051 templates/analytics.php:85
 msgid "Profile"
 msgstr ""
 
-#: app/Gianism/Service/AbstractService.php:1016 templates/parts/sidebar.php:42
+#: app/Gianism/Service/AbstractService.php:1052 templates/parts/sidebar.php:52
 msgid "Email"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:134
+#: app/Gianism/Service/Facebook.php:135
 msgid "Facebook API"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:256
+#: app/Gianism/Service/Facebook.php:265
 msgid "You are already logged in"
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:391
+#: app/Gianism/Service/Facebook.php:403
 msgid "Access token is saved."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:410 app/Gianism/Service/Google.php:232
-#: app/Gianism/Service/Instagram.php:230 app/Gianism/Service/Line.php:277
-#: app/Gianism/Service/Twitter.php:270
+#: app/Gianism/Service/Facebook.php:427 app/Gianism/Service/Google.php:245
+#: app/Gianism/Service/Twitter.php:291
 #, php-format
 msgid "Sorry, but wrong access. Please go back to <a href=\"%s\">%s</a>."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:463
+#: app/Gianism/Service/Facebook.php:479
 msgid "Saved facebook account to use."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:482
+#: app/Gianism/Service/Facebook.php:499
 msgid "Sorry, but failed to get user data."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:635
+#: app/Gianism/Service/Facebook.php:660
 msgid "Token is not set. Please get it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:647
+#: app/Gianism/Service/Facebook.php:675
 msgid "Token is outdated. Please update it."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:723
+#: app/Gianism/Service/Facebook.php:751
 msgid "Page is not set."
 msgstr ""
 
-#: app/Gianism/Service/Facebook.php:733
+#: app/Gianism/Service/Facebook.php:761
 msgid "No page found. Do you have permission for that page?"
 msgstr ""
 
-#: app/Gianism/Service/Google.php:300
+#: app/Gianism/Service/Google.php:314
 #, php-format
 msgid "Sign in with %s"
 msgstr ""
 
-#: app/Gianism/Service/Line.php:135
+#: app/Gianism/Service/Line.php:140
 msgid "Sorry, but wrong access. Please try again."
 msgstr ""
 
-#: app/Gianism/Service/Line.php:152
+#: app/Gianism/Service/Line.php:160
 msgid "Sorry, but failed to parse request."
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:118
+#: app/Gianism/Service/Twitter.php:124
 #, php-format
 msgid ""
 "Twitter Login requires PHP5.5 and over but yours is %s. Every twitter login "
 "will be failed."
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:426
+#: app/Gianism/Service/Twitter.php:475
 msgid "Failed to upload media"
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:450 app/Gianism/Service/Twitter.php:457
-#: app/Gianism/Service/Twitter.php:467
+#: app/Gianism/Service/Twitter.php:506 app/Gianism/Service/Twitter.php:513
+#: app/Gianism/Service/Twitter.php:523
 msgid "File not found."
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:461
+#: app/Gianism/Service/Twitter.php:517
 msgid "Failed to download media"
 msgstr ""
 
-#: app/Gianism/Service/Twitter.php:475
+#: app/Gianism/Service/Twitter.php:534
 msgid "Failed to upload media to twitter."
 msgstr ""
 
-#: app/Gianism/UI/Screen.php:118
+#: app/Gianism/Service/Twitter.php:550
+msgid "twitter DM is deprecated."
+msgstr ""
+
+#: app/Gianism/Service/Twitter.php:563
+msgid "Follow API is deprecated."
+msgstr ""
+
+#: app/Gianism/Service/Twitter.php:662
+msgid "Failed to parse API response."
+msgstr ""
+
+#: app/Gianism/UI/Screen.php:121
 #, php-format
 msgid "Template file <code>%s</code> is missing."
 msgstr ""
 
-#: app/Gianism/UI/Screen.php:205
+#: app/Gianism/UI/Screen.php:212
 #, php-format
 msgid "New Since %s"
 msgstr ""
@@ -615,13 +635,13 @@ msgstr ""
 msgid "Setting"
 msgstr ""
 
-#: app/Gianism/UI/SettingScreen.php:34 templates/setting/facebook.php:23
-#: templates/setting/google.php:16 templates/setting/instagram.php:23
-#: templates/setting/line.php:16 templates/setting/twitter.php:17
+#: app/Gianism/UI/SettingScreen.php:34 templates/setting/facebook.php:28
+#: templates/setting/google.php:19 templates/setting/line.php:26
+#: templates/setting/twitter.php:20
 msgid "How to set up"
 msgstr ""
 
-#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:62
+#: app/Gianism/UI/SettingScreen.php:35 templates/setting.php:69
 msgid "Customize"
 msgstr ""
 
@@ -643,50 +663,50 @@ msgid ""
 "Facebook wall."
 msgstr ""
 
-#: templates/advanced.php:29
+#: templates/advanced.php:30
 msgid "URL which user will be redirected"
 msgstr ""
 
-#: templates/advanced.php:30
+#: templates/advanced.php:31
 msgid "Action name fired after authentication"
 msgstr ""
 
-#: templates/advanced.php:31
+#: templates/advanced.php:32
 msgid "Additional arguments passed to hook function"
 msgstr ""
 
-#: templates/advanced.php:36
+#: templates/advanced.php:38
 msgid ""
 "If user click this link, he will be redirected to Facebook and see "
 "permission dialog. After authentication, the aciton you registered will be "
 "fired. Now hook on it and execute publication."
 msgstr ""
 
-#: templates/advanced.php:72
+#: templates/advanced.php:76
 msgid "Register action hook which you registered above."
 msgstr ""
 
-#: templates/advanced.php:73
+#: templates/advanced.php:77
 msgid "This funciton will be executed after authentication"
 msgstr ""
 
-#: templates/advanced.php:74
+#: templates/advanced.php:78
 msgid "Check if argument is propery passed and if post exists."
 msgstr ""
 
-#: templates/advanced.php:75
+#: templates/advanced.php:79
 msgid "Read an artcile."
 msgstr ""
 
-#: templates/advanced.php:76
+#: templates/advanced.php:80
 msgid "Do error handling if you wish."
 msgstr ""
 
-#: templates/advanced.php:77
+#: templates/advanced.php:81
 msgid "This funcion been executed, user will be redirected."
 msgstr ""
 
-#: templates/advanced.php:81
+#: templates/advanced.php:92
 #, php-format
 msgid ""
 "<strong>Note:</strong> <code>$facebook</code> object is instance of Facebook "
@@ -694,45 +714,45 @@ msgid ""
 "read the <a href=\"%s\">documentation</a>."
 msgstr ""
 
-#: templates/advanced.php:84
+#: templates/advanced.php:100
 msgid "Make tweet with your account"
 msgstr ""
 
-#: templates/advanced.php:86
+#: templates/advanced.php:102
 msgid "You can make tweet by registered application's account."
 msgstr ""
 
-#: templates/advanced.php:93
+#: templates/advanced.php:109
 msgid "Hello, my followers. I updated new post."
 msgstr ""
 
-#: templates/advanced.php:97
+#: templates/advanced.php:113
 msgid ""
 "This function itself makes no sense, but you can use some hook to make auto "
 "post."
 msgstr ""
 
-#: templates/advanced.php:128
+#: templates/advanced.php:144
 #, php-format
 msgid "%1$s pulbished %2$s. Please visit %3$s"
 msgstr ""
 
-#: templates/advanced.php:132
+#: templates/advanced.php:148
 msgid ""
 "<strong>Note:</strong> Currently, only twitter application's account(thus, "
 "admin's twitter account) can tweet."
 msgstr ""
 
-#: templates/advanced.php:136
+#: templates/advanced.php:152
 msgid "More Detailed Information"
 msgstr ""
 
-#: templates/advanced.php:139
+#: templates/advanced.php:156
 #, php-format
 msgid ""
 "You can do many things with SNS API. But every solution is very specific and "
-"little bit difficult. If you need more, please visit our <a target=\"_blank"
-"\" href=\"%s\">support site</a>."
+"little bit difficult. If you need more, please visit our <a "
+"target=\"_blank\" href=\"%s\">support site</a>."
 msgstr ""
 
 #: templates/analytics.php:12
@@ -763,129 +783,129 @@ msgstr ""
 msgid "Get"
 msgstr ""
 
-#: templates/analytics.php:45
+#: templates/analytics.php:46
 msgid "Delete"
 msgstr ""
 
-#: templates/analytics.php:52
+#: templates/analytics.php:54
 msgid "Account, Profile, View"
 msgstr ""
 
-#: templates/analytics.php:61
+#: templates/analytics.php:63
 msgid "Account"
 msgstr ""
 
-#: templates/analytics.php:67 templates/analytics.php:89
-#: templates/analytics.php:100
+#: templates/analytics.php:69 templates/analytics.php:91
+#: templates/analytics.php:102
 msgid "Please select"
 msgstr ""
 
-#: templates/analytics.php:77
+#: templates/analytics.php:79
 msgid "Mmh, can't get Analytics accounts. Your token might be wrong."
 msgstr ""
 
-#: templates/analytics.php:96
+#: templates/analytics.php:98
 msgid "View"
 msgstr ""
 
-#: templates/analytics.php:113
+#: templates/analytics.php:115
 msgid "Create Database"
 msgstr ""
 
-#: templates/analytics.php:116
+#: templates/analytics.php:118
 msgid ""
 "Gianism can create a typical table for Google Analytics Ranking. If you need "
 "customized one, forget about it and create your own."
 msgstr ""
 
-#: templates/analytics.php:120
+#: templates/analytics.php:122
 msgid "Ranking table structure"
 msgstr ""
 
-#: templates/analytics.php:123
+#: templates/analytics.php:125
 msgid "Column"
 msgstr ""
 
-#: templates/analytics.php:124 templates/home.php:30 templates/home.php:72
+#: templates/analytics.php:126 templates/home.php:30 templates/home.php:74
 msgid "Type"
 msgstr ""
 
-#: templates/analytics.php:125
+#: templates/analytics.php:127
 msgid "Length"
 msgstr ""
 
-#: templates/analytics.php:126
+#: templates/analytics.php:128
 msgid "Misc"
 msgstr ""
 
-#: templates/analytics.php:171
+#: templates/analytics.php:173
 msgid "Table exits."
 msgstr ""
 
-#: templates/analytics.php:179
+#: templates/analytics.php:181
 msgid "Create Table"
 msgstr ""
 
-#: templates/analytics.php:184
+#: templates/analytics.php:186
 msgid "Installed cron files"
 msgstr ""
 
-#: templates/analytics.php:188
+#: templates/analytics.php:190
 msgid ""
 "To install cron, please visit our information site <a href=\"https://gianism."
 "info/\">gianism.info</a>."
 msgstr ""
 
-#: templates/analytics.php:192 templates/analytics.php:249
+#: templates/analytics.php:194 templates/analytics.php:256
 msgid "Nothing is installed."
 msgstr ""
 
-#: templates/analytics.php:201 templates/analytics.php:257
+#: templates/analytics.php:203 templates/analytics.php:264
 msgid "Class Name"
 msgstr ""
 
-#: templates/analytics.php:202
+#: templates/analytics.php:204
 msgid "Category"
 msgstr ""
 
-#: templates/analytics.php:203
+#: templates/analytics.php:205
 msgid "Interval"
 msgstr ""
 
-#: templates/analytics.php:204
+#: templates/analytics.php:206
 msgid "Available"
 msgstr ""
 
-#: templates/analytics.php:230 templates/analytics.php:290
+#: templates/analytics.php:237 templates/analytics.php:297
 msgid "Check Data"
 msgstr ""
 
-#: templates/analytics.php:236
+#: templates/analytics.php:243
 #, php-format
 msgid ""
 "Do you want to know how to install files? Here is <a href=\"%s\">blog post</"
 "a> about it."
 msgstr ""
 
-#: templates/analytics.php:240
+#: templates/analytics.php:247
 msgid "Installed Ajax files"
 msgstr ""
 
-#: templates/analytics.php:244
+#: templates/analytics.php:251
 msgid ""
 "To install Ajax actions, please visit our information site <a href=\"https://"
 "gianism.info/\">gianism.info</a>."
 msgstr ""
 
-#: templates/analytics.php:258
+#: templates/analytics.php:265
 msgid "Endpoint"
 msgstr ""
 
-#: templates/analytics.php:278
+#: templates/analytics.php:285
 msgid "From"
 msgstr ""
 
-#: templates/analytics.php:284
+#: templates/analytics.php:291
 msgid "To"
 msgstr ""
 
@@ -977,18 +997,18 @@ msgstr ""
 msgid "Data Source"
 msgstr ""
 
-#: templates/customize.php:143 templates/fb-api.php:136
+#: templates/customize.php:144 templates/fb-api.php:143
 #, php-format
 msgid ""
-"For more detailed information, please visit our <a target=\"_blank\" href="
-"\"%s\">support site</a>."
+"For more detailed information, please visit our <a target=\"_blank\" "
+"href=\"%s\">support site</a>."
 msgstr ""
 
 #: templates/edit/bot.php:12
 #, php-format
 msgid ""
-"What do you tweet as <a href=\"https://twitter.com/%1$s\" target=\"_blank\">@"
-"%1$s</a>?"
+"What do you tweet as <a href=\"https://twitter.com/%1$s\" "
+"target=\"_blank\">@%1$s</a>?"
 msgstr ""
 
 #: templates/edit/bot.php:15
@@ -1004,8 +1024,8 @@ msgstr ""
 #: templates/edit/bot.php:18
 #, php-format
 msgid ""
-"And ofcourse You can register your own shortcode with <a href=\"%s"
-"\">Shortcode API</a>."
+"And ofcourse You can register your own shortcode with <a "
+"href=\"%s\">Shortcode API</a>."
 msgstr ""
 
 #: templates/edit/bot.php:23
@@ -1046,75 +1066,75 @@ msgstr ""
 msgid "Token setting"
 msgstr ""
 
-#: templates/fb-api.php:14
+#: templates/fb-api.php:17
 msgid "Token is outdated. Click link and get new one."
 msgstr ""
 
-#: templates/fb-api.php:16
+#: templates/fb-api.php:19
 msgid "Token is not set. Please click link below and get one."
 msgstr ""
 
-#: templates/fb-api.php:22
+#: templates/fb-api.php:26
 #, php-format
 msgid ""
 "O.K. You have permission. If you want to renew token, please click link "
 "below. Token will be valid for %d days."
 msgstr ""
 
-#: templates/fb-api.php:27 templates/fb-api.php:31
+#: templates/fb-api.php:32 templates/fb-api.php:36
 msgid "Get Token"
 msgstr ""
 
-#: templates/fb-api.php:28
+#: templates/fb-api.php:33
 msgid "Read Only"
 msgstr ""
 
-#: templates/fb-api.php:32
+#: templates/fb-api.php:37
 msgid "Publish"
 msgstr ""
 
-#: templates/fb-api.php:35
+#: templates/fb-api.php:40
 msgid "Account to use"
 msgstr ""
 
-#: templates/fb-api.php:37
+#: templates/fb-api.php:42
 msgid ""
 "You need access token to manage accounts. Click links above and you can get "
 "Facebook API token."
 msgstr ""
 
-#: templates/fb-api.php:39
+#: templates/fb-api.php:44
 msgid "Failed to get your account. Please renew token."
 msgstr ""
 
-#: templates/fb-api.php:41
+#: templates/fb-api.php:46
 msgid "Please select account to use."
 msgstr ""
 
-#: templates/fb-api.php:46
+#: templates/fb-api.php:51
 msgid "You"
 msgstr ""
 
-#: templates/fb-api.php:54
+#: templates/fb-api.php:59
 msgid "Your Page"
 msgstr ""
 
-#: templates/fb-api.php:70
+#: templates/fb-api.php:75
 msgid "You have no Facebook page."
 msgstr ""
 
-#: templates/fb-api.php:79
+#: templates/fb-api.php:84
 msgid "How to use"
 msgstr ""
 
-#: templates/fb-api.php:82
+#: templates/fb-api.php:88
 #, php-format
 msgid ""
 "You can get token-ready <a href=\"%s\">Facebook PHP SDK's API client</a>. "
 "For example, get latest news feed and show it on footer."
 msgstr ""
 
-#: templates/fb-api.php:128
+#: templates/fb-api.php:134
 msgid "You should know about Facebook Graph API. Useful resources are below."
 msgstr ""
 
@@ -1143,91 +1163,91 @@ msgstr ""
 msgid "Available Services"
 msgstr ""
 
-#: templates/home.php:28 templates/home.php:69
+#: templates/home.php:28 templates/home.php:71
 msgid "Name"
 msgstr ""
 
-#: templates/home.php:29 templates/home.php:71
+#: templates/home.php:29 templates/home.php:73
 msgid "Status"
 msgstr ""
 
-#: templates/home.php:46 templates/home.php:91
+#: templates/home.php:46 templates/home.php:93
 msgid "Default"
 msgstr ""
 
-#: templates/home.php:48 templates/home.php:93
+#: templates/home.php:48 templates/home.php:95
 msgid "Add on"
 msgstr ""
 
-#: templates/home.php:58
+#: templates/home.php:59
 #, php-format
 msgid ""
 "You can enable all services via <a href=\"%1$s\">Setting</a> and find more "
 "services at <a href=\"%2$s\">gianism.info</a>."
 msgstr ""
 
-#: templates/home.php:66
+#: templates/home.php:68
 msgid "Add-ons"
 msgstr ""
 
-#: templates/home.php:70
+#: templates/home.php:72
 msgid "Description"
 msgstr ""
 
-#: templates/home.php:103
+#: templates/home.php:106
 #, php-format
 msgid ""
 "Are you interested with add-ons? Find more at <a href=\"%s\">gianism.info</"
 "a>!"
 msgstr ""
 
-#: templates/parts/header.php:21
+#: templates/parts/header.php:24
 msgid "Make your WordPress more social. Simple but Extensible."
 msgstr ""
 
-#: templates/parts/sidebar.php:6
+#: templates/parts/sidebar.php:11
 msgid "Index"
 msgstr ""
 
-#: templates/parts/sidebar.php:14
+#: templates/parts/sidebar.php:20
 #, php-format
 msgid ""
-"Have some questions? Go to our support site <a href=\"%s\" target=\"_blank"
-"\">gianism.info</a>!"
+"Have some questions? Go to our support site <a href=\"%s\" "
+"target=\"_blank\">gianism.info</a>!"
 msgstr ""
 
-#: templates/parts/sidebar.php:22
+#: templates/parts/sidebar.php:32
 #, php-format
 msgid ""
 "This plugin's is hosted on <a href=\"%s\">Github</a>. Pull requests are "
 "welcomed."
 msgstr ""
 
-#: templates/parts/sidebar.php:39
+#: templates/parts/sidebar.php:49
 msgid "Join our News Letter!"
 msgstr ""
 
-#: templates/parts/sidebar.php:50
+#: templates/parts/sidebar.php:60
 msgid "First Name"
 msgstr ""
 
-#: templates/parts/sidebar.php:56
+#: templates/parts/sidebar.php:66
 msgid "Last Name"
 msgstr ""
 
-#: templates/parts/sidebar.php:66
+#: templates/parts/sidebar.php:76
 msgid "English"
 msgstr ""
 
-#: templates/parts/sidebar.php:71
+#: templates/parts/sidebar.php:81
 msgid "Japanese"
 msgstr ""
 
-#: templates/parts/sidebar.php:78
+#: templates/parts/sidebar.php:88
 msgid "Subscribe"
 msgstr ""
 
-#: templates/parts/sidebar.php:85
+#: templates/parts/sidebar.php:95
 msgid "Our social Account"
 msgstr ""
 
@@ -1255,7 +1275,7 @@ msgstr ""
 msgid "Depends on WP setting"
 msgstr ""
 
-#: templates/setting.php:40
+#: templates/setting.php:43
 #, php-format
 msgid ""
 "Whether registration setting depends on <a href=\"%s\">General setting</a>. "
@@ -1264,105 +1284,105 @@ msgid ""
 "account."
 msgstr ""
 
-#: templates/setting.php:43
+#: templates/setting.php:48
 msgid ""
 "<strong>WooCommerce found!</strong> In spite of this setting, user can "
 "always register account."
 msgstr ""
 
-#: templates/setting.php:49
+#: templates/setting.php:54
 msgid "Login screen"
 msgstr ""
 
-#: templates/setting.php:54
+#: templates/setting.php:59
 msgid "Show all button on Login screen."
 msgstr ""
 
-#: templates/setting.php:59
+#: templates/setting.php:64
 msgid "Do not show login button."
 msgstr ""
 
-#: templates/setting.php:62
+#: templates/setting.php:69
 #, php-format
 msgid ""
 "You can output login button manually. See detail at <a href=\"%2$s\">%1$s</"
 "a>."
 msgstr ""
 
-#: templates/setting.php:67
+#: templates/setting.php:75
 msgid "Button size"
 msgstr ""
 
-#: templates/setting.php:77
+#: templates/setting.php:85
 msgid "This setting is valid only if login button's display setting is on."
 msgstr ""
 
-#: templates/setting.php:82
+#: templates/setting.php:90
 msgid "URL Prefix"
 msgstr ""
 
-#: templates/setting.php:87
+#: templates/setting.php:95
 msgid ""
 "You can add prefix for all Gianism redirect URIs. Useful if you site is "
 "under CDN network which filters cookie strings."
 msgstr ""
 
-#: templates/setting.php:89
+#: templates/setting.php:97
 msgid ""
 "<strong>NOTICE: </strong>if you change URL prefix, you have to change all "
 "app setting in each SNS. It might cause error on live site."
 msgstr ""
 
-#: templates/setting.php:94
+#: templates/setting.php:102
 msgid "Profile Completion"
 msgstr ""
 
-#: templates/setting.php:99
+#: templates/setting.php:108
 msgid "Notify on admin profile screen(Default)"
 msgstr ""
 
-#: templates/setting.php:100
+#: templates/setting.php:109
 msgid "Show pop up for incomplete users(Aggressive)"
 msgstr ""
 
-#: templates/setting.php:101
+#: templates/setting.php:110
 msgid "Redirect users to fill profile(Forcible)"
 msgstr ""
 
-#: templates/setting.php:107
+#: templates/setting.php:117
 msgid ""
 "Users who registered account via SNS have sometimes incomplete profile. You "
 "can choose how to treat them by this option."
 msgstr ""
 
-#: templates/setting.php:109
+#: templates/setting.php:119
 msgid ""
 "This feature requires WordPress 5.0 and higher. Please consider upgrading."
 msgstr ""
 
-#: templates/setting.php:114
+#: templates/setting.php:124
 msgid "Profile URL"
 msgstr ""
 
-#: templates/setting.php:117
+#: templates/setting.php:127
 msgid "e.g. /my-profile/account"
 msgstr ""
 
-#: templates/setting.php:120
+#: templates/setting.php:130
 msgid ""
 "If you want your users to complete their profiles, you can specify the path "
 "to profile completion page."
 msgstr ""
 
-#: templates/setting.php:121
+#: templates/setting.php:131
 msgid "Current Setting"
 msgstr ""
 
-#: templates/setting.php:130
+#: templates/setting.php:142
 msgid "Excluded Path"
 msgstr ""
 
-#: templates/setting.php:134
+#: templates/setting.php:146
 msgid ""
 "To avoid the redirect loop, enter paths excluded from redirection. 1 path in "
 "1 line. Asterisk(*) means wildcard."
@@ -1372,61 +1392,56 @@ msgstr ""
 msgid "Connect with Facebook"
 msgstr ""
 
-#: templates/setting/facebook.php:16 templates/setting/google.php:15
-#: templates/setting/instagram.php:16
+#: templates/setting/facebook.php:18 templates/setting/google.php:18
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
 "get required infomation."
 msgstr ""
 
-#: templates/setting/facebook.php:21 templates/setting/google.php:16
-#: templates/setting/instagram.php:21 templates/setting/line.php:16
-#: templates/setting/twitter.php:17
+#: templates/setting/facebook.php:26 templates/setting/google.php:19
+#: templates/setting/line.php:26 templates/setting/twitter.php:20
 #, php-format
 msgid "See detail at <a href=\"%1$s\">%2$s</a>."
 msgstr ""
 
-#: templates/setting/facebook.php:30
+#: templates/setting/facebook.php:36
 msgid "App ID"
 msgstr ""
 
-#: templates/setting/facebook.php:37
+#: templates/setting/facebook.php:43
 msgid "App Secret"
 msgstr ""
 
-#: templates/setting/facebook.php:44
+#: templates/setting/facebook.php:50
 msgid "API Version"
 msgstr ""
 
-#: templates/setting/facebook.php:51
+#: templates/setting/facebook.php:58
 #, php-format
 msgid ""
 "Enter Facebook API version for your app. Facebook API's life cycle is 2 "
-"years. Format should be <code>v0.0</code>. Less than minimum version <code>"
-"%s</code> will be ignored."
+"years. Format should be <code>v0.0</code>. Less than minimum version "
+"<code>%s</code> will be ignored."
 msgstr ""
 
-#: templates/setting/facebook.php:57 templates/setting/google.php:32
-#: templates/setting/google.php:39 templates/setting/instagram.php:40
-#: templates/setting/instagram.php:47 templates/setting/line.php:31
-#: templates/setting/twitter.php:47 templates/setup/line.php:32
+#: templates/setting/facebook.php:64 templates/setting/google.php:39
+#: templates/setting/google.php:47 templates/setting/line.php:46
+#: templates/setting/twitter.php:51 templates/setup/line.php:38
 msgid "Redirect URI"
 msgstr ""
 
-#: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/line.php:45
-#: templates/setting/twitter.php:61
+#: templates/setting/facebook.php:70 templates/setting/google.php:54
+#: templates/setting/line.php:61 templates/setting/twitter.php:66
 msgid "Please copy this URL."
 msgstr ""
 
-#: templates/setting/facebook.php:63 templates/setting/google.php:46
-#: templates/setting/instagram.php:54 templates/setting/line.php:45
-#: templates/setting/twitter.php:61
+#: templates/setting/facebook.php:70 templates/setting/google.php:55
+#: templates/setting/line.php:61 templates/setting/twitter.php:66
 msgid "Copy"
 msgstr ""
 
-#: templates/setting/facebook.php:70
+#: templates/setting/facebook.php:78
 #, php-format
 msgid ""
 "Since March 2018, Facebook changes redirect URIs policy and you must set URI "
@@ -1434,131 +1449,131 @@ msgid ""
 "For more detail, see our <a href=\"%2$s\" target=\"_blank\">blog post</a>."
 msgstr ""
 
-#: templates/setting/facebook.php:80
+#: templates/setting/facebook.php:89
 msgid "Use Facebook API"
 msgstr ""
 
-#: templates/setting/facebook.php:86
+#: templates/setting/facebook.php:95
 msgid "If enabled, you can get Facebook API Token for this site."
 msgstr ""
 
-#: templates/setting/facebook.php:91
+#: templates/setting/facebook.php:104
 #, php-format
 msgid "You must set up token on <a href=\"%s\">Facebook API page</a>."
 msgstr ""
 
-#: templates/setting/google.php:11 templates/setting/instagram.php:11
-#: templates/setting/line.php:11 templates/setting/twitter.php:11
+#: templates/setting/google.php:14 templates/setting/line.php:15
+#: templates/setting/twitter.php:11
 #, php-format
 msgid "Connect with %s"
 msgstr ""
 
-#: templates/setting/google.php:22 templates/setting/instagram.php:30
+#: templates/setting/google.php:25
 msgid "Client ID"
 msgstr ""
 
-#: templates/setting/google.php:27 templates/setting/instagram.php:35
+#: templates/setting/google.php:32
 msgid "Client Secret"
 msgstr ""
 
-#: templates/setting/google.php:38 templates/setting/instagram.php:46
-#: templates/setting/line.php:37 templates/setting/twitter.php:53
+#: templates/setting/google.php:46 templates/setting/line.php:53
+#: templates/setting/twitter.php:58
 #, php-format
 msgid "Please set %1$s to %2$s on <a target=\"_blank\" href=\"%4$s\">%3$s</a>."
 msgstr ""
 
-#: templates/setting/google.php:50
+#: templates/setting/google.php:60
 #, php-format
 msgid ""
 "<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. "
 "You must set up again on Google API Console."
 msgstr ""
 
-#: templates/setting/line.php:15 templates/setting/twitter.php:16
+#: templates/setting/line.php:24 templates/setting/twitter.php:18
 #, php-format
 msgid ""
 "You have to create %1$s App <a target=\"_blank\" href=\"%2$s\">here</a> to "
 "get required information."
 msgstr ""
 
-#: templates/setting/line.php:21
+#: templates/setting/line.php:32
 msgid "Channel ID"
 msgstr ""
 
-#: templates/setting/line.php:26
+#: templates/setting/line.php:39
 msgid "Channel Secret"
 msgstr ""
 
-#: templates/setting/line.php:38 templates/setting/twitter.php:54
+#: templates/setting/line.php:54 templates/setting/twitter.php:59
 msgid "Callback URL"
 msgstr ""
 
-#: templates/setting/line.php:50
+#: templates/setting/line.php:66
 msgid "Retrieve Email"
 msgstr ""
 
-#: templates/setting/line.php:54
+#: templates/setting/line.php:72
 #, php-format
 msgid ""
 "You need registration to retrieve user email. Go to <a target=\"_blank\" "
 "href=\"%1$s\">LINE developer</a> and submit request."
 msgstr ""
 
-#: templates/setting/line.php:59
+#: templates/setting/line.php:78
 msgid "Add Friend"
 msgstr ""
 
-#: templates/setting/line.php:63
+#: templates/setting/line.php:83
 msgid "Not display"
 msgstr ""
 
-#: templates/setting/line.php:64
+#: templates/setting/line.php:84
 msgid "Display as option"
 msgstr ""
 
-#: templates/setting/line.php:65
+#: templates/setting/line.php:85
 msgid "Aggressive Prompt"
 msgstr ""
 
-#: templates/setting/line.php:71
+#: templates/setting/line.php:94
 #, php-format
 msgid ""
-"If you have an official account in LINE, you can display \"Add friend button"
-"\" in your connect screen. For more details, see <a href=\"%s\" target="
-"\"_blank\" rel=\"noopener,noreferrer\">LINE Developer</a>."
+"If you have an official account in LINE, you can display \"Add friend "
+"button\" in your connect screen. For more details, see <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener,noreferrer\">LINE Developer</a>."
 msgstr ""
 
-#: templates/setting/line.php:71
+#: templates/setting/line.php:94
 msgid ""
 "https://developers.line.biz/en/docs/line-login/link-a-bot/#getting-the-"
 "friendship-status-of-the-user-and-the-line-official-account"
 msgstr ""
 
-#: templates/setting/twitter.php:22 templates/setting/twitter.php:72
+#: templates/setting/twitter.php:26 templates/setting/twitter.php:80
 msgid "Screen Name"
 msgstr ""
 
-#: templates/setting/twitter.php:27 templates/setting/twitter.php:72
+#: templates/setting/twitter.php:31 templates/setting/twitter.php:81
 msgid "Consumer Key"
 msgstr ""
 
-#: templates/setting/twitter.php:32 templates/setting/twitter.php:72
+#: templates/setting/twitter.php:36 templates/setting/twitter.php:82
 msgid "Consumer Secret"
 msgstr ""
 
-#: templates/setting/twitter.php:37 templates/setting/twitter.php:73
+#: templates/setting/twitter.php:41 templates/setting/twitter.php:83
 msgid "Access Token"
 msgstr ""
 
-#: templates/setting/twitter.php:42 templates/setting/twitter.php:73
+#: templates/setting/twitter.php:46 templates/setting/twitter.php:84
 msgid "Access token secret"
 msgstr ""
 
-#: templates/setting/twitter.php:66
+#: templates/setting/twitter.php:71
 msgid "Twitter bot by Gianism"
 msgstr ""
 
-#: templates/setting/twitter.php:71
+#: templates/setting/twitter.php:79
 #, php-format
 msgid ""
 "If enabled, you can make twitter bot which tweet at the time you specified. "
@@ -1577,10 +1592,10 @@ msgstr ""
 
 #: templates/setup/facebook.php:15
 msgid ""
-"Gianism refers user's Facebook credential as Facebook app. Go to <a href="
-"\"https://developers.facebook.com\">Facebook developers</a> and sign up as "
-"developer. On registeration flow, you will have to enter mobile phone number "
-"or credit card number."
+"Gianism refers user's Facebook credential as Facebook app. Go to <a "
+"href=\"https://developers.facebook.com\">Facebook developers</a> and sign up "
+"as developer. On registeration flow, you will have to enter mobile phone "
+"number or credit card number."
 msgstr ""
 
 #: templates/setup/facebook.php:17
@@ -1605,11 +1620,10 @@ msgid ""
 msgstr ""
 
 #: templates/setup/facebook.php:27 templates/setup/facebook.php:34
-#: templates/setup/facebook.php:42 templates/setup/facebook.php:49
-#: templates/setup/facebook.php:56 templates/setup/facebook.php:71
-#: templates/setup/instagram.php:25 templates/setup/instagram.php:39
-#: templates/setup/instagram.php:47 templates/setup/twitter.php:28
-#: templates/setup/twitter.php:42 templates/setup/twitter.php:50
+#: templates/setup/facebook.php:44 templates/setup/facebook.php:52
+#: templates/setup/facebook.php:59 templates/setup/facebook.php:74
+#: templates/setup/twitter.php:28 templates/setup/twitter.php:42
+#: templates/setup/twitter.php:50
 #, php-format
 msgid "<strong>e.g.</strong> <code>%s</code>"
 msgstr ""
@@ -1628,31 +1642,31 @@ msgid ""
 "Facebook."
 msgstr ""
 
-#: templates/setup/facebook.php:48
+#: templates/setup/facebook.php:51
 msgid "Your domain."
 msgstr ""
 
-#: templates/setup/facebook.php:55
+#: templates/setup/facebook.php:58
 msgid "On development environment or test flight, turn sandbox ON."
 msgstr ""
 
-#: templates/setup/facebook.php:56
+#: templates/setup/facebook.php:59
 msgid "OFF"
 msgstr ""
 
-#: templates/setup/facebook.php:62
+#: templates/setup/facebook.php:65
 msgid "You can activate several connection types, but below is required."
 msgstr ""
 
-#: templates/setup/facebook.php:69 templates/setup/instagram.php:45
+#: templates/setup/facebook.php:72
 msgid "The URL where user will be redirected after authentication."
 msgstr ""
 
-#: templates/setup/facebook.php:76
+#: templates/setup/facebook.php:79
 msgid "Enter App ID and App secret"
 msgstr ""
 
-#: templates/setup/facebook.php:78
+#: templates/setup/facebook.php:81
 #, php-format
 msgid ""
 "Once you create Facebook App, App ID and App secret will be provided. Now "
@@ -1666,7 +1680,7 @@ msgid ""
 "NewAccount\">Create Google account</a> and get it."
 msgstr ""
 
-#: templates/setup/google.php:13 templates/setup/instagram.php:14
+#: templates/setup/google.php:13
 msgid "Create new Project"
 msgstr ""
 
@@ -1716,58 +1730,15 @@ msgid ""
 "<code>%s</code> is recommended."
 msgstr ""
 
-#: templates/setup/google.php:51 templates/setup/line.php:39
+#: templates/setup/google.php:51 templates/setup/line.php:49
 msgid "Enter API Information"
 msgstr ""
 
-#: templates/setup/google.php:53 templates/setup/instagram.php:56
+#: templates/setup/google.php:53
 #, php-format
 msgid ""
-"Input and save 2 information(Client ID and Client Secret) on <a href=\"%s"
-"\">WordPress admin screen</a>."
-msgstr ""
-
-#: templates/setup/instagram.php:12
-msgid "First of all, Instagram account is required."
-msgstr ""
-
-#: templates/setup/instagram.php:16
-msgid ""
-"Go to <a href=\"https://www.instagram.com/developer/\">Instagram developer</"
-"a> and click <code>Manage Clients</code>."
-msgstr ""
-
-#: templates/setup/instagram.php:18 templates/setup/line.php:16
-msgid "Then register new client. Enter required information."
-msgstr ""
-
-#: templates/setup/instagram.php:31
-msgid ""
-"Write what this app will do. This information will be displayed to user."
-msgstr ""
-
-#: templates/setup/instagram.php:38 templates/setup/twitter.php:41
-msgid "Website's URL. Use this blog's URL"
-msgstr ""
-
-#: templates/setup/instagram.php:52
-#, php-format
-msgid ""
-"Now you can get client's credentials. Save it on <a href=\"%s\">setting "
-"page</a>."
-msgstr ""
-
-#: templates/setup/instagram.php:54
-msgid "Get out of sandbox"
-msgstr ""
-
-#: templates/setup/instagram.php:58
-#, php-format
-msgid ""
-"By default, any instagram client is inside sandbox. This means that the "
-"instagram account which can log in to your site is just yours! So, to use it "
-"in production environment, you have to pass <a href=\"%s\">Permissions "
-"Review</a>. If you just need login, <code>basic</code> permission satisfies."
+"Input and save 2 information(Client ID and Client Secret) on <a "
+"href=\"%s\">WordPress admin screen</a>."
 msgstr ""
 
 #: templates/setup/line.php:12
@@ -1784,26 +1755,30 @@ msgid ""
 "<code>Start LINE login</code>."
 msgstr ""
 
+#: templates/setup/line.php:16
+msgid "Then register new client. Enter required information."
+msgstr ""
+
 #: templates/setup/line.php:20
 msgid "Provider Name"
 msgstr ""
 
-#: templates/setup/line.php:22
+#: templates/setup/line.php:24
 #, php-format
 msgid "Your service or company name. e.g. <code>%s</code>"
 msgstr ""
 
-#: templates/setup/line.php:26
+#: templates/setup/line.php:29
 msgid "Application Name"
 msgstr ""
 
-#: templates/setup/line.php:28
+#: templates/setup/line.php:33
 #, php-format
 msgid ""
 "Your application name. Site name <code>%s</code> is clear for your user."
 msgstr ""
 
-#: templates/setup/line.php:41
+#: templates/setup/line.php:51
 #, php-format
 msgid "Save credentials on <a href=\"%s\">WordPress admin screen</a>."
 msgstr ""
@@ -1821,8 +1796,8 @@ msgstr ""
 #: templates/setup/twitter.php:15
 msgid ""
 "Go to <a href=\"https://dev.twitter.com\">Twitter Developer</a> and sign in "
-"with your twitter account. Then go to <a href=\"https://dev.twitter.com/apps"
-"\">My Applications</a> and click <code>Create new application</code>."
+"with your twitter account. Then go to <a href=\"https://dev.twitter.com/"
+"apps\">My Applications</a> and click <code>Create new application</code>."
 msgstr ""
 
 #: templates/setup/twitter.php:17
@@ -1845,6 +1820,10 @@ msgstr ""
 msgid ""
 "Description about your site. It is recommended explaining your user why you "
 "request authentication."
+msgstr ""
+
+#: templates/setup/twitter.php:41
+msgid "Website's URL. Use this blog's URL"
 msgstr ""
 
 #: templates/setup/twitter.php:48
@@ -1870,8 +1849,8 @@ msgstr ""
 
 #: templates/setup/twitter.php:61
 msgid ""
-"Gianism requires 5 information. Go to <a href=\"https://dev.twitter.com/apps"
-"\">your application's detail page</a> and click <code>OAuth tools</code> "
+"Gianism requires 5 information. Go to <a href=\"https://dev.twitter.com/"
+"apps\">your application's detail page</a> and click <code>OAuth tools</code> "
 "tab. There, you can get 4 information below: "
 msgstr ""
 
@@ -1882,7 +1861,7 @@ msgid ""
 "these credentials on <a href=\"%s\">Setting page</a>."
 msgstr ""
 
-#: wp-gianism.php:78
+#: wp-gianism.php:81
 #, php-format
 msgid ""
 "[Gianism] PHP <code>%1$s</code> is required, but your version is <code>%2$s</"
@@ -1890,12 +1869,12 @@ msgid ""
 "administrator."
 msgstr ""
 
-#: wp-gianism.php:84
+#: wp-gianism.php:87
 #, php-format
 msgid "[Gianism] missing composer's auto loader at %1$s. Did you run %2$s?"
 msgstr ""
 
-#: wp-gianism.php:90
+#: wp-gianism.php:93
 msgid "[Gianism] Bootstrap file not found."
 msgstr ""
 

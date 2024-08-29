@@ -21,8 +21,9 @@ jQuery( document ).ready( function ( $ ) {
 		grabMessage: function () {
 			for ( var i = 0; i < 2; i++ ) {
 				var key_name = 'gianism_' + this.str[ i ],
-					messages = Cookies.getJSON( key_name );
+					messages = Cookies.get( key_name );
 				if ( messages ) {
+					messages = JSON.parse( messages );
 					// Message exists.
 					for ( var j = 0, k = messages.length; j < k; j++ ) {
 						this.pushMsg( messages[ j ], this.str[ i ] );

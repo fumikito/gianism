@@ -5,6 +5,7 @@ namespace Gianism\Helper;
 
 use Gianism\Pattern\AppBase;
 use Gianism\Pattern\Singleton;
+use Gianism\Service\AbstractService;
 
 /**
  * Class ServiceManager
@@ -16,7 +17,7 @@ class ServiceManager extends Singleton {
 	use ExtensionManager;
 
 	/**
-	 * @var array
+	 * @var array<string, class-string<AbstractService>>
 	 */
 	protected $service_classes = [];
 
@@ -110,7 +111,7 @@ class ServiceManager extends Singleton {
 	/**
 	 * Return registered services
 	 *
-	 * @return array
+	 * @return array<array{name:string, label:string, enabled:bool, default:bool}>
 	 */
 	public function service_list() {
 		$services = [];
@@ -134,10 +135,11 @@ class ServiceManager extends Singleton {
 	 * @return null|\Gianism\Service\AbstractService
 	 */
 	public function get( $service ) {
-		if ( ! isset( $this->service_classes[ $service ] ) ) {
+		$service_classes = $this->service_classes;
+		if ( ! isset( $service_classes[ $service ] ) ) {
 			return null;
 		} else {
-			$class_name = $this->service_classes[ $service ];
+			$class_name = $service_classes[ $service ];
 			return $class_name::get_instance();
 		}
 	}

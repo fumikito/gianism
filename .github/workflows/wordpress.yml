@@ -120,9 +120,9 @@ jobs:
     needs: [ test, assets, lint, analyze ]
     runs-on: ubuntu-latest
     steps:
-      - name: Display Status
-        run: echo "All Green!"
-
+    - uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}
 
   deploy:
     name: Deploy Gianism.info

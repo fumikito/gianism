@@ -22,10 +22,6 @@
 		<exclude name="Universal.Operators.DisallowShortTernary.Found" />
 	</rule>
 
-	<rule ref="PHPCompatibility">
-		<config name="testVersion" value="7.2-"/>
-	</rule>
-
 	<exclude-pattern>*/.github/*</exclude-pattern>
 	<exclude-pattern>*/.git/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>

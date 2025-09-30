@@ -3,7 +3,7 @@
 set -e
 
 # Set variables.
-PREFIX="refs/tags/"
+PREFIX="refs/tags/v"
 VERSION=${1#"$PREFIX"}
 echo "Building Plugin v${VERSION}..."
 

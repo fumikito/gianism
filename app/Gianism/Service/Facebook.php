@@ -633,6 +633,16 @@ class Facebook extends NoMailService {
 	}
 
 	/**
+	 * Get HTTP client handler for Facebook SDK.
+	 *
+	 * @return callable|null
+	 */
+	protected function get_http_client_handler() {
+		// Return a custom cURL client that uses system CA certificates
+		return new \Gianism\Helper\FacebookSystemCaCurlClient();
+	}
+
+	/**
 	 * Getter
 	 *
 	 * @param string $name
@@ -642,14 +652,18 @@ class Facebook extends NoMailService {
 		switch ( $name ) {
 			case 'api':
 				if ( is_null( $this->_api ) ) {
-					$this->_api = new \Facebook\Facebook(
-						[
-							'app_id'                  => $this->fb_app_id,
-							'app_secret'              => $this->fb_app_secret,
-							'default_graph_version'   => $this->get_graph_version(),
-							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-						]
-					);
+					$config = [
+						'app_id'                  => $this->fb_app_id,
+						'app_secret'              => $this->fb_app_secret,
+						'default_graph_version'   => $this->get_graph_version(),
+						'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+					];
+					// Use custom HTTP client to avoid certificate issues
+					$http_client = $this->get_http_client_handler();
+					if ( $http_client ) {
+						$config['http_client_handler'] = $http_client;
+					}
+					$this->_api = new \Facebook\Facebook( $config );
 				}
 				return $this->_api;
 				break;
@@ -660,14 +674,18 @@ class Facebook extends NoMailService {
 						return new \WP_Error( 404, $this->_( 'Token is not set. Please get it.' ) );
 					}
 					try {
-						$this->_admin_api = new \Facebook\Facebook(
-							[
-								'app_id'                  => $this->fb_app_id,
-								'app_secret'              => $this->fb_app_secret,
-								'default_graph_version'   => $this->get_graph_version(),
-								'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-							]
-						);
+						$config = [
+							'app_id'                  => $this->fb_app_id,
+							'app_secret'              => $this->fb_app_secret,
+							'default_graph_version'   => $this->get_graph_version(),
+							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+						];
+						// Use custom HTTP client to avoid certificate issues
+						$http_client = $this->get_http_client_handler();
+						if ( $http_client ) {
+							$config['http_client_handler'] = $http_client;
+						}
+						$this->_admin_api = new \Facebook\Facebook( $config );
 						// Check last updated
 						$updated = $this->option->get( 'gianism_facebook_admin_refreshed', 0 );
 						// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
@@ -761,14 +779,18 @@ class Facebook extends NoMailService {
 			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'wp-gianism' ) );
 		}
 		try {
-			$api = new \Facebook\Facebook(
-				[
-					'app_id'                  => $this->fb_app_id,
-					'app_secret'              => $this->fb_app_secret,
-					'default_graph_version'   => $this->get_graph_version(),
-					'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-				]
-			);
+			$config = [
+				'app_id'                  => $this->fb_app_id,
+				'app_secret'              => $this->fb_app_secret,
+				'default_graph_version'   => $this->get_graph_version(),
+				'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+			];
+			// Use custom HTTP client to avoid certificate issues
+			$http_client = $this->get_http_client_handler();
+			if ( $http_client ) {
+				$config['http_client_handler'] = $http_client;
+			}
+			$api = new \Facebook\Facebook( $config );
 			$api->setDefaultAccessToken( $token );
 			return $api;
 		} catch ( \Exception $e ) {

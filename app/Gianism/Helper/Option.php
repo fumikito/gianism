@@ -347,7 +347,7 @@ class Option extends Singleton {
 	 * @return string
 	 */
 	public function get_formatted_prefix() {
-		return trim( trim( $this->prefix ), '/' );
+		return trim( trim( (string) $this->prefix ), '/' );
 	}
 
 	/**

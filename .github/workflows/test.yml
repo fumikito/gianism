@@ -7,7 +7,6 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
@@ -70,7 +69,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '14'
 

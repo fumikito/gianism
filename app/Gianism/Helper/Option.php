@@ -308,7 +308,7 @@ class Option extends Singleton {
 			}
 		}
 		if ( ! $is_ssl ) {
-			if ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN ) ) {
+			if ( force_ssl_admin() ) {
 				$is_ssl = true;
 			}
 		}

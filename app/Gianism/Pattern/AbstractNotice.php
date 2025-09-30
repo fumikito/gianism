@@ -59,7 +59,7 @@ abstract class AbstractNotice {
 	 * Register notice if exists.
 	 */
 	public function register_notice() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			// Do nothing.
 			return;
 		}

@@ -1,216 +1,41 @@
-name: Deploy Plugin
+name: Deploy to WordPress.org
 
 on:
   push:
-    branches:
-      - master
     tags:
-      - '*'
-  pull_request:
-    branches:
-      - master
+      - 'v*'
 
 jobs:
-  test:
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
-        php: [ '7.2', '7.4' ] # PHP versions to check.
-        wp: [ 'latest', '5.9' ]      # WordPress version to check.
-    services:
-      mysql:
-        image: mysql:5.7
-        options: --health-cmd "mysqladmin ping --host 127.0.0.1 --port 3306" --health-interval 20s --health-timeout 10s --health-retries 10
-        ports:
-          - 3306/tcp
-        env:
-          MYSQL_ROOT_PASSWORD: root
-    name: WordPress ${{ matrix.wp }} in PHP ${{ matrix.php }} UnitTest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Start MySQL
-        run: |
-            sudo systemctl start mysql
-            mysql -h 127.0.0.1 --port 3306 -u root --password=root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
-
-      - name: Install WordPress
-        run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
-
-      - name: Run Unit test
-        run: composer test
-
-  lint:
-    name: PHP Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          tools: composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Check PHP syntax
-        run: composer lint
-
-  analyze:
-    name: Check PHP code quality
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          tools: composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Run PHP Stan
-        run: composer analyze:github
-
-  assets:
-    name: Assets Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install NPM Packages
-        run: npm install
-
-      - name: Check JS & CSS syntax
-        run: npm run lint
-
-      - name: Ensure build works
-        run: npm run package
-
-  status-check:
-    name: Status Check
-    needs: [ test, assets, lint, analyze ]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: re-actors/alls-green@release/v1
-      with:
-        jobs: ${{ toJSON(needs) }}
-
   deploy:
-    name: Deploy Gianism.info
-    needs: [ status-check ]
-    if: contains(github.ref, 'master') && github.event_name == 'push'
+    name: Deploy to WordPress.org
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://wordpress.org/plugins/gianism/
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup PHP with composer v2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 7.4
           tools: composer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '14'
 
-      - name: Build Plugin
-        run: bash bin/build.sh refs/tags/${{ github.sha }}
-
-      - name: Deploy with Rsync
-        uses: Pendect/action-rsyncer@v1.1.0
-        env:
-          DEPLOY_KEY: ${{secrets.GIANISM_XSERVER}}
-        with:
-          flags: '-rptv --checksum --delete'
-          options: '--exclude-from=.distignore'
-          ssh_options: '-p 10022'
-          src: "./"
-          dest: "gianism002@sv14500.xserver.jp:/home/gianism002/gianism.info/public_html/wp-content/plugins/gianism/"
-
-  release:
-    name: Deploy WordPress.org
-    needs: [ status-check ]
-    if: contains(github.ref, 'tags/')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.2
-          tools: composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Build Plugin
+      - name: Build package
         run: bash bin/build.sh ${{ github.ref }}
 
       - name: Deploy to WordPress Directory
-        id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           generate-zip: true
         env:
+          SLUG: gianism
           SVN_USERNAME: ${{ secrets.WPORG_FUMIKI_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WPORG_FUMIKI_PASSWORD }}
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/${{ github.event.repository.name }}.zip
-          asset_name: ${{ github.event.repository.name }}.zip
-          asset_content_type: application/zip

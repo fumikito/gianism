@@ -3,6 +3,7 @@
  * Custom Facebook cURL HTTP client that uses system CA certificates
  *
  * @package Gianism\Helper
+ * phpcs:ignoreFile WordPress.NamingConventions.ValidVariableName
  */
 
 namespace Gianism\Helper;

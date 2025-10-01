@@ -59,7 +59,6 @@ jobs:
   phplint:
     uses: tarosky/workflows/.github/workflows/phplint.yml@main
     with:
-      install_command: "composer install --no-dev && php bin/composer-fixer.php"
       php_versions: '["7.4"]'
 
   assets:

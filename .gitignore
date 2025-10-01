@@ -8,3 +8,4 @@ doc/
 readme.txt
 language/wp-gianism.mo
 composer.lock
+.claude/settings.local.json

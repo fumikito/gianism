@@ -15,10 +15,12 @@
         "fix": "phpcbf --standard=phpcs.ruleset.xml .",
         "test": "phpunit",
         "analyze": "phpstan analyze --memory-limit=2G",
-        "analyze:github": "phpstan analyze --memory-limit=2G --error-format=github"
+        "analyze:github": "phpstan analyze --memory-limit=2G --error-format=github",
+        "post-install-cmd": "php bin/composer-fixer.php",
+        "post-update-cmd": "php bin/composer-fixer.php"
     },
     "require": {
-        "php": ">=7.4 <8.0",
+        "php": ">=7.4",
         "facebook/graph-sdk": "^5.4",
         "abraham/twitteroauth": "2.0.0",
         "google/apiclient": "^2.0"

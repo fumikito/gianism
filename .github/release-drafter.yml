@@ -1,0 +1,23 @@
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  ## Test Checklist (gianism.info)
+
+  Before publishing this release, please test the following on https://gianism.info:
+
+  - [ ] Site loads without errors (white screen check)
+  - [ ] Plugin is active and working
+  - [ ] Facebook login works
+  - [ ] Twitter login works (if enabled)
+  - [ ] Google login works (if enabled)
+  - [ ] User account connection/disconnection works
+  - [ ] Admin settings page loads and saves correctly
+
+  ## Deploy Instructions
+
+  1. Test on gianism.info (already deployed from master)
+  2. Complete the checklist above
+  3. If all tests pass, publish this release
+  4. Publishing will trigger automatic deployment to WordPress.org

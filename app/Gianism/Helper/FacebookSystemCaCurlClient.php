@@ -30,25 +30,32 @@ class FacebookSystemCaCurlClient extends FacebookCurlHttpClient {
 		// Call parent to set up basic options
 		parent::openConnection( $url, $method, $body, $headers, $timeOut );
 
-		// Override CURLOPT_CAINFO to use system CA bundle if available
+		// Priority 1: Use bundled updated CA certificate
+		$bundled_ca = dirname( __DIR__ ) . '/certs/cacert.pem';
+		if ( file_exists( $bundled_ca ) ) {
+			$this->facebookCurl->setopt( CURLOPT_CAINFO, $bundled_ca );
+			return;
+		}
+
+		// Priority 2: Use system CA bundle if available
 		$ca_info = ini_get( 'curl.cainfo' );
 		if ( $ca_info && file_exists( $ca_info ) ) {
-			// Use system CA bundle
 			$this->facebookCurl->setopt( CURLOPT_CAINFO, $ca_info );
-		} else {
-			// Fallback: try common CA bundle locations
-			$ca_paths = [
-				'/etc/pki/tls/certs/ca-bundle.crt',           // RHEL/CentOS/Amazon Linux
-				'/etc/ssl/certs/ca-certificates.crt',         // Debian/Ubuntu
-				'/etc/ssl/ca-bundle.pem',                     // OpenSUSE
-				'/usr/local/share/certs/ca-root-nss.crt',     // FreeBSD
-			];
+			return;
+		}
 
-			foreach ( $ca_paths as $path ) {
-				if ( file_exists( $path ) ) {
-					$this->facebookCurl->setopt( CURLOPT_CAINFO, $path );
-					break;
-				}
+		// Priority 3: Fallback to common CA bundle locations
+		$ca_paths = [
+			'/etc/pki/tls/certs/ca-bundle.crt',           // RHEL/CentOS/Amazon Linux
+			'/etc/ssl/certs/ca-certificates.crt',         // Debian/Ubuntu
+			'/etc/ssl/ca-bundle.pem',                     // OpenSUSE
+			'/usr/local/share/certs/ca-root-nss.crt',     // FreeBSD
+		];
+
+		foreach ( $ca_paths as $path ) {
+			if ( file_exists( $path ) ) {
+				$this->facebookCurl->setopt( CURLOPT_CAINFO, $path );
+				return;
 			}
 		}
 	}

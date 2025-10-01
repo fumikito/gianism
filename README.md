@@ -74,6 +74,12 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
+### 5.3.0
+
+* Bump minimum PHP requirements to PHP7.4
+* Fix warning on PHP 8.1
+* Update certs for archived Facebook PHP SDK 
+
 ### 5.2.2
 
 * Fix JS bug.

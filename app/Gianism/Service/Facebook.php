@@ -653,12 +653,16 @@ class Facebook extends NoMailService {
 	 * @return \Facebook\Facebook
 	 */
 	public function get_facebook_client( $config = [] ) {
-		$default_config = apply_filters( 'gianism_default_facebook_client_config', [
-			'app_id'                  => $this->fb_app_id,
-			'app_secret'              => $this->fb_app_secret,
-			'default_graph_version'   => $this->get_graph_version(),
-			'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-		], $this );
+		$default_config = apply_filters(
+			'gianism_default_facebook_client_config',
+			[
+				'app_id'                  => $this->fb_app_id,
+				'app_secret'              => $this->fb_app_secret,
+				'default_graph_version'   => $this->get_graph_version(),
+				'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+			],
+			$this
+		);
 		// Use custom HTTP client to avoid certificate issues
 		$http_client = $this->get_http_client_handler();
 		if ( $http_client ) {

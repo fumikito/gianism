@@ -62,3 +62,28 @@ foreach ( scandir( $dir ) as $file ) {
 
 // Total removed files.
 printf( 'Removed %s files.' . PHP_EOL, number_format( $deleted ) );
+
+// Fix PHP 8.0 syntax in google/auth for PHP 7.4 compatibility
+$typed_item_path = dirname( __DIR__ ) . '/vendor/google/auth/src/Cache/TypedItem.php';
+if ( file_exists( $typed_item_path ) ) {
+	$content = file_get_contents( $typed_item_path );
+
+	// Fix typed properties
+	$content = preg_replace( '/private mixed \$value;/', 'private $value;', $content );
+	$content = preg_replace( '/private \?\\\\DateTimeInterface \$expiration;/', 'private $expiration;', $content );
+	$content = preg_replace( '/private bool \$isHit/', 'private $isHit', $content );
+
+	// Fix constructor property promotion
+	$content = preg_replace( '/private string \$key/', '$key', $content );
+
+	// Fix return type 'static' (PHP 8.0+) and 'mixed' (PHP 8.0+)
+	$content = preg_replace( '/\): static/', ')', $content );
+	$content = preg_replace( '/\): mixed/', ')', $content );
+
+	// Fix parameter type 'mixed' (PHP 8.0+)
+	$content = preg_replace( '/\(mixed \$/', '($', $content );
+
+	if ( file_put_contents( $typed_item_path, $content ) ) {
+		printf( 'Fixed PHP 8.0 syntax in TypedItem.php' . PHP_EOL );
+	}
+}

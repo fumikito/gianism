@@ -1,0 +1,45 @@
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to Xserver
+    if: contains(github.ref, 'master') && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://gianism.info
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Build Plugin
+        run: bash bin/build.sh refs/tags/v${{ github.sha }}
+
+      - name: Deploy with Rsync
+        uses: Pendect/action-rsyncer@v1.1.0
+        env:
+          DEPLOY_KEY: ${{secrets.GIANISM_XSERVER}}
+        with:
+          flags: '-rptv --checksum --delete'
+          options: '--exclude-from=.distignore'
+          ssh_options: '-p 10022'
+          src: "./"
+          dest: "gianism002@sv14500.xserver.jp:/home/gianism002/gianism.info/public_html/wp-content/plugins/gianism/"

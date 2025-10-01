@@ -1,0 +1,74 @@
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to Xserver
+    if: contains(github.ref, 'master') && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://gianism.info
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Build Plugin
+        run: bash bin/build.sh refs/tags/v${{ github.sha }}
+
+      - name: Deploy with Rsync
+        uses: Pendect/action-rsyncer@v1.1.0
+        env:
+          DEPLOY_KEY: ${{secrets.GIANISM_XSERVER}}
+        with:
+          flags: '-rptv --checksum --delete'
+          options: '--exclude-from=.distignore'
+          ssh_options: '-p 10022'
+          src: "./"
+          dest: "gianism002@sv14500.xserver.jp:/home/gianism002/gianism.info/public_html/wp-content/plugins/gianism/"
+
+      - name: Health Check - Site loads without errors
+        run: |
+          HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}" https://gianism.info/)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ Site returned HTTP $HTTP_CODE - possible white screen error"
+            exit 1
+          fi
+          echo "✅ Site loads successfully (HTTP 200)"
+
+      - name: Health Check - Plugin is active
+        run: |
+          # Check if Gianism plugin files are accessible
+          HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}" https://gianism.info/wp-content/plugins/gianism/readme.txt)
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ Plugin files not accessible (HTTP $HTTP_CODE)"
+            exit 1
+          fi
+          echo "✅ Plugin files are accessible"
+
+      - name: Notify deployment success
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "📋 Please complete manual testing checklist:"
+          echo "   - Facebook login"
+          echo "   - Twitter login"
+          echo "   - Google login"
+          echo "   - User account connection/disconnection"
+          echo "   - Admin settings"

@@ -633,6 +633,47 @@ class Facebook extends NoMailService {
 	}
 
 	/**
+	 * Get HTTP client handler for Facebook SDK.
+	 *
+	 * @return \Facebook\HttpClients\FacebookCurlHttpClient|null
+	 */
+	protected function get_http_client_handler() {
+		// Return a custom cURL client that uses system CA certificates
+		return new \Gianism\Helper\FacebookSystemCaCurlClient();
+	}
+
+	/**
+	 * @param array{
+	 *     app_id:string,
+	 *     app_secret:string,
+	 *     default_graph_version:string,
+	 *     persistent_data_handler:\Facebook\PersistentData\PersistentDataInterface
+	 * } $config Setting for Facebook API Client
+	 *
+	 * @return \Facebook\Facebook
+	 */
+	public function get_facebook_client( $config = [] ) {
+		$default_config = apply_filters(
+			'gianism_default_facebook_client_config',
+			[
+				'app_id'                  => $this->fb_app_id,
+				'app_secret'              => $this->fb_app_secret,
+				'default_graph_version'   => $this->get_graph_version(),
+				'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
+			],
+			$this
+		);
+		// Use custom HTTP client to avoid certificate issues
+		$http_client = $this->get_http_client_handler();
+		if ( $http_client ) {
+			$default_config['http_client_handler'] = $http_client;
+		}
+		// Allow user to override.
+		$config = array_merge( $default_config, $config );
+		return new \Facebook\Facebook( $config );
+	}
+
+	/**
 	 * Getter
 	 *
 	 * @param string $name
@@ -642,17 +683,9 @@ class Facebook extends NoMailService {
 		switch ( $name ) {
 			case 'api':
 				if ( is_null( $this->_api ) ) {
-					$this->_api = new \Facebook\Facebook(
-						[
-							'app_id'                  => $this->fb_app_id,
-							'app_secret'              => $this->fb_app_secret,
-							'default_graph_version'   => $this->get_graph_version(),
-							'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-						]
-					);
+					$this->_api = $this->get_facebook_client();
 				}
 				return $this->_api;
-				break;
 			case 'admin':
 				if ( is_null( $this->_admin_api ) ) {
 					$token = $this->option->get( 'gianism_facebook_admin_token', false );
@@ -660,14 +693,7 @@ class Facebook extends NoMailService {
 						return new \WP_Error( 404, $this->_( 'Token is not set. Please get it.' ) );
 					}
 					try {
-						$this->_admin_api = new \Facebook\Facebook(
-							[
-								'app_id'                  => $this->fb_app_id,
-								'app_secret'              => $this->fb_app_secret,
-								'default_graph_version'   => $this->get_graph_version(),
-								'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-							]
-						);
+						$this->_admin_api = $this->get_facebook_client();
 						// Check last updated
 						$updated = $this->option->get( 'gianism_facebook_admin_refreshed', 0 );
 						// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
@@ -680,7 +706,6 @@ class Facebook extends NoMailService {
 					}
 				}
 				return $this->_admin_api;
-				break;
 			case 'admin_account':
 				if ( is_wp_error( $this->admin ) ) {
 					return false;
@@ -690,7 +715,6 @@ class Facebook extends NoMailService {
 				} catch ( \Exception $e ) {
 					return false;
 				}
-				break;
 			case 'admin_pages':
 				if ( is_wp_error( $this->admin ) ) {
 					return [];
@@ -711,13 +735,10 @@ class Facebook extends NoMailService {
 						return [];
 					}
 				}
-				break;
 			case 'admin_id':
 				return $this->option->get( 'gianism_facebook_admin_id', 'me' );
-				break;
 			default:
 				return parent::__get( $name );
-				break;
 		}
 	}
 
@@ -761,14 +782,7 @@ class Facebook extends NoMailService {
 			return new \WP_Error( 404, __( 'No page found. Do you have permission for that page?', 'wp-gianism' ) );
 		}
 		try {
-			$api = new \Facebook\Facebook(
-				[
-					'app_id'                  => $this->fb_app_id,
-					'app_secret'              => $this->fb_app_secret,
-					'default_graph_version'   => $this->get_graph_version(),
-					'persistent_data_handler' => new FacebookCookiePersistentDataHandler(),
-				]
-			);
+			$api = $this->get_facebook_client();
 			$api->setDefaultAccessToken( $token );
 			return $api;
 		} catch ( \Exception $e ) {

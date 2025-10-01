@@ -3,6 +3,7 @@ const fs          = require('fs');
 const $           = require('gulp-load-plugins')();
 const pngquant    = require('imagemin-pngquant');
 const mergeStream = require('merge-stream');
+const sass        = require('sass');
 
 
 // Sass tasks
@@ -13,7 +14,7 @@ gulp.task('sass', function () {
     }))
     .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.sassGlob())
-    .pipe($.sass({
+    .pipe($.sass(sass)({
       errLogToConsole: true,
       outputStyle    : 'compressed',
       includePaths   : [

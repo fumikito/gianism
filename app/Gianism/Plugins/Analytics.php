@@ -449,7 +449,7 @@ SQL;
 			add_action(
 				'admin_init',
 				function () use ( $ajax_classes ) {
-					if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+					if ( wp_doing_ajax() ) {
 						foreach ( $ajax_classes as $ajax_class ) {
 							$ajax_class::get_instance();
 						}

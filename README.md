@@ -1,11 +1,9 @@
 #  Gianism 
 
 Contributors: Takahashi_Fumiki, hametuha  
-Tags: facebook,twitter,google,account,oauth,community,social,sns  
-Tested up to: 6.6  
-Stable Tag: 5.2.0  
-Requires at least: 5.9  
-Requires PHP: 7.2  
+Tags: facebook,twitter,google,social,sns  
+Tested up to: 6.8  
+Stable Tag: nightly  
 License:  GPL2 or Later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,7 +74,13 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
-### 5.2.1
+### 5.3.0
+
+* Bump minimum PHP requirements to PHP7.4
+* Fix warning on PHP 8.1
+* Update certs for archived Facebook PHP SDK 
+
+### 5.2.2
 
 * Fix JS bug.
 * Add SNS icon on user list screen in favor of users' connections.

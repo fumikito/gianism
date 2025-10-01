@@ -31,7 +31,7 @@ class FacebookSystemCaCurlClient extends FacebookCurlHttpClient {
 		parent::openConnection( $url, $method, $body, $headers, $timeOut );
 
 		// Priority 1: Use bundled updated CA certificate
-		$bundled_ca = dirname( __DIR__ ) . '/certs/cacert.pem';
+		$bundled_ca = gianism_root_dir() . '/certs/cacert.pem';
 		if ( file_exists( $bundled_ca ) ) {
 			$this->facebookCurl->setopt( CURLOPT_CAINFO, $bundled_ca );
 			return;

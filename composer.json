@@ -18,7 +18,7 @@
         "analyze:github": "phpstan analyze --memory-limit=2G --error-format=github"
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=7.4 <8.0",
         "facebook/graph-sdk": "^5.4",
         "abraham/twitteroauth": "2.0.0",
         "google/apiclient": "^2.0"

@@ -47,6 +47,6 @@
   },
   "homepage": "https://github.com/fumikito/Gianism#readme",
   "volta": {
-    "node": "14.21.3"
+    "node": "22.22.0"
   }
 }

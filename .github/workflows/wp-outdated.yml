@@ -16,7 +16,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@master
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Check wp version
         uses: tarosky/farmhand-wp-action@v1

@@ -62,6 +62,33 @@ if ( ! isset( $this, $instance ) ) {
 			</p>
 		</td>
 	</tr>
+	<tr>
+		<th><label for="ggl_workspace_mode"><?php $this->e( 'Workspace Limited' ); ?></label></th>
+		<td>
+			<?php $this->switch_button( 'ggl_workspace_mode', $instance->ggl_workspace_mode, 1 ); ?>
+			<br />
+			<?php
+			$this->new_from( '5.4' );
+			printf(
+				'<p class="description">%s</p>',
+				wp_kses_post( __( 'Restrict site access to users from specific Google Workspace domains. Other social login providers should be disabled when this mode is active.', 'wp-gianism' ) )
+			);
+			?>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="ggl_workspace_allowed_domains"><?php $this->e( 'Allowed Domains' ); ?></label></th>
+		<td>
+			<?php
+			$allowed_domains = $instance->ggl_workspace_allowed_domains;
+			?>
+			<textarea name="ggl_workspace_allowed_domains" id="ggl_workspace_allowed_domains"
+				class="large-text" rows="3" placeholder="example.com&#10;company.co.jp"><?php echo esc_textarea( $allowed_domains ); ?></textarea>
+			<p class="description">
+				<?php esc_html_e( 'Enter allowed domains, one per line. Only users with email addresses from these domains can log in when Workspace Limited mode is enabled.', 'wp-gianism' ); ?>
+			</p>
+		</td>
+	</tr>
 	</tbody>
 </table>
 <?php submit_button(); ?>

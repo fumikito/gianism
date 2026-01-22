@@ -9,8 +9,8 @@ jobs:
   test:
     strategy:
       matrix:
-        php: [ '7.4' ] # PHP versions to check.
-        wp: [ 'latest', '5.9' ]      # WordPress version to check.
+        php: [ '7.4', '8.3' ] # PHP versions to check.
+        wp: [ 'latest', '6.6' ]      # WordPress version to check.
     uses: tarosky/workflows/.github/workflows/wp-unit-test.yml@main
     with:
       php_version: ${{ matrix.php }}

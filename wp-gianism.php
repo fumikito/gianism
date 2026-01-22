@@ -5,7 +5,7 @@
  * Description: Connect user accounts with major web services like Facebook, x, etc. Stand on the shoulders of giants!
  * Author: Hametuha
  * Version: nightly
- * Requires at least: 5.9
+ * Requires at least: 6.6
  * Requires PHP: 7.4
  * Author URI: https://hametuha.co.jp
  * Text Domain: wp-gianism

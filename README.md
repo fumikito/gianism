@@ -74,7 +74,7 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 
 Here is a list of change logs.
 
-### 5.4.0
+### 6.0.0
 
 * Add workspace limited feature for Google. You can limit the user registration only from your Google Workspace.
 * Remove login button styles to follow brands' guideline.

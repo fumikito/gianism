@@ -227,9 +227,9 @@ class Google extends AbstractService {
 						throw new \Exception( $this->mail_fail_string() );
 					}
 					// Check if other user has these as meta_value
-					$email       = $profile['email'];
+					$email = $profile['email'];
 					/** This filter is documented in app/Gianism/Service/Google.php */
-					$allowed     = apply_filters( 'gianism_google_login_allowed', true, $email, $profile );
+					$allowed = apply_filters( 'gianism_google_login_allowed', true, $email, $profile );
 					if ( ! $allowed ) {
 						throw new \Exception( __( 'You are not allowed to connect this account.', 'wp-gianism' ) );
 					}

@@ -85,6 +85,7 @@ jobs:
     name: Status Check
     needs: [ test, assets, lint, analyze, phplint ]
     runs-on: ubuntu-latest
+    if: always()
     steps:
     - uses: re-actors/alls-green@release/v1
       with:

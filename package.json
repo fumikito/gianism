@@ -3,11 +3,12 @@
 	"version": "5.0.0",
 	"description": "Gianism - Connect WordPress with SNS",
 	"scripts": {
-		"package": "npm run build:css && npm run build:js && npm run dump",
+		"package": "npm run copy && npm run build:css && npm run build:js && npm run dump",
 		"watch": "npm-watch",
+		"copy": "mkdir -p assets/vendor && cp node_modules/js-cookie/dist/js.cookie.js node_modules/js-cookie/dist/js.cookie.min.js assets/vendor/",
 		"build:css": "sass ./src/sass/:./assets/css/ --style=compressed && postcss ./assets/css/*.css --use autoprefixer --replace",
 		"build:js": "grab-deps js src/js assets/js",
-		"dump": "grab-deps dump assets",
+		"dump": "grab-deps dump assets/js,assets/css",
 		"fix": "npm run fix:js && npm run fix:css",
 		"fix:js": "eslint --fix -c .eslintrc src/js",
 		"fix:css": "stylelint --fix src/sass",
@@ -24,10 +25,11 @@
 		"@kunoichi/grab-deps": "^3.0.0",
 		"@wordpress/scripts": "^30.0.0",
 		"autoprefixer": "^10.4.16",
+		"js-cookie" : "^3.0.5",
 		"npm-watch": "^0.13.0",
 		"postcss": "^8.4.33",
 		"postcss-cli": "^11.0.0",
-		"sass": "^1.69.7"
+		"sass": "^1.83.0"
 	},
 	"watch": {
 		"build:js": {

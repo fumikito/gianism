@@ -19,7 +19,7 @@
         "post-install-cmd": "php bin/composer-fixer.php",
         "post-update-cmd": "php bin/composer-fixer.php"
     },
-    "require": {びる
+    "require": {
         "php": ">=7.4",
         "facebook/graph-sdk": "^5.4",
         "abraham/twitteroauth": "2.0.0",

@@ -1,4 +1,4 @@
-#  Gianism 
+# Gianism 
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,social,sns  
@@ -77,7 +77,7 @@ Here is a list of change logs.
 ### 5.4.0
 
 * Add workspace limited feature for Google. You can limit the user registration only from your Google Workspace.
-* 
+* Remove login button styles to follow brands' guideline.
 
 ### 5.3.0
 

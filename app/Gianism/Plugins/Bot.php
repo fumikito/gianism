@@ -163,7 +163,7 @@ class Bot extends PluginBase {
 		if ( in_array( $suffix, array( 'post.php', 'post-new.php' ), true ) ) {
 			$screen = get_current_screen();
 			if ( $this->post_type === $screen->post_type ) {
-				wp_enqueue_script( 'gianism-twitter-bot-helper', $this->url . 'assets/js/admin-twitter-bot-helper.js', array( 'jquery-effects-highlight' ), $this->version, true );
+				wp_enqueue_script( 'gianism-twitter-bot-helper' );
 				wp_localize_script(
 					'gianism-twitter-bot-helper',
 					'GianismBotLabel',

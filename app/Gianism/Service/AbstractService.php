@@ -676,7 +676,7 @@ EOS;
 			$args['gianism-target'] = implode( ',', $credentials );
 		}
 		// Build class - always use guideline button style.
-		$class_names = [ 'wpg-guideline-button' ];
+		$class_names   = [ 'wpg-guideline-button' ];
 		$class_names[] = $this->service_name;
 		$button        = $this->button( $text, $url, $this->service_name, $class_names, $args, $context );
 

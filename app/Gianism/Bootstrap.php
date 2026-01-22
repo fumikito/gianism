@@ -134,36 +134,33 @@ class Bootstrap extends Singleton {
 	 */
 	public function register_assets() {
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		// LigatureSymbols
-		wp_register_style( 'ligature-symbols', $this->url . 'assets/css/lsf.css', [], '2.11' );
-		// Gianism style
-		wp_register_style( $this->name, $this->url . 'assets/css/gianism-style.css', [ 'ligature-symbols' ], $this->version );
 		// JS Cookie
-		wp_register_script( 'js-cookie', $this->url . 'assets/js/js.cookie' . $min . '.js', [], '3.0.4', true );
-		// Gianism Notice
-		wp_register_script(
-			$this->name . '-notice-helper',
-			$this->url . 'assets/js/public-notice.js',
-			[
-				'jquery-effects-highlight',
-				'js-cookie',
-			],
-			$this->version,
-			true
-		);
-		// Admin helper script
-		wp_register_script(
-			$this->name . '-admin-helper',
-			$this->url . 'assets/js/admin-helper.js',
-			[
-				'jquery-effects-highlight',
-			],
-			$this->version,
-			true
-		);
-		// Mail chimp CSS
-		// Admin panel style
-		wp_register_style( $this->name . '-admin-panel', $this->url . 'assets/css/gianism-admin.css', [ 'ligature-symbols' ], $this->version );
+		wp_register_script( 'js-cookie', $this->url . 'assets/vendor/js.cookie' . $min . '.js', [], '3.0.5', true );
+		// Register assets in dependencies.json
+		$json = $this->dir . '/wp-dependencies.json';
+		if ( file_exists( $json ) ) {
+			$deps = json_decode( file_get_contents( $json ), true );
+			if ( $deps ) {
+				foreach ( $deps as $dep ) {
+					if ( empty( $dep['path'] ) ) {
+						continue;
+					}
+					$url = $this->url . $dep['path'];
+					switch ( $dep['ext'] ) {
+						case 'js':
+							$footer = [ 'in_footer' => $dep['footer'] ];
+							if ( in_array( $dep['strategy'], [ 'defer', 'async' ], true ) ) {
+								$footer['strategy'] = $dep['strategy'];
+							}
+							wp_register_script( $dep['handle'], $url, $dep['deps'], $dep['hash'], $footer );
+							break;
+						case 'css':
+							wp_register_style( $dep['handle'], $url, $dep['deps'], $dep['hash'], 'screen' );
+							break;
+					}
+				}
+			}
+		}
 	}
 
 	/**

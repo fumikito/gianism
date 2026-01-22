@@ -4,14 +4,14 @@ $notice-color: #d54e21;
 
 $facebook-blue: #0A66FF;
 $twitter-blue: #1DAEEC;
-$x-black: #000000;
+$x-black: #000;
 $mixi-orange: #D1AD60;
 $yahoo-red: #FD0F3A;
 $google-red: #DD4B39;
 $google-blue: #4285F4;
 $amazon-black: #030606;
 $slack-purple: #4A144B;
-$github-black: #333333;
+$github-black: #333;
 $hatena-blue: #547CE4;
 $instagram-purple: #c13584;
 $line-green: #00C300;
@@ -20,7 +20,7 @@ $line-active: #00B300;
 
 $gianism-brands: (
 	"facebook": $facebook-blue,
-	"twitter": $twitter-blue,
+	"twitter": $x-black, // $twitter-blue,
 	"x": $x-black,
 	"mixi": $mixi-orange,
 	"yahoo": $yahoo-red,

@@ -20,6 +20,7 @@
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
 		<exclude name="Universal.Arrays.DisallowShortArraySyntax.Found" />
 		<exclude name="Universal.Operators.DisallowShortTernary.Found" />
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
 	</rule>
 
 	<exclude-pattern>*/.github/*</exclude-pattern>

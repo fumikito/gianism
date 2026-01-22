@@ -331,7 +331,7 @@ SQL;
 	public function enqueue_scripts( $hook_suffix ) {
 		if ( 'settings_page_gianism' === $hook_suffix ) {
 			// Script
-			wp_enqueue_script( 'gianism-analytics-helper', $this->url . 'assets/js/admin-analytics-helper.js', [ 'jquery-form' ], $this->version, true );
+			wp_enqueue_script( 'gianism-analytics-helper' );
 			wp_localize_script(
 				'gianism-analytics-helper',
 				'Gianalytics',

@@ -153,9 +153,9 @@ class Google extends AbstractService {
 					 * Return false to reject the login.
 					 *
 					 * @since 5.4.0
-					 * @param bool   $allowed Whether login is allowed. Default true.
-					 * @param string $email   User's email address.
-					 * @param array  $profile User's profile data from Google.
+					 * @param bool                              $allowed Whether login is allowed. Default true.
+					 * @param string                            $email   User's email address.
+					 * @param \Google_Service_Oauth2_Userinfoplus $profile User's profile data from Google.
 					 */
 					$allowed = apply_filters( 'gianism_google_login_allowed', true, $email, $profile );
 					if ( ! $allowed ) {

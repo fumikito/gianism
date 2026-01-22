@@ -19,5 +19,7 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
 
+    reportUnmatchedIgnoredErrors: false
+
     ignoreErrors:
         - '#Path in require_once\(\) "\./wp-admin/includes/upgrade\.php" is not a file or it does not exist\.#'

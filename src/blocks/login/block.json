@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "gianism/login",
+	"version": "0.1.0",
+	"title": "SNS Login Buttons",
+	"category": "widgets",
+	"icon": "admin-users",
+	"description": "Display SNS login buttons for Gianism.",
+	"example": {},
+	"attributes": {
+		"redirectTo": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": true
+	},
+	"textdomain": "wp-gianism",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": [ "file:./style-index.css", "gianism" ],
+	"render": "file:./render.php"
+}

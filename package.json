@@ -3,18 +3,20 @@
 	"version": "5.0.0",
 	"description": "Gianism - Connect WordPress with SNS",
 	"scripts": {
-		"package": "npm run copy && npm run build:css && npm run build:js && npm run dump",
+		"package": "npm run copy && npm run build:css && npm run build:js && npm run build:blocks && npm run dump",
 		"watch": "npm-watch",
 		"copy": "mkdir -p assets/vendor && cp node_modules/js-cookie/dist/js.cookie.js node_modules/js-cookie/dist/js.cookie.min.js assets/vendor/",
 		"build:css": "sass ./src/sass/:./assets/css/ --style=compressed && postcss ./assets/css/*.css --use autoprefixer --replace",
 		"build:js": "grab-deps js src/js assets/js",
+		"build:blocks": "wp-scripts build --source-path=src/blocks --output-path=assets/blocks",
+		"create-block": "npx @wordpress/create-block --no-plugin --namespace=gianism --textdomain=wp-gianism --target-dir=src/blocks",
 		"dump": "grab-deps dump assets/js,assets/css",
 		"fix": "npm run fix:js && npm run fix:css",
-		"fix:js": "eslint --fix -c .eslintrc src/js",
-		"fix:css": "stylelint --fix src/sass",
+		"fix:js": "wp-scripts lint-js --fix './src/js/**/*.js' './src/blocks/**/*.js'",
+		"fix:css": "wp-scripts lint-style --fix './src/sass/**/*.scss' './src/blocks/**/*.scss'",
 		"lint": "npm run lint:css && npm run lint:js",
-		"lint:css": "wp-scripts lint-style './src/sass/**/*.scss'",
-		"lint:js": "wp-scripts lint-js ./src/js"
+		"lint:css": "wp-scripts lint-style './src/sass/**/*.scss' './src/blocks/**/*.scss'",
+		"lint:js": "wp-scripts lint-js './src/js/**/*.js' './src/blocks/**/*.js'"
 	},
 	"engines": {
 		"node": ">=22.0"
@@ -42,6 +44,12 @@
 			"extensions": "scss",
 			"patterns": [
 				"src/sass"
+			]
+		},
+		"build:blocks": {
+			"extensions": "js,scss,php,json",
+			"patterns": [
+				"src/blocks"
 			]
 		},
 		"dump": {

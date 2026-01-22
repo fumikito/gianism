@@ -62,12 +62,25 @@ npm run fix:js
 src/
   js/          # JavaScript ソース
   sass/        # SCSS ソース
+  blocks/      # Gutenberg ブロックソース
 assets/
   js/          # ビルド済み JS（gitignore）
   css/         # ビルド済み CSS（gitignore）
+  blocks/      # ビルド済みブロック（gitignore）
   vendor/      # コピーされたライブラリ（gitignore）
   fonts/       # フォント（git管理）
   img/         # 画像（git管理）
+```
+
+### ブロック開発
+
+```bash
+# 新しいブロックを作成（namespace=gianism, textdomain=wp-gianism が自動設定）
+npm run create-block -- [block-slug]
+# 例: npm run create-block -- login → src/blocks/login/ に gianism/login ブロックを作成
+
+# ブロックのビルド
+npm run build:blocks
 ```
 
 ## PHP

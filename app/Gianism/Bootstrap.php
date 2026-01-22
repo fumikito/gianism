@@ -51,8 +51,9 @@ class Bootstrap extends Singleton {
 	 */
 	protected function __construct( array $argument = [] ) {
 		parent::__construct( $argument );
-		// Register assets
+		// Register assets and blocks
 		add_action( 'init', array( $this, 'register_assets' ) );
+		add_action( 'init', array( $this, 'register_blocks' ) );
 		// Admin page
 		add_action(
 			'admin_menu',
@@ -125,6 +126,25 @@ class Bootstrap extends Singleton {
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 			// Add short codes.
 			ShortCodes::get_instance();
+		}
+	}
+
+	/**
+	 * Register blocks
+	 */
+	public function register_blocks() {
+		$blocks_dir = $this->dir . '/assets/blocks';
+		if ( ! is_dir( $blocks_dir ) ) {
+			return;
+		}
+		foreach ( scandir( $blocks_dir ) as $block ) {
+			if ( '.' === $block || '..' === $block ) {
+				continue;
+			}
+			$block_json = $blocks_dir . '/' . $block . '/block.json';
+			if ( file_exists( $block_json ) ) {
+				register_block_type( $block_json );
+			}
 		}
 	}
 

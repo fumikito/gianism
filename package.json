@@ -17,7 +17,7 @@
 		"lint:js": "wp-scripts lint-js ./src/js"
 	},
 	"engines": {
-		"node": ">=20.0"
+		"node": ">=22.0"
 	},
 	"author": "Hametuha inc.",
 	"license": "GPL-2.0",

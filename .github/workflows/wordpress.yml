@@ -1,9 +1,11 @@
 name: Deploy to WordPress.org
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -29,9 +31,10 @@ jobs:
           node-version: '22'
 
       - name: Build package
-        run: bash bin/build.sh ${{ github.ref }}
+        run: bash bin/build.sh ${{ github.event.release.tag_name }}
 
       - name: Deploy to WordPress Directory
+        id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           generate-zip: true
@@ -39,3 +42,10 @@ jobs:
           SLUG: gianism
           SVN_USERNAME: ${{ secrets.WPORG_FUMIKI_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WPORG_FUMIKI_PASSWORD }}
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.deploy.outputs.zip-path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

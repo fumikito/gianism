@@ -1,10 +1,7 @@
 <?php
-/** @var $this \Gianism\UI\Screen */
+/** @var \Gianism\UI\Screen $this */
 
-defined( 'ABSPATH' ) or die();
-if ( ! isset( $this ) ) {
-	return;
-}
+defined( 'ABSPATH' ) || exit;
 ?>
 <div class="sidebar">
 	<div id="index">

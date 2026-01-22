@@ -1,0 +1,7 @@
+/**
+ * Editor-only styles for gianism/login block.
+ */
+.wp-block-gianism-login a {
+	// Prevent link clicks in the editor.
+	pointer-events: none;
+}

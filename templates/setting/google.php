@@ -1,10 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die();
-/** @var $this \Gianism\UI\Screen */
-/** @var $instance \Gianism\Service\Google */
-if ( ! isset( $this, $instance ) ) {
-	return;
-}
+/** @var \Gianism\UI\Screen $this */
+/** @var \Gianism\Service\Google $instance */
+
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <h3>Google</h3>

@@ -57,6 +57,16 @@ class Google extends AbstractService {
 	public $ggl_use_analytics = true;
 
 	/**
+	 * @var bool
+	 */
+	public $ggl_workspace_mode = false;
+
+	/**
+	 * @var string
+	 */
+	public $ggl_workspace_allowed_domains = '';
+
+	/**
 	 * @var string
 	 */
 	public $umeta_account = '_wpg_google_account';
@@ -86,10 +96,12 @@ class Google extends AbstractService {
 	 * @var array
 	 */
 	protected $option_keys = [
-		'ggl_enabled'         => false,
-		'ggl_consumer_key'    => '',
-		'ggl_consumer_secret' => '',
-		'ggl_use_analytics'   => true,
+		'ggl_enabled'                   => false,
+		'ggl_consumer_key'              => '',
+		'ggl_consumer_secret'           => '',
+		'ggl_use_analytics'             => true,
+		'ggl_workspace_mode'            => false,
+		'ggl_workspace_allowed_domains' => '',
 	];
 
 	/**
@@ -118,7 +130,7 @@ class Google extends AbstractService {
 	 *
 	 * @param string $action
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	protected function handle_default( $action ) {
 		// Get common values
@@ -134,7 +146,21 @@ class Google extends AbstractService {
 					if ( ! isset( $profile['email'] ) || ! is_email( $profile['email'] ) ) {
 						throw new \Exception( $this->mail_fail_string() );
 					}
-					$email   = $profile['email'];
+					$email = $profile['email'];
+					/**
+					 * Filter to allow or deny Google login.
+					 *
+					 * Return false to reject the login.
+					 *
+					 * @since 5.4.0
+					 * @param bool   $allowed Whether login is allowed. Default true.
+					 * @param string $email   User's email address.
+					 * @param array  $profile User's profile data from Google.
+					 */
+					$allowed = apply_filters( 'gianism_google_login_allowed', true, $email, $profile );
+					if ( ! $allowed ) {
+						throw new \Exception( __( 'You are not allowed to login to this site.', 'wp-gianism' ) );
+					}
 					$plus_id = isset( $profile['id'] ) ? $profile['id'] : 0;
 					$user_id = $this->get_meta_owner( $this->umeta_account, $email );
 					if ( ! $user_id ) {
@@ -201,7 +227,12 @@ class Google extends AbstractService {
 						throw new \Exception( $this->mail_fail_string() );
 					}
 					// Check if other user has these as meta_value
-					$email       = $profile['email'];
+					$email = $profile['email'];
+					/** This filter is documented in app/Gianism/Service/Google.php */
+					$allowed = apply_filters( 'gianism_google_login_allowed', true, $email, $profile );
+					if ( ! $allowed ) {
+						throw new \Exception( __( 'You are not allowed to connect this account.', 'wp-gianism' ) );
+					}
 					$email_owner = $this->get_meta_owner( $this->umeta_account, $email );
 					if ( $email_owner && ( get_current_user_id() !== $email_owner ) ) {
 						throw new \Exception( $this->duplicate_account_string() );
@@ -251,6 +282,7 @@ class Google extends AbstractService {
 	/**
 	 * Returns Profile
 	 *
+	 * @depreacted Google stop Google Plus
 	 * @return \Google_Service_Oauth2_Userinfoplus
 	 */
 	private function get_profile() {
@@ -302,10 +334,8 @@ class Google extends AbstractService {
 			case 'login':
 			case 'connect':
 				return $this->api->createAuthUrl();
-				break;
 			default:
 				return false;
-				break;
 		}
 	}
 
@@ -317,7 +347,6 @@ class Google extends AbstractService {
 	protected function svg_path() {
 		return 'google.png';
 	}
-
 
 	/**
 	 * Getter
@@ -345,10 +374,8 @@ class Google extends AbstractService {
 					);
 				}
 				return $this->_api;
-				break;
 			default:
 				return parent::__get( $name );
-				break;
 		}
 	}
 }

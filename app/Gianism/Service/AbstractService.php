@@ -337,7 +337,7 @@ abstract class AbstractService extends Application {
 	public function profile_connect( \WP_User $user ) {
 		$html         = <<<EOS
 <tr>
-    <th><i class="lsf lsf-{$this->service_name}"></i> {$this->verbose_service_name}</th>
+    <th>{$this->verbose_service_name}</th>
     <td class="wpg-connector {$this->service_name}">
         <p class="description desc-%s"><i class="lsf lsf-%s"></i> %s</p>
         <p class="button-wrap">%s</p>
@@ -563,7 +563,7 @@ EOS;
 		} else {
 			$icon = '';
 		}
-		// If SVG exists, use it for public button style.
+		// If SVG exists, use it for guideline button style.
 		if ( in_array( 'wpg-guideline-button', $class_names, true ) ) {
 			$file = $this->svg_path();
 			if ( $file ) {
@@ -675,15 +675,8 @@ EOS;
 			$credentials            = apply_filters( 'gianism_user_credentials', $this->target_credentials( $context ), $this->service_name );
 			$args['gianism-target'] = implode( ',', $credentials );
 		}
-		// Build class
-		switch ( $this->option->button_type ) {
-			case 2:
-				$class_names = [ 'wpg-guideline-button' ];
-				break;
-			default:
-				$class_names = [ 'wpg-button', 'wpg-button-login' ];
-				break;
-		}
+		// Build class - always use guideline button style.
+		$class_names   = [ 'wpg-guideline-button' ];
 		$class_names[] = $this->service_name;
 		$button        = $this->button( $text, $url, $this->service_name, $class_names, $args, $context );
 

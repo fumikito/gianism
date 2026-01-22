@@ -77,8 +77,9 @@ class ServiceManager extends Singleton {
 		// Fire plugins.
 		$plugins = [];
 		foreach ( [
-			'analytics' => 'Gianism\\Plugins\\Analytics',
-			'bot'       => 'Gianism\\Plugins\\Bot',
+			'analytics'         => 'Gianism\\Plugins\\Analytics',
+			'bot'               => 'Gianism\\Plugins\\Bot',
+			'workspace_limited' => 'Gianism\\Plugins\\WorkspaceLimited',
 		] as $name => $class_name ) {
 			$this->default_plugins[] = $name;
 			$plugins[ $name ]        = $class_name;

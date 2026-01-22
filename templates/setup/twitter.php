@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) or die();
 /** @var \Gianism\Service\Google $instance */
 
 ?>
-<h3><i class="lsf lsf-twitter"></i> Twitter</h3>
+<h3>X(Twitter)</h3>
 
-<p class="description"><?php $this->e( 'First of all, your twitter account is required. If you don\'t have one, create it at <a href="https://twitter.com">twitter</a>' ); ?></p>
+<p class="description"><?php $this->e( 'First of all, your X account is required. If you don\'t have one, create it at <a href="https://x.com">X</a>' ); ?></p>
 
-<h4>Step1. <?php $this->e( 'Create twitter application' ); ?></h4>
+<h4>Step1. <?php esc_html_e( 'Create twitter application', 'wp-gianism' ); ?></h4>
 
 <p><?php $this->e( 'Go to <a href="https://dev.twitter.com">Twitter Developer</a> and sign in with your twitter account. Then go to <a href="https://dev.twitter.com/apps">My Applications</a> and click <code>Create new application</code>.' ); ?></p>
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die();
 		<td>
 			<?php $this->e( 'App name. Blog name is recommended. User will see this name on authentication screen.' ); ?>
 			<br/>
-			<?php printf( $this->_( '<strong>e.g.</strong> <code>%s</code>' ), get_bloginfo( 'name' ) ); ?>
+			<?php printf( __( '<strong>e.g.</strong> <code>%s</code>', 'wp-gianism' ), get_bloginfo( 'name' ) ); ?>
 		</td>
 	</tr>
 	<tr>

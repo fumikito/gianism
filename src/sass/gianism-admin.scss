@@ -1,8 +1,10 @@
 @charset "UTF-8";
+
 /*!
  * Admin screen style sheets
  *
- * @package Gianism
+ * @handle gianism-admin-panel
+ * @deps ligature-symbols
  */
 
 
@@ -38,7 +40,7 @@
 .gianism-header{
   min-height: 0;
   padding: 30px;
-  background: #F4B700 url("../img/header.png") center right no-repeat;
+  background: #F4B700 url(../img/header.png) center right no-repeat;
   background-size: contain;
   &-text{
     font-size: 32px;
@@ -129,7 +131,7 @@
       margin-bottom: 1em;
     }
     q.copy {
-      font-family: 'Gerogia', serif;
+      font-family: Gerogia, serif;
       font-style: italic;
       font-size: 1.8em;
       cite {
@@ -159,7 +161,7 @@
       }
       th {
         border-right: 1px solid #ddd;
-        font-weight: bold;
+        font-weight: 700;
         text-align: left;
         white-space: nowrap;
       }
@@ -211,7 +213,7 @@
       table-layout: auto;
       border-collapse: collapse;
       caption{
-        font-weight: bold;
+        font-weight: 700;
         font-size: 1.2em;
         margin: 0.5em;
       }
@@ -257,34 +259,34 @@
     }
     .onoffswitch-label {
       display: block; overflow: hidden; cursor: pointer;
-      border: 2px solid #CCCCCC; border-radius: 20px;
+      border: 2px solid #CCC; border-radius: 20px;
     }
     .onoffswitch-inner {
       display: block; width: 200%; margin-left: -100%;
       -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
       -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
-      &:before,
-      &:after{
+      &::before,
+      &::after{
         display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: 700;
         box-sizing: border-box;
       }
-      &:before{
+      &::before{
         content: "ON";
         padding-left: 10px;
-        background-color: #2EA2CC; color: #FFFFFF;
+        background-color: #2EA2CC; color: #FFF;
       }
-      &:after{
+      &::after{
         content: "OFF";
         padding-right: 10px;
-        background-color: #F7F7F7; color: #555555;
+        background-color: #F7F7F7; color: #555;
         text-align: right;
       }
     }
     .onoffswitch-switch {
       display: block; width: 18px; margin: 6px;
-      background: #FFFFFF;
-      border: 2px solid #CCCCCC; border-radius: 20px;
+      background: #FFF;
+      border: 2px solid #CCC; border-radius: 20px;
       position: absolute; top: 0; bottom: 0; right: 56px;
       -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
       -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
@@ -296,7 +298,7 @@
           margin-left: 0;
         }
         .onoffswitch-switch {
-          right: 0px;
+          right: 0;
         }
       }
     }
@@ -341,7 +343,6 @@
         top: 38px;
       }
       &.pinned-bottom {
-        position: absolute;
         bottom: 0;
         _position: static;
       }
@@ -350,7 +351,7 @@
         position: relative;
         padding: 0.5em 0.5em 0.5em 40px;
         min-height: 40px;
-        &:before {
+        &::before {
           position: absolute;
           display: block;
           top: 50%;
@@ -360,15 +361,15 @@
           height: 40px;
           font-size: 40px;
           line-height: 1;
-          font-family: 'LigatureSymbols';
-          font-weight: normal;
+          font-family: LigatureSymbols;
+          font-weight: 400;
           font-style: normal;
         }
       }
-      .forum-link:before {
+      .forum-link::before {
         content: $lsf-wink;
       }
-      .github-link:before {
+      .github-link::before {
         content: $lsf-github;
       }
       .hametuha-link{
@@ -437,8 +438,8 @@
           label{
             display: block;
           }
-          input[type=text],
-          input[type=email]{
+          input[type="text"],
+          input[type="email"]{
             box-sizing: border-box;
             width: 100%;
           }
@@ -539,7 +540,7 @@
       position: relative;
       z-index: 2;
       font-size: 40px;
-      font-weight: normal;
+      font-weight: 400;
       font-family: serif;
       font-style: italic;
     }
@@ -568,7 +569,7 @@
     caption{
       font-size: 24px;
       text-align: left;
-      font-weight: bold;
+      font-weight: 700;
       margin-bottom: 10px;
     }
     th, td{

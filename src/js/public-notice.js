@@ -1,51 +1,54 @@
-/**
+/*!
  * Read message from cookie
+ *
+ * @handle gianism-notice-helper
+ * @deps jquery-effects-highlight, js-cookie
+ * @strategy defer
  */
 
 /*global Cookies:false*/
 /*global GianSays:true*/
 /*global GianismHelper: false*/
 
-jQuery( document ).ready( function ( $ ) {
-
+jQuery( document ).ready( function( $ ) {
 	'use strict';
 
 	window.GianSays = {
 		divs: [],
 		str: [ 'updated', 'error' ],
-		pushMsg: function ( msg, className ) {
-			var div = $( '<div><p></p></div>' );
+		pushMsg: function( msg, className ) {
+			const div = $( '<div><p></p></div>' );
 			div.addClass( className ).find( 'p' ).html( msg.replace( /\+/g, ' ' ) );
 			this.divs.push( div );
 		},
-		grabMessage: function () {
-			for ( var i = 0; i < 2; i++ ) {
-				var key_name = 'gianism_' + this.str[ i ],
-					messages = Cookies.get( key_name );
-				if ( messages ) {
-					messages = JSON.parse( messages );
+		grabMessage: function() {
+			for ( let i = 0; i < 2; i++ ) {
+				const keyName = 'gianism_' + this.str[ i ];
+				const rawMessages = Cookies.get( keyName );
+				if ( rawMessages ) {
+					const messages = JSON.parse( rawMessages );
 					// Message exists.
-					for ( var j = 0, k = messages.length; j < k; j++ ) {
+					for ( let j = 0, k = messages.length; j < k; j++ ) {
 						this.pushMsg( messages[ j ], this.str[ i ] );
 					}
 					// Delete cookie
-					Cookies.remove( key_name, {
+					Cookies.remove( keyName, {
 						path: '/',
 						domain: location.host,
 					} );
 				}
 			}
 		},
-		flushMessage: function () {
+		flushMessage: function() {
 			if ( this.divs.length ) {
 				// Add all div
-				var $container = $( '<div class="wpg-notices toggle"></div>' );
-				$.each( this.divs, function ( index, div ) {
+				const $container = $( '<div class="wpg-notices toggle"></div>' );
+				$.each( this.divs, function( index, div ) {
 					// Append each div to container.
 					$container.append( div );
 					// Append close button
-					var $link = $( '<a href="#close" class="close-btn"><i class="lsf lsf-close"></i></a>' );
-					$link.click( function ( e ) {
+					const $link = $( '<a href="#close" class="close-btn"><i class="lsf lsf-close"></i></a>' );
+					$link.click( function( e ) {
 						e.preventDefault();
 						$( div ).remove();
 					} );
@@ -53,9 +56,9 @@ jQuery( document ).ready( function ( $ ) {
 					// Add container to footer.
 					$( 'body' ).append( $container );
 					// Fade in, then
-					$container.removeClass( 'toggle' ).find( 'div.updated, div.error' ).effect( 'highlight', {}, 1000, function () {
-						setTimeout( function () {
-							$container.fadeOut( 2000, function () {
+					$container.removeClass( 'toggle' ).find( 'div.updated, div.error' ).effect( 'highlight', {}, 1000, function() {
+						setTimeout( function() {
+							$container.fadeOut( 2000, function() {
 								$( this ).remove();
 							} );
 						}, 15000 );
@@ -64,18 +67,18 @@ jQuery( document ).ready( function ( $ ) {
 				this.div = [];
 			}
 		},
-		confirm: function ( e ) {
-			var $btn = $( this );
-			var message = $btn.attr( 'data-gianism-confirmation' );
-			var labels = $btn.attr( 'data-gianism-target' ).split( ',' );
+		confirm: function( e ) {
+			const $btn = $( this );
+			const message = $btn.attr( 'data-gianism-confirmation' );
+			const labels = $btn.attr( 'data-gianism-target' ).split( ',' );
 			e.preventDefault();
 			GianSays.confirmDialog( message, labels, $btn.attr( 'href' ) );
 		},
-		confirmDialog: function ( message, labels, url ) {
-			var list = $.map( labels, function ( item, index ) {
+		confirmDialog: function( message, labels, url ) {
+			const list = $.map( labels, function( item ) {
 				return '<li>' + item + '</li>';
 			} ).join( '' );
-			var $markup = $( '<div class="wpg-confirm-container">' +
+			const $markup = $( '<div class="wpg-confirm-container">' +
 				'<div class="wpg-confirm-body">' +
 				'<div class="wpg-confirm-title">' + GianismHelper.confirmLabel + '</div>' +
 				'<div class="wpg-confirm-content">' +
@@ -89,14 +92,14 @@ jQuery( document ).ready( function ( $ ) {
 				'</div>' +
 				'</div>' );
 			$( 'body' ).append( $markup );
-			$markup.on( 'click', 'button', function () {
+			$markup.on( 'click', 'button', function() {
 				if ( $( this ).hasClass( 'deny' ) ) {
 					$markup.remove();
 				} else if ( $( this ).hasClass( 'confirm' ) ) {
 					window.location.href = url;
 				}
 			} );
-		}
+		},
 	};
 
 	// Flush message if set.
@@ -104,7 +107,7 @@ jQuery( document ).ready( function ( $ ) {
 	GianSays.flushMessage();
 
 	// Debug mode.
-	var match = /gianism_debug_message=(updated|error)/.exec( window.location.hash );
+	const match = /gianism_debug_message=(updated|error)/.exec( window.location.hash );
 	if ( match ) {
 		GianSays.pushMsg( 'This is a test message. Just check for that.', match[ 1 ] );
 		GianSays.flushMessage();
@@ -112,5 +115,4 @@ jQuery( document ).ready( function ( $ ) {
 
 	// Confirmation button.
 	$( '.wpg-button[data-gianism-confirmation]' ).click( GianSays.confirm );
-
 } );

@@ -75,20 +75,12 @@ class Login extends AbstractController {
 	 */
 	public function login_form( $before = '', $after = '', $register = false, $redirect_to = '', $context = '' ) {
 		if ( empty( $before ) ) {
-			$class_name = [];
+			$class_name = [ 'public-style' ];
 			if ( $register ) {
 				$class_name[] = 'register';
 			}
-			switch ( $this->option->button_type ) {
-				case 1:
-					$class_name[] = 'large';
-					break;
-				default:
-					$class_name[] = 'public-style';
-					break;
-			}
-			$class_name = $class_name ? '' : sprintf( ' class="%s"', esc_attr( implode( ' ', $class_name ) ) );
-			$before     = sprintf( '<div id="wpg-login"%s>', $class_name );
+			$class_attr = sprintf( ' class="%s"', esc_attr( implode( ' ', $class_name ) ) );
+			$before     = sprintf( '<div id="wpg-login"%s>', $class_attr );
 		}
 		if ( empty( $after ) ) {
 			$after = '</div>';

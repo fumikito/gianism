@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /** @var \Gianism\Service\Line $instance */
 ?>
 
-<h3><i class="lsf lsf-line"></i> LINE</h3>
+<h3>LINE</h3>
 <table class="form-table">
 	<tbody>
 	<tr>
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) or die();
 			</label>
 		</th>
 		<td>
-			<?php $this->switch_button( 'line_enabled', $this->option->is_enabled( 'line' ), 'line_enabled' ); ?>
+			<?php $this->switch_button( 'line_enabled', $this->option->is_enabled( 'line' ) ); ?>
 			<p class="description">
 				<?php
 				// translators: %1$s is service name, %2$s is link to LINE developer page.

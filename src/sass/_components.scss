@@ -116,8 +116,8 @@ i {
 			max-width: 800px;
 			line-height: 2;
 
-			&:before {
-				font-family: 'LigatureSymbols';
+			&::before {
+				font-family: LigatureSymbols;
 				font-size: 30px;
 				display: block;
 				position: absolute;
@@ -130,9 +130,9 @@ i {
 
 	div.error {
 		background: #d54e21;
-		color: #ffffff;
+		color: #fff;
 
-		p:before {
+		p::before {
 			content: $lsf-ban;
 		}
 	}
@@ -141,13 +141,13 @@ i {
 		color: white;
 		background: $success;
 
-		p:before {
+		p::before {
 			content: $lsf-check;
 		}
 	}
 
 	a:not( .close-btn ) {
-		font-weight: bold;
+		font-weight: 700;
 		transition: opacity .3s linear;
 
 		&:link,
@@ -214,14 +214,14 @@ body.admin-bar {
 // Admin bar
 #wpadminbar {
 	#wp-admin-bar-gianism-chat {
-		& > .ab-item .ab-icon:before {
+		& > .ab-item .ab-icon::before {
 			content: "\f125";
 			top: 2px;
 		}
 	}
 }
 
-#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image:before {
+#adminmenu .menu-icon-generic#toplevel_page_wpg-message div.wp-menu-image::before {
 	content: "\f125";
 }
 
@@ -267,7 +267,7 @@ body.admin-bar {
 	&-title {
 		padding: $padding / 2 $padding;
 		font-size: 22px;
-		font-weight: bold;
+		font-weight: 700;
 		color: #888;
 		border-bottom: $divider;
 	}

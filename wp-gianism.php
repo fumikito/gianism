@@ -2,12 +2,12 @@
 /**
  * Plugin Name: Gianism
  * Plugin URI: https://wordpress.org/extend/plugins/gianism/
- * Description: Connect user accounts with major web services like Facebook, twitter, etc. Stand on the shoulders of giants!
- * Author: Takahashi_Fumiki
+ * Description: Connect user accounts with major web services like Facebook, x, etc. Stand on the shoulders of giants!
+ * Author: Hametuha
  * Version: nightly
  * Requires at least: 5.9
  * Requires PHP: 7.4
- * Author URI: https://gianism.info
+ * Author URI: https://hametuha.co.jp
  * Text Domain: wp-gianism
  * Domain Path: /language/
  * License: GPL2 or Later
@@ -107,6 +107,7 @@ function gianism_setup_after_plugins_loaded() {
 				}
 			}
 		}
+		// Can skip deprecated functions(for debugging)
 		if ( defined( 'GIANISM_SKIP_DEPRECATED' ) ) {
 			require __DIR__ . '/functions-deprecated.php';
 		}

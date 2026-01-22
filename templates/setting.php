@@ -72,21 +72,6 @@ global $wp_version;
 			</td>
 		</tr>
 		<tr>
-			<th><label for="button_type"><?php esc_html_e( 'Button size', 'wp-gianism' ); ?></label></th>
-			<td>
-				<select name="button_type" id="button_type">
-					<?php foreach ( $this->option->button_types() as $index => $value ) : ?>
-						<option value="<?php echo esc_attr( $index ); ?>"<?php selected( $this->option->button_type, $index ); ?>>
-							<?php echo esc_html( $value ); ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-				<p class="description">
-					<?php esc_html_e( 'This setting is valid only if login button\'s display setting is on.', 'wp-gianism' ); ?>
-				</p>
-			</td>
-		</tr>
-		<tr>
 			<th><label for="prefix"><?php esc_html_e( 'URL Prefix', 'wp-gianism' ); ?></label></th>
 			<td>
 				<input type="text" value="<?php echo esc_attr( $this->option->prefix ); ?>" name="prefix" id="prefix" />

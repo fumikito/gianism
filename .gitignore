@@ -3,9 +3,13 @@
 *.cache
 node_modules/
 vendor/
-assets/
+assets/*
+!assets/fonts/
+!assets/img/
 doc/
 readme.txt
 language/wp-gianism.mo
 composer.lock
 .claude/settings.local.json
+tmp/
+wp-dependencies.json

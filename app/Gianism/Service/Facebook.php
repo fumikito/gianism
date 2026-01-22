@@ -27,6 +27,15 @@ class Facebook extends NoMailService {
 	public $verbose_service_name = 'Facebook';
 
 	/**
+	 * Get SVG path.
+	 *
+	 * @return string
+	 */
+	public function svg_path() {
+		return 'facebook-white.png';
+	}
+
+	/**
 	 * @var string Minimum graph api version
 	 */
 	public $minimum_api_version = 'v6.0';

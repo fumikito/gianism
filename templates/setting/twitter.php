@@ -2,20 +2,21 @@
 defined( 'ABSPATH' ) or die();
 /** @var \Gianism\UI\Screen $this */
 /** @var \Gianism\Service\Twitter $instance */
+
 ?>
 
-<h3><i class="lsf lsf-twitter"></i> Twitter</h3>
+<h3>X(Twitter)</h3>
 <table class="form-table">
 	<tbody>
 	<tr>
-		<th><label><?php printf( $this->_( 'Connect with %s' ), 'Twitter' ); ?></label></th>
+		<th><label><?php printf( esc_html__( 'Connect with %s', 'wp-gianism' ), 'X' ); ?></label></th>
 		<td>
-			<?php $this->switch_button( 'tw_enabled', $this->option->is_enabled( 'twitter' ), 'tw_enabled' ); ?>
+			<?php $this->switch_button( 'tw_enabled', $this->option->is_enabled( 'twitter' ) ); ?>
 			<label>
 			<p class="description">
 				<?php
 				// translators: %1$s is app name, %2$s is url.
-				printf( __( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required information.', 'wp-gianism' ), 'Twitter', 'https://dev.twitter.com/apps' );
+				printf( __( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required information.', 'wp-gianism' ), 'X', 'https://developer.x.com/apps' );
 				// translators: %1$s is url, %2$s is label.
 				printf( __( 'See detail at <a href="%1$s">%2$s</a>.', 'wp-gianism' ), $this->setting_url( 'setup' ), __( 'How to set up', 'wp-gianism' ) );
 				?>
@@ -58,8 +59,8 @@ defined( 'ABSPATH' ) or die();
 					__( 'Please set %1$s to %2$s on <a target="_blank" href="%4$s">%3$s</a>.', 'wp-gianism' ),
 					__( 'Callback URL', 'wp-gianism' ),
 					'<code>' . $end_point . '</code>',
-					'Twitter Developers',
-					'https://dev.twitter.com/apps'
+					'X Developers',
+					'https://developer.x.com/'
 				);
 				?>
 				<a class="button" href="<?php echo esc_attr( $end_point ); ?>"
@@ -68,7 +69,7 @@ defined( 'ABSPATH' ) or die();
 		</td>
 	</tr>
 	<tr>
-		<th><label><?php _e( 'Twitter bot by Gianism', 'wp-gianism' ); ?></label></th>
+		<th><label><?php esc_html_e( 'X bot by Gianism', 'wp-gianism' ); ?></label></th>
 		<td>
 			<?php $this->switch_button( 'tw_use_cron', $instance->tw_use_cron ); ?>
 			<p class="description">
@@ -76,7 +77,7 @@ defined( 'ABSPATH' ) or die();
 				<?php
 				printf(
 					// translators: %1$s, %2$s, %3$s, %4$s, %5$s are all nouns.
-					__( 'If enabled, you can make twitter bot which tweet at the time you specified. %1$s, %2$s, %3$s, %4$s, and %5$s are required.', 'wp-gianism' ),
+					__( 'If enabled, you can make X bot which post at the time you specified. %1$s, %2$s, %3$s, %4$s, and %5$s are required.', 'wp-gianism' ),
 					__( 'Screen Name', 'wp-gianism' ),
 					__( 'Consumer Key', 'wp-gianism' ),
 					__( 'Consumer Secret', 'wp-gianism' ),

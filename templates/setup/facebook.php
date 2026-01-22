@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
 /** @var \Gianism\Service\Facebook $instance */
 
 ?>
-<h3><i class="lsf lsf-facebook"></i> Facebook</h3>
+<h3>Facebook</h3>
 
 <p class="description"><?php $this->e( 'First of all, Facebook account is required. If you don\'t have one, create it at <a href="https://www.facebook.com">facebook.com</a>' ); ?></p>
 

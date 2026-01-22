@@ -7,13 +7,13 @@ if ( ! isset( $this, $instance ) ) {
 }
 ?>
 
-<h3><i class="lsf lsf-google"></i> Google</h3>
+<h3>Google</h3>
 <table class="form-table">
 	<tbody>
 	<tr>
 		<th><label><?php printf( $this->_( 'Connect with %s' ), 'Google' ); ?></label></th>
 		<td>
-			<?php $this->switch_button( 'ggl_enabled', $this->option->is_enabled( 'google' ), 1 ); ?>
+			<?php $this->switch_button( 'ggl_enabled', $this->option->is_enabled( 'google' ) ); ?>
 			<p class="description">
 				<?php printf( $this->_( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.' ), 'Google API Console', 'https://code.google.com/apis/console' ); ?>
 				<?php printf( $this->_( 'See detail at <a href="%1$s">%2$s</a>.' ), $this->setting_url( 'setup' ), $this->_( 'How to set up' ) ); ?>
@@ -59,6 +59,33 @@ if ( ! isset( $this, $instance ) ) {
 				$this->new_from( '2.0' );
 				printf( $this->_( '<strong>Notice: </strong> Setting is changed on <code>Gianims v2.0</code>. You must set up again on Google API Console.' ) );
 				?>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="ggl_workspace_mode"><?php $this->e( 'Workspace Limited' ); ?></label></th>
+		<td>
+			<?php $this->switch_button( 'ggl_workspace_mode', $instance->ggl_workspace_mode, 1 ); ?>
+			<br />
+			<?php
+			$this->new_from( '5.4' );
+			printf(
+				'<p class="description">%s</p>',
+				wp_kses_post( __( 'Restrict site access to users from specific Google Workspace domains. Other social login providers should be disabled when this mode is active.', 'wp-gianism' ) )
+			);
+			?>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="ggl_workspace_allowed_domains"><?php $this->e( 'Allowed Domains' ); ?></label></th>
+		<td>
+			<?php
+			$allowed_domains = $instance->ggl_workspace_allowed_domains;
+			?>
+			<textarea name="ggl_workspace_allowed_domains" id="ggl_workspace_allowed_domains"
+				class="large-text" rows="3" placeholder="example.com&#10;company.co.jp"><?php echo esc_textarea( $allowed_domains ); ?></textarea>
+			<p class="description">
+				<?php esc_html_e( 'Enter allowed domains, one per line. Only users with email addresses from these domains can log in when Workspace Limited mode is enabled.', 'wp-gianism' ); ?>
 			</p>
 		</td>
 	</tr>

@@ -1,8 +1,8 @@
-#  Gianism 
+# Gianism 
 
 Contributors: Takahashi_Fumiki, hametuha  
 Tags: facebook,twitter,google,social,sns  
-Tested up to: 6.8  
+Tested up to: 6.9  
 Stable Tag: nightly  
 License:  GPL2 or Later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -22,7 +22,7 @@ https://youtu.be/JXl3EMPmXkY
 ###  Supported Web services
 
 * [Facebook](https://www.facebook.com)
-* [Twitter](https://twitter.com)
+* [X(formerly known as twitter)](https://x.com)
 * [Google](https://google.com)
 * [LINE](https://line.me) *NEW* since 3.2.0
 
@@ -56,11 +56,11 @@ For more details, please refer to the setting screen's instructions or our site 
 
 ##  Frequently Asked Questions 
 
-> Can I use this in English?
+### Can I use this in English?
 
 Maybe yes. Translations are welcomed.
 
-> Found bug. It sucks.
+### Found bug. It sucks.
 
 Sorry for that. Please refer to our support site [gianism.info](http://wordpress.org/support/plugin/gianism) or send a pull request to [repository on Github](https://github.com/fumikito/Gianism/).
 
@@ -73,6 +73,11 @@ Sorry for that. Please refer to our support site [gianism.info](http://wordpress
 ##  Changelog 
 
 Here is a list of change logs.
+
+### 5.4.0
+
+* Add workspace limited feature for Google. You can limit the user registration only from your Google Workspace.
+* Remove login button styles to follow brands' guideline.
 
 ### 5.3.0
 

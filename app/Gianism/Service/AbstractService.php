@@ -337,7 +337,7 @@ abstract class AbstractService extends Application {
 	public function profile_connect( \WP_User $user ) {
 		$html         = <<<EOS
 <tr>
-    <th><i class="lsf lsf-{$this->service_name}"></i> {$this->verbose_service_name}</th>
+    <th>{$this->verbose_service_name}</th>
     <td class="wpg-connector {$this->service_name}">
         <p class="description desc-%s"><i class="lsf lsf-%s"></i> %s</p>
         <p class="button-wrap">%s</p>

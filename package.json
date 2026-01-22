@@ -1,52 +1,68 @@
 {
-  "name": "gianism",
-  "version": "4.0.0",
-  "description": "Gianism Gulp Tasks",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp build && gulp watch",
-    "watch": "gulp watch",
-    "package": "gulp build",
-    "gulp": "gulp",
-    "lint": "gulp jshint"
-  },
-  "author": "Hametuha inc.",
-  "license": "GPL-2.0",
-  "devDependencies": {
-    "event-stream": "^4.0.1",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-jshint": "^2.0.2",
-    "gulp-load-plugins": "^2.0.3",
-    "gulp-notify": "^4.0.0",
-    "gulp-plumber": "^1.2.1",
-    "gulp-sass": "^5.0.0",
-    "gulp-sass-glob": "^1.1.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.0",
-    "imagemin-pngquant": "^8.0.0",
-    "js-cookie": "^3.0.5",
-    "jshint": "^2.11.0",
-    "jshint-stylish": "^2.2.1",
-    "merge-stream": "^2.0.0",
-    "sass": "^1.83.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fumikito/Gianism.git"
-  },
-  "keywords": [
-    "sns",
-    "wordpress"
-  ],
-  "bugs": {
-    "url": "https://github.com/fumikito/Gianism/issues"
-  },
-  "homepage": "https://github.com/fumikito/Gianism#readme",
-  "volta": {
-    "node": "22.22.0"
-  }
+	"name": "gianism",
+	"version": "5.0.0",
+	"description": "Gianism - Connect WordPress with SNS",
+	"scripts": {
+		"package": "npm run build:css && npm run build:js && npm run dump",
+		"watch": "npm-watch",
+		"build:css": "sass ./src/sass/:./assets/css/ --style=compressed && postcss ./assets/css/*.css --use autoprefixer --replace",
+		"build:js": "grab-deps js src/js assets/js",
+		"dump": "grab-deps dump assets",
+		"fix": "npm run fix:js && npm run fix:css",
+		"fix:js": "eslint --fix -c .eslintrc src/js",
+		"fix:css": "stylelint --fix src/sass",
+		"lint": "npm run lint:css && npm run lint:js",
+		"lint:css": "wp-scripts lint-style './src/sass/**/*.scss'",
+		"lint:js": "wp-scripts lint-js ./src/js"
+	},
+	"engines": {
+		"node": ">=20.0"
+	},
+	"author": "Hametuha inc.",
+	"license": "GPL-2.0",
+	"devDependencies": {
+		"@kunoichi/grab-deps": "^3.0.0",
+		"@wordpress/scripts": "^30.0.0",
+		"autoprefixer": "^10.4.16",
+		"npm-watch": "^0.13.0",
+		"postcss": "^8.4.33",
+		"postcss-cli": "^11.0.0",
+		"sass": "^1.69.7"
+	},
+	"watch": {
+		"build:js": {
+			"extensions": "js",
+			"patterns": [
+				"src/js"
+			]
+		},
+		"build:css": {
+			"extensions": "scss",
+			"patterns": [
+				"src/sass"
+			]
+		},
+		"dump": {
+			"extensions": "js,css",
+			"patterns": [
+				"assets/js",
+				"assets/css"
+			]
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fumikito/Gianism.git"
+	},
+	"keywords": [
+		"sns",
+		"wordpress"
+	],
+	"bugs": {
+		"url": "https://github.com/fumikito/Gianism/issues"
+	},
+	"homepage": "https://github.com/fumikito/Gianism#readme",
+	"volta": {
+		"node": "22.12.0"
+	}
 }

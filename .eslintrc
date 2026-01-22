@@ -1,0 +1,26 @@
+{
+	"env": {
+		"browser": true,
+		"jquery": true
+	},
+	"globals": {
+		"wp": false,
+		"jQuery": false
+	},
+	"extends": [
+		"plugin:@wordpress/eslint-plugin/recommended-with-formatting"
+	],
+	"rules": {
+		"no-alert": "off",
+		"prettier/prettier": "off",
+		"object-shorthand": "off",
+		"jsdoc/require-jsdoc": "off",
+		"jsdoc/no-undefined-types": "off",
+		"jsdoc/check-tag-names": "off",
+		"no-prototype-builtins": "off",
+		"object-curly-newline": "off",
+		"object-property-newline": "off",
+		"yoda": "off",
+		"strict": "off"
+	}
+}

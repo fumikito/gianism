@@ -653,10 +653,10 @@ class Facebook extends NoMailService {
 
 	/**
 	 * @param array{
-	 *     app_id:string,
-	 *     app_secret:string,
-	 *     default_graph_version:string,
-	 *     persistent_data_handler:\Facebook\PersistentData\PersistentDataInterface
+	 *     app_id?:string,
+	 *     app_secret?:string,
+	 *     default_graph_version?:string,
+	 *     persistent_data_handler?:\Facebook\PersistentData\PersistentDataInterface
 	 * } $config Setting for Facebook API Client
 	 *
 	 * @return \Facebook\Facebook

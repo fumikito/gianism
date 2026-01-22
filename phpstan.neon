@@ -1,5 +1,5 @@
 parameters:
-    level: 1
+    level: 2
     paths:
         - app
         - functions
@@ -23,3 +23,13 @@ parameters:
 
     ignoreErrors:
         - '#Path in require_once\(\) "\./wp-admin/includes/upgrade\.php" is not a file or it does not exist\.#'
+        # External classes that may not be installed
+        - '#Google_Service_Plus#'
+        - '#Google_Service_Oauth2_Userinfoplus#'
+        - '#PHPMailer#'
+        - '#SimpleWpMembership#'
+        # Template files are included within class methods, so protected access is valid
+        - message: '#Access to protected property Gianism\\UI\\Screen::\$views#'
+          path: templates/parts/header.php
+        - message: '#Call to protected method is_view\(\) of class Gianism\\UI\\Screen#'
+          path: templates/parts/header.php

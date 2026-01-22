@@ -8,7 +8,7 @@
  * @var WP_Block $block      Block instance.
  */
 
-$redirect_to = $attributes['redirectTo'] ?? '';
+$redirect_to        = $attributes['redirectTo'] ?? '';
 $wrapper_attributes = get_block_wrapper_attributes();
 ?>
 <div <?php echo $wrapper_attributes; ?>>

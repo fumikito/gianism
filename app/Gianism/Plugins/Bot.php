@@ -45,7 +45,9 @@ class Bot extends PluginBase {
 	 * @return bool
 	 */
 	public function plugin_enabled() {
-		return $this->service->get( 'twitter' )->tw_use_cron;
+		/** @var \Gianism\Service\Twitter $twitter */
+		$twitter = $this->service->get( 'twitter' );
+		return $twitter->tw_use_cron;
 	}
 
 

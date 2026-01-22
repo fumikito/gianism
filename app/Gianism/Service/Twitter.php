@@ -540,6 +540,7 @@ class Twitter extends NoMailService {
 		if ( ! $media ) {
 			return new \WP_Error( 500, __( 'Failed to upload media to twitter.', 'wp-gianism' ) );
 		}
+		/** @var \stdClass $media */
 		return $media->media_id_string;
 	}
 
@@ -566,7 +567,7 @@ class Twitter extends NoMailService {
 	 *
 	 * @return object|\WP_Error Json format object.
 	 */
-	private function follow_me( TwitterOAuth $oauth = null, $screen_name = false ) {
+	private function follow_me( TwitterOAuth $oauth = null, $screen_name = '' ) {
 		return new \WP_Error( 'twitter_api_error', __( 'Follow API is deprecated.', 'wp-gianism' ) );
 	}
 

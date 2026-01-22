@@ -92,6 +92,7 @@ function gianism_get_user_by_service( $service, $credential ) {
 	}
 	switch ( $service ) {
 		case 'facebook':
+			/** @var \Gianism\Service\Facebook $instance */
 			$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value = %s", $instance->umeta_id, $credential ) );
 			if ( $user_id ) {
 				return new WP_User( $user_id );
@@ -127,7 +128,7 @@ function gianism_login( $before = '', $after = '', $redirect_to = '' ) {
  * If user is logged in, display SNS connect buttons.
  *
  * @since 4.3.4
- * @param
+ * @param \WP_User|null $user User object. Default current user.
  */
 function gianism_connection( $user = null ) {
 	if ( is_null( $user ) ) {

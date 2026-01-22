@@ -78,6 +78,7 @@ Here is a list of change logs.
 
 * Add workspace limited feature for Google. You can limit the user registration only from your Google Workspace.
 * Remove login button styles to follow brands' guideline.
+* Add new block **SNS Login Block**
 
 ### 5.3.0
 

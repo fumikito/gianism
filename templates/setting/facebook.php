@@ -3,13 +3,13 @@ defined( 'ABSPATH' ) or die();
 /** @var \Gianism\UI\Screen $this */
 /** @var \Gianism\Service\Facebook $instance */
 ?>
-<h3><i class="lsf lsf-facebook"></i> Facebook</h3>
+<h3>Facebook</h3>
 <table class="form-table">
 	<tbody>
 	<tr>
 		<th><label><?php $this->e( 'Connect with Facebook' ); ?></label></th>
 		<td>
-			<?php $this->switch_button( 'fb_enabled', $this->option->is_enabled( 'facebook' ), 1 ); ?>
+			<?php $this->switch_button( 'fb_enabled', $this->option->is_enabled( 'facebook' ) ); ?>
 			<p class="description">
 				<?php
 				echo wp_kses_post(

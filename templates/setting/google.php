@@ -7,13 +7,13 @@ if ( ! isset( $this, $instance ) ) {
 }
 ?>
 
-<h3><i class="lsf lsf-google"></i> Google</h3>
+<h3>Google</h3>
 <table class="form-table">
 	<tbody>
 	<tr>
 		<th><label><?php printf( $this->_( 'Connect with %s' ), 'Google' ); ?></label></th>
 		<td>
-			<?php $this->switch_button( 'ggl_enabled', $this->option->is_enabled( 'google' ), 1 ); ?>
+			<?php $this->switch_button( 'ggl_enabled', $this->option->is_enabled( 'google' ) ); ?>
 			<p class="description">
 				<?php printf( $this->_( 'You have to create %1$s App <a target="_blank" href="%2$s">here</a> to get required infomation.' ), 'Google API Console', 'https://code.google.com/apis/console' ); ?>
 				<?php printf( $this->_( 'See detail at <a href="%1$s">%2$s</a>.' ), $this->setting_url( 'setup' ), $this->_( 'How to set up' ) ); ?>

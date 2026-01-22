@@ -25,6 +25,13 @@ class Twitter extends NoMailService {
 	public $url_prefix = 'twitter';
 
 	/**
+	 * Verbose service name
+	 *
+	 * @var string
+	 */
+	public $verbose_service_name = 'X';
+
+	/**
 	 * Screen name of admin
 	 *
 	 * @var string
@@ -674,5 +681,12 @@ class Twitter extends NoMailService {
 			}
 		}
 		return ! $errors->get_error_codes() ? $body : $errors;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function svg_path() {
+		return 'x.svg';
 	}
 }

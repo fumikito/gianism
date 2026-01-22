@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
 /** @var \Gianism\Service\Google $instance */
 
 ?>
-<h3><i class="lsf lsf-google"></i> Google</h3>
+<h3>Google</h3>
 
 <p class="description"><?php $this->e( 'Google API system is very complex, but don\'t be afraid. Anyway if you don\'t have Google account, go to <a hreF="https://www.google.com/accounts/NewAccount">Create Google account</a> and get it.' ); ?></p>
 

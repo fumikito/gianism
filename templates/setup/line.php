@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
 
 ?>
 
-<h3><i class="lsf lsf-line"></i> LINE</h3>
+<h3>LINE</h3>
 
 <h4>Step1. <?php esc_html_e( 'Create new channel', 'wp-gianism' ); ?></h4>
 

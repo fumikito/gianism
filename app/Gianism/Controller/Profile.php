@@ -69,7 +69,7 @@ class Profile extends AbstractController {
 		$notices = $this->profile_notices( $user );
 		?>
 		<h3 class="wpg-connect-header">
-			<i class="lsf lsf-link"></i> <?php $this->e( 'Connection with SNS' ); ?>
+			<?php $this->e( 'Connection with SNS' ); ?>
 		</h3>
 		<?php if ( ! empty( $notices->get_error_messages() ) ) : ?>
 			<ul class="wpg-notice">

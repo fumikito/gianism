@@ -25,11 +25,11 @@
 	"license": "GPL-2.0",
 	"devDependencies": {
 		"@kunoichi/grab-deps": "^3.0.0",
-		"@wordpress/scripts": "^30.0.0",
+		"@wordpress/scripts": "^34.0.0",
 		"autoprefixer": "^10.4.16",
-		"js-cookie" : "^3.0.5",
+		"js-cookie" : "^3.0.7",
 		"npm-watch": "^0.13.0",
-		"postcss": "^8.4.33",
+		"postcss": "^8.5.25",
 		"postcss-cli": "^11.0.0",
 		"sass": "^1.83.0"
 	},

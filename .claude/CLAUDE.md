@@ -20,7 +20,7 @@ NOTE: このローカル情報はDockerにおきかえ予定です。
 
 ## ビルドシステム
 
-Node.js 22以上が必要です（voltaで管理）。
+Node.js 24.15以上が必要です（`.node-version` と package.json の volta で 24.15.0 を指定）。
 
 ### コマンド
 

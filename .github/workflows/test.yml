@@ -1,4 +1,4 @@
-name: Deploy Plugin
+name: Test Plugin
 
 on:
   pull_request:
@@ -70,7 +70,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.node-version'
 
       - name: Install NPM Packages
         run: npm install

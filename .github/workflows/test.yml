@@ -1,4 +1,4 @@
-name: Deploy Plugin
+name: Test Plugin
 
 on:
   pull_request:

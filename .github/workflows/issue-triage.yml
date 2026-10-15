@@ -1,0 +1,26 @@
+name: Issue Triage
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # 毎週月曜 01:00 UTC
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "何日以内に作成されたIssueを対象にするか（デフォルト: 30）"
+        required: false
+        type: string
+        default: '30'
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write
+
+jobs:
+  triage:
+    uses: tarosky/workflows/.github/workflows/issue-triage.yml@main
+    with:
+      plugin_name: gianism
+      days: ${{ fromJSON(inputs.days || '30') }}
+    secrets:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
